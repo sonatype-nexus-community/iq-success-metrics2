@@ -1,14 +1,16 @@
-function drawBarChart() {
+function drawBarChart(metrics) {
+				
             // Define the chart to be drawn.
-            var data = google.visualization.arrayToDataTable([
-               ['Year', 'Asia'],
-               ['2012',  900],
-               ['2013',  1000],
-               ['2014',  1170],
-               ['2015',  1250],
-               ['2016',  1530]
-            ]);
+//            var data = google.visualization.arrayToDataTable([
+//               ['Year', 'Asia'],
+//               ['2012',  900],
+//               ['2013',  1000],
+//               ['2014',  1170],
+//               ['2015',  1250],
+//               ['2016',  1530]
+//            ]);
 
+            var data = google.visualization.arrayToDataTable(metrics);
             var options = {title: 'Population (in millions)'}; 
 
             // Instantiate and draw the chart.
