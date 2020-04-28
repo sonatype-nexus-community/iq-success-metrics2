@@ -5,7 +5,7 @@ import java.util.List;
 import org.demo.smproto.model.Metric;
 import org.springframework.data.repository.CrudRepository;
 
-public interface IMetricsRepository extends CrudRepository<Metric, Long>{
+public interface IMetricsRepositoryService extends CrudRepository<Metric, Long>{
 	
 	List<Metric> findByApplicationId(String applicationId);
 	
@@ -22,6 +22,5 @@ public interface IMetricsRepository extends CrudRepository<Metric, Long>{
 	List<Metric> findAll();
 	
 	Metric findById(long id);
-	
-	
+
 }

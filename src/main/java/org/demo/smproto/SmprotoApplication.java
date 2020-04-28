@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 import org.demo.smproto.model.Metric;
-import org.demo.smproto.service.IMetricsRepository;
+import org.demo.smproto.service.IMetricsRepositoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,7 +33,7 @@ public class SmprotoApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner LoadData(IMetricsRepository repository) {
+	public CommandLineRunner LoadData(IMetricsRepositoryService repository) {
 		
 		return (args) -> {	
 			log.info("csv file is " + csvfile);
