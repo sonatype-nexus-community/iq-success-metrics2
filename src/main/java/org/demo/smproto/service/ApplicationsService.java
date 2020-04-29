@@ -2,7 +2,7 @@ package org.demo.smproto.service;
 
 import java.util.List;
 
-import org.demo.smproto.model.Applications;
+import org.demo.smproto.model.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,9 +14,9 @@ public class ApplicationsService implements IApplicationsService {
 	@Autowired
     private JdbcTemplate jtm;
 	
-	public List<Applications> CountApplicationsByTimeStartPeriod() {
+	public List<Application> CountApplicationsByTimeStartPeriod() {
 		String sql = "select time_period_start, count(application_id) from metric group by time_period_start";
-        return jtm.query(sql, new BeanPropertyRowMapper<>(Applications.class));
+        return jtm.query(sql, new BeanPropertyRowMapper<>(Application.class));
 	}
 
 }

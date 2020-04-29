@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Entity
-public class Applications {
+public class Application {
 	@Id	
 	@GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
@@ -22,9 +22,9 @@ public class Applications {
 	private int count;
 
 	
-	public Applications() {}
+	public Application() {}
 
-	public Applications(String timePeriod, int count) {
+	public Application(String timePeriod, int count) {
 		this.timePeriod = timePeriod;
 		this.count = count;
 	}
