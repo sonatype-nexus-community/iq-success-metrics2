@@ -7,7 +7,6 @@ public class DataPoint {
 	private String period;
     private int count;
     
-    @Bean
 	public DataPoint() {}
 
 	public DataPoint(String period, int count) {

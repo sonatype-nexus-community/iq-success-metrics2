@@ -18,6 +18,6 @@
         <a th:href="@{report}">Report</a>
     </div>
     
-    
+    <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}"></span>
 </body>
 </html> 

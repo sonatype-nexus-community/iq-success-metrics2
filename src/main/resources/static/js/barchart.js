@@ -1,20 +1,16 @@
-function drawBarChart(metrics) {
-				
-            // Define the chart to be drawn.
-            var data = google.visualization.arrayToDataTable([
-               ['Year', 'Asia'],
-               ['2012',  900],
-               ['2013',  1000],
-               ['2014',  1170],
-               ['2015',  1250],
-               ['2016',  1530]
-            ]);
+function drawBarChart() {
+    	  var data = google.visualization.arrayToDataTable([
+    	  ['Task', 'Hours per Day'],
+    	  ['Work', 8],
+    	  ['Friends', 2],
+    	  ['Eat', 2],
+    	  ['TV', 2],
+    	  ['Gym', 2],
+    	  ['Sleep', 8]
+    	]);
 
-            var data = google.visualization.arrayToDataTable(metrics);
-            var options = {title: 'Population (in millions)'}; 
-
-            // Instantiate and draw the chart.
-            var chart = new google.visualization.BarChart(document.getElementById('barchart'));
-            chart.draw(data, options);
-         }
-         google.charts.setOnLoadCallback(drawBarChart);
+    	  var options = {'title':'My Average Day', 'width':550, 'height':400};
+    	  var chart = new google.visualization.BarChart(document.getElementById('barchart'));
+    	  chart.draw(data, options);
+    	}
+       google.charts.setOnLoadCallback(drawBarChart);
