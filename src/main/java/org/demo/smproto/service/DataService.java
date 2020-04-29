@@ -19,6 +19,15 @@ public class DataService implements IDataService {
 	@Autowired 
     private JdbcTemplate jtm;
 
+	public class DataPointMapper implements RowMapper<DataPoint> {
+        @Override
+        public DataPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
+        	DataPoint point = new DataPoint();
+            point.setPeriod(rs.getString("period"));
+            point.setCount(rs.getInt("count"));
+            return point;
+        }
+    }
 	
 	@Override
 	public List<DataPoint> countOnBoardedApplications() {
@@ -31,13 +40,13 @@ public class DataService implements IDataService {
             sql, new BeanPropertyRowMapper<>(DataPoint.class));  
     }
     
-    public class DataPointMapper implements RowMapper<DataPoint> {
-        @Override
-        public DataPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
-        	DataPoint point = new DataPoint();
-            point.setPeriod(rs.getString("period"));
-            point.setCount(rs.getInt("count"));
-            return point;
-        }
-    }
+    
+	@Override
+	public List<DataPoint> countScannedApplications() {
+		
+		String sql = "select time_period_start as period, count(evaluation_count) as count from metric group by time_period_start";
+   
+		return jtm.query(
+				sql, new BeanPropertyRowMapper<>(DataPoint.class));  
+	}
 }

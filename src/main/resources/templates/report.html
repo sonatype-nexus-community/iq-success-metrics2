@@ -12,35 +12,6 @@
    		
       <h2 class="page-title" th:text="'Success Metrics Report'"></h2>
       
-      <!--   debug - start --> 
-      <!-- <div style = "width: 550px; height: 400px; margin: 0 auto" class="container py-5">
-    	<div class="row">
-        <div class="col-10 mx-auto">
-            <h3>Status</h3>
-            <div class="alert alert-danger" role="alert" th:if="${!status}">
-                <strong>Error:</strong>
-                <span th:text="${message}"></span>
-            </div>
-
-            <table class="table table-striped table-bordered" th:if="${status}">
-                <thead>
-                <tr>
-                    <th scope="col">Period</th>
-                    <th scope="col">Count</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="point : ${dataPoints}">
-                    <td th:text="${point.period}"></td>
-                    <td th:text="${point.count}"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    	</div> -->
-      <!--   debug - end --> 
-      
-    
       <script th:inline="javascript">
       	function drawMyChart() {
     	  
@@ -68,6 +39,32 @@
       </script>
       <div id="mychart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
       
+      <script th:inline="javascript">
+      	function drawScannedCountChart() {
+    	  
+          	var points = /*[[${scannedApplicationsCount}]]*/'noValue';
+          	var mp = [];
+          	
+    		var data = new google.visualization.DataTable();
+    	    data.addColumn('string', 'Period');
+    	    data.addColumn('number', 'Number of Scans');
+    	    
+    	    points.forEach(entry => {
+                var period = entry.period;
+                var count = entry.count;
+                data.addRow([ `${period}`, parseInt(`${count}`) ]);
+            }); 
+    	       
+    	    var options = {'title':'Applications Scanned', 'width':750, 'height':400};
+
+    	    var chart = new google.visualization.BarChart(document.getElementById ('drawScannedCountChart'));
+    	    
+    	    chart.draw(data, options);
+    	 }
+
+    	google.charts.setOnLoadCallback(drawScannedCountChart);
+      </script>
+      <div id="drawScannedCountChart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
       
       <!--  test graphs - start -->
       

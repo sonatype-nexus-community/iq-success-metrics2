@@ -8,6 +8,8 @@ import org.demo.smproto.model.DataPoint;
 public interface IDataService {
 
 	List<DataPoint> countOnBoardedApplications();
+	List<DataPoint> countScannedApplications();
+
 	// DataPoint findById(Long id);
 	
 }

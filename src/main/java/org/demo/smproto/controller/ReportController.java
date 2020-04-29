@@ -51,6 +51,9 @@ public class ReportController {
             model.addAttribute("status", true);
 
 		}
+		
+		List<DataPoint> scannedApplicationsCount = this.getDataPoints(dataService.countScannedApplications());
+		model.addAttribute("scannedApplicationsCount", scannedApplicationsCount);
 
         return "report";
     }
@@ -60,6 +63,22 @@ public class ReportController {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No data found");
     }
+	
+	
+	
+	private List<DataPoint> getDataPoints(List<DataPoint> dataList){
+		
+		List<DataPoint> dataPoints = new ArrayList<DataPoint>();
+
+		for (DataPoint dp : dataList) {
+			log.info(dp.toString());
+			dataPoints.add(dp);
+		}
+		
+		return dataPoints;
+	}
+	
+	
 }
 
 

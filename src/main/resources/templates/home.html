@@ -9,8 +9,6 @@
     <h1 class="page-title" th:text="'Success Metrics'"></h1>
     
     <div class="page-template">
-    	<a th:href="@{loaddata}">Load Data</a>
-        <br><br>
         <a th:href="@{data}">Show Data</a>
         <br><br>
         <a th:href="@{stats}">Stats</a>
@@ -18,6 +16,5 @@
         <a th:href="@{report}">Report</a>
     </div>
     
-    <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}"></span>
 </body>
 </html> 
