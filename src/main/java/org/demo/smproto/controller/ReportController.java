@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.demo.smproto.SmprotoApplication;
 import org.demo.smproto.model.DataPoint;
+import org.demo.smproto.model.DataPointMulti;
 import org.demo.smproto.service.IDataService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,25 +30,18 @@ public class ReportController {
 	@GetMapping({"/report"})
     public String report(Model model) {
 				
-		List<DataPoint> dataPoints = new ArrayList<DataPoint>();
-
-		for (DataPoint dp : dataService.countOnBoardedApplications()) {
-			log.info(dp.toString());
-			dataPoints.add(dp);
-		}
+		List<DataPoint> countOnboardedApplications = this.getDataPoints(dataService.countOnBoardedApplications());
+		model.addAttribute("countOnboardedApplications", countOnboardedApplications);
 		
-		if (dataPoints.isEmpty()) {
-            model.addAttribute("message", "No data.");
-            model.addAttribute("status", false);
-        } 
-		else {
-			model.addAttribute("dataPoints", dataPoints);
-            model.addAttribute("status", true);
-
-		}
+		List<DataPoint> countScannedApplications = this.getDataPoints(dataService.countScannedApplications());
+		model.addAttribute("countScannedApplications", countScannedApplications);
 		
-		List<DataPoint> scannedApplicationsCount = this.getDataPoints(dataService.countScannedApplications());
-		model.addAttribute("scannedApplicationsCount", scannedApplicationsCount);
+		List<DataPointMulti> countSecurityCriticals = this.getDataPointsMulti(dataService.countSecurityCriticals());
+		model.addAttribute("countSecurityCriticals", countSecurityCriticals);
+		
+		for (DataPointMulti dp : countSecurityCriticals) {
+			log.info("i got it: " + dp.toString());
+		}
 
         return "report";
     }
@@ -59,12 +53,23 @@ public class ReportController {
     }
 	
 	
-	
 	private List<DataPoint> getDataPoints(List<DataPoint> dataList){
 		
 		List<DataPoint> dataPoints = new ArrayList<DataPoint>();
 
 		for (DataPoint dp : dataList) {
+			log.info(dp.toString());
+			dataPoints.add(dp);
+		}
+		
+		return dataPoints;
+	}
+	
+	private List<DataPointMulti> getDataPointsMulti(List<DataPointMulti> dataList){
+		
+		List<DataPointMulti> dataPoints = new ArrayList<DataPointMulti>();
+
+		for (DataPointMulti dp : dataList) {
 			log.info(dp.toString());
 			dataPoints.add(dp);
 		}

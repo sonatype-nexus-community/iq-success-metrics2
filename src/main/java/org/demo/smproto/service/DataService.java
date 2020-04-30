@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.demo.smproto.model.DataPoint;
+import org.demo.smproto.model.DataPointMulti;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -42,9 +43,23 @@ public class DataService implements IDataService {
 	@Override
 	public List<DataPoint> countScannedApplications() {
 		
-		String sql = "select time_period_start as period, count(evaluation_count) as count from metric group by time_period_start";
+		String sql = "select time_period_start as period, sum(evaluation_count) as count from metric group by time_period_start";
    
 		return jtm.query(
 				sql, new BeanPropertyRowMapper<>(DataPoint.class));  
+	}
+
+
+	@Override
+	public List<DataPointMulti> countSecurityCriticals() {
+		String sql = "select time_period_start as period, " + 
+					 "sum(discovered_Count_Security_Critical) as countA, " + 
+					 "sum(fixed_Count_Security_Critical) as countB, " + 
+					 "sum(waived_Count_Security_Critical) as countC " + 
+					 "from metric " + 
+					 "group by time_period_start";
+					 
+		return jtm.query(
+				sql, new BeanPropertyRowMapper<>(DataPointMulti.class));
 	}
 }

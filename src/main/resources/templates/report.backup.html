@@ -67,101 +67,47 @@
       <div id="drawScannedCountChart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
       
       
-      
-      <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses'],
-          ['2004',  1000,      400],
-          ['2005',  1170,      460],
-          ['2006',  660,       1120],
-          ['2007',  1030,      540]
-        ]);
-
-        var options = {
-          title: 'Company Performance',
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-        chart.draw(data, options);
-      }
-      </script>
-      <div id="curve_chart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
-       
       <script th:inline="javascript">
-
-      	function drawCountCriticalsChart() {
+      	function drawcountCriticalsChart() {
     	  
-
           	var points = /*[[${countSecurityCriticals}]]*/'noValue';
-
-			var mp = [];
-			
-          	/*points.forEach(x => {
-          		alert (`${x.countA}`);
-                mp.push([ `${x.period}`, parseInt(`${x.countA}`), parseInt(`${x.countB}`), parseInt(`${countC}`) ]);
-          	}); */
-          	
-          	//var mp = [];
-          	
-          	/* var data = google.visualization.arrayToDataTable([
-                ['Year', 'Sales', 'Expenses'],
-                ['2004',  1000,      400],
-                ['2005',  1170,      460],
-                ['2006',  660,       1120],
-                ['2007',  1030,      540]
-              ]); */
-              
-            
-           /* var data = new google.visualization.arrayToDataTable([
-              ['Period', 'Discovered', 'Fixed', 'Waived'],
-              ['2019-12-01',  2535,      225, 0],
-              ['2020-01-01',  7740,      2115, 0],
-              ['2020-02-01',  390,       0, 0]
-            ]);   */
+          	var mp = [];
           	
     		var data = new google.visualization.DataTable();
     	    data.addColumn('string', 'Period');
     	    data.addColumn('number', 'Discovered');
     	    data.addColumn('number', 'Fixed');
     	    data.addColumn('number', 'Waived');
+
     	    
-    	    
- 
     	    points.forEach(entry => {
-				alert("In the loop");
                 var period = entry.period;
-                var countA = entry.countA;
-                var countB = entry.countB;
-                var countC = entry.countC;
-                data.addRow([ `${period}`, parseInt(`${countA}`), parseInt(`${countB}`), parseInt(`${countC}`) ]);
+                var count1 = entry.count1;
+                var count2 = entry.count2;
+                var count3 = entry.count3;
+
+                data.addRow([ `${period}`, parseInt(`${count1}`), parseInt(`${count2}`), parseInt(`${count3}`) ]);
             }); 
     	       
-    	    var options = {
-    	            title: 'Company Performance',
-    	            curveType: 'function',
-    	            legend: { position: 'bottom' }
-    	          };
-    	    
-    	    var chart = new google.visualization.BarChart(document.getElementById ('drawCountCriticalsChart'));
+    	    var options = {'title':'Crticals', 'width':750, 'height':400};
+
+    	    var chart = new google.visualization.LineChart(document.getElementById ('drawcountCriticalsChart'));
     	    
     	    chart.draw(data, options);
     	 }
-  		google.charts.setOnLoadCallback(drawCountCriticalsChart);
 
+    	google.charts.setOnLoadCallback(drawScannedCountChart);
       </script>
-      <div id="drawCountCriticalsChart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
+      <div id="drawcountCriticalsChart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
       
       
       
       
-     
+      
+ 
+      
+      
+      
       
       <!--  test graphs - start -->
       
