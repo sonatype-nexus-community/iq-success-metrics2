@@ -1,7 +1,5 @@
 package org.demo.smproto.model;
 
-import org.springframework.context.annotation.Bean;
-
 public class DataPoint {
 	
 	private String period;

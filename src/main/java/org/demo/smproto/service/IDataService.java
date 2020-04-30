@@ -9,7 +9,5 @@ public interface IDataService {
 
 	List<DataPoint> countOnBoardedApplications();
 	List<DataPoint> countScannedApplications();
-
-	// DataPoint findById(Long id);
 	
 }
