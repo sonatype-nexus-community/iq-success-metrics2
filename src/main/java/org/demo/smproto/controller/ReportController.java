@@ -7,6 +7,7 @@ import org.demo.smproto.SmprotoApplication;
 import org.demo.smproto.model.DataPoint;
 import org.demo.smproto.model.DataPointMulti;
 import org.demo.smproto.service.IDataService;
+import org.demo.smproto.service.SQLStatement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,15 +34,17 @@ public class ReportController {
 		List<DataPoint> countOnboardedApplications = this.getDataPoints(dataService.countOnBoardedApplications());
 		model.addAttribute("countOnboardedApplications", countOnboardedApplications);
 		
-		List<DataPoint> countScannedApplications = this.getDataPoints(dataService.countScannedApplications());
-		model.addAttribute("countScannedApplications", countScannedApplications);
+		List<DataPoint> countTotalScans = this.getDataPoints(dataService.countTotalScans());
+		model.addAttribute("countTotalScans", countTotalScans);
+		
+		List<DataPoint> countApplicationsScanned = this.getDataPoints(dataService.countApplicationsScanned());
+		model.addAttribute("countApplicationsScanned", countApplicationsScanned);
 		
 		List<DataPointMulti> countSecurityCriticals = this.getDataPointsMulti(dataService.countSecurityCriticals());
 		model.addAttribute("countSecurityCriticals", countSecurityCriticals);
 		
-		for (DataPointMulti dp : countSecurityCriticals) {
-			log.info("i got it: " + dp.toString());
-		}
+		List<DataPoint> appsMostCritical = this.getDataPoints(dataService.runSQLStatement(SQLStatement.AppsMostCritical));
+		model.addAttribute("appsMostCritical", appsMostCritical);
 
         return "report";
     }
@@ -58,7 +61,7 @@ public class ReportController {
 		List<DataPoint> dataPoints = new ArrayList<DataPoint>();
 
 		for (DataPoint dp : dataList) {
-			log.info(dp.toString());
+			//log.info(dp.toString());
 			dataPoints.add(dp);
 		}
 		
@@ -70,7 +73,7 @@ public class ReportController {
 		List<DataPointMulti> dataPoints = new ArrayList<DataPointMulti>();
 
 		for (DataPointMulti dp : dataList) {
-			log.info(dp.toString());
+			//log.info(dp.toString());
 			dataPoints.add(dp);
 		}
 		

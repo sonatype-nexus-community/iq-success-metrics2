@@ -31,19 +31,26 @@ public class DataService implements IDataService {
 	@Override
 	public List<DataPoint> countOnBoardedApplications() {
     	
-        String sql = "select time_period_start as period, count(application_id) as count " +
-        			 " from metric " +
-        			 " group by time_period_start";
+        String sql = "select time_period_start as period, count(application_id) as count from metric group by time_period_start";
         
         return jtm.query(
             sql, new BeanPropertyRowMapper<>(DataPoint.class));  
     }
-    
-    
+	
+	
 	@Override
-	public List<DataPoint> countScannedApplications() {
+	public List<DataPoint> countTotalScans() {
 		
 		String sql = "select time_period_start as period, sum(evaluation_count) as count from metric group by time_period_start";
+   
+		return jtm.query(
+				sql, new BeanPropertyRowMapper<>(DataPoint.class));  
+	}
+	
+	@Override
+	public List<DataPoint> countApplicationsScanned() {
+		
+		String sql = "select time_period_start as period, count(application_id) as count from metric where evaluation_count > 0 group by time_period_start";
    
 		return jtm.query(
 				sql, new BeanPropertyRowMapper<>(DataPoint.class));  
@@ -62,4 +69,10 @@ public class DataService implements IDataService {
 		return jtm.query(
 				sql, new BeanPropertyRowMapper<>(DataPointMulti.class));
 	}
+	
+	@Override
+	public List<DataPoint> runSQLStatement(String sqlStatement) {
+		return jtm.query(sqlStatement, new BeanPropertyRowMapper<>(DataPoint.class));  
+	}
+	
 }

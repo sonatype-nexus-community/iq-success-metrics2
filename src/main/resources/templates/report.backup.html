@@ -5,6 +5,7 @@
       <title>Success Metrics Report</title>
       <script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script>
       <script type = "text/javascript">google.charts.load('current', {packages: ['corechart']});</script>
+      <script type = "text/javascript">google.charts.load('current', {packages: ['table']});</script>      
       <link href="/css/main.css" rel="stylesheet">
    </head>
    
@@ -30,7 +31,7 @@
     	       
     	    var options = {'title':'Applications Onboarded', 'width':750, 'height':400};
 
-    	    var chart = new google.visualization.BarChart(document.getElementById ('mychart'));
+    	    var chart = new google.visualization.ColumnChart(document.getElementById ('mychart'));
     	    
     	    chart.draw(data, options);
     	 }
@@ -42,12 +43,12 @@
       <script th:inline="javascript">
       	function drawScannedCountChart() {
     	  
-          	var points = /*[[${countScannedApplications}]]*/'noValue';
+          	var points = /*[[${countTotalScans}]]*/'noValue';
           	var mp = [];
           	
     		var data = new google.visualization.DataTable();
     	    data.addColumn('string', 'Period');
-    	    data.addColumn('number', 'Number of Scans');
+    	    data.addColumn('number', 'Total Number of Scans');
     	    
     	    points.forEach(entry => {
                 var period = entry.period;
@@ -55,9 +56,9 @@
                 data.addRow([ `${period}`, parseInt(`${count}`) ]);
             }); 
     	       
-    	    var options = {'title':'Applications Scans', 'width':750, 'height':400};
+    	    var options = {'title':'Application Scans', 'width':750, 'height':400};
 
-    	    var chart = new google.visualization.BarChart(document.getElementById ('drawScannedCountChart'));
+    	    var chart = new google.visualization.ColumnChart(document.getElementById ('drawScannedCountChart'));
     	    
     	    chart.draw(data, options);
     	 }
@@ -66,47 +67,112 @@
       </script>
       <div id="drawScannedCountChart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
       
-      
       <script th:inline="javascript">
-      	function drawcountCriticalsChart() {
+      	function drawApplicationsScannedChart() {
     	  
-          	var points = /*[[${countSecurityCriticals}]]*/'noValue';
+          	var points = /*[[${countApplicationsScanned}]]*/'noValue';
           	var mp = [];
           	
+    		var data = new google.visualization.DataTable();
+    	    data.addColumn('string', 'Period');
+    	    data.addColumn('number', 'Applications Scanned');
+    	    
+    	    points.forEach(entry => {
+                var period = entry.period;
+                var count = entry.count;
+                data.addRow([ `${period}`, parseInt(`${count}`) ]);
+            }); 
+    	       
+    	    var options = {'title':'Applications Scanned', 'width':750, 'height':400};
+
+    	    var chart = new google.visualization.ColumnChart(document.getElementById ('drawApplicationsScannedChart'));
+    	    
+    	    chart.draw(data, options);
+    	 }
+
+    	google.charts.setOnLoadCallback(drawApplicationsScannedChart);
+      </script>
+      <div id="drawApplicationsScannedChart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
+      
+      <script th:inline="javascript">
+
+      	function drawCountCriticalsChart() {
+    	  
+
+          	var points = /*[[${countSecurityCriticals}]]*/'noValue';
+
+			var mp = [];
+			
     		var data = new google.visualization.DataTable();
     	    data.addColumn('string', 'Period');
     	    data.addColumn('number', 'Discovered');
     	    data.addColumn('number', 'Fixed');
     	    data.addColumn('number', 'Waived');
-
     	    
     	    points.forEach(entry => {
                 var period = entry.period;
-                var count1 = entry.count1;
-                var count2 = entry.count2;
-                var count3 = entry.count3;
-
-                data.addRow([ `${period}`, parseInt(`${count1}`), parseInt(`${count2}`), parseInt(`${count3}`) ]);
+                var countA = entry.countA;
+                var countB = entry.countB;
+                var countC = entry.countC;
+                data.addRow([ `${period}`, parseInt(`${countA}`), parseInt(`${countB}`), parseInt(`${countC}`) ]);
             }); 
-    	       
-    	    var options = {'title':'Crticals', 'width':750, 'height':400};
+    	    
+    	    var options = {'title':'Critical Vulnerabilities', 'width':750, 'height':400};
 
-    	    var chart = new google.visualization.LineChart(document.getElementById ('drawcountCriticalsChart'));
+    	    //var options = { title: 'Critical Violations', curveType: 'function', legend: { position: 'right' } };
+    	    
+    	    var chart = new google.visualization.ColumnChart(document.getElementById ('drawCountCriticalsChart'));
     	    
     	    chart.draw(data, options);
     	 }
+  		google.charts.setOnLoadCallback(drawCountCriticalsChart);
 
-    	google.charts.setOnLoadCallback(drawScannedCountChart);
       </script>
-      <div id="drawcountCriticalsChart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
+      <div id="drawCountCriticalsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
       
       
-      
-      
-      
- 
-      
-      
+	  <script th:inline="javascript">
+      	function drawAppsMostCriticalTable() {
+    	  
+            
+          	 
+          	
+    		var data = new google.visualization.DataTable();
+    	    data.addColumn('string', 'Application');
+    	    data.addColumn('number', 'Number of Critical Violations');
+    	    
+    	    points.forEach(entry => {
+                var period = entry.period;
+                var count = entry.count;
+                data.addRow([ `${period}`, parseInt(`${count}`) ]);
+            }); 
+    	       
+    	    var table = new google.visualization.Table(document.getElementById ('drawAppsMostCriticalTable'));
+    	    
+    	    table.draw(data, {showRowNumber: true, width: '100%', height: '25%'}); 
+    	    
+    	        /* var data = new google.visualization.DataTable();
+    	        data.addColumn('string', 'Name');
+    	        data.addColumn('number', 'Salary');
+    	        data.addColumn('boolean', 'Full Time Employee');
+    	        data.addRows([
+    	          ['Mike',  {v: 10000, f: '$10,000'}, true],
+    	          ['Jim',   {v:8000,   f: '$8,000'},  false],
+    	          ['Alice', {v: 12500, f: '$12,500'}, true],
+    	          ['Bob',   {v: 7000,  f: '$7,000'},  true]
+    	        ]);
+
+    	        var table = new google.visualization.Table(document.getElementById('drawAppsMostCriticalTable'));
+
+    	        table.draw(data, {showRowNumber: true, width: '100%', height: '25%'}); */
+    	      
+    	 }
+      	
+        google.charts.setOnLoadCallback(drawAppsMostCriticalTable);
+
+
+      </script>
+      <div id="drawAppsMostCriticalTable" style = "width: 550px; height: 400px; margin: 0 auto"></div>
       
       
       <!--  test graphs - start -->

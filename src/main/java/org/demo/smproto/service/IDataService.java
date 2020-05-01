@@ -9,7 +9,9 @@ import org.demo.smproto.model.DataPointMulti;
 public interface IDataService {
 
 	List<DataPoint> countOnBoardedApplications();
-	List<DataPoint> countScannedApplications();
+	List<DataPoint> countTotalScans();
 	List<DataPointMulti> countSecurityCriticals();
+	List<DataPoint> countApplicationsScanned();
+	List<DataPoint> runSQLStatement(String statement);
 	
 }
