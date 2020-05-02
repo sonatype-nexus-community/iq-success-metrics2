@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Success Metrics'"></title>
+    <link href="/css/main.css" rel="stylesheet">
+</head>
+<body>
+    <h1 class="page-title" th:text="'Success Metrics'"></h1>
+    
+    <div class="page-template">
+        <a th:href="@{data}">Show Data</a>
+        <br><br>
+        <a th:href="@{stats}">Stats</a>
+        <br><br>
+        <a th:href="@{report}">Report</a>
+        <br><br>
+        <a th:href="@{/h2}">Database console</a>
+    </div>
+    
+</body>
+</html> 

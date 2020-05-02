@@ -26,13 +26,13 @@ public class CreateCSVFileRunner implements CommandLineRunner {
 	@Value("${metrics.firstTimePeriod}")
 	private String firstTimePeriod;
 
-	@Value("${nexusiq.url}")
+	@Value("${iq.url}")
 	private String iqurl;
 
-	@Value("${nexusiq.username}")
+	@Value("${iq.user}")
 	private String iquser;
 
-	@Value("${nexusiq.passwd}")
+	@Value("${iq.passwd}")
 	private String iqpasswd;
 	
 	@Autowired

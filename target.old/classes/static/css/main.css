@@ -1,0 +1,14 @@
+.page-title{
+   color: black;
+   text-align: center;
+}
+
+.page-template {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+tbody td {
+    font-size: 75%;
+}
+
