@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.demo.smproto.model.Metric;
 import org.demo.smproto.service.IMetricsRepositoryService;
+import org.demo.smproto.service.getOS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,8 @@ public class ReadCSVFileRunner implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
+		
+		//os = getOS();
 		
 		log.info("Read csv file...");
 		log.info("reading file: " + csvFilePath);
