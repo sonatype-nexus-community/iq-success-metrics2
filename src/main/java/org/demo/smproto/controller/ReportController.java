@@ -31,19 +31,19 @@ public class ReportController {
 	@GetMapping({"/report"})
     public String report(Model model) {
 				
-		List<DataPoint1> applicationsOnboardedData = this.getDataPoints(dataService.runSQLStatementDP1(SQLStatement.ApplicationsOnboarded));
+		List<DataPoint1> applicationsOnboardedData = this.getDataPointsDP1(dataService.runSQLStatementDP1(SQLStatement.ApplicationsOnboarded));
 		model.addAttribute("applicationsOnboardedData", applicationsOnboardedData);
 		
-		List<DataPoint1> applicationsScannedData = this.getDataPoints(dataService.runSQLStatementDP1(SQLStatement.ApplicationsScanned));
+		List<DataPoint1> applicationsScannedData = this.getDataPointsDP1(dataService.runSQLStatementDP1(SQLStatement.ApplicationsScanned));
 		model.addAttribute("applicationsScannedData", applicationsScannedData);
 		
-		List<DataPoint1> applicationScansData = this.getDataPoints(dataService.runSQLStatementDP1(SQLStatement.ApplicationScans));
+		List<DataPoint1> applicationScansData = this.getDataPointsDP1(dataService.runSQLStatementDP1(SQLStatement.ApplicationScans));
 		model.addAttribute("applicationScansData", applicationScansData);
 		
-		List<DataPoint3> criticalViolationsData = this.getDataPointsMulti(dataService.runSQLStatementDP3(SQLStatement.CriticalViolations));
+		List<DataPoint3> criticalViolationsData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.CriticalViolations));
 		model.addAttribute("criticalViolationsData", criticalViolationsData);
 		
-		List<DataPoint1> mostCriticalApplicationsData = this.getDataPoints(dataService.runSQLStatementDP1(SQLStatement.MostCriticalApplications));
+		List<DataPoint1> mostCriticalApplicationsData = this.getDataPointsDP1(dataService.runSQLStatementDP1(SQLStatement.MostCriticalApplications));
 		model.addAttribute("mostCriticalApplicationsData", mostCriticalApplicationsData);
 
         return "report";
@@ -56,7 +56,7 @@ public class ReportController {
     }
 	
 	
-	private List<DataPoint1> getDataPoints(List<DataPoint1> dataList){
+	private List<DataPoint1> getDataPointsDP1(List<DataPoint1> dataList){
 		
 		List<DataPoint1> dataPoints = new ArrayList<DataPoint1>();
 
@@ -68,7 +68,7 @@ public class ReportController {
 		return dataPoints;
 	}
 	
-	private List<DataPoint3> getDataPointsMulti(List<DataPoint3> dataList){
+	private List<DataPoint3> getDataPointsDP3(List<DataPoint3> dataList){
 		
 		List<DataPoint3> dataPoints = new ArrayList<DataPoint3>();
 

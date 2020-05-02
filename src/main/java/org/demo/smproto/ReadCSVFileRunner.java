@@ -64,15 +64,6 @@ public class ReadCSVFileRunner implements CommandLineRunner {
 		for (Metric m : metrics) {
 			repository.save(new Metric(m));
 		}
-	 
-		//		log.info("All metrics from database:");
-		//		log.info("-------------------------------");
-		//	
-		//		for (Metric m : repository.findAll()) {
-		//			log.info(m.toString());
-		//		}
-		//	
-		//		log.info("-------------------------------");	
 		
 		log.info("Number of entries: " + metrics.size());
 

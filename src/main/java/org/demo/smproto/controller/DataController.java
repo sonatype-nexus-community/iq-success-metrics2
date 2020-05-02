@@ -25,12 +25,12 @@ public class DataController {
 		List<Metric> metrics = metricsService.findAll();
 		
         if (metrics.isEmpty()) {
-        	log.info("ReportController: No metrics data");
+        	log.info("DataController: No metrics data");
             model.addAttribute("message", "No metrics.");
             model.addAttribute("status", false);
         } 
         else {
-        	log.info("ReportController: Got data...count=" + metrics.size());
+        	log.info("DataController: Got data...count=" + metrics.size());
 			model.addAttribute("metrics", metrics);	
 	        model.addAttribute("status", true);
         }
