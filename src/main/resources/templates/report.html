@@ -15,7 +15,7 @@
        
       <script th:inline="javascript">
       	function applicationsOnboarded() {
-          	var points = /*[[${countOnboardedApplications}]]*/'noValue';
+          	var points = /*[[${applicationsOnboardedData}]]*/'noValue';
           	
     		var data = new google.visualization.DataTable();
     	    data.addColumn('string', 'Period');
@@ -41,7 +41,7 @@
       <script th:inline="javascript">
       	function applicationsScanned() {
     	  
-          	var points = /*[[${countApplicationsScanned}]]*/'noValue';
+          	var points = /*[[${applicationsScannedData}]]*/'noValue';
           	var mp = [];
           	
     		var data = new google.visualization.DataTable();
@@ -67,7 +67,7 @@
       
       <script th:inline="javascript">
       	function applicationScans() {
-          	var points = /*[[${countTotalScans}]]*/'noValue';
+          	var points = /*[[${applicationScansData}]]*/'noValue';
           	
     		var data = new google.visualization.DataTable();
     	    data.addColumn('string', 'Period');
@@ -92,7 +92,7 @@
       
       <script th:inline="javascript">
       	function criticalViolations() {
-          	var points = /*[[${countSecurityCriticals}]]*/'noValue';
+          	var points = /*[[${criticalViolationsData}]]*/'noValue';
 
     		var data = new google.visualization.DataTable();
     	    data.addColumn('string', 'Period');
@@ -120,7 +120,7 @@
       
 	  <script th:inline="javascript">
       	function mostCriticalApplications() {
-          	var points = /*[[${appsMostCritical}]]*/'noValue';
+          	var points = /*[[${mostCriticalApplicationsData}]]*/'noValue';
 
     		var data = new google.visualization.DataTable();
     	    data.addColumn('string', 'Application');

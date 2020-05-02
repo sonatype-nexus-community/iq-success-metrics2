@@ -1,13 +1,13 @@
 package org.demo.smproto.model;
 
-public class DataPoint {
+public class DataPoint1 {
 	
 	private String period;
     private int count;
     
-	public DataPoint() {}
+	public DataPoint1() {}
 
-	public DataPoint(String period, int count) {
+	public DataPoint1(String period, int count) {
 		this.period = period;
 		this.count = count;
 	}

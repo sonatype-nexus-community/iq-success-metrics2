@@ -1,15 +1,15 @@
 package org.demo.smproto.model;
 
-public class DataPointMulti {
+public class DataPoint3 {
 	
 	private String period;
     private int countA;
     private int countB;
     private int countC;
     
-    public DataPointMulti() {}
+    public DataPoint3() {}
 
-	public DataPointMulti(String period, int countA, int countB, int countC) {
+	public DataPoint3(String period, int countA, int countB, int countC) {
 		super();
 		this.period = period;
 		this.countA = countA;

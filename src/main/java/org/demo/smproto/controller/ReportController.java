@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.demo.smproto.SmprotoApplication;
-import org.demo.smproto.model.DataPoint;
-import org.demo.smproto.model.DataPointMulti;
+import org.demo.smproto.model.DataPoint1;
+import org.demo.smproto.model.DataPoint3;
 import org.demo.smproto.service.IDataService;
 import org.demo.smproto.service.SQLStatement;
 import org.slf4j.Logger;
@@ -31,20 +31,20 @@ public class ReportController {
 	@GetMapping({"/report"})
     public String report(Model model) {
 				
-		List<DataPoint> countOnboardedApplications = this.getDataPoints(dataService.countOnBoardedApplications());
-		model.addAttribute("countOnboardedApplications", countOnboardedApplications);
+		List<DataPoint1> applicationsOnboardedData = this.getDataPoints(dataService.runSQLStatementDP1(SQLStatement.ApplicationsOnboarded));
+		model.addAttribute("applicationsOnboardedData", applicationsOnboardedData);
 		
-		List<DataPoint> countTotalScans = this.getDataPoints(dataService.countTotalScans());
-		model.addAttribute("countTotalScans", countTotalScans);
+		List<DataPoint1> applicationsScannedData = this.getDataPoints(dataService.runSQLStatementDP1(SQLStatement.ApplicationsScanned));
+		model.addAttribute("applicationsScannedData", applicationsScannedData);
 		
-		List<DataPoint> countApplicationsScanned = this.getDataPoints(dataService.countApplicationsScanned());
-		model.addAttribute("countApplicationsScanned", countApplicationsScanned);
+		List<DataPoint1> applicationScansData = this.getDataPoints(dataService.runSQLStatementDP1(SQLStatement.ApplicationScans));
+		model.addAttribute("applicationScansData", applicationScansData);
 		
-		List<DataPointMulti> countSecurityCriticals = this.getDataPointsMulti(dataService.countSecurityCriticals());
-		model.addAttribute("countSecurityCriticals", countSecurityCriticals);
+		List<DataPoint3> criticalViolationsData = this.getDataPointsMulti(dataService.runSQLStatementDP3(SQLStatement.CriticalViolations));
+		model.addAttribute("criticalViolationsData", criticalViolationsData);
 		
-		List<DataPoint> appsMostCritical = this.getDataPoints(dataService.runSQLStatement(SQLStatement.AppsMostCritical));
-		model.addAttribute("appsMostCritical", appsMostCritical);
+		List<DataPoint1> mostCriticalApplicationsData = this.getDataPoints(dataService.runSQLStatementDP1(SQLStatement.MostCriticalApplications));
+		model.addAttribute("mostCriticalApplicationsData", mostCriticalApplicationsData);
 
         return "report";
     }
@@ -56,11 +56,11 @@ public class ReportController {
     }
 	
 	
-	private List<DataPoint> getDataPoints(List<DataPoint> dataList){
+	private List<DataPoint1> getDataPoints(List<DataPoint1> dataList){
 		
-		List<DataPoint> dataPoints = new ArrayList<DataPoint>();
+		List<DataPoint1> dataPoints = new ArrayList<DataPoint1>();
 
-		for (DataPoint dp : dataList) {
+		for (DataPoint1 dp : dataList) {
 			//log.info(dp.toString());
 			dataPoints.add(dp);
 		}
@@ -68,11 +68,11 @@ public class ReportController {
 		return dataPoints;
 	}
 	
-	private List<DataPointMulti> getDataPointsMulti(List<DataPointMulti> dataList){
+	private List<DataPoint3> getDataPointsMulti(List<DataPoint3> dataList){
 		
-		List<DataPointMulti> dataPoints = new ArrayList<DataPointMulti>();
+		List<DataPoint3> dataPoints = new ArrayList<DataPoint3>();
 
-		for (DataPointMulti dp : dataList) {
+		for (DataPoint3 dp : dataList) {
 			//log.info(dp.toString());
 			dataPoints.add(dp);
 		}
