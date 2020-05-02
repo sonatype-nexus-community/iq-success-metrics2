@@ -3,9 +3,12 @@ package org.demo.smproto;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 
+import org.demo.smproto.service.OSNameService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
@@ -17,9 +20,6 @@ public class CreateCSVFileRunner implements CommandLineRunner {
 	
 	private static final Logger log = LoggerFactory.getLogger(CreateCSVFileRunner.class);
 
-	@Value("${metrics.csvfile}")
-	private String csvFileName;
-	
 	@Value("${metrics.timePeriod})")
 	private String timePeriod;
 
@@ -34,36 +34,32 @@ public class CreateCSVFileRunner implements CommandLineRunner {
 
 	@Value("${nexusiq.passwd}")
 	private String iqpasswd;
+	
+	@Autowired
+	private OSNameService osName;
 
 	@Override
 	public void run(String... args) throws Exception {
 		
-
-		log.info("Create csv file...");
+		Path csvFileName = osName.getCSVFileName();
+		
+		log.info("Creating csv file: " + csvFileName);
 		
 		String cmd = "curl -X POST -H \"Accept: text/csv\" -H \"Content-Type: application/json\"" +
 				" -u " + iquser + ":" + iqpasswd + 
 				" -o " + csvFileName + " -d@/tmp/monthly.json " +
 				iqurl + "/api/v2/reports/metrics";
-		
-				
+			
 		try {
 			
-			if (new File(csvFileName).exists()) {
-				log.info("file already exists: " + csvFileName);
+			if (new File(csvFileName.toString()).exists()) {
+				log.info("File already exists: " + csvFileName);
 			}
 			else {
-				log.info("creating file: " + csvFileName);
 				log.info(cmd);
 
 				Process process = Runtime.getRuntime().exec("ls -l");
 				process.waitFor();
-//				InputStream inputStream = process.getInputStream();
-//				
-//				for (int i = 0; i < inputStream.available(); i++) {
-//		           System.out.println("" + inputStream.read());
-//		        }
-				
 				process.destroy();
 
 			}

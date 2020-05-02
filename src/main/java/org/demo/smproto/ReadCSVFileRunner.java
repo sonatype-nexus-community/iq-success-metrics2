@@ -4,10 +4,11 @@ import java.io.BufferedReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Locale;
 
 import org.demo.smproto.model.Metric;
 import org.demo.smproto.service.IMetricsRepositoryService;
-import org.demo.smproto.service.getOS;
+import org.demo.smproto.service.OSNameService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,16 +30,15 @@ public class ReadCSVFileRunner implements CommandLineRunner {
 	@Autowired 
 	private IMetricsRepositoryService repository;
 	
-	@Value("${metrics.csvfile}")
-	private Path csvFilePath;
+	@Autowired
+	private OSNameService osName;
 	
 	@Override
 	public void run(String... args) throws Exception {
 		
-		//os = getOS();
-		
-		log.info("Read csv file...");
-		log.info("reading file: " + csvFilePath);
+		Path csvFileName = osName.getCSVFileName();
+	    
+		log.info("Reading csv file: " + csvFileName);
 		
 		List<Metric> metrics = null;
 		
@@ -49,7 +49,7 @@ public class ReadCSVFileRunner implements CommandLineRunner {
 			ColumnPositionMappingStrategy ms = new ColumnPositionMappingStrategy();
 		    ms.setType(Metric.class);
 		     
-			reader = Files.newBufferedReader(csvFilePath);
+			reader = Files.newBufferedReader(csvFileName);
 			
             CsvToBean<Metric> csvToBean = new CsvToBeanBuilder(reader)
                     .withType(Metric.class)

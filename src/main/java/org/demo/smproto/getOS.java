@@ -1,8 +1,8 @@
-package org.demo.smproto.service;
+package org.demo.smproto;
 
 public class getOS {
-	
-	public String getOS() {
+		
+	public static String getOS() {
 		String os = System.getProperty("os.name");
 	    System.out.println("Detected operating system: " + os);
 	    return os;
