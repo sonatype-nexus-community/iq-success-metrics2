@@ -22,7 +22,6 @@ import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 @Component
-@Order(value = 2)
 public class ReadCSVFileRunner implements CommandLineRunner {
 	
 	private static final Logger log = LoggerFactory.getLogger(ReadCSVFileRunner.class);
