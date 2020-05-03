@@ -40,11 +40,32 @@ public class ReportController {
 		List<DataPoint1> applicationScansData = this.getDataPointsDP1(dataService.runSQLStatementDP1(SQLStatement.ApplicationScans));
 		model.addAttribute("applicationScansData", applicationScansData);
 		
-		List<DataPoint3> criticalViolationsData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.CriticalViolations));
-		model.addAttribute("criticalViolationsData", criticalViolationsData);
+		List<DataPoint3> criticalSecurityViolationsData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.CriticalSecurityViolations));
+		model.addAttribute("criticalSecurityViolationsData", criticalSecurityViolationsData);
+		
+		List<DataPoint3> severeSecurityViolationsData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.SevereSecurityViolations));
+		model.addAttribute("severeSecurityViolationsData", severeSecurityViolationsData);
+		
+		List<DataPoint3> criticalLicenseViolationsData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.CriticalLicenseViolations));
+		model.addAttribute("criticalLicenseViolationsData", criticalLicenseViolationsData);
+		
+		List<DataPoint3> severeLicenseViolationsData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.SevereLicenseViolations));
+		model.addAttribute("severeLicenseViolationsData", severeLicenseViolationsData);
+		
+		List<DataPoint3> openLicenseViolationsData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.OpenLicenseViolations));
+		model.addAttribute("openLicenseViolationsData", openLicenseViolationsData);
+		
+		List<DataPoint3> openSecurityViolationsData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.OpenSecurityViolations));
+		model.addAttribute("openSecurityViolationsData", openSecurityViolationsData);
 		
 		List<DataPoint1> mostCriticalApplicationsData = this.getDataPointsDP1(dataService.runSQLStatementDP1(SQLStatement.MostCriticalApplications));
 		model.addAttribute("mostCriticalApplicationsData", mostCriticalApplicationsData);
+		
+		List<DataPoint1> mostScannedApplicationsData = this.getDataPointsDP1(dataService.runSQLStatementDP1(SQLStatement.MostScannedApplications));
+		model.addAttribute("mostScannedApplicationsData", mostScannedApplicationsData);
+		
+		List<DataPoint3> mttrData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.MTTR));
+		model.addAttribute("mttrData", mttrData);
 
         return "report";
     }
