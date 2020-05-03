@@ -19,7 +19,7 @@
           	
     		var data = new google.visualization.DataTable();
     	    data.addColumn('string', 'Period');
-    	    data.addColumn('number', 'Number of Applications');
+    	    data.addColumn('number', 'Number of Scanned Applications - Cumulative');
     	    
     	    points.forEach(entry => {
                 var period = entry.period;
@@ -27,7 +27,7 @@
                 data.addRow([ `${period}`, parseInt(`${count}`) ]);
             }); 
     	       
-    	    var options = {'title':'Number of Applications Onboarded', 'width':750, 'height':400};
+    	    var options = {'title':'Applications Onboarded (Scanned)', 'width':750, 'height':400};
     	    var chart = new google.visualization.ColumnChart(document.getElementById ('applicationsOnboardedChart'));   
     	    chart.draw(data, options);
     	 }
@@ -41,12 +41,12 @@
       <script th:inline="javascript">
       	function applicationsScanned() {
     	  
-          	var points = /*[[${applicationsScannedData}]]*/'noValue';
+          	var points = /*[[${numberOfScansData}]]*/'noValue';
           	var mp = [];
           	
     		var data = new google.visualization.DataTable();
     	    data.addColumn('string', 'Period');
-    	    data.addColumn('number', 'Applications Scanned');
+    	    data.addColumn('number', 'Number of Scans');
     	    
     	    points.forEach(entry => {
                 var period = entry.period;
@@ -54,7 +54,7 @@
                 data.addRow([ `${period}`, parseInt(`${count}`) ]);
             }); 
     	       
-    	    var options = {'title':'Number of Scanned Applications', 'width':750, 'height':400};
+    	    var options = {'title':'Scans', 'width':750, 'height':400};
     	    var chart = new google.visualization.ColumnChart(document.getElementById ('applicationsScannedChart'));
     	    chart.draw(data, options);
     	 }
@@ -71,7 +71,7 @@
           	
     		var data = new google.visualization.DataTable();
     	    data.addColumn('string', 'Period');
-    	    data.addColumn('number', 'Total Number of Scans');
+    	    data.addColumn('number', 'Number of Applications Scanned');
     	    
     	    points.forEach(entry => {
                 var period = entry.period;
@@ -79,7 +79,7 @@
                 data.addRow([ `${period}`, parseInt(`${count}`) ]);
             }); 
     	       
-    	    var options = {'title':'Total Number of Scans', 'width':750, 'height':400};
+    	    var options = {'title':'Applications Scanned', 'width':750, 'height':400};
     	    var chart = new google.visualization.ColumnChart(document.getElementById ('applicationScansChart'));
     	    chart.draw(data, options);
     	 }
@@ -108,7 +108,7 @@
                 data.addRow([ `${period}`, parseInt(`${countA}`), parseInt(`${countB}`), parseInt(`${countC}`) ]);
             }); 
     	    
-    	    var options = {'title':'Number of Critical Security Violations', 'width':750, 'height':400};    	    
+    	    var options = {'title':'Critical Security Violations', 'width':750, 'height':400, colors: ['red', 'green', 'orange']};    	    
     	    var chart = new google.visualization.ColumnChart(document.getElementById ('criticalSecurityViolationsChart'));
     	    chart.draw(data, options);
     	 }
@@ -136,7 +136,7 @@
                 data.addRow([ `${period}`, parseInt(`${countA}`), parseInt(`${countB}`), parseInt(`${countC}`) ]);
             }); 
     	    
-    	    var options = {'title':'Number of Severe Security Violations', 'width':750, 'height':400};    	    
+    	    var options = {'title':'Severe Security Violations', 'width':750, 'height':400, colors: ['red', 'green', 'orange']};    	    
     	    var chart = new google.visualization.ColumnChart(document.getElementById ('severeSecurityViolationsChart'));
     	    chart.draw(data, options);
     	 }
@@ -165,7 +165,7 @@
                 data.addRow([ `${period}`, parseInt(`${countA}`), parseInt(`${countB}`), parseInt(`${countC}`) ]);
             }); 
     	    
-    	    var options = {'title':'Number of Critical License Violations', 'width':750, 'height':400};    	    
+    	    var options = {'title':'Critical License Violations', 'width':750, 'height':400, colors: ['red', 'green', 'orange']};    	    
     	    var chart = new google.visualization.ColumnChart(document.getElementById ('criticalLicenseViolationsChart'));
     	    chart.draw(data, options);
     	 }
@@ -193,7 +193,7 @@
                 data.addRow([ `${period}`, parseInt(`${countA}`), parseInt(`${countB}`), parseInt(`${countC}`) ]);
             }); 
     	    
-    	    var options = {'title':'Number of Severe License Violations', 'width':750, 'height':400};    	    
+    	    var options = {'title':'Severe License Violations', 'width':750, 'height':400, colors: ['red', 'green', 'orange']};    	    
     	    var chart = new google.visualization.ColumnChart(document.getElementById ('severeLicenseViolationsChart'));
     	    chart.draw(data, options);
     	 }
@@ -222,7 +222,7 @@
                 data.addRow([ `${period}`, parseInt(`${countA}`), parseInt(`${countB}`), parseInt(`${countC}`) ]);
             }); 
     	    
-    	    var options = {'title':'Number of Open Security Violations', 'width':750, 'height':400};    	    
+    	    var options = {'title':'Open Security Violations', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};    	    
     	    var chart = new google.visualization.ColumnChart(document.getElementById ('openSecurityViolationsChart'));
     	    chart.draw(data, options);
     	 }
@@ -251,7 +251,7 @@
                 data.addRow([ `${period}`, parseInt(`${countA}`), parseInt(`${countB}`), parseInt(`${countC}`) ]);
             }); 
     	    
-    	    var options = {'title':'Number of Open License Violations', 'width':750, 'height':400};    	    
+    	    var options = {'title':'Open License Violations', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};    	    
     	    var chart = new google.visualization.ColumnChart(document.getElementById ('openLicenseViolationsChart'));
     	    chart.draw(data, options);
     	 }
@@ -280,7 +280,7 @@
                 data.addRow([ `${period}`, parseInt(`${countA}`), parseInt(`${countB}`), parseInt(`${countC}`) ]);
             }); 
     	    
-    	    var options = {'title':'MTTR (Days)', 'width':750, 'height':400};    	    
+    	    var options = {'title':'MTTR (Days)', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};    	    
     	    var chart = new google.visualization.ColumnChart(document.getElementById ('mttrChart'));
     	    chart.draw(data, options);
     	 }
@@ -290,24 +290,56 @@
       <div id="mttrChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
       
       
+      <h3>Current Risk (By Organisation)</h3>
+      <script th:inline="javascript">
+      	function organisationsOpenViolations() {
+          	var points = /*[[${organisationsOpenViolationsData}]]*/'noValue';
+
+    		var data = new google.visualization.DataTable();
+    	    data.addColumn('string', 'Organisation');
+    	    data.addColumn('number', 'Critical Violations');
+    	    data.addColumn('number', 'Severe Violations');
+    	    data.addColumn('number', 'Moderate Violations');
+    	    
+    	    points.forEach(entry => {
+                var period = entry.period;
+                var countA = entry.countA;
+                var countB = entry.countB;
+                var countC = entry.countC;
+                data.addRow([ `${period}`, parseInt(`${countA}`), parseInt(`${countB}`), parseInt(`${countC}`) ]);
+            }); 
+    	       
+    	    var table = new google.visualization.Table(document.getElementById ('organisationsOpenViolationsChart'));
+    	    table.draw(data, {showRowNumber: true, width: '100%'});
+    	 }
+      	
+        google.charts.setOnLoadCallback(organisationsOpenViolations);
+
+      </script>
+      <div id="organisationsOpenViolationsChart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
       
-      <h3>Most Critical Applications</h3>
+      
+      <h3>Current Risk (By Application)</h3>
 	  <script th:inline="javascript">
       	function mostCriticalApplications() {
           	var points = /*[[${mostCriticalApplicationsData}]]*/'noValue';
 
-    		var data = new google.visualization.DataTable();
+          	var data = new google.visualization.DataTable();
     	    data.addColumn('string', 'Application');
-    	    data.addColumn('number', 'Number of Critical Violations');
+    	    data.addColumn('number', 'Critical Violations');
+    	    data.addColumn('number', 'Severe Violations');
+    	    data.addColumn('number', 'Moderate Violations');
     	    
     	    points.forEach(entry => {
                 var period = entry.period;
-                var count = entry.count;
-                data.addRow([ `${period}`, parseInt(`${count}`) ]);
+                var countA = entry.countA;
+                var countB = entry.countB;
+                var countC = entry.countC;
+                data.addRow([ `${period}`, parseInt(`${countA}`), parseInt(`${countB}`), parseInt(`${countC}`) ]);
             }); 
     	       
     	    var table = new google.visualization.Table(document.getElementById ('mostCriticalApplicationsChart'));
-    	    table.draw(data, {showRowNumber: true, width: '100%', height: '25%'});
+    	    table.draw(data, {showRowNumber: true, width: '100%'});
     	 }
       	
         google.charts.setOnLoadCallback(mostCriticalApplications);
@@ -332,13 +364,14 @@
             }); 
     	       
     	    var table = new google.visualization.Table(document.getElementById ('mostScannedApplicationsChart'));
-    	    table.draw(data, {showRowNumber: true, width: '100%', height: '25%'});
+    	    table.draw(data, {showRowNumber: true, width: '100%'});
     	 }
       	
         google.charts.setOnLoadCallback(mostScannedApplications);
 
       </script>
       <div id="mostScannedApplicationsChart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
+      
       
    </body>
 </html>

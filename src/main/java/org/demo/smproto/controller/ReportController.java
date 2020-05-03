@@ -34,8 +34,8 @@ public class ReportController {
 		List<DataPoint1> applicationsOnboardedData = this.getDataPointsDP1(dataService.runSQLStatementDP1(SQLStatement.ApplicationsOnboarded));
 		model.addAttribute("applicationsOnboardedData", applicationsOnboardedData);
 		
-		List<DataPoint1> applicationsScannedData = this.getDataPointsDP1(dataService.runSQLStatementDP1(SQLStatement.ApplicationsScanned));
-		model.addAttribute("applicationsScannedData", applicationsScannedData);
+		List<DataPoint1> numberOfScansData = this.getDataPointsDP1(dataService.runSQLStatementDP1(SQLStatement.NumberOfScans));
+		model.addAttribute("numberOfScansData", numberOfScansData);
 		
 		List<DataPoint1> applicationScansData = this.getDataPointsDP1(dataService.runSQLStatementDP1(SQLStatement.ApplicationScans));
 		model.addAttribute("applicationScansData", applicationScansData);
@@ -58,7 +58,7 @@ public class ReportController {
 		List<DataPoint3> openSecurityViolationsData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.OpenSecurityViolations));
 		model.addAttribute("openSecurityViolationsData", openSecurityViolationsData);
 		
-		List<DataPoint1> mostCriticalApplicationsData = this.getDataPointsDP1(dataService.runSQLStatementDP1(SQLStatement.MostCriticalApplications));
+		List<DataPoint3> mostCriticalApplicationsData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.MostCriticalApplications));
 		model.addAttribute("mostCriticalApplicationsData", mostCriticalApplicationsData);
 		
 		List<DataPoint1> mostScannedApplicationsData = this.getDataPointsDP1(dataService.runSQLStatementDP1(SQLStatement.MostScannedApplications));
@@ -66,6 +66,10 @@ public class ReportController {
 		
 		List<DataPoint3> mttrData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.MTTR));
 		model.addAttribute("mttrData", mttrData);
+		
+		List<DataPoint3> organisationsOpenViolationsData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.OrganisationsOpenViolations));
+		model.addAttribute("organisationsOpenViolationsData", organisationsOpenViolationsData);
+
 
         return "report";
     }
@@ -82,7 +86,7 @@ public class ReportController {
 		List<DataPoint1> dataPoints = new ArrayList<DataPoint1>();
 
 		for (DataPoint1 dp : dataList) {
-			//log.info(dp.toString());
+			log.info(dp.toString());
 			dataPoints.add(dp);
 		}
 		
@@ -94,7 +98,7 @@ public class ReportController {
 		List<DataPoint3> dataPoints = new ArrayList<DataPoint3>();
 
 		for (DataPoint3 dp : dataList) {
-			//log.info(dp.toString());
+			log.info(dp.toString());
 			dataPoints.add(dp);
 		}
 		

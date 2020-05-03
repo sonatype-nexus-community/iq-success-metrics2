@@ -1,10 +1,11 @@
 #!/bin/bash
 
-inputfile=${1}
+period=${1}
 
 workdir=${HOME}/run_smproto
 
-outputfile=${workdir}/successmetrics.csv
+outputfile=${workdir}/${period}.csv
+inputfile=${workdir}/${period}.json
 
 iqurl=http://localhost:8070
 
@@ -14,6 +15,6 @@ iqurl=http://localhost:8070
 #login admin
 #password admin123
 
-curl -n -X POST -H "Accept: application/json" -H "Content-Type: application/json" -o ${outputfile} -d@${inputfile} ${iqurl}/api/v2/reports/metrics
+curl -n -X POST -H "Accept: text/csv" -H "Content-Type: application/json" -o ${outputfile} -d@${inputfile} ${iqurl}/api/v2/reports/metrics 
 
 
