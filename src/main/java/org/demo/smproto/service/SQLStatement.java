@@ -24,3 +24,5 @@ public class SQLStatement {
 	public static String ScannedApplications = "select count(distinct application_name) from metric where evaluation_count > 0 ";
 	
 }
+
+
