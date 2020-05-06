@@ -19,17 +19,17 @@
           	var points = /*[[${criticalSecurityViolationsData}]]*/'noValue';
 
     		var data = new google.visualization.DataTable();
-    	    data.addColumn('string', 'Period');
+    	    data.addColumn('string', 'label');
     	    data.addColumn('number', 'Discovered');
     	    data.addColumn('number', 'Fixed');
     	    data.addColumn('number', 'Waived');
     	    
     	    points.forEach(entry => {
-                var period = entry.period;
-                var countA = entry.countA;
-                var countB = entry.countB;
-                var countC = entry.countC;
-                data.addRow([ `${period}`, parseInt(`${countA}`), parseInt(`${countB}`), parseInt(`${countC}`) ]);
+                var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
             }); 
     	    
     	    var options = {'title':'Critical Security Violations', 'width':750, 'height':400, colors: ['red', 'green', 'orange']};    	    
@@ -47,17 +47,17 @@
           	var points = /*[[${severeSecurityViolationsData}]]*/'noValue';
 
     		var data = new google.visualization.DataTable();
-    	    data.addColumn('string', 'Period');
+    	    data.addColumn('string', 'label');
     	    data.addColumn('number', 'Discovered');
     	    data.addColumn('number', 'Fixed');
     	    data.addColumn('number', 'Waived');
     	    
     	    points.forEach(entry => {
-                var period = entry.period;
-                var countA = entry.countA;
-                var countB = entry.countB;
-                var countC = entry.countC;
-                data.addRow([ `${period}`, parseInt(`${countA}`), parseInt(`${countB}`), parseInt(`${countC}`) ]);
+                var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
             }); 
     	    
     	    var options = {'title':'Severe Security Violations', 'width':750, 'height':400, colors: ['red', 'green', 'orange']};    	    
@@ -74,17 +74,17 @@
           	var points = /*[[${moderateSecurityViolationsData}]]*/'noValue';
 
     		var data = new google.visualization.DataTable();
-    	    data.addColumn('string', 'Period');
+    	    data.addColumn('string', 'label');
     	    data.addColumn('number', 'Discovered');
     	    data.addColumn('number', 'Fixed');
     	    data.addColumn('number', 'Waived');
     	    
     	    points.forEach(entry => {
-                var period = entry.period;
-                var countA = entry.countA;
-                var countB = entry.countB;
-                var countC = entry.countC;
-                data.addRow([ `${period}`, parseInt(`${countA}`), parseInt(`${countB}`), parseInt(`${countC}`) ]);
+                var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
             }); 
     	    
     	    var options = {'title':'Moderate Security Violations', 'width':750, 'height':400, colors: ['red', 'green', 'orange']};    	    
@@ -101,17 +101,17 @@
           	var points = /*[[${openSecurityViolationsData}]]*/'noValue';
 
     		var data = new google.visualization.DataTable();
-    	    data.addColumn('string', 'Period');
+    	    data.addColumn('string', 'label');
     	    data.addColumn('number', 'Critical');
     	    data.addColumn('number', 'Severe');
     	    data.addColumn('number', 'Moderate');
     	    
     	    points.forEach(entry => {
-                var period = entry.period;
-                var countA = entry.countA;
-                var countB = entry.countB;
-                var countC = entry.countC;
-                data.addRow([ `${period}`, parseInt(`${countA}`), parseInt(`${countB}`), parseInt(`${countC}`) ]);
+                var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
             }); 
     	    
     	    var options = {'title':'Open Security Violations', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};    	    
