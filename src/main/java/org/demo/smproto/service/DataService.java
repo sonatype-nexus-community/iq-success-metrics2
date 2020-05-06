@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.demo.smproto.model.DataPoint;
 import org.demo.smproto.model.DataPoint1;
 import org.demo.smproto.model.DataPoint3;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class DataService implements IDataService {
 	@Autowired 
     private JdbcTemplate jtm;
 	
+	public List<DataPoint> runSQLStatement(String sqlStatement) {
+		return jtm.query(sqlStatement, new BeanPropertyRowMapper<>(DataPoint.class));  
+	}
 
 	public List<DataPoint3> runSQLStatementDP3(String sqlStatement) {
 		return jtm.query(sqlStatement, new BeanPropertyRowMapper<>(DataPoint3.class));  
@@ -33,6 +37,19 @@ public class DataService implements IDataService {
         	DataPoint1 point = new DataPoint1();
             point.setPeriod(rs.getString("period"));
             point.setCount(rs.getInt("count"));
+            return point;
+        }
+    }
+	
+	public class DataMapper implements RowMapper<DataPoint> {
+        @Override
+        public DataPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
+        	DataPoint point = new DataPoint();
+            point.setLabel(rs.getString("label"));
+            point.setPointA(rs.getInt("pointA"));
+            point.setPointB(rs.getInt("pointB"));
+            point.setPointC(rs.getInt("pointC"));
+            point.setPointD(rs.getInt("pointD"));
             return point;
         }
     }

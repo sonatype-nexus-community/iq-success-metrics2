@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.demo.smproto.SmprotoApplication;
+import org.demo.smproto.model.DataPoint;
 import org.demo.smproto.model.DataPoint1;
 import org.demo.smproto.model.DataPoint3;
 import org.demo.smproto.service.IDataService;
@@ -26,33 +27,33 @@ public class ReportController {
 	@Autowired 
 	private IDataService dataService;
 	
-	private static final Logger log = LoggerFactory.getLogger(SmprotoApplication.class);
+	private static final Logger log = LoggerFactory.getLogger(ReportController.class);
 
 	@GetMapping({"/report"})
     public String report(Model model) {
 				
-		List<DataPoint1> applicationsOnboardedData = this.getDataPointsDP1(dataService.runSQLStatementDP1(SQLStatement.ApplicationsOnboarded));
+		List<DataPoint> applicationsOnboardedData = this.getDataPoints(dataService.runSQLStatement(SQLStatement.ApplicationsOnboarded));
 		model.addAttribute("applicationsOnboardedData", applicationsOnboardedData);
 		
-		List<DataPoint1> numberOfScansData = this.getDataPointsDP1(dataService.runSQLStatementDP1(SQLStatement.NumberOfScans));
+		List<DataPoint> numberOfScansData = this.getDataPoints(dataService.runSQLStatement(SQLStatement.NumberOfScans));
 		model.addAttribute("numberOfScansData", numberOfScansData);
 		
-		List<DataPoint1> applicationScansData = this.getDataPointsDP1(dataService.runSQLStatementDP1(SQLStatement.ApplicationScans));
+		List<DataPoint> applicationScansData = this.getDataPoints(dataService.runSQLStatement(SQLStatement.ApplicationScans));
 		model.addAttribute("applicationScansData", applicationScansData);
 		
-		List<DataPoint1> lastTimePeriodStart = this.dataService.runSQLStatementDP1(SQLStatement.LatestTimePeriodStart);
-		String latestPeriod = lastTimePeriodStart.get(0).getPeriod();
+		List<DataPoint> lastTimePeriodStart = this.dataService.runSQLStatement(SQLStatement.LatestTimePeriodStart);
+		String latestPeriod = lastTimePeriodStart.get(0).getLabel();
 		
-        List<DataPoint3> organisationsOpenViolationsData = this.getDataPointsDP3(dataService.runSQLStatementDP3(this.AddWhereClause(SQLStatement.OrganisationsOpenViolations, latestPeriod, "ORGANIZATION_NAME")));
+        List<DataPoint> organisationsOpenViolationsData = this.getDataPoints(dataService.runSQLStatement(this.AddWhereClause(SQLStatement.OrganisationsOpenViolations, latestPeriod, "ORGANIZATION_NAME")));
 		model.addAttribute("organisationsOpenViolationsData", organisationsOpenViolationsData);
 
-		List<DataPoint3> mostCriticalApplicationsData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.MostCriticalApplications));
+		List<DataPoint> mostCriticalApplicationsData = this.getDataPoints(dataService.runSQLStatement(SQLStatement.MostCriticalApplications));
 		model.addAttribute("mostCriticalApplicationsData", mostCriticalApplicationsData);
 		
-		List<DataPoint1> mostScannedApplicationsData = this.getDataPointsDP1(dataService.runSQLStatementDP1(SQLStatement.MostScannedApplications));
+		List<DataPoint> mostScannedApplicationsData = this.getDataPoints(dataService.runSQLStatement(SQLStatement.MostScannedApplications));
 		model.addAttribute("mostScannedApplicationsData", mostScannedApplicationsData);
 		
-		List<DataPoint3> mttrData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.MTTR));
+		List<DataPoint> mttrData = this.getDataPoints(dataService.runSQLStatement(SQLStatement.MTTR));
 		model.addAttribute("mttrData", mttrData);
 		
 
@@ -83,6 +84,18 @@ public class ReportController {
 		List<DataPoint3> dataPoints = new ArrayList<DataPoint3>();
 
 		for (DataPoint3 dp : dataList) {
+			log.info(dp.toString());
+			dataPoints.add(dp);
+		}
+		
+		return dataPoints;
+	}
+	
+	private List<DataPoint> getDataPoints(List<DataPoint> dataList){
+		
+		List<DataPoint> dataPoints = new ArrayList<DataPoint>();
+
+		for (DataPoint dp : dataList) {
 			log.info(dp.toString());
 			dataPoints.add(dp);
 		}

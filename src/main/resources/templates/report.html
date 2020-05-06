@@ -22,9 +22,9 @@
     	    data.addColumn('number', 'Number of Scanned Applications - Cumulative');
     	    
     	    points.forEach(entry => {
-                var period = entry.period;
-                var count = entry.count;
-                data.addRow([ `${period}`, parseInt(`${count}`) ]);
+                var label = entry.label;
+                var point = entry.pointA;
+                data.addRow([ `${label}`, parseInt(`${point}`) ]);
             }); 
     	       
     	    var options = {'title':'Applications Onboarded (Scanned)', 'width':750, 'height':400};
@@ -49,9 +49,9 @@
     	    data.addColumn('number', 'Number of Scans');
     	    
     	    points.forEach(entry => {
-                var period = entry.period;
-                var count = entry.count;
-                data.addRow([ `${period}`, parseInt(`${count}`) ]);
+                var label = entry.label;
+                var point = entry.pointA;
+                data.addRow([ `${label}`, parseInt(`${point}`) ]);
             }); 
     	       
     	    var options = {'title':'Scans', 'width':750, 'height':400};
@@ -74,9 +74,9 @@
     	    data.addColumn('number', 'Number of Applications Scanned');
     	    
     	    points.forEach(entry => {
-                var period = entry.period;
-                var count = entry.count;
-                data.addRow([ `${period}`, parseInt(`${count}`) ]);
+                var label = entry.label;
+                var point = entry.pointA;
+                data.addRow([ `${label}`, parseInt(`${point}`) ]);
             }); 
     	       
     	    var options = {'title':'Applications Scanned', 'width':750, 'height':400};
@@ -273,11 +273,11 @@
     	    data.addColumn('number', 'Moderate');
     	    
     	    points.forEach(entry => {
-                var period = entry.period;
-                var countA = entry.countA;
-                var countB = entry.countB;
-                var countC = entry.countC;
-                data.addRow([ `${period}`, parseInt(`${countA}`), parseInt(`${countB}`), parseInt(`${countC}`) ]);
+                var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
             }); 
     	    
     	    var options = {'title':'MTTR (Days)', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};    	    
@@ -302,11 +302,11 @@
     	    data.addColumn('number', 'Moderate Violations');
     	    
     	    points.forEach(entry => {
-                var period = entry.period;
-                var countA = entry.countA;
-                var countB = entry.countB;
-                var countC = entry.countC;
-                data.addRow([ `${period}`, parseInt(`${countA}`), parseInt(`${countB}`), parseInt(`${countC}`) ]);
+    	    	var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
             }); 
     	       
     	    var table = new google.visualization.Table(document.getElementById ('organisationsOpenViolationsChart'));
@@ -331,11 +331,11 @@
     	    data.addColumn('number', 'Moderate Violations');
     	    
     	    points.forEach(entry => {
-                var period = entry.period;
-                var countA = entry.countA;
-                var countB = entry.countB;
-                var countC = entry.countC;
-                data.addRow([ `${period}`, parseInt(`${countA}`), parseInt(`${countB}`), parseInt(`${countC}`) ]);
+    	    	var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
             }); 
     	       
     	    var table = new google.visualization.Table(document.getElementById ('mostCriticalApplicationsChart'));
@@ -358,9 +358,9 @@
     	    data.addColumn('number', 'Number of Scans');
     	    
     	    points.forEach(entry => {
-                var period = entry.period;
-                var count = entry.count;
-                data.addRow([ `${period}`, parseInt(`${count}`) ]);
+                var label = entry.label;
+                var point = entry.pointA;
+                data.addRow([ `${label}`, parseInt(`${point}`) ]);
             }); 
     	       
     	    var table = new google.visualization.Table(document.getElementById ('mostScannedApplicationsChart'));
