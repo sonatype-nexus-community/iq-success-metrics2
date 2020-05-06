@@ -40,24 +40,12 @@ public class ReportController {
 		List<DataPoint1> applicationScansData = this.getDataPointsDP1(dataService.runSQLStatementDP1(SQLStatement.ApplicationScans));
 		model.addAttribute("applicationScansData", applicationScansData);
 		
-		List<DataPoint3> criticalSecurityViolationsData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.CriticalSecurityViolations));
-		model.addAttribute("criticalSecurityViolationsData", criticalSecurityViolationsData);
+		List<DataPoint1> lastTimePeriodStart = this.dataService.runSQLStatementDP1(SQLStatement.LatestTimePeriodStart);
+		String latestPeriod = lastTimePeriodStart.get(0).getPeriod();
 		
-		List<DataPoint3> severeSecurityViolationsData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.SevereSecurityViolations));
-		model.addAttribute("severeSecurityViolationsData", severeSecurityViolationsData);
-		
-		List<DataPoint3> criticalLicenseViolationsData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.CriticalLicenseViolations));
-		model.addAttribute("criticalLicenseViolationsData", criticalLicenseViolationsData);
-		
-		List<DataPoint3> severeLicenseViolationsData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.SevereLicenseViolations));
-		model.addAttribute("severeLicenseViolationsData", severeLicenseViolationsData);
-		
-		List<DataPoint3> openLicenseViolationsData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.OpenLicenseViolations));
-		model.addAttribute("openLicenseViolationsData", openLicenseViolationsData);
-		
-		List<DataPoint3> openSecurityViolationsData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.OpenSecurityViolations));
-		model.addAttribute("openSecurityViolationsData", openSecurityViolationsData);
-		
+        List<DataPoint3> organisationsOpenViolationsData = this.getDataPointsDP3(dataService.runSQLStatementDP3(this.AddWhereClause(SQLStatement.OrganisationsOpenViolations, latestPeriod, "ORGANIZATION_NAME")));
+		model.addAttribute("organisationsOpenViolationsData", organisationsOpenViolationsData);
+
 		List<DataPoint3> mostCriticalApplicationsData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.MostCriticalApplications));
 		model.addAttribute("mostCriticalApplicationsData", mostCriticalApplicationsData);
 		
@@ -67,9 +55,6 @@ public class ReportController {
 		List<DataPoint3> mttrData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.MTTR));
 		model.addAttribute("mttrData", mttrData);
 		
-		List<DataPoint3> organisationsOpenViolationsData = this.getDataPointsDP3(dataService.runSQLStatementDP3(SQLStatement.OrganisationsOpenViolations));
-		model.addAttribute("organisationsOpenViolationsData", organisationsOpenViolationsData);
-
 
         return "report";
     }
@@ -105,6 +90,9 @@ public class ReportController {
 		return dataPoints;
 	}
 	
+	private String AddWhereClause(String sql, String time_period_start, String group_by ) {
+		return sql + " where time_period_start = '" + time_period_start + "' group by " + group_by;
+	}
 	
 }
 
