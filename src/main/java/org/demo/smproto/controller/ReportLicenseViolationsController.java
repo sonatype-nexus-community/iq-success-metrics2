@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.demo.smproto.model.DataPoint;
-import org.demo.smproto.model.DataPoint3;
 import org.demo.smproto.service.IDataService;
 import org.demo.smproto.service.SQLStatement;
 import org.slf4j.Logger;
@@ -26,43 +25,19 @@ public class ReportLicenseViolationsController {
 	@GetMapping({"/reportLicenseViolations"})
     public String report(Model model) {
 				
-		List<DataPoint> criticalLicenseViolationsData = this.getDataPoints(dataService.runSQLStatement(SQLStatement.CriticalLicenseViolations));
+		List<DataPoint> criticalLicenseViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.CriticalLicenseViolations));
 		model.addAttribute("criticalLicenseViolationsData", criticalLicenseViolationsData);
 		
-		List<DataPoint> severeLicenseViolationsData = this.getDataPoints(dataService.runSQLStatement(SQLStatement.SevereLicenseViolations));
+		List<DataPoint> severeLicenseViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.SevereLicenseViolations));
 		model.addAttribute("severeLicenseViolationsData", severeLicenseViolationsData);
 		
-		List<DataPoint> moderateLicenseViolationsData = this.getDataPoints(dataService.runSQLStatement(SQLStatement.ModerateLicenseViolations));
+		List<DataPoint> moderateLicenseViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.ModerateLicenseViolations));
 		model.addAttribute("moderateLicenseViolationsData", moderateLicenseViolationsData);
 		
-		List<DataPoint> openLicenseViolationsData = this.getDataPoints(dataService.runSQLStatement(SQLStatement.OpenLicenseViolations));
+		List<DataPoint> openLicenseViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.OpenLicenseViolations));
 		model.addAttribute("openLicenseViolationsData", openLicenseViolationsData);
 		
         return "reportLicenseViolations";
     }
 	
-	private List<DataPoint3> getDataPointsDP3(List<DataPoint3> dataList){
-		
-		List<DataPoint3> dataPoints = new ArrayList<DataPoint3>();
-
-		for (DataPoint3 dp : dataList) {
-			log.info(dp.toString());
-			dataPoints.add(dp);
-		}
-		
-		return dataPoints;
-	}
-	
-private List<DataPoint> getDataPoints(List<DataPoint> dataList){
-		
-		List<DataPoint> dataPoints = new ArrayList<DataPoint>();
-
-		for (DataPoint dp : dataList) {
-			log.info(dp.toString());
-			dataPoints.add(dp);
-		}
-		
-		return dataPoints;
-	}
-
 }

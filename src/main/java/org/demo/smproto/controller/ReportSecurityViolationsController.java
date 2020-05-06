@@ -3,10 +3,7 @@ package org.demo.smproto.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.demo.smproto.SmprotoApplication;
 import org.demo.smproto.model.DataPoint;
-import org.demo.smproto.model.DataPoint1;
-import org.demo.smproto.model.DataPoint3;
 import org.demo.smproto.service.IDataService;
 import org.demo.smproto.service.SQLStatement;
 import org.slf4j.Logger;
@@ -32,16 +29,16 @@ public class ReportSecurityViolationsController {
 	@GetMapping({"/reportSecurityViolations"})
     public String report(Model model) {
 				
-		List<DataPoint> criticalSecurityViolationsData = this.getDataPoints(dataService.runSQLStatement(SQLStatement.CriticalSecurityViolations));
+		List<DataPoint> criticalSecurityViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.CriticalSecurityViolations));
 		model.addAttribute("criticalSecurityViolationsData", criticalSecurityViolationsData);
 		
-		List<DataPoint> severeSecurityViolationsData = this.getDataPoints(dataService.runSQLStatement(SQLStatement.SevereSecurityViolations));
+		List<DataPoint> severeSecurityViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.SevereSecurityViolations));
 		model.addAttribute("severeSecurityViolationsData", severeSecurityViolationsData);
 		
-		List<DataPoint> moderateSecurityViolationsData = this.getDataPoints(dataService.runSQLStatement(SQLStatement.ModerateSecurityViolations));
+		List<DataPoint> moderateSecurityViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.ModerateSecurityViolations));
 		model.addAttribute("moderateSecurityViolationsData", moderateSecurityViolationsData);
 		
-		List<DataPoint> openSecurityViolationsData = this.getDataPoints(dataService.runSQLStatement(SQLStatement.OpenSecurityViolations));
+		List<DataPoint> openSecurityViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.OpenSecurityViolations));
 		model.addAttribute("openSecurityViolationsData", openSecurityViolationsData);
 		
 
@@ -53,45 +50,7 @@ public class ReportSecurityViolationsController {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No data found");
     }
-	
-	
-	private List<DataPoint1> getDataPointsDP1(List<DataPoint1> dataList){
-		
-		List<DataPoint1> dataPoints = new ArrayList<DataPoint1>();
 
-		for (DataPoint1 dp : dataList) {
-			log.info(dp.toString());
-			dataPoints.add(dp);
-		}
-		
-		return dataPoints;
-	}
-	
-	private List<DataPoint3> getDataPointsDP3(List<DataPoint3> dataList){
-		
-		List<DataPoint3> dataPoints = new ArrayList<DataPoint3>();
-
-		for (DataPoint3 dp : dataList) {
-			log.info(dp.toString());
-			dataPoints.add(dp);
-		}
-		
-		return dataPoints;
-	}
-	
-	private List<DataPoint> getDataPoints(List<DataPoint> dataList){
-		
-		List<DataPoint> dataPoints = new ArrayList<DataPoint>();
-
-		for (DataPoint dp : dataList) {
-			log.info(dp.toString());
-			dataPoints.add(dp);
-		}
-		
-		return dataPoints;
-	}
-	
-	
 	
 }
 
