@@ -96,6 +96,97 @@
       </script>
       <div id="moderateSecurityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
       
+      
+      
+      <script th:inline="javascript">
+      	function discoveredSecurityViolations() {
+          	var points = /*[[${discoveredSecurityViolationsData}]]*/'noValue';
+
+    		var data = new google.visualization.DataTable();
+    	    data.addColumn('string', 'label');
+    	    data.addColumn('number', 'Critical');
+    	    data.addColumn('number', 'Severe');
+    	    data.addColumn('number', 'Moderate');
+    	    
+    	    points.forEach(entry => {
+                var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
+            }); 
+    	    
+    	    var options = {'title':'Discovered Security Violations', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};    	    
+    	    var chart = new google.visualization.ColumnChart(document.getElementById ('discoveredSecurityViolationsChart'));
+    	    chart.draw(data, options);
+    	 }
+  		google.charts.setOnLoadCallback(discoveredSecurityViolations);
+
+      </script>
+      <div id="discoveredSecurityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+      
+      
+      <script th:inline="javascript">
+      	function fixedSecurityViolations() {
+          	var points = /*[[${fixedSecurityViolationsData}]]*/'noValue';
+
+    		var data = new google.visualization.DataTable();
+    	    data.addColumn('string', 'label');
+    	    data.addColumn('number', 'Critical');
+    	    data.addColumn('number', 'Severe');
+    	    data.addColumn('number', 'Moderate');
+    	    
+    	    points.forEach(entry => {
+                var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
+            }); 
+    	    
+    	    var options = {'title':'Fixed Security Violations', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};    	    
+    	    var chart = new google.visualization.ColumnChart(document.getElementById ('fixedSecurityViolationsChart'));
+    	    chart.draw(data, options);
+    	 }
+  		google.charts.setOnLoadCallback(fixedSecurityViolations);
+
+      </script>
+      <div id="fixedSecurityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+      
+      <script th:inline="javascript">
+      	function waivedSecurityViolations() {
+          	var points = /*[[${waivedSecurityViolationsData}]]*/'noValue';
+
+    		var data = new google.visualization.DataTable();
+    	    data.addColumn('string', 'label');
+    	    data.addColumn('number', 'Critical');
+    	    data.addColumn('number', 'Severe');
+    	    data.addColumn('number', 'Moderate');
+    	    
+    	    points.forEach(entry => {
+                var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
+            }); 
+    	    
+    	    var options = {'title':'Waived Security Violations', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};    	    
+    	    var chart = new google.visualization.ColumnChart(document.getElementById ('waivedSecurityViolationsChart'));
+    	    chart.draw(data, options);
+    	 }
+  		google.charts.setOnLoadCallback(waivedSecurityViolations);
+
+      </script>
+      <div id="waivedSecurityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+      
+      
+      
+      
+      
+      
+      
+      
        <script th:inline="javascript">
       	function openSecurityViolations() {
           	var points = /*[[${openSecurityViolationsData}]]*/'noValue';

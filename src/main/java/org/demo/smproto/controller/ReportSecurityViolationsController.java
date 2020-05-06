@@ -38,6 +38,16 @@ public class ReportSecurityViolationsController {
 		List<DataPoint> moderateSecurityViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.ModerateSecurityViolations));
 		model.addAttribute("moderateSecurityViolationsData", moderateSecurityViolationsData);
 		
+		List<DataPoint> discoveredSecurityViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.DiscoveredSecurityViolations));
+		model.addAttribute("discoveredSecurityViolationsData", discoveredSecurityViolationsData);
+		
+		List<DataPoint> fixedSecurityViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.FixedSecurityViolations));
+		model.addAttribute("fixedSecurityViolationsData", fixedSecurityViolationsData);
+		
+		List<DataPoint> waivedSecurityViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.WaivedSecurityViolations));
+		model.addAttribute("waivedSecurityViolationsData", waivedSecurityViolationsData);
+		
+		
 		List<DataPoint> openSecurityViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.OpenSecurityViolations));
 		model.addAttribute("openSecurityViolationsData", openSecurityViolationsData);
 		

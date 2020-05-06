@@ -25,6 +25,14 @@ public class SQLStatement {
 	public static String OrganisationsOpenViolations = "select  distinct organization_name as label, sum(OPEN_COUNT_AT_TIME_PERIOD_END_SECURITY_CRITICAL ) as pointA, sum(OPEN_COUNT_AT_TIME_PERIOD_END_SECURITY_SEVERE ) as pointB, sum(OPEN_COUNT_AT_TIME_PERIOD_END_SECURITY_MODERATE ) as pointC from metric";
 	
 	public static String LatestTimePeriodStart = "select distinct time_period_start as label, 0 as pointA from metric order by 1 desc limit 1";
+	
+	public static String DiscoveredSecurityViolations = "select time_period_start as label, sum(discovered_Count_Security_Critical) as pointA, sum(discovered_Count_Security_Severe) as pointB, sum(discovered_Count_Security_Moderate) as pointC from metric group by time_period_start";
+	public static String FixedSecurityViolations = "select time_period_start as label, sum(fixed_Count_Security_Critical) as pointA, sum(fixed_Count_Security_Severe) as pointB, sum(fixed_Count_Security_Moderate) as pointC from metric group by time_period_start";
+	public static String WaivedSecurityViolations = "select time_period_start as label, sum(waived_Count_Security_Critical) as pointA, sum(waived_Count_Security_Severe) as pointB, sum(waived_Count_Security_Moderate) as pointC from metric group by time_period_start";
+
+	public static String DiscoveredLicenseViolations = "select time_period_start as label, sum(discovered_Count_License_Critical) as pointA, sum(discovered_Count_License_Severe) as pointB, sum(discovered_Count_License_Moderate) as pointC from metric group by time_period_start";
+	public static String FixedLicenseViolations = "select time_period_start as label, sum(fixed_Count_License_Critical) as pointA, sum(fixed_Count_License_Severe) as pointB, sum(fixed_Count_License_Moderate) as pointC from metric group by time_period_start";
+	public static String WaivedLicenseViolations = "select time_period_start as label, sum(waived_Count_License_Critical) as pointA, sum(waived_Count_License_Severe) as pointB, sum(waived_Count_License_Moderate) as pointC from metric group by time_period_start";
 }
 
 

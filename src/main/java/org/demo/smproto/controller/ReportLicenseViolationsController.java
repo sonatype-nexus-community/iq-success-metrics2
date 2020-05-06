@@ -34,6 +34,15 @@ public class ReportLicenseViolationsController {
 		List<DataPoint> moderateLicenseViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.ModerateLicenseViolations));
 		model.addAttribute("moderateLicenseViolationsData", moderateLicenseViolationsData);
 		
+		List<DataPoint> discoveredLicenseViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.DiscoveredLicenseViolations));
+	    model.addAttribute("discoveredLicenseViolationsData", discoveredLicenseViolationsData);
+
+	    List<DataPoint> fixedLicenseViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.FixedLicenseViolations));
+	    model.addAttribute("fixedLicenseViolationsData", fixedLicenseViolationsData);
+	    
+	    List<DataPoint> waivedLicenseViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.WaivedLicenseViolations));
+	    model.addAttribute("waivedLicenseViolationsData", waivedLicenseViolationsData);
+		
 		List<DataPoint> openLicenseViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.OpenLicenseViolations));
 		model.addAttribute("openLicenseViolationsData", openLicenseViolationsData);
 		
