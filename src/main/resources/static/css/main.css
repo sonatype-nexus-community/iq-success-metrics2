@@ -9,6 +9,28 @@
 }
 
 tbody td {
-    font-size: 75%;
+    font-size: 50%;
 }
 
+.summary-table {
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 48px;
+} 
+
+tr:hover {background-color: lightgrey;}
+
+span {
+	color: blue;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.line-description {
+	font-size: 20px;
+	font-style: italic;
+}
+
+.reduced-risk {
+	color: blue;
+}

@@ -7,6 +7,7 @@ import org.demo.smproto.service.IMetricsRepositoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,8 @@ public class DataController {
 	@GetMapping({"/data"})
 	public String data(Model model) {
 		
-		List<Metric> metrics = metricsService.findAll();
+
+		List<Metric> metrics = metricsService.findByOrderByTimePeriodStartAsc();
 		
         if (metrics.isEmpty()) {
         	log.info("DataController: No metrics data");

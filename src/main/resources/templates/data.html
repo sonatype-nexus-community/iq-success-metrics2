@@ -16,24 +16,34 @@
   <table class="table table-striped" th:if="${status}">
       <thead>
       <tr>
-          <th scope="col">Application Public Id</th>
-          <th scope="col">Application Name</th>
-          <th scope="col">Organisation Name</th>
-          <th scope="col">Time Period Start</th>
-          <th scope="col">Evaluation Count</th>
-          <th scope="col">Organisation Id</th>
-          <th scope="col">Application Id</th>
+          <th scope="col">Organisation</th>
+          <th scope="col">Application</th>
+          <th scope="col">Period</th>
+          <th scope="col">Evaluations</th>
+          <th scope="col">Disc.Sec.Cri</th>
+          <th scope="col">Fix.Sec.Cri</th>
+          <th scope="col">Waiv.Sec.Cri</th>
+          <th scope="col">Open.Sec.Cri</th>
+          <th scope="col">Disc.Lic.Cri</th>
+          <th scope="col">Fix.Lic.Cri</th>
+          <th scope="col">Waiv.Lic.Cri</th>
+          <th scope="col">Open.Lic.Cri</th>
       </tr>
       </thead>
       <tbody>
       <tr th:each="metric : ${metrics}">
-          <td th:text="${metric.applicationPublicId}"></td>
-          <td th:text="${metric.applicationName}"></td>
           <td th:text="${metric.organizationName}"></td>
+          <td th:text="${metric.applicationPublicId}"></td>
           <td th:text="${metric.timePeriodStart}"></td>
           <td th:text="${metric.evaluationCount}"></td>
-          <td th:text="${metric.organizationId}"></td>
-          <td th:text="${metric.applicationId}"></td>
+          <td th:text="${metric.discoveredCountSecurityCritical}"></td>
+          <td th:text="${metric.fixedCountSecurityCritical}"></td>
+          <td th:text="${metric.waivedCountSecurityCritical}"></td>
+          <td th:text="${metric.openCountAtTimePeriodEndSecurityCritical}"></td>
+          <td th:text="${metric.discoveredCountLicenseCritical}"></td>
+          <td th:text="${metric.fixedCountLicenseCritical}"></td>
+          <td th:text="${metric.waivedCountLicenseCritical}"></td>
+          <td th:text="${metric.openCountAtTimePeriodEndLicenseCritical}"></td>
       </tr>
       </tbody>
   </table>

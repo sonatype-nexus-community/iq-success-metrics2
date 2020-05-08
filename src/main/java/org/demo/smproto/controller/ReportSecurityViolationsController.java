@@ -29,27 +29,22 @@ public class ReportSecurityViolationsController {
 	@GetMapping({"/reportSecurityViolations"})
     public String report(Model model) {
 				
-		List<DataPoint> criticalSecurityViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.CriticalSecurityViolations));
-		model.addAttribute("criticalSecurityViolationsData", criticalSecurityViolationsData);
-		
-		List<DataPoint> severeSecurityViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.SevereSecurityViolations));
-		model.addAttribute("severeSecurityViolationsData", severeSecurityViolationsData);
-		
-		List<DataPoint> moderateSecurityViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.ModerateSecurityViolations));
-		model.addAttribute("moderateSecurityViolationsData", moderateSecurityViolationsData);
-		
-		List<DataPoint> discoveredSecurityViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.DiscoveredSecurityViolations));
-		model.addAttribute("discoveredSecurityViolationsData", discoveredSecurityViolationsData);
-		
-		List<DataPoint> fixedSecurityViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.FixedSecurityViolations));
-		model.addAttribute("fixedSecurityViolationsData", fixedSecurityViolationsData);
-		
-		List<DataPoint> waivedSecurityViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.WaivedSecurityViolations));
-		model.addAttribute("waivedSecurityViolationsData", waivedSecurityViolationsData);
+		// Report Security
 		
 		
-		List<DataPoint> openSecurityViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.OpenSecurityViolations));
-		model.addAttribute("openSecurityViolationsData", openSecurityViolationsData);
+		model.addAttribute("criticalSecurityViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.CriticalSecurityViolations)));
+		
+		model.addAttribute("severeSecurityViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.SevereSecurityViolations)));
+		
+		model.addAttribute("moderateSecurityViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.ModerateSecurityViolations)));
+		
+		model.addAttribute("discoveredSecurityViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.DiscoveredSecurityViolations)));
+		
+		model.addAttribute("fixedSecurityViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.FixedSecurityViolations)));
+		
+		model.addAttribute("waivedSecurityViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.WaivedSecurityViolations)));
+		
+		model.addAttribute("openSecurityViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.OpenSecurityViolations)));
 		
 
         return "reportSecurityViolations";
@@ -60,8 +55,6 @@ public class ReportSecurityViolationsController {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No data found");
     }
-
-	
 }
 
 

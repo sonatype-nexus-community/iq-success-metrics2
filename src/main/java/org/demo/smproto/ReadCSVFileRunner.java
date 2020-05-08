@@ -21,6 +21,7 @@ import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
+
 @Component
 public class ReadCSVFileRunner implements CommandLineRunner {
 	
@@ -38,7 +39,7 @@ public class ReadCSVFileRunner implements CommandLineRunner {
 		Path csvFileName = osName.getCSVFileName();
 	    
 		log.info("Reading csv file: " + csvFileName);
-		
+	
 		List<Metric> metrics = null;
 		
 		BufferedReader reader = null;
@@ -60,12 +61,18 @@ public class ReadCSVFileRunner implements CommandLineRunner {
             if (reader != null) reader.close();
 		}
 		
+		log.info("Loading database...");
+
 		for (Metric m : metrics) {
 			//log.info("metric: " + m);
 			repository.save(new Metric(m));
 		}
 		
+		System.out.print("");
+
+		
 		log.info("Number of entries: " + metrics.size());
+		log.info("Ready for browsing");
 
 	}
 }

@@ -32,7 +32,7 @@ public class DataService implements IDataService {
         public DataPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
         	DataPoint point = new DataPoint();
             point.setLabel(rs.getString("label"));
-            point.setPointA(rs.getInt("pointA"));
+            point.setPointA(rs.getFloat("pointA"));
             point.setPointB(rs.getInt("pointB"));
             point.setPointC(rs.getInt("pointC"));
             point.setPointD(rs.getInt("pointD"));

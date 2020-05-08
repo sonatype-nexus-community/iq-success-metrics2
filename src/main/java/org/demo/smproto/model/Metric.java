@@ -33,13 +33,13 @@ public class Metric {
 	private int evaluationCount;
 
 	@CsvBindByName
-	private Long mttrLowThreat;
+	private float mttrLowThreat;
 	@CsvBindByName
-	private Long mttrModerateThreat;
+	private float mttrModerateThreat;
 	@CsvBindByName
-	private Long mttrSevereThreat;
+	private float mttrSevereThreat;
 	@CsvBindByName
-	private Long mttrCriticalThreat;
+	private float mttrCriticalThreat;
 
 	@CsvBindByName
 	private int discoveredCountSecurityLow;
@@ -435,7 +435,7 @@ public class Metric {
 		this.evaluationCount = evaluationCount;
 	}
 
-	public Long getMttrLowThreat() {
+	public float getMttrLowThreat() {
 		return mttrLowThreat;
 	}
 
@@ -443,7 +443,7 @@ public class Metric {
 		this.mttrLowThreat = mttrLowThreat;
 	}
 
-	public Long getMttrModerateThreat() {
+	public float getMttrModerateThreat() {
 		return mttrModerateThreat;
 	}
 
@@ -451,7 +451,7 @@ public class Metric {
 		this.mttrModerateThreat = mttrModerateThreat;
 	}
 
-	public Long getMttrSevereThreat() {
+	public float getMttrSevereThreat() {
 		return mttrSevereThreat;
 	}
 
@@ -459,7 +459,7 @@ public class Metric {
 		this.mttrSevereThreat = mttrSevereThreat;
 	}
 
-	public Long getMttrCriticalThreat() {
+	public float getMttrCriticalThreat() {
 		return mttrCriticalThreat;
 	}
 

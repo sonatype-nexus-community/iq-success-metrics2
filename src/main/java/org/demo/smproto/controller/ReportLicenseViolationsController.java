@@ -25,26 +25,22 @@ public class ReportLicenseViolationsController {
 	@GetMapping({"/reportLicenseViolations"})
     public String report(Model model) {
 				
-		List<DataPoint> criticalLicenseViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.CriticalLicenseViolations));
-		model.addAttribute("criticalLicenseViolationsData", criticalLicenseViolationsData);
+		// Report License
 		
-		List<DataPoint> severeLicenseViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.SevereLicenseViolations));
-		model.addAttribute("severeLicenseViolationsData", severeLicenseViolationsData);
 		
-		List<DataPoint> moderateLicenseViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.ModerateLicenseViolations));
-		model.addAttribute("moderateLicenseViolationsData", moderateLicenseViolationsData);
-		
-		List<DataPoint> discoveredLicenseViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.DiscoveredLicenseViolations));
-	    model.addAttribute("discoveredLicenseViolationsData", discoveredLicenseViolationsData);
+		model.addAttribute("criticalLicenseViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.CriticalLicenseViolations)));
+				
+		model.addAttribute("severeLicenseViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.SevereLicenseViolations)));
+				
+		model.addAttribute("moderateLicenseViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.ModerateLicenseViolations)));
+				
+		model.addAttribute("discoveredLicenseViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.DiscoveredLicenseViolations)));
 
-	    List<DataPoint> fixedLicenseViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.FixedLicenseViolations));
-	    model.addAttribute("fixedLicenseViolationsData", fixedLicenseViolationsData);
-	    
-	    List<DataPoint> waivedLicenseViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.WaivedLicenseViolations));
-	    model.addAttribute("waivedLicenseViolationsData", waivedLicenseViolationsData);
-		
-		List<DataPoint> openLicenseViolationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.OpenLicenseViolations));
-		model.addAttribute("openLicenseViolationsData", openLicenseViolationsData);
+		model.addAttribute("fixedLicenseViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.FixedLicenseViolations)));
+			    
+		model.addAttribute("waivedLicenseViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.WaivedLicenseViolations)));
+				
+		model.addAttribute("openLicenseViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.OpenLicenseViolations)));
 		
         return "reportLicenseViolations";
     }

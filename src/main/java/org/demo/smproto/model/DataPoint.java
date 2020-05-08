@@ -3,7 +3,7 @@ package org.demo.smproto.model;
 public class DataPoint {
 	
 	private String label;
-    private int pointA;
+    private float pointA;
     private int pointB;
     private int pointC;
     private int pointD;
@@ -26,12 +26,12 @@ public class DataPoint {
 		this.label = label;
 	}
 
-	public int getPointA() {
+	public float getPointA() {
 		return pointA;
 	}
 
-	public void setPointA(int pointA) {
-		this.pointA = pointA;
+	public void setPointA(float f) {
+		this.pointA = f;
 	}
 
 	public int getPointB() {
