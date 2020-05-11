@@ -58,7 +58,8 @@ Follow the links to see data and reports (If you want to access tha database use
 
 
 
-Quick start
+
+Quick start:
 
 ```
 cd sm-run
