@@ -10,7 +10,7 @@ git clone https://github.com/sotudeko/smproto.git
 cd ./smproto
 
 
-*Using the app **
+**Using the app**
 
 *1. Create a CSV file containing success metrics data*
 
@@ -51,7 +51,7 @@ When the file is loaded, you should see output similar to below after which app 
 --
 
 
-*3. Access the app*
+**3. Access the app**
 
 In a browser, go to http://localhost:4040
 
