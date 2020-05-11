@@ -1,10 +1,12 @@
 package org.demo.smproto.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.lang.Nullable;
 
 import com.opencsv.bean.CsvBindByName;
 
@@ -32,13 +34,21 @@ public class Metric {
 	@CsvBindByName
 	private int evaluationCount;
 
+	
 	@CsvBindByName
+	@Column(name = "mttrLowThreat", updatable = false, nullable = true)
 	private float mttrLowThreat;
+	
 	@CsvBindByName
+	@Column(name = "mttrModerateThreat", updatable = false, nullable = true)
 	private float mttrModerateThreat;
+	
 	@CsvBindByName
+	@Column(name = "mttrSevereThreat", updatable = false, nullable = true)
 	private float mttrSevereThreat;
+	
 	@CsvBindByName
+	@Column(name = "mttrCriticalThreat", updatable = false, nullable = true)
 	private float mttrCriticalThreat;
 
 	@CsvBindByName

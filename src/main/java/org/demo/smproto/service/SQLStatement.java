@@ -33,6 +33,15 @@ public class SQLStatement {
 	public static String DiscoveredLicenseViolations = "select time_period_start as label, sum(discovered_Count_License_Critical) as pointA, sum(discovered_Count_License_Severe) as pointB, sum(discovered_Count_License_Moderate) as pointC from metric group by time_period_start";
 	public static String FixedLicenseViolations = "select time_period_start as label, sum(fixed_Count_License_Critical) as pointA, sum(fixed_Count_License_Severe) as pointB, sum(fixed_Count_License_Moderate) as pointC from metric group by time_period_start";
 	public static String WaivedLicenseViolations = "select time_period_start as label, sum(waived_Count_License_Critical) as pointA, sum(waived_Count_License_Severe) as pointB, sum(waived_Count_License_Moderate) as pointC from metric group by time_period_start";
+	
+	
+	
+	
+	
+	//public static String InitDb = "CREATE TABLE METRIC (ID INT PRIMARY KEY, NAME VARCHAR(255)) AS SELECT * FROM CSVREAD('/var/tmp/successmetrics.csv')";
+	public static String InitDb = "CREATE TABLE METRIC2 AS SELECT * FROM CSVREAD('/var/tmp/successmetrics.csv')";
+
 }
 
 
+//CREATE TABLE TEST AS SELECT * FROM CSVREAD('test.csv');

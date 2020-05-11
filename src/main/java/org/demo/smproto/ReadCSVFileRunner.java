@@ -7,8 +7,11 @@ import java.util.List;
 import java.util.Locale;
 
 import org.demo.smproto.model.Metric;
+import org.demo.smproto.service.IDataService;
+import org.demo.smproto.service.IDatabaseService;
 import org.demo.smproto.service.IMetricsRepositoryService;
 import org.demo.smproto.service.OSNameService;
+import org.demo.smproto.service.SQLStatement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,12 @@ public class ReadCSVFileRunner implements CommandLineRunner {
 	
 	@Autowired
 	private OSNameService osName;
+	
+	@Autowired 
+	private IDataService dataService;
+	
+	@Autowired
+	private IDatabaseService dbService;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -62,16 +71,24 @@ public class ReadCSVFileRunner implements CommandLineRunner {
 		}
 		
 		log.info("Loading database...");
-
-		for (Metric m : metrics) {
-			//log.info("metric: " + m);
-			repository.save(new Metric(m));
-		}
 		
-		System.out.print("");
+		repository.saveAll(metrics);
 
+//		for (Metric m : metrics) {
+//			log.info("metric: " + m);
+//			repository.save(new Metric(m));
+//		}
+//		
+		System.out.print("");
+		
+		
+		
 		
 		log.info("Number of entries: " + metrics.size());
+		
+		
+		//dbService.LoadDb();
+		
 		log.info("Ready for browsing");
 
 	}
