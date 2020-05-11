@@ -45,9 +45,10 @@ You may also use the ./sm-build/build-jar.sh file to build a jar file which you 
 
 When the file is loaded, you should see output similar to below after which app is ready for access
 
-*020-05-11 19:07:30.554  INFO 88726 --- [           main] org.demo.smproto.ReadCSVFileRunner       : Number of entries: 52*
-*2020-05-11 19:07:30.554  INFO 88726 --- [           main] org.demo.smproto.ReadCSVFileRunner       : Ready for browsing*
-
+```
+*020-05-11 19:07:30.554  INFO 88726 --- [           main] org.demo.smproto.ReadCSVFileRunner       : Number of entries: 52
+2020-05-11 19:07:30.554  INFO 88726 --- [           main] org.demo.smproto.ReadCSVFileRunner       : Ready for browsing*
+```
 
 **3. Access the app**
 
@@ -60,16 +61,19 @@ Follow the links to see data and reports (If you want to access tha database use
 Quick start
 To run
 
-`cd sm-run`
-`./create-csv-file.sh [weekly|monthly]`
-`cd ..`
-`mvn clean spring-boot:run`
-
+```
+cd sm-run
+./create-csv-file.sh [weekly|monthly]
+cd ..
+mvn clean spring-boot:run
+```
 or if you want to build and run a jar file
 
-`cd ./sm-build`
-`./build-jar.sh`
-`cd ../sm-run`
-`./create-csv-file.sh [weekly|monthly]`
-`./run-app.sh <version>`
+```
+cd ./sm-build
+./build-jar.sh
+cd ../sm-run
+./create-csv-file.sh [weekly|monthly]
+./run-app.sh <version>
+```
 
