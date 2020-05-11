@@ -5,12 +5,12 @@
 git clone https://github.com/sotudeko/smproto.git
 
 
-** Go into the downloaded directory **
+**Go into the downloaded director **
 
 cd ./smproto
 
 
-** Using the app **
+*Using the app **
 
 *1. Create a CSV file containing success metrics data*
 
