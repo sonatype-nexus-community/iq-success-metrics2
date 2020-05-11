@@ -5,7 +5,7 @@
 `git clone https://github.com/sotudeko/smproto.git`
 
 
-*Go into the downloaded director*
+*Go into the downloaded directory*
 
 `cd ./smproto`
 
@@ -33,7 +33,7 @@ The output is saved to /var/tmp/successmetrics.csv
 
 This app is a simple web app running by default on port 4040
 
-By default, the app looks for the data in the file /var/tmp/successmetrics.csv 
+By default, the app looks for the data in the file */var/tmp/successmetrics.csv*
 
 This file is loaded on start-up of the app. Larger files may take a few mins.
 
@@ -41,7 +41,7 @@ In the smproto directory
 
 `mvn clean spring-boot:run`
 
-You may also use the ./sm-build/build-jar.sh file to build a jar file which you can then run with 'java -jar <jarfile>'
+You may also use the *./sm-build/build-jar.sh* file to build a jar file which you can then run with `java -jar <jarfile>`
 
 When the file is loaded, you should see output similar to below after which app is ready for access
 
