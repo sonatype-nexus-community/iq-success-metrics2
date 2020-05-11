@@ -46,7 +46,7 @@ You may also use the ./sm-build/build-jar.sh file to build a jar file which you 
 When the file is loaded, you should see output similar to below after which app is ready for access
 
 ```
-*020-05-11 19:07:30.554  INFO 88726 --- [           main] org.demo.smproto.ReadCSVFileRunner       : Number of entries: 52
+2020-05-11 19:07:30.554  INFO 88726 --- [           main] org.demo.smproto.ReadCSVFileRunner       : Number of entries: 52
 2020-05-11 19:07:30.554  INFO 88726 --- [           main] org.demo.smproto.ReadCSVFileRunner       : Ready for browsing*
 ```
 
@@ -59,7 +59,6 @@ Follow the links to see data and reports (If you want to access tha database use
 
 
 Quick start
-To run
 
 ```
 cd sm-run
