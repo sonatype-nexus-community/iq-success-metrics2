@@ -1,24 +1,24 @@
 
 
-Download the source code:
+**Download the source code:**
 
 git clone https://github.com/sotudeko/smproto.git
 
 
-Go into the downloaded directory
+** Go into the downloaded directory **
 
 cd ./smproto
 
 
-Using the app
+** Using the app **
 
-1. Create a CSV file containing success metrics data
+*1. Create a CSV file containing success metrics data*
 
 This is done by using the Success Metrics API to query IQ 
 
 Example:
 
-curl -u admin:admin123 -X POST -H "Accept: text/csv" -H "Content-Type: application/json" -o /var/tmp/successmetrics.csv -d@./sm-run/weekly.json http://localhost:8070/api/v2/reports/metrics 
+*curl -u admin:admin123 -X POST -H "Accept: text/csv" -H "Content-Type: application/json" -o /var/tmp/successmetrics.csv -d@./sm-run/weekly.json http://localhost:8070/api/v2/reports/metrics* 
 
 This command reads the file weekly.json in the sm-run current directory. It contains a payload describing data set to retrieve from IQ
 
@@ -29,7 +29,7 @@ There are examples of the payload content in the sm-run directory: weekly.json a
 The output is saved to /var/tmp/successmetrics.csv
 
 
-2. Start the app
+*2. Start the app*
 
 This app is a simple web app running by default on port 4040
 
@@ -51,7 +51,7 @@ When the file is loaded, you should see output similar to below after which app 
 --
 
 
-3. Access the app
+*3. Access the app*
 
 In a browser, go to http://localhost:4040
 
@@ -59,14 +59,13 @@ Follow the links to see data and reports (If you want to access tha database use
 
 
 
-
+Quick start
 To run
 
 cd sm-run
 ./create-csv-file.sh [weekly|monthly]
 cd ..
 mvn clean spring-boot:run
-
 
 or if you want to build and run a jar file
 
