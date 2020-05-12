@@ -9,6 +9,15 @@
 
 `cd ./smproto`
 
+**Quick start:**
+
+```
+cd dist
+tar xzvf smproto.tar.gz
+cd smproto
+./create-csv-file.sh weekly.json
+java -jar successmetrics2.jar
+```
 
 **Using the app**
 
@@ -39,6 +48,11 @@ This file is loaded on start-up of the app. Larger files may take a few mins.
 
 In the smproto directory
 
+Build and run
+`mvn clean package spring-boot:repackage`
+`java -jar target/smproto-<version>.jar`
+
+or just run:
 `mvn clean spring-boot:run`
 
 You may also use the *./sm-build/build-jar.sh* file to build a jar file which you can then run with `java -jar <jarfile>`
@@ -58,22 +72,4 @@ Follow the links to see data and reports (If you want to access tha database use
 
 
 
-
-**Quick start:**
-
-```
-cd sm-run
-./create-csv-file.sh [weekly|monthly]
-cd ..
-mvn clean spring-boot:run
-```
-or if you want to build and run a jar file
-
-```
-cd ./sm-build
-./build-jar.sh
-cd ../sm-run
-./create-csv-file.sh [weekly|monthly]
-./run-app.sh <version>
-```
 
