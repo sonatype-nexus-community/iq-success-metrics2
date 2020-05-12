@@ -12,11 +12,10 @@
 **Quick start:**
 
 ```
-cd dist
-tar xzvf smproto.tar.gz
-cd smproto
-./create-csv-file.sh weekly.json
-java -jar successmetrics2.jar
+cd runtime
+sh build.sh
+./create-csv-file.sh <iq-host-url> <iq-username> <iq-password> weekly.json
+sh run.sh
 ```
 
 **Using the app**
