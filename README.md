@@ -20,7 +20,7 @@ Example:
 
 `curl -u admin:admin123 -X POST -H "Accept: text/csv" -H "Content-Type: application/json" -o /var/tmp/successmetrics.csv -d@./sm-run/weekly.json http://localhost:8070/api/v2/reports/metrics`
 
-This command reads the file weekly.json in the sm-run current directory. It contains a payload describing data set to retrieve from IQ on my local machine.
+This command reads the file weekly.json in the sm-run current directory. It contains a payload describing data set to retrieve from IQ on my local machine (replace user name, password and IQ host url accordingly).
 
 More info: https://help.sonatype.com/iqserver/automating/rest-apis/success-metrics-data-rest-api---v2
 
