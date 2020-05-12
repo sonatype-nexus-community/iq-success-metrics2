@@ -7,6 +7,7 @@
 #password admin123
 
 
+# weekly or monthly
 period=${1}
 
 workdir=.
