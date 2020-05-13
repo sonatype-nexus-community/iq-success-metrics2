@@ -12,9 +12,9 @@
 **Quick start:**
 
 ```
-cd runtime
-sh build.sh
-./create-csv-file.sh <iq-host-url> <iq-username> <iq-password> weekly.json
+unzip quickstart.zip
+cd quickstart
+./create-csv-file.sh <iq-host-url> <iq-username> <iq-password> weekly.json # (or monthly.json)
 sh run.sh
 ```
 
