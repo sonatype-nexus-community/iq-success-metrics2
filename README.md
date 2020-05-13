@@ -34,14 +34,14 @@ More info: https://help.sonatype.com/iqserver/automating/rest-apis/success-metri
 
 There are examples of the payload content in the sm-run directory: weekly.json and monthly.json
 
-The output is saved to /var/tmp/successmetrics.csv
+The output is saved to /var/tmp/successmetrics.csv (On Windows, change to c:/temp)
 
 
 *2. Start the app*
 
 This app is a simple web app running by default on port 4040
 
-By default, the app looks for the data in the file */var/tmp/successmetrics.csv*
+By default, the app looks for the data in the file */var/tmp/successmetrics.csv (Windows: c:/temp/successmetrics.csv)*
 
 This file is loaded on start-up of the app. Larger files may take a few mins.
 
