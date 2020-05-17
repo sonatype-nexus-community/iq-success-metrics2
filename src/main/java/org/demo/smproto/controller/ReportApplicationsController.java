@@ -6,6 +6,7 @@ import java.util.List;
 import org.demo.smproto.model.DataPoint;
 import org.demo.smproto.service.CalculatorService;
 import org.demo.smproto.service.IDataService;
+import org.demo.smproto.service.QueryService;
 import org.demo.smproto.service.SQLStatement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,9 @@ public class ReportApplicationsController {
 	private IDataService dataService;
 	
 	@Autowired 
+	private QueryService qryService;
+	
+	@Autowired 
 	private CalculatorService calculator;
 	
 	private static final Logger log = LoggerFactory.getLogger(ReportApplicationsController.class);
@@ -33,27 +37,30 @@ public class ReportApplicationsController {
 	@GetMapping({"/report"})
     public String report(Model model) {
 						
-		
 		// Report Application
-	    
-	    
-		model.addAttribute("applicationsOnboardedData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.ApplicationsOnboarded)));
 		
-		model.addAttribute("numberOfScansData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.NumberOfScans)));
+		log.info("in ReportApplicationsController");
+
+	    
+		model.addAttribute("applicationsOnboardedData", qryService.getApplicationsOnboarded());
 		
-		model.addAttribute("applicationScansData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.ApplicationScans)));
+		model.addAttribute("numberOfScansData", qryService.getNumberOfScans());
+		
+		model.addAttribute("applicationScansData", qryService.getApplicationScans());
+				
+		//model.addAttribute("organisationsOpenViolationsData", qryService.getOrganisationsOpenViolations());
 		
 		String latestPeriod = dataService.executeSQL(SQLStatement.LatestTimePeriodStart).get(0).getLabel();
 		
 		model.addAttribute("organisationsOpenViolationsData", dataService.getDataPoints(dataService.executeSQL(calculator.AddWhereClause(SQLStatement.OrganisationsOpenViolations, latestPeriod, "ORGANIZATION_NAME"))));
 
-		model.addAttribute("mostCriticalApplicationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.ApplicationCriticalViolations)));
-		
-		model.addAttribute("mostScannedApplicationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.MostScannedApplications)));
-		
-		model.addAttribute("mttrData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.MTTR)));
-		
 
+		model.addAttribute("mostCriticalApplicationsData", qryService.getApplicationCriticalViolations());
+		
+		model.addAttribute("mostScannedApplicationsData", qryService.getMostScannedApplications());
+		
+		model.addAttribute("mttrData", qryService.getMTTR());
+		
         return "report";
     }
 	

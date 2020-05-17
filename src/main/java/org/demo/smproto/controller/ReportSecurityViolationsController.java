@@ -1,11 +1,6 @@
 package org.demo.smproto.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.demo.smproto.model.DataPoint;
-import org.demo.smproto.service.IDataService;
-import org.demo.smproto.service.SQLStatement;
+import org.demo.smproto.service.QueryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,30 +16,32 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ReportSecurityViolationsController {
 	
-	@Autowired 
-	private IDataService dataService;
 	
 	private static final Logger log = LoggerFactory.getLogger(ReportSecurityViolationsController.class);
+	
+	@Autowired 
+	private QueryService qryService;
 
 	@GetMapping({"/reportSecurityViolations"})
     public String report(Model model) {
 				
 		// Report Security
 		
+		log.info("in ReportSecurityViolationsController");
 		
-		model.addAttribute("criticalSecurityViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.CriticalSecurityViolations)));
-		
-		model.addAttribute("severeSecurityViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.SevereSecurityViolations)));
-		
-		model.addAttribute("moderateSecurityViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.ModerateSecurityViolations)));
-		
-		model.addAttribute("discoveredSecurityViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.DiscoveredSecurityViolations)));
-		
-		model.addAttribute("fixedSecurityViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.FixedSecurityViolations)));
-		
-		model.addAttribute("waivedSecurityViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.WaivedSecurityViolations)));
-		
-		model.addAttribute("openSecurityViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.OpenSecurityViolations)));
+		model.addAttribute("criticalSecurityViolationsData", qryService.getCriticalSecurityViolations());
+        
+	    model.addAttribute("severeSecurityViolationsData", qryService.getSevereSecurityViolations());
+	        
+	    model.addAttribute("moderateSecurityViolationsData", qryService.getModerateSecurityViolations());
+	        
+	    model.addAttribute("discoveredSecurityViolationsData", qryService.getDiscoveredSecurityViolations());
+
+	    model.addAttribute("fixedSecurityViolationsData", qryService.getFixedSecurityViolations());
+	          
+	    model.addAttribute("waivedSecurityViolationsData", qryService.getWaivedSecurityViolations());
+	        
+	    model.addAttribute("openSecurityViolationsData", qryService.getOpenSecurityViolations());
 		
 
         return "reportSecurityViolations";

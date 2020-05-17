@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.demo.smproto.model.Metric;
 import org.demo.smproto.service.IMetricsRepositoryService;
+import org.demo.smproto.service.QueryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,16 @@ public class DataController {
 	@Autowired
 	private IMetricsRepositoryService metricsService;
 	
+
+	@Autowired 
+	private QueryService qryService;
+	
+	
 	@GetMapping({"/data"})
 	public String data(Model model) {
 		
 
-		List<Metric> metrics = metricsService.findByOrderByTimePeriodStartAsc();
+		List<Metric> metrics = qryService.getAllMetrics();
 		
         if (metrics.isEmpty()) {
         	log.info("DataController: No metrics data");

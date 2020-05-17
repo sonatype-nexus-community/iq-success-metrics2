@@ -6,6 +6,7 @@ import org.demo.smproto.model.DataPoint;
 import org.demo.smproto.model.SummaryDataPoint;
 import org.demo.smproto.service.CalculatorService;
 import org.demo.smproto.service.IDataService;
+import org.demo.smproto.service.QueryService;
 import org.demo.smproto.service.SQLStatement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,10 @@ public class UnsignedReportController {
 	
 	@Autowired 
 	private CalculatorService calculator;
+	
+	@Autowired 
+	private QueryService qryService;
+
 	
 	private static final Logger log = LoggerFactory.getLogger(UnsignedReportController.class);
 	
@@ -94,57 +99,61 @@ public class UnsignedReportController {
 	    // Report Application
 	    
 	    
-		model.addAttribute("applicationsOnboardedData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.ApplicationsOnboarded)));
+	    model.addAttribute("applicationsOnboardedData", qryService.getApplicationsOnboarded());
 		
-		model.addAttribute("numberOfScansData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.NumberOfScans)));
+		model.addAttribute("numberOfScansData", qryService.getNumberOfScans());
 		
-		model.addAttribute("applicationScansData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.ApplicationScans)));
+		model.addAttribute("applicationScansData", qryService.getApplicationScans());
+				
+		//model.addAttribute("organisationsOpenViolationsData", qryService.getOrganisationsOpenViolations());
 		
 		String latestPeriod = dataService.executeSQL(SQLStatement.LatestTimePeriodStart).get(0).getLabel();
 		
 		model.addAttribute("organisationsOpenViolationsData", dataService.getDataPoints(dataService.executeSQL(calculator.AddWhereClause(SQLStatement.OrganisationsOpenViolations, latestPeriod, "ORGANIZATION_NAME"))));
 
-		model.addAttribute("mostCriticalApplicationsData", mostCriticalApplicationsData);
+
+		model.addAttribute("mostCriticalApplicationsData", qryService.getApplicationCriticalViolations());
 		
-		model.addAttribute("mostScannedApplicationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.MostScannedApplications)));
+		model.addAttribute("mostScannedApplicationsData", qryService.getMostScannedApplications());
 		
-		model.addAttribute("mttrData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.MTTR)));
+		model.addAttribute("mttrData", qryService.getMTTR());
+
 		
 	    
 	    // Report Security
 		
 		
-		model.addAttribute("criticalSecurityViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.CriticalSecurityViolations)));
-		
-		model.addAttribute("severeSecurityViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.SevereSecurityViolations)));
-		
-		model.addAttribute("moderateSecurityViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.ModerateSecurityViolations)));
-		
-		model.addAttribute("discoveredSecurityViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.DiscoveredSecurityViolations)));
-		
-		model.addAttribute("fixedSecurityViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.FixedSecurityViolations)));
-		
-		model.addAttribute("waivedSecurityViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.WaivedSecurityViolations)));
-		
-		model.addAttribute("openSecurityViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.OpenSecurityViolations)));
+		model.addAttribute("criticalSecurityViolationsData", qryService.getCriticalSecurityViolations());
+        
+	    model.addAttribute("severeSecurityViolationsData", qryService.getSevereSecurityViolations());
+	        
+	    model.addAttribute("moderateSecurityViolationsData", qryService.getModerateSecurityViolations());
+	        
+	    model.addAttribute("discoveredSecurityViolationsData", qryService.getDiscoveredSecurityViolations());
+
+	    model.addAttribute("fixedSecurityViolationsData", qryService.getFixedSecurityViolations());
+	          
+	    model.addAttribute("waivedSecurityViolationsData", qryService.getWaivedSecurityViolations());
+	        
+	    model.addAttribute("openSecurityViolationsData", qryService.getOpenSecurityViolations());
 		
 	    
 		// Report License
 		
 		
-		model.addAttribute("criticalLicenseViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.CriticalLicenseViolations)));
+		model.addAttribute("criticalLicenseViolationsData", qryService.getCriticalLicenseViolations());
 		
-		model.addAttribute("severeLicenseViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.SevereLicenseViolations)));
-		
-		model.addAttribute("moderateLicenseViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.ModerateLicenseViolations)));
-		
-	    model.addAttribute("discoveredLicenseViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.DiscoveredLicenseViolations)));
+		model.addAttribute("severeLicenseViolationsData", qryService.getSevereLicenseViolations());
+				
+		model.addAttribute("moderateLicenseViolationsData", qryService.getModerateLicenseViolations());
+				
+		model.addAttribute("discoveredLicenseViolationsData", qryService.getDiscoveredLicenseViolations());
 
-	    model.addAttribute("fixedLicenseViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.FixedLicenseViolations)));
-	    
-	    model.addAttribute("waivedLicenseViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.WaivedLicenseViolations)));
-		
-		model.addAttribute("openLicenseViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.OpenLicenseViolations)));
+		model.addAttribute("fixedLicenseViolationsData", qryService.getFixedLicenseViolations());
+			    
+		model.addAttribute("waivedLicenseViolationsData", qryService.getWaivedLicenseViolations());
+				
+		model.addAttribute("openLicenseViolationsData", qryService.getOpenLicenseViolations());
 	    
 	    
 		return "unsignedReport";

@@ -1,11 +1,6 @@
 package org.demo.smproto.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.demo.smproto.model.DataPoint;
-import org.demo.smproto.service.IDataService;
-import org.demo.smproto.service.SQLStatement;
+import org.demo.smproto.service.QueryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,31 +11,32 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ReportLicenseViolationsController {
 	
-	@Autowired 
-	private IDataService dataService;
-	
 	private static final Logger log = LoggerFactory.getLogger(ReportLicenseViolationsController.class);
 
+	@Autowired 
+	private QueryService qryService;
+	
 	
 	@GetMapping({"/reportLicenseViolations"})
     public String report(Model model) {
 				
 		// Report License
 		
-		
-		model.addAttribute("criticalLicenseViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.CriticalLicenseViolations)));
-				
-		model.addAttribute("severeLicenseViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.SevereLicenseViolations)));
-				
-		model.addAttribute("moderateLicenseViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.ModerateLicenseViolations)));
-				
-		model.addAttribute("discoveredLicenseViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.DiscoveredLicenseViolations)));
+		log.info("in ReportLicenseViolationsController");
 
-		model.addAttribute("fixedLicenseViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.FixedLicenseViolations)));
-			    
-		model.addAttribute("waivedLicenseViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.WaivedLicenseViolations)));
+		model.addAttribute("criticalLicenseViolationsData", qryService.getCriticalLicenseViolations());
 				
-		model.addAttribute("openLicenseViolationsData", dataService.getDataPoints(dataService.executeSQL(SQLStatement.OpenLicenseViolations)));
+		model.addAttribute("severeLicenseViolationsData", qryService.getSevereLicenseViolations());
+				
+		model.addAttribute("moderateLicenseViolationsData", qryService.getModerateLicenseViolations());
+				
+		model.addAttribute("discoveredLicenseViolationsData", qryService.getDiscoveredLicenseViolations());
+
+		model.addAttribute("fixedLicenseViolationsData", qryService.getFixedLicenseViolations());
+			    
+		model.addAttribute("waivedLicenseViolationsData", qryService.getWaivedLicenseViolations());
+				
+		model.addAttribute("openLicenseViolationsData", qryService.getOpenLicenseViolations());
 		
         return "reportLicenseViolations";
     }
