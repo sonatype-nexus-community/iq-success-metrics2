@@ -20,11 +20,11 @@
     </tr>
     
     <tr>
-    <td>- Performed <span th:text="${applicationScansAvg.total}"/> scans at an average of <span th:text="${applicationScansAvg.avg}"/> scans per <span th:text="${timePeriod}"/></td>
+    <td>- <span th:text="${applicationScansAvg.total}"/> unique applications scanned at an average of <span th:text="${applicationScansAvg.avg}"/> scans per <span th:text="${timePeriod}"/></td>
     </tr>
     
     <tr>
-    <td>- Discovered <span th:text="${countDiscoveredSecurityViolations}"/> violations (<span th:text="${countDiscoveredCriticalSecurityViolations}"/> of them Critical), fixing <span th:text="${countFixedSecurityViolations}"/> and waiving <span th:text="${countWaivedSecurityViolations}"/> of them</td>
+    <td>- Discovered <span th:text="${countDiscoveredSecurityViolations}"/> security violations (<span th:text="${countDiscoveredCriticalSecurityViolations}"/> of them Critical), fixing <span th:text="${countFixedSecurityViolations}"/> and waiving <span th:text="${countWaivedSecurityViolations}"/> of them</td>
     </tr>
     
     <tr><td class="line-description">&nbsp;&nbsp;&nbsp;(Critical, Severe and Moderate)</td></tr>
