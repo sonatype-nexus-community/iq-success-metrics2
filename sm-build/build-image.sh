@@ -1,4 +1,4 @@
 #/bin/bash
 
 cd ..
-docker build -t smproto .
+docker build -t successmetrics2:0.1 .

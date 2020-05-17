@@ -12,13 +12,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class OSNameService {
 	
-	@Value("${metrics.path.ux}")
+	@Value("${csvfile.path.ux}")
 	private String csvFileUxPath;
 	
-	@Value("${metrics.path.win}")
+	@Value("${csvfile.path.win}")
 	private String csvFileWinPath;
 	
-	@Value("${metrics.csvfile}")
+	@Value("${csvfile.name}")
 	private String csvFileName;
 
 	private Path csvfile;

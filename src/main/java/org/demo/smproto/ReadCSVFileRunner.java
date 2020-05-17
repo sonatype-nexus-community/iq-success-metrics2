@@ -81,11 +81,7 @@ public class ReadCSVFileRunner implements CommandLineRunner {
 //		
 		System.out.print("");
 		
-		
-		
-		
 		log.info("Number of entries: " + metrics.size());
-		
 		
 		//dbService.LoadDb();
 		

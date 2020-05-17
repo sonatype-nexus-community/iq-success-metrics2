@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 ARG JAR_FILE=target/*.jar
 
-COPY ${JAR_FILE} ./app.jar
+COPY ${JAR_FILE} ./successmetrics2.jar
 
-ENTRYPOINT ["java","-jar","./app.jar"]
+ENTRYPOINT ["java","-jar","./successmetrics2.jar"]
 
