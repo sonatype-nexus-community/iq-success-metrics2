@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class UnsignedReportController {
 	
+	private static final Logger log = LoggerFactory.getLogger(UnsignedReportController.class);
+
 	@Autowired 
 	private IDataService dataService;
 	
@@ -28,32 +30,31 @@ public class UnsignedReportController {
 	private QueryService qryService;
 
 	
-	private static final Logger log = LoggerFactory.getLogger(UnsignedReportController.class);
 	
 	@GetMapping({"/unsignedReport"})
 	public String unsignedReport(Model model) {
 		
-		
+		log.info("In UnsignedReportController");
 		// Summary
 		
 		String timePeriod = "week";
 		
 		model.addAttribute("timePeriod", timePeriod);
 
-		model.addAttribute("applicationsOnboardedAvg", calculator.applicationsOnboardedAverage(dataService.getDataPoints(dataService.executeSQL(SQLStatement.ApplicationsOnboarded))));
+		model.addAttribute("applicationsOnboardedAvg", calculator.applicationsOnboardedAverage( qryService.getApplicationsOnboarded()));
 		
-		model.addAttribute("numberOfScansAvg", calculator.sumAndAveragePointA(dataService.getDataPoints(dataService.executeSQL(SQLStatement.NumberOfScans))));
+		model.addAttribute("numberOfScansAvg", calculator.sumAndAveragePointA(qryService.getNumberOfScans()));
 		
-		model.addAttribute("applicationScansAvg", calculator.sumAndAveragePointA(dataService.getDataPoints(dataService.executeSQL(SQLStatement.ApplicationScans))));
+		model.addAttribute("applicationScansAvg", calculator.sumAndAveragePointA(qryService.getApplicationScans()));
 		
 		
-		int discoveredSecurityViolations = calculator.sumAllPoints(dataService.getDataPoints(dataService.executeSQL(SQLStatement.DiscoveredSecurityViolations)));
+		int discoveredSecurityViolations = calculator.sumAllPoints(qryService.getDiscoveredSecurityViolations());
 		
-		int discoveredLicenseViolations = calculator.sumAllPoints(dataService.getDataPoints(dataService.executeSQL(SQLStatement.DiscoveredLicenseViolations)));
+		int discoveredLicenseViolations = calculator.sumAllPoints(qryService.getDiscoveredLicenseViolations());
 
-		int fixedSecurityViolations = calculator.sumAllPoints(dataService.getDataPoints(dataService.executeSQL(SQLStatement.FixedSecurityViolations)));
+		int fixedSecurityViolations = calculator.sumAllPoints(qryService.getFixedSecurityViolations());
 		
-		int fixedLicenseViolations = calculator.sumAllPoints(dataService.getDataPoints(dataService.executeSQL(SQLStatement.FixedLicenseViolations)));
+		int fixedLicenseViolations = calculator.sumAllPoints(qryService.getFixedLicenseViolations());
 
 		
 	    int discovered = discoveredSecurityViolations + discoveredLicenseViolations;
@@ -63,14 +64,14 @@ public class UnsignedReportController {
 	    float reducedRisk = (((float)fixed/discovered) * 100);
 
 		
-	    int waivedSecurityViolations = calculator.sumAllPoints(dataService.getDataPoints(dataService.executeSQL(SQLStatement.WaivedLicenseViolations)));
+	    int waivedSecurityViolations = calculator.sumAllPoints(qryService.getWaivedSecurityViolations());
 		
-		int waivedLicenseViolations = calculator.sumAllPoints(dataService.getDataPoints(dataService.executeSQL(SQLStatement.WaivedLicenseViolations)));
+		int waivedLicenseViolations = calculator.sumAllPoints(qryService.getWaivedLicenseViolations());
 
 		
-		int discoveredCriticalLicenseViolations = calculator.sumPointA(dataService.getDataPoints(dataService.executeSQL(SQLStatement.DiscoveredLicenseViolations)));
+		int discoveredCriticalLicenseViolations = calculator.sumPointA(qryService.getDiscoveredLicenseViolations());
 	    
-		int discoveredCriticalSecurityViolations = calculator.sumPointA(dataService.getDataPoints(dataService.executeSQL(SQLStatement.DiscoveredSecurityViolations)));
+		int discoveredCriticalSecurityViolations = calculator.sumPointA(qryService.getDiscoveredSecurityViolations());
 
 		
 		model.addAttribute("countDiscoveredSecurityViolations", discoveredSecurityViolations + discoveredLicenseViolations);
@@ -84,7 +85,7 @@ public class UnsignedReportController {
 	    model.addAttribute("reducedRisk", String.format("%.02f", reducedRisk));
 	    
 	    
-	    List<DataPoint> mostCriticalApplicationsData = dataService.getDataPoints(dataService.executeSQL(SQLStatement.ApplicationCriticalViolations));
+	    List<DataPoint> mostCriticalApplicationsData = qryService.getApplicationCriticalViolations();
 	    
 	    model.addAttribute("applicationCriticalViolationsAvg", calculator.sumAndAveragePointA(mostCriticalApplicationsData));
 	    
@@ -92,7 +93,7 @@ public class UnsignedReportController {
 	    
 	    model.addAttribute("leastCriticalApplication", new SummaryDataPoint(mostCriticalApplicationsData.get(mostCriticalApplicationsData.size()-1).getLabel(), (int) (mostCriticalApplicationsData.get(mostCriticalApplicationsData.size()-1).getPointA())));
 	    	    
-	    model.addAttribute("mttrCriticalAvg", String.format("%.02f", calculator.averagePointA(dataService.getDataPoints(dataService.executeSQL(SQLStatement.MTTR)))));
+	    model.addAttribute("mttrCriticalAvg", String.format("%.02f", calculator.averagePointA(qryService.getMTTR())));
 		
 				
 	    

@@ -20,7 +20,7 @@ public class ReactMetricsController {
 	
 	@GetMapping({"/metrics"})
 	public List<Metric> metrics() {
-		log.info("running ReactMetricsController");
+		log.info("In ReactMetricsController");
 		
 		List<Metric> metrics = metricsService.findByOrderByTimePeriodStartAsc();
 		

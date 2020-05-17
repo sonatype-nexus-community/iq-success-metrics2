@@ -29,6 +29,9 @@ public class SummaryController {
 	@GetMapping({"/summary"})
 	public String summary(Model model) {
 		
+		log.info("In SummaryController");
+
+		
 		String timePeriod = "week";
 		
 		model.addAttribute("timePeriod", timePeriod);

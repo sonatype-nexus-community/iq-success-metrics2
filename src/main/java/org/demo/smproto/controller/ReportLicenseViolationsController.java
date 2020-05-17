@@ -22,7 +22,7 @@ public class ReportLicenseViolationsController {
 				
 		// Report License
 		
-		log.info("in ReportLicenseViolationsController");
+		log.info("In ReportLicenseViolationsController");
 
 		model.addAttribute("criticalLicenseViolationsData", qryService.getCriticalLicenseViolations());
 				

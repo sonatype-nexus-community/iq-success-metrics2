@@ -22,7 +22,7 @@ public class ReactUIController {
 	
 	@GetMapping({"/ui"})
 	public List<DataPoint> react() {
-		log.info("running ReactUIController");
+		log.info("In ReactUIController");
 		
 		List<DataPoint> metrics = dataService.getDataPoints(dataService.executeSQL(SQLStatement.ApplicationsOnboarded));
 

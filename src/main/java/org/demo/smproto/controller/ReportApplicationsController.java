@@ -39,7 +39,7 @@ public class ReportApplicationsController {
 						
 		// Report Application
 		
-		log.info("in ReportApplicationsController");
+		log.info("In ReportApplicationsController");
 
 	    
 		model.addAttribute("applicationsOnboardedData", qryService.getApplicationsOnboarded());

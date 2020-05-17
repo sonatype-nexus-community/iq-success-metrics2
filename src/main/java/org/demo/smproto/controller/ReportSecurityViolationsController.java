@@ -27,7 +27,7 @@ public class ReportSecurityViolationsController {
 				
 		// Report Security
 		
-		log.info("in ReportSecurityViolationsController");
+		log.info("In ReportSecurityViolationsController");
 		
 		model.addAttribute("criticalSecurityViolationsData", qryService.getCriticalSecurityViolations());
         
