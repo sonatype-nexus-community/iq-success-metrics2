@@ -16,6 +16,7 @@ unzip quickstart.zip
 cd quickstart
 ./create-csv-file.sh <iq-host-url> <iq-username> <iq-password> weekly.json # (or monthly.json)
 sh run.sh
+-- go the Run the app section below
 ```
 
 **Using the app**
@@ -37,7 +38,7 @@ There are examples of the payload content in the sm-run directory: weekly.json a
 The output is saved to /var/tmp/successmetrics.csv (On Windows, change to c:/temp)
 
 
-*2. Start the app*
+*2. Build the app*
 
 This app is a simple web app running by default on port 4040
 
@@ -56,18 +57,18 @@ or just run:
 
 You may also use the *./sm-build/build-jar.sh* file to build a jar file which you can then run with `java -jar <jarfile>`
 
-When the file is loaded, you should see output similar to below after which app is ready for access
+*3. Run the app*
+
+When you start the app and the csv file is loaded, you should see output similar to below after which app is ready for access
 
 ```
 2020-05-11 19:07:30.554  INFO 88726 --- [           main] org.demo.smproto.ReadCSVFileRunner       : Number of entries: 52
 2020-05-11 19:07:30.554  INFO 88726 --- [           main] org.demo.smproto.ReadCSVFileRunner       : Ready for browsing*
 ```
 
-**3. Access the app**
-
 In a browser, go to http://localhost:4040
 
-Follow the links to see data and reports (If you want to access tha database user=user password=install)
+Follow the links to see data and reports (If you want to access the database user=user password=install)
 
 
 
