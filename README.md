@@ -1,11 +1,17 @@
 
 
+**Download the source code:**
 
+`git clone https://github.com/sotudeko/smproto.git`
+
+
+*Go into the downloaded directory*
+
+`cd ./smproto`
 
 **Quick start:**
 
 ```
-download quickstart.zip
 unzip quickstart.zip
 cd quickstart
 
@@ -16,20 +22,11 @@ Linux/Unix:
 
 Windows:
 
-create-csvfile.bat <iq-host-url> <iq-username> <iq-password>
-run-app.bat
+./create-csvfile.bat <iq-host-url> <iq-username> <iq-password>
+./run-app.bat
 ```
 
 **Using the app**
-
-*Download the source code:*
-
-`git clone https://github.com/sotudeko/smproto.git`
-
-
-*Go into the downloaded directory*
-
-`cd ./smproto`
 
 *1. Create a CSV file containing success metrics data*
 
@@ -74,7 +71,7 @@ When the file is loaded, you should see output similar to below after which app 
 2020-05-11 19:07:30.554  INFO 88726 --- [           main] org.demo.smproto.ReadCSVFileRunner       : Ready for browsing*
 ```
 
-*3. Access and run the app*
+**3. Access the app**
 
 In a browser, go to http://localhost:4040
 
