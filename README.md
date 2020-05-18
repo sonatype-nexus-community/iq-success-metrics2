@@ -14,9 +14,10 @@ Windows:
 
 create-csvfile.bat <iq-host-url> <iq-username> <iq-password>
 run-app.bat
+
+*Continue with the Access the app section below*
 ```
 
-*Contimue with the Access the app section below*
 
 **Using the app**
 
@@ -28,6 +29,7 @@ run-app.bat
 *Go into the downloaded directory*
 
 `cd ./smproto`
+
 
 *2. Create a CSV file containing success metrics data*
 
