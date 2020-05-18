@@ -1,17 +1,7 @@
-
-
-**Download the source code:**
-
-`git clone https://github.com/sotudeko/smproto.git`
-
-
-*Go into the downloaded directory*
-
-`cd ./smproto`
-
 **Quick start:**
 
 ```
+download the quickstart.zip file
 unzip quickstart.zip
 cd quickstart
 
@@ -22,13 +12,24 @@ Linux/Unix:
 
 Windows:
 
-./create-csvfile.bat <iq-host-url> <iq-username> <iq-password>
-./run-app.bat
+create-csvfile.bat <iq-host-url> <iq-username> <iq-password>
+run-app.bat
 ```
+
+*Contimue with the Access the app section below*
 
 **Using the app**
 
-*1. Create a CSV file containing success metrics data*
+*1. Download the source code:*
+
+`git clone https://github.com/sotudeko/smproto.git`
+
+
+*Go into the downloaded directory*
+
+`cd ./smproto`
+
+*2. Create a CSV file containing success metrics data*
 
 This is done by using the Success Metrics API to query IQ 
 
@@ -42,10 +43,10 @@ More info: https://help.sonatype.com/iqserver/automating/rest-apis/success-metri
 
 There are examples of the payload content in the sm-run directory: weekly.json and monthly.json
 
-The output is saved to /var/tmp/successmetrics.csv (On Windows, change to c:/temp)
+The output is saved to /var/tmp/successmetrics.csv (On Windows, change to c:/temp/successmetrics.csv)
 
 
-*2. Start the app*
+*3. Build the app*
 
 This app is a simple web app running by default on port 4040
 
@@ -64,14 +65,15 @@ or just run:
 
 You may also use the *./sm-build/build-jar.sh* file to build a jar file which you can then run with `java -jar <jarfile>`
 
+
+*4. Access the app*
+
 When the file is loaded, you should see output similar to below after which app is ready for access
 
 ```
 2020-05-11 19:07:30.554  INFO 88726 --- [           main] org.demo.smproto.ReadCSVFileRunner       : Number of entries: 52
 2020-05-11 19:07:30.554  INFO 88726 --- [           main] org.demo.smproto.ReadCSVFileRunner       : Ready for browsing*
 ```
-
-**3. Access the app**
 
 In a browser, go to http://localhost:4040
 
