@@ -15,7 +15,7 @@ Windows:
 create-csvfile.bat <iq-host-url> <iq-username> <iq-password>
 run-app.bat
 
-*Continue with the Access the app section below*
+(Continue with the 'Access the app' section below)
 ```
 
 
