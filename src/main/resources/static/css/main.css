@@ -34,3 +34,9 @@ span {
 .reduced-risk {
 	color: blue;
 }
+
+IMG.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto 
+}
