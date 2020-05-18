@@ -14,8 +14,16 @@
 ```
 unzip quickstart.zip
 cd quickstart
-./create-csv-file.sh <iq-host-url> <iq-username> <iq-password> weekly.json # (or monthly.json)
-sh run.sh
+
+Linux/Unix:
+
+./create-csvfile.sh <iq-host-url> <iq-username> <iq-password>
+./run-app.sh
+
+Windows:
+
+./create-csvfile.bat <iq-host-url> <iq-username> <iq-password>
+./run-app.bat
 ```
 
 **Using the app**
