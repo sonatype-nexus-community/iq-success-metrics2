@@ -16,8 +16,8 @@ Linux/Unix:
 
 Windows:
 
-./create-csvfile.bat <iq-host-url> <iq-username> <iq-password>
-./run-app.bat
+create-csvfile.bat <iq-host-url> <iq-username> <iq-password>
+run-app.bat
 ```
 
 **Using the app**
