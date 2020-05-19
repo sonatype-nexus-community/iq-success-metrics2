@@ -2,9 +2,9 @@
 ##Getting Started
 
 **Download the java app for success metrics**
-..* Go to github:  https://github.com/sotudeko/smproto/
-..* Click on the *quickstart.zip* file, then download (there is a download button on the lower right)
-..* Unzip the contents to your directory of choice, then navigate to the quickstart directory
+  * Go to github:  https://github.com/sotudeko/smproto/
+  * Click on the *quickstart.zip* file, then download (there is a download button on the lower right)
+  * Unzip the contents to your directory of choice, then navigate to the quickstart directory
 
 ```
 unzip quickstart.zip
@@ -13,11 +13,11 @@ cd quickstart
 
 **Make Config Updates**
 
-..* Edit either the weekly.json or monthly.json to adjust the firstTimePeriod (the week or month to start reporting from) 
-..* (Additional information can be found here: https://help.sonatype.com/iqserver/automating/rest-apis/success-metrics-data-rest-api---v2).
+ * Edit either the weekly.json or monthly.json to adjust the firstTimePeriod (the week or month to start reporting from) 
+ * (Additional information can be found here: https://help.sonatype.com/iqserver/automating/rest-apis/success-metrics-data-rest-api---v2).
 
 **Create the csv file**
-..* Open a command prompt and run 
+ * Open a command prompt and run 
 
 ```
 Windows: create-csvfile.bat <iq-host-url> <iq-username> <iq-password> <periodFile>
@@ -34,14 +34,13 @@ The output is saved to c:/temp/successmetrics.csv (Windows) or /var/tmp/successm
 ```
 
 **Start the reporting app (you only need to keep it running long enough to review the reports and print them to PDF)**
-This app is a simple web app running by default on port 4040
+   This app is a simple web app running by default on port 4040. By default, the app looks for the data in the file */var/tmp/successmetrics.csv (LInux) or c:/temp/successmetrics.csv (Windows)*
 
-By default, the app looks for the data in the file */var/tmp/successmetrics.csv (Windows: c:/temp/successmetrics.csv)*
-
-Still within the command prompt window, run
-
+   Still within the command prompt window, run
+```
 Windows: run-app.bat file  
 Linux: run-app.sh
+```
 
 This file is loaded on start-up of the app. Larger files may take a few mins.
 
