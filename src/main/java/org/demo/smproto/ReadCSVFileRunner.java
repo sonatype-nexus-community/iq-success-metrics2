@@ -55,8 +55,8 @@ public class ReadCSVFileRunner implements CommandLineRunner {
 		
 		try {
 			
-			ColumnPositionMappingStrategy ms = new ColumnPositionMappingStrategy();
-		    ms.setType(Metric.class);
+			//ColumnPositionMappingStrategy ms = new ColumnPositionMappingStrategy();
+		    //ms.setType(Metric.class);
 		     
 			reader = Files.newBufferedReader(csvFileName);
 			
@@ -72,13 +72,13 @@ public class ReadCSVFileRunner implements CommandLineRunner {
 		
 		log.info("Loading database...");
 		
-		repository.saveAll(metrics);
+		//repository.saveAll(metrics);
 
-//		for (Metric m : metrics) {
-//			log.info("metric: " + m);
-//			repository.save(new Metric(m));
-//		}
-//		
+		for (Metric m : metrics) {
+			//log.info("metric: " + m);
+			repository.save(new Metric(m));
+		}
+		
 		System.out.print("");
 		
 		log.info("Number of entries: " + metrics.size());
