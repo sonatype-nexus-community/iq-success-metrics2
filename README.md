@@ -4,7 +4,7 @@
 **Download the java app for success metrics**
   * Go to github:  https://github.com/sotudeko/smproto/
   * Click on the *quickstart.zip* file, then download (there is a download button on the lower right)
-  * Unzip the contents to your directory of choice, then navigate to the quickstart directory
+  * Unzip the contents to your directory of choice, then navigate to the *quickstart* directory
 
 ```
 unzip quickstart.zip
@@ -13,7 +13,7 @@ cd quickstart
 
 **Make Config Updates**
 
- * Edit either the weekly.json or monthly.json to adjust the firstTimePeriod (the week or month to start reporting from) 
+ * Edit either the *weekly.json* or *monthly.json* file to adjust the firstTimePeriod (the week or month to start reporting from) 
  * (Additional information can be found here: https://help.sonatype.com/iqserver/automating/rest-apis/success-metrics-data-rest-api---v2).
 
 **Create the csv file**
@@ -21,10 +21,10 @@ cd quickstart
 
 ```
 Windows: create-csvfile.bat <iq-host-url> <iq-username> <iq-password> <periodFile>
-Linux: create-csvfile.sh <iq-host-url> <iq-username> <iq-password>   
+Linux: create-csvfile.sh <iq-host-url> <iq-username> <iq-password> <periodFile>
 
 iq-host-url - your Nexus IQ Url, but with no backslash at the end
-iq-username - your Nexus IQ user name that access to data set you'd likw to report on
+iq-username - your Nexus IQ user name that has access to data set you'd like to report on
 iq-password - your Nexus IQ password
 periodFile - weekly.json or monthly.json
 
@@ -33,9 +33,13 @@ Example:  create-csvfile.bat http://localhost:8070 admin admin123 weekly.json
 The output is saved to c:/temp/successmetrics.csv (Windows) or /var/tmp/successmetrics.csv (Linux)
 ```
 
-**Start the reporting app (you only need to keep it running long enough to review the reports and print them to PDF)**
+**Start the reporting app**
    
-   This app is a simple web app running by default on port 4040. By default, the app looks for the data in the file */var/tmp/successmetrics.csv (LInux) or c:/temp/successmetrics.csv (Windows)*
+   This app is a simple web app running by default on port 4040. 
+   
+   By default, the app looks for the data to load in the file */var/tmp/successmetrics.csv (LInux) or c:/temp/successmetrics.csv (Windows)*
+
+   You only need to keep the app running long enough to review the reports and print them to PDF
 
    Still within the command prompt window, run
 ```
@@ -43,7 +47,7 @@ Windows: run-app.bat file
 Linux: run-app.sh
 ```
 
-This file is loaded on start-up of the app. Larger files may take a few mins.
+The data file is loaded on start-up of the app. Larger files may take a few mins.
 
 When the file is loaded, you should see output similar to below after which app is ready for access
 
@@ -70,6 +74,7 @@ Should you wish to edit the source code:
 
   * Clone the repository
   * Make your changes
+  * At the root directory of the repo
 ```
 To test:
 `mvn clean spring-boot:run`
