@@ -1,5 +1,5 @@
 
-##Getting Started
+## Getting Started
 
 **Download the java app for success metrics**
   * Go to github:  https://github.com/sotudeko/smproto/
