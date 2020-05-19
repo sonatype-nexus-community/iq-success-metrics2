@@ -1,7 +1,10 @@
+
+##Getting Started
+
 **Download the java app for success metrics**
-Go to github:  https://github.com/sotudeko/smproto/
-Click on the *quickstart.zip* file, then download (there is a download button on the lower right)
-Unzip the contents to your directory of choice, then navigate to the quickstart directory
+..* Go to github:  https://github.com/sotudeko/smproto/
+..* Click on the *quickstart.zip* file, then download (there is a download button on the lower right)
+..* Unzip the contents to your directory of choice, then navigate to the quickstart directory
 
 ```
 unzip quickstart.zip
@@ -10,12 +13,13 @@ cd quickstart
 
 **Make Config Updates**
 
-Edit either the weekly.json or monthly.json to adjust the firstTimePeriod (the week or month to start reporting from) 
-(Additional information can be found here: https://help.sonatype.com/iqserver/automating/rest-apis/success-metrics-data-rest-api---v2).
+..* Edit either the weekly.json or monthly.json to adjust the firstTimePeriod (the week or month to start reporting from) 
+..* (Additional information can be found here: https://help.sonatype.com/iqserver/automating/rest-apis/success-metrics-data-rest-api---v2).
 
 **Create the csv file**
-Open a command prompt and run 
+..* Open a command prompt and run 
 
+```
 Windows: create-csvfile.bat <iq-host-url> <iq-username> <iq-password> <periodFile>
 Linux: create-csvfile.sh <iq-host-url> <iq-username> <iq-password>   
 
@@ -24,9 +28,10 @@ iq-username - your Nexus IQ user name that access to data set you'd likw to repo
 iq-password - your Nexus IQ password
 periodFile - weekly.json or monthly.json
 
-`Example:  create-csvfile.bat http://localhost:8070 admin admin123 weekly.json` 
+Example:  create-csvfile.bat http://localhost:8070 admin admin123 weekly.json
 
 The output is saved to c:/temp/successmetrics.csv (Windows) or /var/tmp/successmetrics.csv (Linux)
+```
 
 **Start the reporting app (you only need to keep it running long enough to review the reports and print them to PDF)**
 This app is a simple web app running by default on port 4040
