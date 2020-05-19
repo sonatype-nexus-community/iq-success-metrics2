@@ -28,7 +28,7 @@ iq-username - your Nexus IQ user name that has access to data set you'd like to 
 iq-password - your Nexus IQ password
 period - weekly or monthly
 
-Example:  create-csvfile.bat http://localhost:8070 admin admin123 weekly.json
+Example:  create-csvfile.bat http://localhost:8070 admin admin123 weekly
 
 The output is saved to c:/temp/successmetrics.csv (Windows) or /var/tmp/successmetrics.csv (Linux)
 ```
