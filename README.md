@@ -2,7 +2,6 @@
 ## Getting Started
 
 **Download the java app for success metrics**
-  * Go to github:  https://github.com/sotudeko/smproto/
   * Click on the *quickstart.zip* file, then download (there is a download button on the lower right)
   * Unzip the contents to your directory of choice, then navigate to the *quickstart* directory
 
