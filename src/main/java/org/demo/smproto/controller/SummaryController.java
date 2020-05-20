@@ -1,5 +1,6 @@
 package org.demo.smproto.controller;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import org.demo.smproto.model.DataPoint;
 import org.demo.smproto.model.SummaryDataPoint;
 import org.demo.smproto.service.CalculatorService;
 import org.demo.smproto.service.IDataService;
+import org.demo.smproto.service.QueryService;
 import org.demo.smproto.service.SQLStatement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,15 +26,18 @@ public class SummaryController {
 	@Autowired 
 	private CalculatorService calculator;
 	
+	@Autowired 
+	private QueryService qryService;
+
 	private static final Logger log = LoggerFactory.getLogger(SummaryController.class);
 	
 	@GetMapping({"/summary"})
-	public String summary(Model model) {
+	public String summary(Model model) throws ParseException {
 		
 		log.info("In SummaryController");
 
 		
-		String timePeriod = "week";
+		String timePeriod = qryService.getTimePeriod();
 		
 		model.addAttribute("timePeriod", timePeriod);
 

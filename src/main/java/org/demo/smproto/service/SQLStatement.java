@@ -31,6 +31,7 @@ public class SQLStatement {
 	
 	public static String LatestTimePeriodStart = "select distinct time_period_start as label, 0 as pointA from metric order by 1 desc limit 1";
 	
+	public static String TimePeriods = "select distinct time_period_start as label from metric order by 1";
 
 	//public static String InitDb = "CREATE TABLE METRIC (ID INT PRIMARY KEY, NAME VARCHAR(255)) AS SELECT * FROM CSVREAD('/var/tmp/successmetrics.csv')";
 	//public static String InitDb = "CREATE TABLE METRIC2 AS SELECT * FROM CSVREAD('/var/tmp/successmetrics.csv')";

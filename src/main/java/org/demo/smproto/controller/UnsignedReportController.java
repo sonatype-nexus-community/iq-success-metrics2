@@ -1,5 +1,6 @@
 package org.demo.smproto.controller;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.demo.smproto.model.DataPoint;
@@ -32,12 +33,12 @@ public class UnsignedReportController {
 	
 	
 	@GetMapping({"/unsignedReport"})
-	public String unsignedReport(Model model) {
+	public String unsignedReport(Model model) throws ParseException {
 		
 		log.info("In UnsignedReportController");
 		// Summary
 		
-		String timePeriod = "week";
+		String timePeriod = qryService.getTimePeriod();
 		
 		model.addAttribute("timePeriod", timePeriod);
 

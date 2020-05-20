@@ -7,7 +7,7 @@
 </head>
 <body>
       
-  <h1>Data</h1>
+  <h2>Success Metrics data</h2>
   
   <div class="alert alert-danger" role="alert" th:if="${!status}">
       <strong>Error:</strong>
@@ -29,6 +29,9 @@
           <th scope="col">Fix.Lic.Cri</th>
           <th scope="col">Waiv.Lic.Cri</th>
           <th scope="col">Open.Lic.Cri</th>
+          <th scope="col">MTTR.Cri</th>
+          <th scope="col">MTTR.Sec</th>
+          <th scope="col">MTTR.Mod</th>
       </tr>
       </thead>
       <tbody>
@@ -45,6 +48,19 @@
           <td th:text="${metric.fixedCountLicenseCritical}"></td>
           <td th:text="${metric.waivedCountLicenseCritical}"></td>
           <td th:text="${metric.openCountAtTimePeriodEndLicenseCritical}"></td>
+          
+          <div th:with="mttrCritical=${metric.mttrCriticalThreat/86400000}">
+			  <td th:text="${#numbers.formatDecimal(mttrCritical, 1, 2)}"></td>
+		  </div>
+		  
+		  <div th:with="mttrSevere=${metric.mttrSevereThreat/86400000}">
+			  <td th:text="${#numbers.formatDecimal(mttrSevere, 1, 2)}"></td>
+		  </div>
+		  
+		  <div th:with="mttrModerate=${metric.mttrModerateThreat/86400000}">
+			  <td th:text="${#numbers.formatDecimal(mttrModerate, 1, 2)}"></td>
+		  </div>
+		  
       </tr>
       </tbody>
   </table>
