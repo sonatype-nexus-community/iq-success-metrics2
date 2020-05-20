@@ -12,13 +12,15 @@ cd ..
 
 rm -rvf quickstart
 
-unzip quickstart.zip
+rm -v quickstart.zip
+
+mkdir quickstart
+
+cp runtime/release-files/* quickstart
 
 mvn clean package spring-boot:repackage
 
 cp -v target/success-metrics-${version}.jar quickstart
-
-rm -v quickstart.zip
 
 echo "java -jar success-metrics-${version}.jar" > quickstart/run-app.bat
 
