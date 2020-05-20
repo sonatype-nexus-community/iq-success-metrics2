@@ -82,7 +82,7 @@ To build:
 `mvn clean package spring-boot:repackage`
 
 To run:
-`java -jar target/smproto-<version>.jar`
+`java -jar target/success-metrics-<version>.jar`
 ```
 
 
