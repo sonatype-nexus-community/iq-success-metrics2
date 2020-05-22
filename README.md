@@ -16,7 +16,7 @@ cd quickstart
  * (Additional information can be found here: https://help.sonatype.com/iqserver/automating/rest-apis/success-metrics-data-rest-api---v2).
 
 **Create the csv file**
- * The script named below makes a call to the Success Metrics REST API referenced above to extract the metrics into a CSV file.
+ * The script named below makes a call to the [Success Metrics REST API](https://help.sonatype.com/iqserver/automating/rest-apis/success-metrics-data-rest-api---v2) referenced above to extract the metrics into a CSV file.
  * Open a command prompt and run 
 
 ```
