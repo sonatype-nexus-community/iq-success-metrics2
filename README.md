@@ -16,6 +16,7 @@ cd quickstart
  * (Additional information can be found here: https://help.sonatype.com/iqserver/automating/rest-apis/success-metrics-data-rest-api---v2).
 
 **Create the csv file**
+ * The script named below makes a call to the Success Metrics REST API referenced above to extract the metrics into a CSV file.
  * Open a command prompt and run 
 
 ```
@@ -30,6 +31,7 @@ period - weekly or monthly
 Example:  create-csvfile.bat http://localhost:8070 admin admin123 weekly
 
 The output is saved to c:/temp/successmetrics.csv (Windows) or /var/tmp/successmetrics.csv (Linux)
+
 ```
 
 **Start the reporting app**
