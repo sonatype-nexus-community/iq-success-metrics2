@@ -53,7 +53,7 @@ func main(){
 
 	writer := csv.NewWriter(csvFile)
 
-	header := []string{"Policy Name", "Application Name", "Open Time", "Component"}
+	header := []string{"PolicyName", "ApplicationName", "OpenTime", "Component"}
 	err = writer.Write(header)
 	checkError("Cannot write to file", err)
 
