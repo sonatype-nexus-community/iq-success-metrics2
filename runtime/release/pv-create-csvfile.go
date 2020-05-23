@@ -43,8 +43,8 @@ func main(){
 	homedir := os.Getenv("HOME")
 	workdir := homedir + "/nexusiq-metrics"
 	
-	jsonFilePath := workdir + "/policy-violations.json"
-	csvFilePath := workdir + "/policy-violations.csv"
+	jsonFilePath := workdir + "/policyviolations.json"
+	csvFilePath := workdir + "/policyviolations.csv"
 	
 	// initialise output file 
 	csvFile, err := os.Create(csvFilePath)

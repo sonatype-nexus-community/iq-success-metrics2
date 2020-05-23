@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.demo.smproto.model.DataPoint;
 import org.demo.smproto.model.Metric;
+import org.demo.smproto.model.PolicyViolation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -162,6 +163,17 @@ public class QueryService {
 		long millis = date.getTime();
 		return millis;
 	}
-
+	
+	public List<PolicyViolation> getPolicyViolationsAge90(){
+		return dataService.getPolicyViolationPoints(dataService.executeSQL2(SQLStatement.PolicyViolationsAge90));
+	}
+	
+	public List<PolicyViolation> getPolicyViolationsAge60(){
+		return dataService.getPolicyViolationPoints(dataService.executeSQL2(SQLStatement.PolicyViolationsAge60));
+	}
+	
+	public List<PolicyViolation> getPolicyViolationsAge30(){
+		return dataService.getPolicyViolationPoints(dataService.executeSQL2(SQLStatement.PolicyViolationsAge30));
+	}
 	
 }

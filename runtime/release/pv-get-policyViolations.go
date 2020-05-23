@@ -1,7 +1,7 @@
 package main
 
 import(
-	"fmt"
+	//"fmt"
     "net/http"
     "io/ioutil"
 	"log"
@@ -49,14 +49,14 @@ func main(){
 
 	body := getData(iquser, iqpasswd, iqapi)
 
-	fmt.Println(string(body))
+	//fmt.Println(string(body))
 
 	homedir := os.Getenv("HOME")
 	workdir := homedir + "/nexusiq-metrics"
 
 	os.Mkdir(workdir, 0777)
 
-	jsonFile := workdir + "/policy-violations.json"
+	jsonFile := workdir + "/policyviolations.json"
 
 	err := ioutil.WriteFile(jsonFile, body, 0644)
 	if err != nil {
