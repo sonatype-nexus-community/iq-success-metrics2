@@ -28,16 +28,17 @@ public class LoadPolicyViolationsFileRunner implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		log.info("In: LoadPolicyViolationsFileRunner");
 
-		String csvFileName = osName.getCSVPolicyViolations();
+		String csvFileName = osName.getCSVPolicyViolationsFilePath();
 		
+		log.info("Reading csv file: " + csvFileName);
+
 		File f = new File(csvFileName);
 		
 		if(f.exists() && !f.isDirectory()) { 
-			log.info("Reading csv file: " + csvFileName);
 
 			dbService.LoadPolicyViolationsDb();
 			
-			log.info("Policy violations loaded");
+			log.info("Policy violations loaded.");
 		}
 		else {
 			log.info("No policy violations data");

@@ -1,6 +1,7 @@
 package org.demo.smproto;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -43,47 +44,51 @@ public class LoadSuccessMetricsFileRunner implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		log.info("In: LoadSuccessMetricsFileRunner");
 
-		Path csvFileName = osName.getCSVFileName();
-	    
+		Path csvFileName = osName.getCSVSuccessMetricsFilePath();
+		
 		log.info("Reading csv file: " + csvFileName);
+				
+		File f = new File(csvFileName.toString());
+		
+		if(f.exists() && !f.isDirectory()) { 
+		
+			List<Metric> metrics = null;
+			
+			BufferedReader reader = null;
+			
+			try {
+				reader = Files.newBufferedReader(csvFileName);
+				
+	            CsvToBean<Metric> csvToBean = new CsvToBeanBuilder(reader)
+	                    .withType(Metric.class)
+	                    .build();
 	
-		List<Metric> metrics = null;
-		
-		BufferedReader reader = null;
-		
-		try {
+	            metrics = csvToBean.parse();    
+	        } 
+			finally {
+	            if (reader != null) reader.close();
+			}
 			
-			//ColumnPositionMappingStrategy ms = new ColumnPositionMappingStrategy();
-		    //ms.setType(Metric.class);
-		     
-			reader = Files.newBufferedReader(csvFileName);
+			log.info("Loading database...");
 			
-            CsvToBean<Metric> csvToBean = new CsvToBeanBuilder(reader)
-                    .withType(Metric.class)
-                    .build();
-
-            metrics = csvToBean.parse();    
-        } 
-		finally {
-            if (reader != null) reader.close();
+			//repository.saveAll(metrics);
+	
+			for (Metric m : metrics) {
+				//log.info("metric: " + m);
+				repository.save(new Metric(m));
+			}
+			
+			System.out.print("");
+		
+			log.info("Done. Number of entries: " + metrics.size());
+			
+			//dbService.LoadDb();
+			
+			log.info("Ready for browsing");
 		}
-		
-		log.info("Loading database...");
-		
-		//repository.saveAll(metrics);
-
-		for (Metric m : metrics) {
-			//log.info("metric: " + m);
-			repository.save(new Metric(m));
+		else {
+			log.info("No Success Metrics data");
 		}
-		
-		System.out.print("");
-		
-		log.info("Number of entries: " + metrics.size());
-		
-		//dbService.LoadDb();
-		
-		log.info("Ready for browsing");
 
 	}
 }

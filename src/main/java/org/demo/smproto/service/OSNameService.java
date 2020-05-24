@@ -18,38 +18,31 @@ public class OSNameService {
 	@Value("${csvfile.path.win}")
 	private String csvFileWinPath;
 	
-	@Value("${csvfile.name}")
+	@Value("${csvfile.dir}")
+	private String csvDirectory;
+	
+	@Value("${csvfile.successmetrics}")
 	private String csvSuccessMetricsFileName;
 	
-	@Value("${csv.policyviolations.filename}")
+	@Value("${csvfile.policyviolations}")
 	private String csvPolicyViolationsFileName;
 	
-	@Value("${csv.directory}")
-	private String csvDirectory;
-
-	private Path csvSuccessMetricsFilePath;
+	
 	private String csvPolicyViolationsFilePath;
 
-	
+
+			
 	private static final Logger log = LoggerFactory.getLogger(OSNameService.class);
-
 	
-	public Path getCSVFileName() {
+	
+	public Path getCSVSuccessMetricsFilePath() {
 		
-		String csvFilePath = null;
+		Path csvSuccessMetricsFilePath = null;
 
-		String osName = System.getProperty("os.name");
-	    log.info("Detected operating system: " + osName);
-	    
-	    if (osName.toLowerCase(Locale.ENGLISH).contains("windows")){
-	    	csvFilePath = csvFileWinPath; 
-	    }
-	    else {
-	    	csvFilePath = csvFileUxPath; 
-	    }
+		String csvFilePath = this.getOSPath();
 	    
 	    if (csvFilePath == null) {
-	    	log.error("could not locate data file for OS: " + osName);
+	    	log.error("could not get path for OS");
 	    }
 	    else {
 	    	csvSuccessMetricsFilePath = Paths.get(csvFilePath, "/", csvSuccessMetricsFileName);
@@ -58,13 +51,36 @@ public class OSNameService {
 	    return csvSuccessMetricsFilePath;
 	}
 	
-	public String getCSVPolicyViolations() {
+	public String getCSVPolicyViolationsFilePath() {
+				
+		String csvFilePath = this.getOSPath();
+
+		if (csvFilePath == null) {
+			log.error("could not get path for OS");
+	    }
+	    else {
+	    	csvPolicyViolationsFilePath = csvFilePath + "/" + csvPolicyViolationsFileName;
+	    }
+	    
+	    return csvPolicyViolationsFilePath;
+	}
+	
+	private String getOSPath() {
+		
+		String csvFilePath = null;
 		
 		String osHome = null;
-		
-		String osName = System.getProperty("os.name");
 
-		log.info("Detected operating system: " + osName);
+		String osName = System.getProperty("os.name");
+		
+	    log.info("Detected operating system: " + osName);
+	    
+//	    if (osName.toLowerCase(Locale.ENGLISH).contains("windows")){
+//	    	csvFilePath = csvFileWinPath; 
+//	    }
+//	    else {
+//	    	csvFilePath = csvFileUxPath; 
+//	    }
 	    
 	    if (osName.toLowerCase(Locale.ENGLISH).contains("windows")){
 	    	osHome = System.getProperty("user.home"); 
@@ -74,14 +90,10 @@ public class OSNameService {
 	    }
 	    
 		log.info("Home directory: " + osHome);
-		
-		if (osHome == null) {
-	    	log.error("could not locate get home directory: " + osHome);
-	    }
-	    else {
-	    	csvPolicyViolationsFilePath = osHome + "/" + csvDirectory + "/" + csvPolicyViolationsFileName;
-	    }
-	    
-	    return csvPolicyViolationsFilePath;
+
+	    //csvFilePath = osHome + "/" + csvDirectory;
+	    csvFilePath = osHome;
+
+		return csvFilePath;
 	}
 }

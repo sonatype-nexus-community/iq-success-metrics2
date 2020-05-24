@@ -16,6 +16,15 @@
       <h2 class="page-title" th:text="'Success Metrics Report'"></h2>
       
       <h3 class="page-title">Policy Violations Age</h3>
+      
+      <div class="page-title" role="alert" th:if="${!status}">
+	      <span th:text="${message}"></span>
+  	  </div>
+      
+      
+      
+      <div th:if="${status}">
+      
       <script th:inline="javascript">
       function policyViolationsAge() {
         	
@@ -134,6 +143,7 @@
       </script>
       <div id="policyViolationsAge30Chart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
       
+      </div>
       
    </body>
 </html>
