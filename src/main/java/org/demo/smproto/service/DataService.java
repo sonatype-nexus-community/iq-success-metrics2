@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.demo.smproto.model.DataPoint;
+import org.demo.smproto.model.PolicyViolation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,10 @@ public class DataService implements IDataService {
 		return jtm.query(sqlStatement, new BeanPropertyRowMapper<>(DataPoint.class));  
 	}
 	
+	public List<PolicyViolation> executeSQL2(String sqlStatement) {
+		return jtm.query(sqlStatement, new BeanPropertyRowMapper<>(PolicyViolation.class));  
+	}
+	
 	public class DataMapper implements RowMapper<DataPoint> {
         @Override
         public DataPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -45,6 +50,18 @@ public class DataService implements IDataService {
 		List<DataPoint> dataPoints = new ArrayList<DataPoint>();
 
 		for (DataPoint dp : dataList) {
+			//log.info(dp.toString());
+			dataPoints.add(dp);
+		}
+		
+		return dataPoints;
+	}
+	
+	public List<PolicyViolation> getPolicyViolationPoints(List<PolicyViolation> dataList){
+		
+		List<PolicyViolation> dataPoints = new ArrayList<PolicyViolation>();
+
+		for (PolicyViolation dp : dataList) {
 			//log.info(dp.toString());
 			dataPoints.add(dp);
 		}

@@ -17,4 +17,9 @@ public interface IDatabaseService extends JpaRepository<Metric, Long>{
 	@Query(value = "drop table if exists metric; CREATE TABLE METRIC AS SELECT * FROM CSVREAD('/var/tmp/successmetrics.csv')", nativeQuery = true)
 	void LoadDb();
 	
+	@Modifying
+	@Transactional
+	@Query(value = "drop table if exists POLICYVIOLATION; CREATE TABLE POLICYVIOLATION AS SELECT * FROM CSVREAD('/Users/sotudeko/nexusiq-metrics/policyviolations.csv')", nativeQuery = true)
+	void LoadPolicyViolationsDb();
+	
 }

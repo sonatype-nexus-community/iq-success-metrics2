@@ -43,8 +43,8 @@ func main(){
 	homedir := os.Getenv("HOME")
 	workdir := homedir + "/nexusiq-metrics"
 	
-	jsonFilePath := workdir + "/policy-violations.json"
-	csvFilePath := workdir + "/policy-violations.csv"
+	jsonFilePath := workdir + "/policyviolations.json"
+	csvFilePath := workdir + "/policyviolations.csv"
 	
 	// initialise output file 
 	csvFile, err := os.Create(csvFilePath)
@@ -53,7 +53,7 @@ func main(){
 
 	writer := csv.NewWriter(csvFile)
 
-	header := []string{"Policy Name", "Application Name", "Open Time", "Component"}
+	header := []string{"PolicyName", "ApplicationName", "OpenTime", "Component"}
 	err = writer.Write(header)
 	checkError("Cannot write to file", err)
 
