@@ -5,6 +5,7 @@ import java.nio.file.Path;
 
 import org.demo.smproto.service.IDatabaseService;
 import org.demo.smproto.service.OSNameService;
+import org.demo.smproto.service.RepositoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class LoadPolicyViolationsFileRunner implements CommandLineRunner {
 	private static final Logger log = LoggerFactory.getLogger(LoadPolicyViolationsFileRunner.class);
 
 	@Autowired
-	private IDatabaseService dbService;
+	private RepositoryService dbService;
 	
 	@Autowired
 	private OSNameService osName;
@@ -36,7 +37,7 @@ public class LoadPolicyViolationsFileRunner implements CommandLineRunner {
 		
 		if(f.exists() && !f.isDirectory()) { 
 
-			dbService.LoadPolicyViolationsDb();
+			dbService.LoadPolicyViolationsCsvFile(csvFileName);
 			
 			log.info("Policy violations loaded.");
 		}

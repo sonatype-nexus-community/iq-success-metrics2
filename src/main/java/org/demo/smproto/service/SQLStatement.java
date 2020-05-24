@@ -33,9 +33,9 @@ public class SQLStatement {
 	
 	public static String TimePeriods = "select distinct time_period_start as label from metric order by 1";
 
-	public static String PolicyViolationsAge90 = "select * from POLICYVIOLATION where parsedatetime(opentime, 'yyyy-MM-dd', 'en') >= CURRENT_DATE - INTERVAL 5 DAY and parsedatetime(opentime, 'yyyy-MM-dd', 'en') < CURRENT_DATE - INTERVAL 4 DAY";
-	public static String PolicyViolationsAge60 = "select * from POLICYVIOLATION where parsedatetime(opentime, 'yyyy-MM-dd', 'en') >= CURRENT_DATE - INTERVAL 4 DAY and parsedatetime(opentime, 'yyyy-MM-dd', 'en') < CURRENT_DATE - INTERVAL 1 DAY"; 
-	public static String PolicyViolationsAge30 = "select * from POLICYVIOLATION where parsedatetime(opentime, 'yyyy-MM-dd', 'en') >= CURRENT_DATE - INTERVAL 1 DAY"; 
+	public static String PolicyViolationsAge90 = "select * from POLICYVIOLATION where parsedatetime(opentime, 'yyyy-MM-dd', 'en') < CURRENT_DATE - INTERVAL 90 DAY";
+	public static String PolicyViolationsAge60 = "select * from POLICYVIOLATION where parsedatetime(opentime, 'yyyy-MM-dd', 'en') > CURRENT_DATE - INTERVAL 90 DAY and parsedatetime(opentime, 'yyyy-MM-dd', 'en') < CURRENT_DATE - INTERVAL 30 DAY";
+	public static String PolicyViolationsAge30 = "select * from POLICYVIOLATION where parsedatetime(opentime, 'yyyy-MM-dd', 'en') > CURRENT_DATE - INTERVAL  30 DAY "; 
 
 }
 

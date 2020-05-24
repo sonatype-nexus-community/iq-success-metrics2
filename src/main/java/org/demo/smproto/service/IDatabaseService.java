@@ -12,14 +12,16 @@ import org.demo.smproto.service.SQLStatement;
 @Repository
 public interface IDatabaseService extends JpaRepository<Metric, Long>{
 	
-	@Modifying
-	@Transactional
-	@Query(value = "drop table if exists metric; CREATE TABLE METRIC AS SELECT * FROM CSVREAD('/var/tmp/successmetrics.csv')", nativeQuery = true)
-	void LoadDb();
+//	@Modifying
+//	@Transactional
+//	@Query(value = "drop table if exists metric; CREATE TABLE METRIC AS SELECT * FROM CSVREAD('/var/tmp/successmetrics.csv')", nativeQuery = true)
+//	void LoadDb();
+
+	//void LoadPolicyViolationsDb(String csvFileName);
 	
-	@Modifying
-	@Transactional
-	@Query(value = "drop table if exists POLICYVIOLATION; CREATE TABLE POLICYVIOLATION AS SELECT * FROM CSVREAD('/Users/sotudeko/nexusiq-metrics/policyviolations.csv')", nativeQuery = true)
-	void LoadPolicyViolationsDb();
-	
+//	@Modifying
+//	@Transactional
+//	@Query(value = "drop table if exists POLICYVIOLATION; CREATE TABLE POLICYVIOLATION AS SELECT * FROM CSVREAD(?)", nativeQuery = true)
+//	void LoadPolicyViolationsDb(String filename);
+//	
 }

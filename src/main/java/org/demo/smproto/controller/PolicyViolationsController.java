@@ -52,7 +52,7 @@ public class PolicyViolationsController {
 	        model.addAttribute("status", true);
 		}
 		else {
-			log.info("PolicyViolationsController: No metrics data");
+			log.info("PolicyViolationsController: No policy violation data");
             model.addAttribute("message", "[No data]");
             model.addAttribute("status", false);
 		}

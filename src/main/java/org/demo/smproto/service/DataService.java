@@ -10,10 +10,13 @@ import org.demo.smproto.model.PolicyViolation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class DataService implements IDataService {
@@ -68,5 +71,16 @@ public class DataService implements IDataService {
 		
 		return dataPoints;
 	}
+	
+	//@Modifying
+	//@Transactional
+	//@Query(value = "drop table if exists POLICYVIOLATION; CREATE TABLE POLICYVIOLATION AS SELECT * FROM CSVREAD(?1)", nativeQuery = true)
 
+//	void LoadPolicyViolationsDb(String fileName) {
+//		
+//		String sqlStmt = "CREATE TABLE POLICYVIOLATION AS SELECT * FROM CSVREAD(" + fileName + ")";
+//		
+//		jtm.execute(sqlStmt);
+//		
+	//}
 }

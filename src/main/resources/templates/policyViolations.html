@@ -54,7 +54,7 @@
       <div id="policyViolationsAgeChart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
       
       
-      <h3 class="page-title">Policy Violations Over 90 Days</h3>
+      <h3 class="page-title">Policy Violations Over 60 Days</h3>
       <script th:inline="javascript">
       	function policyViolationsAge90() {
           	var points = /*[[${policyViolationsAge90Data}]]*/'noValue';
@@ -63,15 +63,15 @@
     	    data.addColumn('string', 'Policy Name');
     	    data.addColumn('string', 'Application Name');
     	    data.addColumn('string', 'Component');
-    	    data.addColumn('string', 'Open Time');
+    	    /*data.addColumn('string', 'Open Time');*/
 
     	    points.forEach(entry => {
                 var policyName = entry.policyName;
                 var applicationName = entry.applicationName;
                 var component = entry.component;
-                var openTime = entry.openTime;
+                /*var openTime = entry.openTime;*/
 
-                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`, `${openTime}`]);
+                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`]);
             }); 
     	       
     	    var table = new google.visualization.Table(document.getElementById ('policyViolationsAge90Chart'));
@@ -84,7 +84,7 @@
       <div id="policyViolationsAge90Chart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
       
       
-      <h3 class="page-title">Policy Violations Over 60 Days</h3>
+      <h3 class="page-title">Policy Violations 31-60 Days</h3>
       <script th:inline="javascript">
       	function policyViolationsAge60() {
           	var points = /*[[${policyViolationsAge60Data}]]*/'noValue';
@@ -93,7 +93,7 @@
     	    data.addColumn('string', 'Policy Name');
     	    data.addColumn('string', 'Application Name');
     	    data.addColumn('string', 'Component');
-    	    data.addColumn('string', 'Open Time');
+    	    /*data.addColumn('string', 'Open Time');*/
 
     	    points.forEach(entry => {
                 var policyName = entry.policyName;
@@ -101,7 +101,7 @@
                 var component = entry.component;
                 var openTime = entry.openTime;
 
-                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`, `${openTime}`]);
+                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`]);
             }); 
     	       
     	    var table = new google.visualization.Table(document.getElementById ('policyViolationsAge60Chart'));
@@ -114,7 +114,7 @@
       <div id="policyViolationsAge60Chart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
       
       
-      <h3 class="page-title">Policy Violations Over 30 Days</h3>
+      <h3 class="page-title">Policy Violations 0-30 Days</h3>
       <script th:inline="javascript">
       	function policyViolationsAge30() {
           	var points = /*[[${policyViolationsAge30Data}]]*/'noValue';
@@ -123,15 +123,15 @@
     	    data.addColumn('string', 'Policy Name');
     	    data.addColumn('string', 'Application Name');
     	    data.addColumn('string', 'Component');
-    	    data.addColumn('string', 'Open Time');
+    	    /*data.addColumn('string', 'Open Time');*/
 
     	    points.forEach(entry => {
                 var policyName = entry.policyName;
                 var applicationName = entry.applicationName;
                 var component = entry.component;
-                var openTime = entry.openTime;
+                /*var openTime = entry.openTime;*/
 
-                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`, `${openTime}`]);
+                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`]);
             }); 
     	       
     	    var table = new google.visualization.Table(document.getElementById ('policyViolationsAge30Chart'));

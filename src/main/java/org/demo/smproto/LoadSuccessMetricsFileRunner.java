@@ -11,6 +11,7 @@ import org.demo.smproto.service.IDataService;
 import org.demo.smproto.service.IDatabaseService;
 import org.demo.smproto.service.IMetricsRepositoryService;
 import org.demo.smproto.service.OSNameService;
+import org.demo.smproto.service.RepositoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,10 @@ public class LoadSuccessMetricsFileRunner implements CommandLineRunner {
 	private IDataService dataService;
 	
 	@Autowired
-	private IDatabaseService dbService;
+	private RepositoryService repositoryService;
+	
+//	@Autowired
+//	private IDatabaseService dbService;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -78,11 +82,11 @@ public class LoadSuccessMetricsFileRunner implements CommandLineRunner {
 				repository.save(new Metric(m));
 			}
 			
-			System.out.print("");
+			//System.out.print("");
 		
 			log.info("Done. Number of entries: " + metrics.size());
 			
-			//dbService.LoadDb();
+			//repositoryService.LoadSuccessMetricsCsvFile(csvFileName.toString());
 			
 			log.info("Ready for browsing");
 		}
