@@ -121,6 +121,3 @@ public class SQLStatement {
 
 	
 }
-
-
-//			"  id INT AUTO_INCREMENT  PRIMARY KEY," + 

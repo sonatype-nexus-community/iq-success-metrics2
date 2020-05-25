@@ -1,9 +1,5 @@
 package org.demo.smproto.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.demo.smproto.model.DataPoint;
 import org.demo.smproto.service.CalculatorService;
 import org.demo.smproto.service.IDataService;
 import org.demo.smproto.service.QueryService;

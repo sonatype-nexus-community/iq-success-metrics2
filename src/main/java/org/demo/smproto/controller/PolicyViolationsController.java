@@ -3,7 +3,6 @@ package org.demo.smproto.controller;
 import java.io.File;
 import java.util.List;
 
-import org.demo.smproto.model.DataPoint;
 import org.demo.smproto.model.PolicyViolation;
 import org.demo.smproto.service.OSNameService;
 import org.demo.smproto.service.QueryService;
@@ -35,20 +34,42 @@ public class PolicyViolationsController {
 		File f = new File(csvFileName);
 		
 		if(f.exists() && !f.isDirectory()) { 
-		
-			List<PolicyViolation> ninety = qryService.getPolicyViolationsAge90();
+					
+			List<PolicyViolation> age30Data = qryService.getPolicyViolationsAge30();
+			List<PolicyViolation> age60Data = qryService.getPolicyViolationsAge60();
+			List<PolicyViolation> age90Data = qryService.getPolicyViolationsAge90();
 			
-			//if (each is > 0)
-	
-			model.addAttribute("policyViolationsAge90Data", qryService.getPolicyViolationsAge90());
-			model.addAttribute("policyViolationsAge60Data", qryService.getPolicyViolationsAge60());
-			model.addAttribute("policyViolationsAge30Data", qryService.getPolicyViolationsAge30());
+			int age30Count = age30Data.size();
+			int age60Count = age60Data.size();
+			int age90Count = age90Data.size();
+
+			if (age30Count > 0) {
+				model.addAttribute("policyViolationsAge30Data", age30Data);
+				model.addAttribute("policyViolationsAge30Number", age30Count);
+	            model.addAttribute("age30", true);
+			}
+			else {
+	            model.addAttribute("age30", false);
+			}
 			
-			model.addAttribute("policyViolationsAge90Number", qryService.getPolicyViolationsAge90().size());
-			model.addAttribute("policyViolationsAge60Number", qryService.getPolicyViolationsAge60().size());
-			model.addAttribute("policyViolationsAge30Number", qryService.getPolicyViolationsAge30().size());
+			if (age60Count > 0) {
+				model.addAttribute("policyViolationsAge60Data", age60Data);
+				model.addAttribute("policyViolationsAge60Number", age60Count);
+	            model.addAttribute("age60", true);
+			}
+			else {
+	            model.addAttribute("age60", false);
+			}
 			
-			log.info("PolicyViolationsController: Got data.");
+			if (age90Count > 0) {
+				model.addAttribute("policyViolationsAge90Data", age90Data);
+				model.addAttribute("policyViolationsAge90Number", age90Count);
+	            model.addAttribute("age90", true);
+			}
+			else {
+	            model.addAttribute("age90", false);
+			}
+
 	        model.addAttribute("status", true);
 		}
 		else {

@@ -1,9 +1,7 @@
 package org.demo.smproto;
 
 import java.io.File;
-import java.nio.file.Path;
 
-import org.demo.smproto.service.IDatabaseService;
 import org.demo.smproto.service.OSNameService;
 import org.demo.smproto.service.RepositoryService;
 import org.slf4j.Logger;

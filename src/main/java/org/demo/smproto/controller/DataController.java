@@ -3,12 +3,10 @@ package org.demo.smproto.controller;
 import java.util.List;
 
 import org.demo.smproto.model.Metric;
-import org.demo.smproto.service.IMetricsRepositoryService;
 import org.demo.smproto.service.QueryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class DataController {
 	
 	private static final Logger log = LoggerFactory.getLogger(DataController.class);
-
-	@Autowired
-	private IMetricsRepositoryService metricsService;
-	
 
 	@Autowired 
 	private QueryService qryService;

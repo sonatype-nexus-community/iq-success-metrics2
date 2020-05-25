@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.lang.Nullable;
 
 import com.opencsv.bean.CsvBindByName;
 
