@@ -107,7 +107,7 @@
                 var pointA = entry.pointA;
                 var pointB = entry.pointB;
                 var pointC = entry.pointC;
-                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
+                data.addRow([ `${label}`, parseFloat(`${pointA}`), parseFloat(`${pointB}`), parseFloat(`${pointC}`) ]);
             }); 
     	    
     	    var options = {'title':'MTTR (Days)', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};    	    

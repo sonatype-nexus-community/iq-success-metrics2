@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.demo.smproto.model.DataPoint;
+import org.demo.smproto.model.MTTRPoint;
 import org.demo.smproto.model.Metric;
 import org.demo.smproto.model.PolicyViolation;
 import org.slf4j.Logger;
@@ -64,8 +65,8 @@ public class QueryService {
 		return dataService.getDataPoints(dataService.executeSQL(SQLStatement.MostScannedApplications));
 	}
 	
-	public List<DataPoint> getMTTR(){
-		return dataService.getDataPoints(dataService.executeSQL(SQLStatement.MTTR));
+	public List<MTTRPoint> getMTTR(){
+		return dataService.getMTTRPoints(dataService.executeSQL3(SQLStatement.MTTR));
 	}
 	
 	public List<DataPoint> getCriticalSecurityViolations(){
