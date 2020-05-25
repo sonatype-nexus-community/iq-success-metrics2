@@ -55,36 +55,39 @@ public class LoadSuccessMetricsFileRunner implements CommandLineRunner {
 		File f = new File(csvFileName.toString());
 		
 		if(f.exists() && !f.isDirectory()) { 
+			
+			repositoryService.LoadSuccessMetricsCsvFile(csvFileName.toString());
+
 		
-			List<Metric> metrics = null;
-			
-			BufferedReader reader = null;
-			
-			try {
-				reader = Files.newBufferedReader(csvFileName);
-				
-	            CsvToBean<Metric> csvToBean = new CsvToBeanBuilder(reader)
-	                    .withType(Metric.class)
-	                    .build();
-	
-	            metrics = csvToBean.parse();    
-	        } 
-			finally {
-	            if (reader != null) reader.close();
-			}
+//			List<Metric> metrics = null;
+//			
+//			BufferedReader reader = null;
+//			
+//			try {
+//				reader = Files.newBufferedReader(csvFileName);
+//				
+//	            CsvToBean<Metric> csvToBean = new CsvToBeanBuilder(reader)
+//	                    .withType(Metric.class)
+//	                    .build();
+//	
+//	            metrics = csvToBean.parse();    
+//	        } 
+//			finally {
+//	            if (reader != null) reader.close();
+//			}
 			
 			log.info("Loading database...");
 			
 			//repository.saveAll(metrics);
 	
-			for (Metric m : metrics) {
+			//for (Metric m : metrics) {
 				//log.info("metric: " + m);
-				repository.save(new Metric(m));
-			}
+				//repository.save(new Metric(m));
+			//}
 			
 			//System.out.print("");
 		
-			log.info("Done. Number of entries: " + metrics.size());
+			//log.info("Done. Number of entries: " + metrics.size());
 			
 			//repositoryService.LoadSuccessMetricsCsvFile(csvFileName.toString());
 			

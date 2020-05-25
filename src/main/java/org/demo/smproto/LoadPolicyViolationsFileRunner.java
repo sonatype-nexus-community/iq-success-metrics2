@@ -20,7 +20,7 @@ public class LoadPolicyViolationsFileRunner implements CommandLineRunner {
 	private static final Logger log = LoggerFactory.getLogger(LoadPolicyViolationsFileRunner.class);
 
 	@Autowired
-	private RepositoryService dbService;
+	private RepositoryService repositoryService;
 	
 	@Autowired
 	private OSNameService osName;
@@ -37,7 +37,7 @@ public class LoadPolicyViolationsFileRunner implements CommandLineRunner {
 		
 		if(f.exists() && !f.isDirectory()) { 
 
-			dbService.LoadPolicyViolationsCsvFile(csvFileName);
+			repositoryService.LoadPolicyViolationsCsvFile(csvFileName);
 			
 			log.info("Policy violations loaded.");
 		}
