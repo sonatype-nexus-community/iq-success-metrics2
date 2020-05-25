@@ -24,16 +24,12 @@ public class SQLStatement {
 	public static String WaivedLicenseViolations = "select time_period_start as label, sum(waived_Count_License_Critical) as pointA, sum(waived_Count_License_Severe) as pointB, sum(waived_Count_License_Moderate) as pointC from metrics group by time_period_start";
 	public static String OpenLicenseViolations = "select time_period_start as label, sum(OPEN_COUNT_AT_TIME_PERIOD_END_LICENSE_Critical) as pointA, sum(OPEN_COUNT_AT_TIME_PERIOD_END_LICENSE_SEVERE) as pointB, sum(OPEN_COUNT_AT_TIME_PERIOD_END_LICENSE_MODERATE) as pointC from metrics group by time_period_start";
 
-	
-	//public static String MTTR = "select TIME_PERIOD_START as label, avg(case when ifnull(MTTR_CRITICAL_THREAT,0) <>0 then MTTR_CRITICAL_THREAT else null end)/86400000 as pointA,  avg(case when MTTR_SEVERE_THREAT <> 0 then MTTR_SEVERE_THREAT else null end)/864000000 as pointB,  avg(case when MTTR_MODERATE_THREAT <> 0 then MTTR_MODERATE_THREAT else null end)/86400000  as pointC from metrics  group by time_period_start";
-
 	public static String MTTR = "select TIME_PERIOD_START as label, \n" + 
-			"ifnull(avg(case when ifnull(MTTR_CRITICAL_THREAT,0) <>0 then ifnull(MTTR_CRITICAL_THREAT,0) else null end)/86400000,0) as pointA,  \n" + 
-			"ifnull(avg(case when ifnull(MTTR_SEVERE_THREAT,0) <> 0 then ifnull(MTTR_SEVERE_THREAT,0) else null end)/864000000,0) as pointB,  \n" + 
-			"ifnull(avg(case when ifnull(MTTR_MODERATE_THREAT,0) <> 0 then ifnull(MTTR_MODERATE_THREAT,0) else null end)/86400000,0)  as pointC \n" + 
-			"from metrics  group by time_period_start";
-	//public static String MTTR = "select TIME_PERIOD_START as label, avg(ifnull(MTTR_CRITICAL_THREAT,0)/86400000) as pointA,  avg(ifnull(MTTR_SEVERE_THREAT,0)/864000000) as pointB,  avg(ifnull(MTTR_MODERATE_THREAT,0)/86400000)  as pointC from metrics  group by time_period_start";
-
+			"			ifnull(avg(case when ifnull(MTTR_CRITICAL_THREAT,0) <>0 then ifnull(MTTR_CRITICAL_THREAT,0) else null end)/86400000,0) as pointA,  \n" + 
+			"			ifnull(avg(case when ifnull(MTTR_SEVERE_THREAT,0) <> 0 then ifnull(MTTR_SEVERE_THREAT,0) else null end)/86400000,0) as pointB,  \n" + 
+			"			ifnull(avg(case when ifnull(MTTR_MODERATE_THREAT,0) <> 0 then ifnull(MTTR_MODERATE_THREAT,0) else null end)/86400000,0)  as pointC \n" + 
+			"			from metrics  group by time_period_start";
+		
 	public static String OrganisationsOpenViolations = "select  distinct organization_name as label, sum(OPEN_COUNT_AT_TIME_PERIOD_END_SECURITY_CRITICAL ) as pointA, sum(OPEN_COUNT_AT_TIME_PERIOD_END_SECURITY_SEVERE ) as pointB, sum(OPEN_COUNT_AT_TIME_PERIOD_END_SECURITY_MODERATE ) as pointC from metrics";
 	
 	public static String LatestTimePeriodStart = "select distinct time_period_start as label, 0 as pointA from metrics order by 1 desc limit 1";

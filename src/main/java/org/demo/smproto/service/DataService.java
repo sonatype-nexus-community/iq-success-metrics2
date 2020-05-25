@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.demo.smproto.model.DataPoint;
+import org.demo.smproto.model.MTTRPoint;
 import org.demo.smproto.model.PolicyViolation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +36,10 @@ public class DataService implements IDataService {
 		return jtm.query(sqlStatement, new BeanPropertyRowMapper<>(PolicyViolation.class));  
 	}
 	
+	public List<MTTRPoint> executeSQL3(String sqlStatement) {
+		return jtm.query(sqlStatement, new BeanPropertyRowMapper<>(MTTRPoint.class));  
+	}
+	
 	public class DataMapper implements RowMapper<DataPoint> {
         @Override
         public DataPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -54,6 +59,17 @@ public class DataService implements IDataService {
 
 		for (DataPoint dp : dataList) {
 			//log.info(dp.toString());
+			dataPoints.add(dp);
+		}
+		
+		return dataPoints;
+	}
+	
+	public List<MTTRPoint> getMTTRPoints(List<MTTRPoint> dataList){
+		
+		List<MTTRPoint> dataPoints = new ArrayList<MTTRPoint>();
+
+		for (MTTRPoint dp : dataList) {
 			dataPoints.add(dp);
 		}
 		

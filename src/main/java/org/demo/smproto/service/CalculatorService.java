@@ -4,10 +4,14 @@ import java.util.List;
 
 import org.demo.smproto.model.DataPoint;
 import org.demo.smproto.model.SummaryAverage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CalculatorService {
+	private static final Logger log = LoggerFactory.getLogger(CalculatorService.class);
+
 	
 	public int sumAllPoints(List<DataPoint> dataList) {
 		
@@ -33,20 +37,6 @@ public class CalculatorService {
 		return sumData;
 	}
 	
-	public float averagePointA(List<DataPoint> dataList) {
-		
-		int countLabels = dataList.size();
-		
-		float sumData = 0;
-		
-		for (DataPoint dp : dataList) {
-			float count = dp.getPointA();
-			sumData += count;
-		}
-		
-		return sumData/countLabels;
-	}
-
 	public SummaryAverage applicationsOnboardedAverage(List<DataPoint> dataList) {
 		
 		int countLabels = dataList.size();
@@ -81,6 +71,22 @@ public class CalculatorService {
 	
 	public String AddWhereClause(String sql, String time_period_start, String group_by ) {
 		return sql + " where time_period_start = '" + time_period_start + "' group by " + group_by;
+	}
+
+	public Object averagePoint(List<Float> points) {
+		int countPoints = 0;
+		
+		float sumData = 0;
+		
+		for (float dp : points) {
+			
+			if (dp > 0) {
+				sumData += dp;
+				countPoints++;
+			}
+		}
+		
+		return sumData/countPoints;
 	}
 
 }

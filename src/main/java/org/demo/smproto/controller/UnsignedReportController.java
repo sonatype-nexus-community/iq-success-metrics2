@@ -1,9 +1,11 @@
 package org.demo.smproto.controller;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.demo.smproto.model.DataPoint;
+import org.demo.smproto.model.MTTRPoint;
 import org.demo.smproto.model.SummaryDataPoint;
 import org.demo.smproto.service.CalculatorService;
 import org.demo.smproto.service.IDataService;
@@ -94,8 +96,19 @@ public class UnsignedReportController {
 	    
 	    model.addAttribute("leastCriticalApplication", new SummaryDataPoint(mostCriticalApplicationsData.get(mostCriticalApplicationsData.size()-1).getLabel(), (int) (mostCriticalApplicationsData.get(mostCriticalApplicationsData.size()-1).getPointA())));
 	    	    
-	    model.addAttribute("mttrCriticalAvg", String.format("%.02f", calculator.averagePointA(qryService.getMTTR())));
-		
+	    List<Float> pointA = new ArrayList<>();	
+	    List<Float> pointB = new ArrayList<>();	
+	    List<Float> pointC = new ArrayList<>();	
+	    
+	    for (MTTRPoint dp : dataService.getMTTRPoints(dataService.executeSQL3(SQLStatement.MTTR))) {
+	    	pointA.add(dp.getPointA());
+	    	pointB.add(dp.getPointB());
+	    	pointC.add(dp.getPointC());
+		}
+	    
+	    model.addAttribute("mttrCriticalAvg", String.format("%.02f", calculator.averagePoint(pointA)));
+	    model.addAttribute("mttrSevereAvg", String.format("%.02f", calculator.averagePoint(pointB)));
+	    model.addAttribute("mttrModerateAvg", String.format("%.02f", calculator.averagePoint(pointC)));		
 				
 	    
 	    // Report Application
