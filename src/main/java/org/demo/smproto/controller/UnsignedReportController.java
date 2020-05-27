@@ -30,7 +30,7 @@ public class UnsignedReportController {
 	private CalculatorService calculator;
 	
 	@Autowired 
-	private QueryService qryService;
+	private static QueryService qryService;
 
 	
 	

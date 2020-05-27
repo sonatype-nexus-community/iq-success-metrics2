@@ -37,10 +37,10 @@ public class LoadSuccessMetricsFileRunner implements CommandLineRunner {
 		
 		if(f.exists() && !f.isDirectory()) { 
 			
-			log.info("Loading database...");
-
 			repositoryService.LoadSuccessMetricsCsvFile(csvFileName.toString());
 			
+			log.info("Success Metrics loaded.");
+
 			log.info("Ready for browsing");
 		}
 		else {

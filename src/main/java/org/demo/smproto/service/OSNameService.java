@@ -45,7 +45,8 @@ public class OSNameService {
 	    	log.error("could not get path for OS");
 	    }
 	    else {
-	    	csvSuccessMetricsFilePath = Paths.get(csvFilePath, "/", csvSuccessMetricsFileName);
+	    	//csvSuccessMetricsFilePath = Paths.get(csvFilePath, "/", csvSuccessMetricsFileName);
+	    	csvSuccessMetricsFilePath = Paths.get(csvSuccessMetricsFileName);
 	    }
 	    
 	    return csvSuccessMetricsFilePath;
@@ -59,7 +60,8 @@ public class OSNameService {
 			log.error("could not get path for OS");
 	    }
 	    else {
-	    	csvPolicyViolationsFilePath = csvFilePath + "/" + csvPolicyViolationsFileName;
+	    	//csvPolicyViolationsFilePath = csvFilePath + "/" + csvPolicyViolationsFileName;
+	    	csvPolicyViolationsFilePath = csvPolicyViolationsFileName;
 	    }
 	    
 	    return csvPolicyViolationsFilePath;
@@ -89,7 +91,7 @@ public class OSNameService {
 	    	osHome = System.getProperty("user.home"); 
 	    }
 	    
-		log.info("Home directory: " + osHome);
+		// log.info("Home directory: " + osHome);
 
 	    //csvFilePath = osHome + "/" + csvDirectory;
 	    csvFilePath = osHome;
