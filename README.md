@@ -30,7 +30,7 @@ period - weekly or monthly
 
 Example:  create-csvfile.bat http://localhost:8070 admin admin123 weekly
 
-The output is saved to c:/temp/successmetrics.csv (Windows) or /var/tmp/successmetrics.csv (Linux)
+The output is saved to successmetrics.csv in the current directory
 
 ```
 
@@ -38,7 +38,7 @@ The output is saved to c:/temp/successmetrics.csv (Windows) or /var/tmp/successm
    
    This app is a simple web app running by default on port 4040. 
    
-   By default, the app looks for the data to load in the file */var/tmp/successmetrics.csv (LInux) or c:/temp/successmetrics.csv (Windows)*
+   By default, the app looks for the data to load in the file *successmetrics.csv* from the current directory
 
    You only need to keep the app running long enough to review the reports and print them to PDF
 
@@ -53,18 +53,17 @@ The data file is loaded on start-up of the app. Larger files may take a few mins
 When the file is loaded, you should see output similar to below after which app is ready for access
 
 ```
-2020-05-11 19:07:30.554  INFO 88726 --- [           main] org.demo.smproto.ReadCSVFileRunner       : Number of entries: 52
-2020-05-11 19:07:30.554  INFO 88726 --- [           main] org.demo.smproto.ReadCSVFileRunner       : Ready for browsing*
+2020-05-27 11:04:33.893  INFO 99343 --- [           main] o.d.s.LoadSuccessMetricsFileRunner       : Loading database...
+2020-05-27 11:04:33.908  INFO 99343 --- [           main] o.d.s.LoadSuccessMetricsFileRunner       : Ready for browsing
 ```
 
 Open a browser and go to http://localhost:4040
 
 **Notes:**  
-  * Do not run it for all of your orgs/apps and 50+ weeks if you have a large dataset
   * We recommend running it for 4 weeks at a time and for sets of orgs instead of the full scope if you have a large dataset.
   * It is worth noting that this is NOT SUPPORTED by Sonatype, and is a contribution of ours to the open source community.  Don't worry, using this community item does not "void your warranty".
   * Use this contribution at the risk tolerance that you have
-  * Please do NOT file Sonatype support tickets related to iq-success-metrics
+  * Please do NOT file Sonatype support tickets related to success-metrics2
   * Please DO file issues on GitHub, so that the community can pitch in
 
 
