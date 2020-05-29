@@ -78,7 +78,7 @@ To run:
 ```
 
 **The Fine Print**
-* We recommend running it for 4 weeks at a time and for sets of orgs instead of the full scope if you have a large dataset.
+* We recommend running it for 4 weeks of data at a time and for sets of orgs instead of the full scope if you have a large dataset.
 * It is worth noting that this is NOT SUPPORTED by Sonatype, and is a contribution of ours to the open source community (read: you!)
 
 * Don't worry, using this community item does not "void your warranty". In a worst case scenario, you may be asked by the Sonatype Support team to remove the community item in order to determine the root cause of any issues.
