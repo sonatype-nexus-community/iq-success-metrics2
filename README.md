@@ -59,15 +59,6 @@ When the file is loaded, you should see output similar to below after which app 
 
 Open a browser and go to http://localhost:4040
 
-**Notes:**  
-  * We recommend running it for 4 weeks at a time and for sets of orgs instead of the full scope if you have a large dataset.
-  * It is worth noting that this is NOT SUPPORTED by Sonatype, and is a contribution of ours to the open source community.  Don't worry, using this community item does not "void your warranty".
-  * Use this contribution at the risk tolerance that you have
-  * Please do NOT file Sonatype support tickets related to success-metrics2
-  * Please DO file issues on GitHub, so that the community can pitch in
-
-
-
 **Development**
 
 Should you wish to edit the source code: 
@@ -87,7 +78,7 @@ To run:
 ```
 
 **The Fine Print**
-
+* We recommend running it for 4 weeks at a time and for sets of orgs instead of the full scope if you have a large dataset.
 * It is worth noting that this is NOT SUPPORTED by Sonatype, and is a contribution of ours to the open source community (read: you!)
 
 * Don't worry, using this community item does not "void your warranty". In a worst case scenario, you may be asked by the Sonatype Support team to remove the community item in order to determine the root cause of any issues.
