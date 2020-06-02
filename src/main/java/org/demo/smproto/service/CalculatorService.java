@@ -40,18 +40,19 @@ public class CalculatorService {
 	public SummaryAverage applicationsOnboardedAverage(List<DataPoint> dataList) {
 		
 		int countLabels = dataList.size();
-		int sumData = 0;
+		// int sumData = 0;
 		
-		for (DataPoint dp : dataList) {
-			float count = dp.getPointA();
-			sumData += count;
-		}
+		// for (DataPoint dp : dataList) {
+		// 	float count = dp.getPointA();
+		// 	sumData += count;
+		// }
 		
 		// latest time_period_start
 		int numberOfApplications = (int) dataList.get(dataList.size() - 1).getPointA();
 		
-		int dataAverage = sumData/countLabels;
-			
+		// int dataAverage = sumData/countLabels;
+		int dataAverage = numberOfApplications/countLabels;
+
 		return new SummaryAverage(numberOfApplications, dataAverage);
 		
 	}
