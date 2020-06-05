@@ -18,34 +18,38 @@
     </tr>
     
     <tr>
-    <td>- Scanned applications <span th:text="${numberOfScansAvg.total}"/> times at an average of <span th:text="${numberOfScansAvg.avg}"/> apps scanned per <span th:text="${timePeriod}"/></td>
+    <td>- Scanned applications at an average of <span th:text="${applicationScansAvg.avg}"/> per <span th:text="${timePeriod}"/></td>
     </tr>
     
     <tr>
-    <td>- <span th:text="${applicationScansAvg.total}"/> unique applications scanned at an average of <span th:text="${applicationScansAvg.avg}"/> scans per <span th:text="${timePeriod}"/></td>
+    <td>- Performed a total of <span th:text="${numberOfScansAvg.total}"/> scans at an average of <span th:text="${numberOfScansAvg.avg}"/> per <span th:text="${timePeriod}"/></td>
     </tr>
     
     <tr>
-    <td>- Discovered <span th:text="${countDiscoveredSecurityViolations}"/> security violations (<span th:text="${countDiscoveredCriticalSecurityViolations}"/> of them Critical), fixing <span th:text="${countFixedSecurityViolations}"/> and waiving <span th:text="${countWaivedSecurityViolations}"/> of them</td>
+    <td>- Discovered <span th:text="${countDiscoveredSecurityViolations}"/> security violations (<span th:text="${countDiscoveredCriticalSecurityViolations}"/> of them Critical)
+    
+    <tr>
+    <td>- Fixed <span th:text="${countFixedSecurityViolations}"/> and waived <span th:text="${countWaivedSecurityViolations}"/> security violations from your open backlog</td>
     </tr>
+       
+    <tr><td class="reduced-risk">&nbsp;&nbsp;Which means that your Fixing Rate (Fixed + Waived/Discovered) is <span th:text="${reducedRisk}"/>%</td></tr>
     
     <tr><td class="line-description">&nbsp;&nbsp;&nbsp;(Critical, Severe and Moderate)</td></tr>
-        
-    <tr><td class="reduced-risk">&nbsp;&nbsp;&nbsp;Which means that your Fixing Rate (Fixed + Waived/Discovered) is <span th:text="${reducedRisk}"/>%</td></tr>
     
-    <tr>
+    <!-- <tr>
     <td><br>- On average, each application had <span th:text="${applicationCriticalViolationsAvg.avg}"/> critical violations</td>
-    </tr>
+    </tr> -->
     
-    <tr><td>&nbsp;&nbsp;&nbsp;Most Critical Application: <span th:text="${mostCriticalApplication.label}"/> with <span th:text="${mostCriticalApplication.count}"/> critical violations</td></tr>
+    <tr><td><br>&nbsp;Most Critical Application: <span th:text="${mostCriticalApplication.label}"/> with <span th:text="${mostCriticalApplication.count}"/> critical violations</td></tr>
     
-    <tr><td>&nbsp;&nbsp;&nbsp;Least Critical Application: <span th:text="${leastCriticalApplication.label}"/> with <span th:text="${leastCriticalApplication.count}"/> critical violations</td></tr>
+    <tr><td>&nbsp;Least Critical Application: <span th:text="${leastCriticalApplication.label}"/> with <span th:text="${leastCriticalApplication.count}"/> critical violations</td></tr>
    
-    <tr><td>- It took an average of <span th:text="${mttrCriticalAvg}"/> days to fix Critical violations</td></tr>
    
-       <tr><td>- It took an average of <span th:text="${mttrSevereAvg}"/> days to fix Severe violations</td></tr>
+    <tr><td><br>- It took an average of <span th:text="${mttrCriticalAvg}"/> days to fix Critical violations</td></tr>
+  
+    <tr><td>- It took an average of <span th:text="${mttrSevereAvg}"/> days to fix Severe violations</td></tr>
    
-       <tr><td>- It took an average of <span th:text="${mttrModerateAvg}"/> days to fix Moderate violations</td></tr>
+    <tr><td>- It took an average of <span th:text="${mttrModerateAvg}"/> days to fix Moderate violations</td></tr>
    
   	</table>
   	
