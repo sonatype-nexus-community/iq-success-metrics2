@@ -59,12 +59,18 @@ public class CalculatorService {
 	
 	public SummaryAverage sumAndAveragePointA(List<DataPoint> dataList) {
 		
-		int countLabels = dataList.size();
+		//int countLabels = dataList.size();
+		int countLabels = 0;
+
 		int sumData = 0;
 		
 		for (DataPoint dp : dataList) {
 			int count = (int) dp.getPointA();
-			sumData += count;
+			
+			if (count > 0) {
+				sumData += count;
+				countLabels++;
+			}
 		}
 		
 		return new SummaryAverage(sumData, sumData/countLabels);

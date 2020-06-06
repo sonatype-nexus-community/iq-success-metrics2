@@ -177,4 +177,7 @@ public class QueryService {
 		return dataService.getPolicyViolationPoints(dataService.executeSQL2(SQLStatement.PolicyViolationsAge30));
 	}
 	
+	public List<DataPoint> getApplicationsSecurityCriticalStatus(){
+		return dataService.getDataPoints(dataService.executeSQL(SQLStatement.ApplicationsSecurityCriticalStatus));
+	}
 }

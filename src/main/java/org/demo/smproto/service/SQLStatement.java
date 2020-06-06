@@ -118,6 +118,9 @@ public class SQLStatement {
 			"waivedCountSecurityModerate," +
 			"waivedCountSecuritySevere " +
 			" from csvread ";
+	
+	public static String ApplicationsSecurityCriticalStatus = "select APPLICATION_NAME as label, sum(DISCOVERED_COUNT_SECURITY_CRITICAL) as pointA, sum(OPEN_COUNT_AT_TIME_PERIOD_END_SECURITY_CRITICAL) as pointB,\n" + 
+			"sum(FIXED_COUNT_SECURITY_CRITICAL) as pointC, sum(WAIVED_COUNT_SECURITY_CRITICAL) as pointD from METRICS group by APPLICATION_NAME order by 2 desc";
 
 	
 }

@@ -30,7 +30,7 @@ public class ReportApplicationsController {
 	
 	private static final Logger log = LoggerFactory.getLogger(ReportApplicationsController.class);
 
-	@GetMapping({"/report"})
+	@GetMapping({"/applications"})
     public String report(Model model) {
 						
 		// Report Application
@@ -57,7 +57,9 @@ public class ReportApplicationsController {
 		
 		model.addAttribute("mttrData", qryService.getMTTR());
 		
-        return "report";
+		model.addAttribute("ApplicationsSecurityCriticalStatusData", qryService.getApplicationsSecurityCriticalStatus());
+		
+        return "applications";
     }
 	
 	@ExceptionHandler(EmptyResultDataAccessException.class)
