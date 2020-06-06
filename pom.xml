@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org.demo</groupId>
 	<artifactId>success-metrics</artifactId>
-	<version>1.7.3</version>
+	<version>1.8</version>
 	<name>success-metrics</name>
 	<description>Success metrics project</description>
 
