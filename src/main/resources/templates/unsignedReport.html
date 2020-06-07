@@ -63,9 +63,9 @@
     <td><br>- On average, each application had <span th:text="${applicationCriticalViolationsAvg.avg}"/> critical violations</td>
     </tr>
     
-    <tr><td>&nbsp;&nbsp;Most Critical Application: <span th:text="${mostCriticalApplication.label}"/> with <span th:text="${mostCriticalApplication.count}"/> critical violations</td></tr>
+    <tr><td>&nbsp;&nbsp;Most Critical Application has <span th:text="${mostCriticalApplication.count}"/> critical violations</td></tr>
     
-    <tr><td>&nbsp;&nbsp;Least Critical Application: <span th:text="${leastCriticalApplication.label}"/> with <span th:text="${leastCriticalApplication.count}"/> critical violations</td></tr>
+    <tr><td>&nbsp;&nbsp;Least Critical Application has <span th:text="${leastCriticalApplication.count}"/> critical violations</td></tr>
    
    
     <tr><td><br>- It took an average of <span th:text="${mttrCriticalAvg}"/> days to fix Critical violations</td></tr>
