@@ -41,61 +41,88 @@ public class UnsignedReportController {
 		// Summary
 		
 		String timePeriod = qryService.getTimePeriod();
-		
 		model.addAttribute("timePeriod", timePeriod);
-
 		model.addAttribute("applicationsOnboardedAvg", calculator.applicationsOnboardedAverage( qryService.getApplicationsOnboarded()));
-		
 		model.addAttribute("numberOfScansAvg", calculator.sumAndAveragePointA(qryService.getNumberOfScans()));
-		
 		model.addAttribute("applicationScansAvg", calculator.sumAndAveragePointA(qryService.getApplicationScans()));
 		
+		// Security
 		
 		int discoveredSecurityViolations = calculator.sumAllPoints(qryService.getDiscoveredSecurityViolations());
-		
-		int discoveredLicenseViolations = calculator.sumAllPoints(qryService.getDiscoveredLicenseViolations());
-
 		int fixedSecurityViolations = calculator.sumAllPoints(qryService.getFixedSecurityViolations());
+		int waivedSecurityViolations = calculator.sumAllPoints(qryService.getWaivedSecurityViolations());
+		int discoveredCriticalSecurityViolations = calculator.sumPoint(qryService.getDiscoveredSecurityViolations(), "A");
+		int discoveredSevereSecurityViolations = calculator.sumPoint(qryService.getDiscoveredSecurityViolations(), "B");
+		int discoveredModerateSecurityViolations = calculator.sumPoint(qryService.getDiscoveredSecurityViolations(), "C");
+		int fixedCriticalSecurityViolations = calculator.sumPoint(qryService.getFixedSecurityViolations(), "A");
+		int fixedSevereSecurityViolations = calculator.sumPoint(qryService.getFixedSecurityViolations(), "B");
+		int fixedModerateSecurityViolations = calculator.sumPoint(qryService.getFixedSecurityViolations(), "C");
+		int waivedCriticalSecurityViolations = calculator.sumPoint(qryService.getWaivedSecurityViolations(), "A");
+		int waivedSevereSecurityViolations = calculator.sumPoint(qryService.getWaivedSecurityViolations(), "B");
+		int waivedModerateSecurityViolations = calculator.sumPoint(qryService.getWaivedSecurityViolations(), "C");
 		
-		int fixedLicenseViolations = calculator.sumAllPoints(qryService.getFixedLicenseViolations());
+		model.addAttribute("countDiscoveredSecurityViolations", discoveredSecurityViolations);
+	    model.addAttribute("countFixedSecurityViolations", fixedSecurityViolations);
+	    model.addAttribute("countWaivedSecurityViolations", waivedSecurityViolations);
+	    model.addAttribute("countDiscoveredCriticalSecurityViolations", discoveredCriticalSecurityViolations);
+	    model.addAttribute("countDiscoveredSevereSecurityViolations", discoveredSevereSecurityViolations);
+	    model.addAttribute("countDiscoveredModerateSecurityViolations", discoveredModerateSecurityViolations);
+	    model.addAttribute("countFixedCriticalSecurityViolations", fixedCriticalSecurityViolations);
+	    model.addAttribute("countFixedSevereSecurityViolations", fixedSevereSecurityViolations);
+	    model.addAttribute("countFixedModerateSecurityViolations", fixedModerateSecurityViolations);
+	    model.addAttribute("countWaivedCriticalSecurityViolations", waivedCriticalSecurityViolations);
+	    model.addAttribute("countWaivedSevereSecurityViolations", waivedSevereSecurityViolations);
+	    model.addAttribute("countWaivedModerateSecurityViolations", waivedModerateSecurityViolations);
+	    
+	    // License
+	    
+		int discoveredLicenseViolations = calculator.sumAllPoints(qryService.getDiscoveredLicenseViolations());
+	    int fixedLicenseViolations = calculator.sumAllPoints(qryService.getFixedLicenseViolations());
+	    int waivedLicenseViolations = calculator.sumAllPoints(qryService.getWaivedLicenseViolations());
+	    int discoveredCriticalLicenseViolations = calculator.sumPoint(qryService.getDiscoveredLicenseViolations(), "A");
+	    int discoveredSevereLicenseViolations = calculator.sumPoint(qryService.getDiscoveredLicenseViolations(), "B");
+	    int discoveredModerateLicenseViolations = calculator.sumPoint(qryService.getDiscoveredLicenseViolations(), "C");
+	    int fixedCriticalLicenseViolations = calculator.sumPoint(qryService.getFixedLicenseViolations(), "A");
+	    int fixedSevereLicenseViolations = calculator.sumPoint(qryService.getFixedLicenseViolations(), "B");
+	    int fixedModerateLicenseViolations = calculator.sumPoint(qryService.getFixedLicenseViolations(), "C");
+	    int waivedCriticalLicenseViolations = calculator.sumPoint(qryService.getWaivedLicenseViolations(), "A");
+	    int waivedSevereLicenseViolations = calculator.sumPoint(qryService.getWaivedLicenseViolations(), "B");
+	    int waivedModerateLicenseViolations = calculator.sumPoint(qryService.getWaivedLicenseViolations(), "C");
 
-		
+	    model.addAttribute("countDiscoveredLicenseViolations", discoveredLicenseViolations);
+	    model.addAttribute("countFixedLicenseViolations", fixedLicenseViolations);
+	    model.addAttribute("countWaivedLicenseViolations", waivedLicenseViolations);
+	    model.addAttribute("countDiscoveredCriticalLicenseViolations", discoveredCriticalLicenseViolations);
+	    model.addAttribute("countDiscoveredSevereLicenseViolations", discoveredSevereLicenseViolations);
+	    model.addAttribute("countDiscoveredModerateLicenseViolations", discoveredModerateLicenseViolations);
+	    model.addAttribute("countFixedCriticalLicenseViolations", fixedCriticalLicenseViolations);
+	    model.addAttribute("countFixedSevereLicenseViolations", fixedSevereLicenseViolations);
+	    model.addAttribute("countFixedModerateLicenseViolations", fixedModerateLicenseViolations);
+	    model.addAttribute("countWaivedCriticalLicenseViolations", waivedCriticalLicenseViolations);
+	    model.addAttribute("countWaivedSevereLicenseViolations", waivedSevereLicenseViolations);
+	    model.addAttribute("countWaivedModerateLicenseViolations", waivedModerateLicenseViolations);
+	    
+	    // Fix rate
+	    
 	    int discovered = discoveredSecurityViolations + discoveredLicenseViolations;
-
 		int fixed = fixedSecurityViolations + fixedLicenseViolations;
-	    
-	    float reducedRisk = (((float)fixed/discovered) * 100);
+		int waived = waivedSecurityViolations + waivedLicenseViolations;
 
-		
-	    int waivedSecurityViolations = calculator.sumAllPoints(qryService.getWaivedSecurityViolations());
-		
-		int waivedLicenseViolations = calculator.sumAllPoints(qryService.getWaivedLicenseViolations());
-
-		
-		int discoveredCriticalLicenseViolations = calculator.sumPointA(qryService.getDiscoveredLicenseViolations());
-	    
-		int discoveredCriticalSecurityViolations = calculator.sumPointA(qryService.getDiscoveredSecurityViolations());
-
-		
-		model.addAttribute("countDiscoveredSecurityViolations", discoveredSecurityViolations + discoveredLicenseViolations);
-		   
-	    model.addAttribute("countFixedSecurityViolations", fixedSecurityViolations + fixedLicenseViolations);
-	   
-	    model.addAttribute("countWaivedSecurityViolations", waivedSecurityViolations + waivedLicenseViolations);
-	    
-	    model.addAttribute("countDiscoveredCriticalSecurityViolations", discoveredCriticalSecurityViolations + discoveredCriticalLicenseViolations);
+	    float reducedRisk = (((float)(fixed + waived)/discovered) * 100);
 	    
 	    model.addAttribute("reducedRisk", String.format("%.02f", reducedRisk));
 	    
+	    // Applications
 	    
-	    List<DataPoint> mostCriticalApplicationsData = qryService.getApplicationCriticalViolations();
+	    List<DataPoint> applicationViolationsData = qryService.getApplicationViolations();
 	    
-	    model.addAttribute("applicationCriticalViolationsAvg", calculator.sumAndAveragePointA(mostCriticalApplicationsData));
-	    
-	    model.addAttribute("mostCriticalApplication", new SummaryDataPoint(mostCriticalApplicationsData.get(0).getLabel(), (int) (mostCriticalApplicationsData.get(0).getPointA())));
-	    
-	    model.addAttribute("leastCriticalApplication", new SummaryDataPoint(mostCriticalApplicationsData.get(mostCriticalApplicationsData.size()-1).getLabel(), (int) (mostCriticalApplicationsData.get(mostCriticalApplicationsData.size()-1).getPointA())));
+	    model.addAttribute("applicationCriticalViolationsAvg", calculator.sumAndAveragePointA(applicationViolationsData));
+	    model.addAttribute("mostCriticalApplication", new SummaryDataPoint(applicationViolationsData.get(0).getLabel(), (int) (applicationViolationsData.get(0).getPointA())));
+	    model.addAttribute("leastCriticalApplication", new SummaryDataPoint(applicationViolationsData.get(applicationViolationsData.size()-1).getLabel(), (int) (applicationViolationsData.get(applicationViolationsData.size()-1).getPointA())));
 	    	    
+	    
+	    // MTTR
+	    
 	    List<Float> pointA = new ArrayList<>();	
 	    List<Float> pointB = new ArrayList<>();	
 	    List<Float> pointC = new ArrayList<>();	
@@ -108,7 +135,7 @@ public class UnsignedReportController {
 	    
 	    model.addAttribute("mttrCriticalAvg", String.format("%.02f", calculator.averagePoint(pointA)));
 	    model.addAttribute("mttrSevereAvg", String.format("%.02f", calculator.averagePoint(pointB)));
-	    model.addAttribute("mttrModerateAvg", String.format("%.02f", calculator.averagePoint(pointC)));		
+	    model.addAttribute("mttrModerateAvg", String.format("%.02f", calculator.averagePoint(pointC)));			
 				
 	    
 	    // Report Application
@@ -127,7 +154,7 @@ public class UnsignedReportController {
 		model.addAttribute("organisationsOpenViolationsData", dataService.getDataPoints(dataService.executeSQL(calculator.AddWhereClause(SQLStatement.OrganisationsOpenViolations, latestPeriod, "ORGANIZATION_NAME"))));
 
 
-		model.addAttribute("mostCriticalApplicationsData", qryService.getApplicationCriticalViolations());
+		model.addAttribute("mostCriticalApplicationsData", qryService.getApplicationViolations());
 		
 		model.addAttribute("mostScannedApplicationsData", qryService.getMostScannedApplications());
 		

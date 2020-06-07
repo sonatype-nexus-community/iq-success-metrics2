@@ -25,17 +25,39 @@ public class CalculatorService {
 		return sumData;
 	}
 	
-	public int sumPointA(List<DataPoint> dataList) {
+	public int sumPoint(List<DataPoint> dataList, String point) {
 		
 		int sumData = 0;
 
 		for (DataPoint dp : dataList) {
-			float rowTotal = dp.getPointA();
+					
+			float rowTotal = 0;
+			
+			switch (point) {
+				case "A": rowTotal = dp.getPointA(); break;
+				case "B": rowTotal = dp.getPointB(); break;
+				case "C": rowTotal = dp.getPointC(); break;
+				case "D": rowTotal = dp.getPointD(); break;
+				default: rowTotal = 0;
+			}
+			
 			sumData += rowTotal;
 		}
 		
 		return sumData;
 	}
+	
+//	public int sumPointA(List<DataPoint> dataList) {
+//		
+//		int sumData = 0;
+//
+//		for (DataPoint dp : dataList) {
+//			float rowTotal = dp.getPointA();
+//			sumData += rowTotal;
+//		}
+//		
+//		return sumData;
+//	}
 	
 	public SummaryAverage applicationsOnboardedAverage(List<DataPoint> dataList) {
 		

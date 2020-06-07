@@ -5,7 +5,12 @@ public class SQLStatement {
 	public static String ApplicationsOnboarded = "select time_period_start as label, count(application_id) as pointA from metrics group by time_period_start order by time_period_start";
 	public static String NumberOfScans = "select time_period_start as label, sum(evaluation_count) as pointA from metrics group by time_period_start";
 	public static String ApplicationScans = "select time_period_start as label, count(application_id) as pointA from metrics where evaluation_count > 0 group by time_period_start";
-	public static String ApplicationCriticalViolations = "select application_name as label, sum(DISCOVERED_COUNT_SECURITY_CRITICAL) as pointA, sum(DISCOVERED_COUNT_SECURITY_SEVERE) as pointB, sum(DISCOVERED_COUNT_SECURITY_MODERATE) as pointC from metrics group by application_name order by pointA desc, pointB desc";
+	
+//	public static String ApplicationSecurityViolations = "select application_name as label, sum(DISCOVERED_COUNT_SECURITY_CRITICAL) as pointA, sum(DISCOVERED_COUNT_SECURITY_SEVERE) as pointB, sum(DISCOVERED_COUNT_SECURITY_MODERATE) as pointC from metrics group by application_name order by pointA desc, pointB desc";
+//	public static String ApplicationLicenseViolations = "select application_name as label, sum(DISCOVERED_COUNT_LICENSE_CRITICAL) as pointA, sum(DISCOVERED_COUNT_LICENSE_SEVERE) as pointB, sum(DISCOVERED_COUNT_LICENSE_MODERATE) as pointC from metrics group by application_name order by pointA desc, pointB desc";
+
+	public static String ApplicationViolations = "select application_name as label, sum(DISCOVERED_COUNT_SECURITY_CRITICAL)+sum(DISCOVERED_COUNT_LICENSE_CRITICAL) as pointA, sum(DISCOVERED_COUNT_SECURITY_SEVERE)+sum(DISCOVERED_COUNT_LICENSE_SEVERE) as pointB, sum(DISCOVERED_COUNT_SECURITY_MODERATE)+sum(DISCOVERED_COUNT_LICENSE_MODERATE) as pointC from metrics group by application_name order by pointA desc, pointB desc";
+
 	public static String MostScannedApplications = "select application_name as label, sum (evaluation_count) as pointA from metrics group by application_name order by 2 desc";
 
 	public static String CriticalSecurityViolations = "select time_period_start as label, sum(discovered_Count_Security_Critical) as pointA, sum(fixed_Count_Security_Critical) as pointB, sum(waived_Count_Security_Critical) as pointC from metrics group by time_period_start";

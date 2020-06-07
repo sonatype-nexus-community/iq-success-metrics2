@@ -51,7 +51,7 @@ public class ReportApplicationsController {
 		model.addAttribute("organisationsOpenViolationsData", dataService.getDataPoints(dataService.executeSQL(calculator.AddWhereClause(SQLStatement.OrganisationsOpenViolations, latestPeriod, "ORGANIZATION_NAME"))));
 
 
-		model.addAttribute("mostCriticalApplicationsData", qryService.getApplicationCriticalViolations());
+		model.addAttribute("mostCriticalApplicationsData", qryService.getApplicationViolations());
 		
 		model.addAttribute("mostScannedApplicationsData", qryService.getMostScannedApplications());
 		
