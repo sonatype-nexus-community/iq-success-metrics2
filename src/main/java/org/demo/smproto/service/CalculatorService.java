@@ -98,8 +98,12 @@ public class CalculatorService {
 		return new SummaryAverage(sumData, sumData/countLabels);
 	}
 	
-	public String AddWhereClause(String sql, String time_period_start, String group_by ) {
-		return sql + " where time_period_start = '" + time_period_start + "' group by " + group_by;
+	public String AddWhereClauseOrgOpenViolations(String sql, String time_period_start, String group_by ) {
+		return sql + " where time_period_start = '" + time_period_start + "' group by " + group_by + " order by 2 desc";
+	}
+	
+	public String AddWhereClauseAppOpenViolations(String sql, String time_period_start, String group_by ) {
+		return sql + " where time_period_start = '" + time_period_start + "' group by " + group_by + " order by 2 desc";
 	}
 
 	public Object averagePoint(List<Float> points) {

@@ -48,10 +48,10 @@ public class ReportApplicationsController {
 		
 		String latestPeriod = dataService.executeSQL(SQLStatement.LatestTimePeriodStart).get(0).getLabel();
 		
-		model.addAttribute("organisationsOpenViolationsData", dataService.getDataPoints(dataService.executeSQL(calculator.AddWhereClause(SQLStatement.OrganisationsOpenViolations, latestPeriod, "ORGANIZATION_NAME"))));
+		model.addAttribute("organisationsOpenViolationsData", dataService.getDataPoints(dataService.executeSQL(calculator.AddWhereClauseOrgOpenViolations(SQLStatement.OrganisationsOpenViolations, latestPeriod, "ORGANIZATION_NAME"))));
 
 
-		model.addAttribute("mostCriticalApplicationsData", qryService.getApplicationViolations());
+		model.addAttribute("mostCriticalApplicationsData", qryService.getApplicationsOpenViolations());
 		
 		model.addAttribute("mostScannedApplicationsData", qryService.getMostScannedApplications());
 		

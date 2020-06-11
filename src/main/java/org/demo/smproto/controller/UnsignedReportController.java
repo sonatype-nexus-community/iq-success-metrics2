@@ -114,7 +114,12 @@ public class UnsignedReportController {
 	    
 	    // Applications
 	    
-	    List<DataPoint> applicationViolationsData = qryService.getApplicationViolations();
+	    //List<DataPoint> applicationViolationsData = qryService.getApplicationViolations();
+	    
+	    String latestPeriod = dataService.executeSQL(SQLStatement.LatestTimePeriodStart).get(0).getLabel();
+	    List<DataPoint> applicationViolationsData = dataService.getDataPoints(dataService.executeSQL(calculator.AddWhereClauseAppOpenViolations(SQLStatement.ApplicationsOpenViolations, latestPeriod, "APPLICATION_NAME")));
+		
+		model.addAttribute("applicationViolationsData", applicationViolationsData);
 	    
 	    model.addAttribute("applicationCriticalViolationsAvg", calculator.sumAndAveragePointA(applicationViolationsData));
 	    model.addAttribute("mostCriticalApplication", new SummaryDataPoint(applicationViolationsData.get(0).getLabel(), (int) (applicationViolationsData.get(0).getPointA())));
@@ -149,9 +154,9 @@ public class UnsignedReportController {
 				
 		//model.addAttribute("organisationsOpenViolationsData", qryService.getOrganisationsOpenViolations());
 		
-		String latestPeriod = dataService.executeSQL(SQLStatement.LatestTimePeriodStart).get(0).getLabel();
+		//String latestPeriod = dataService.executeSQL(SQLStatement.LatestTimePeriodStart).get(0).getLabel();
 		
-		model.addAttribute("organisationsOpenViolationsData", dataService.getDataPoints(dataService.executeSQL(calculator.AddWhereClause(SQLStatement.OrganisationsOpenViolations, latestPeriod, "ORGANIZATION_NAME"))));
+		model.addAttribute("organisationsOpenViolationsData", dataService.getDataPoints(dataService.executeSQL(calculator.AddWhereClauseOrgOpenViolations(SQLStatement.OrganisationsOpenViolations, latestPeriod, "ORGANIZATION_NAME"))));
 
 
 		model.addAttribute("mostCriticalApplicationsData", qryService.getApplicationViolations());

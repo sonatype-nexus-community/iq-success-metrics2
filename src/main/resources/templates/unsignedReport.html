@@ -60,7 +60,7 @@
     <tr><td class="reduced-risk"><br>&nbsp;&nbsp;Which means that your Fixing Rate (fixed + waived/discovered) is <span th:text="${reducedRisk}"/>%</td></tr>
         
     <tr>
-    <td><br>- On average, each application had <span th:text="${applicationCriticalViolationsAvg.avg}"/> critical violations</td>
+    <td><br>- On average, each application has <span th:text="${applicationCriticalViolationsAvg.avg}"/> open critical violations</td>
     </tr>
     
     <tr><td>&nbsp;&nbsp;Most Critical Application has <span th:text="${mostCriticalApplication.count}"/> critical violations</td></tr>
@@ -350,7 +350,7 @@
       
       
       
-       <script th:inline="javascript">
+       <!-- <script th:inline="javascript">
       	function openSecurityViolations() {
           	var points = /*[[${openSecurityViolationsData}]]*/'noValue';
 
@@ -375,7 +375,7 @@
   		google.charts.setOnLoadCallback(openSecurityViolations);
 
       </script>
-      <div id="openSecurityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+      <div id="openSecurityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div> -->
   	 
   	<!--  license violations -->
   	
@@ -544,7 +544,7 @@
       <div id="waivedLicenseViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
 ~                                                       
 
-       <script th:inline="javascript">
+       <!-- <script th:inline="javascript">
       	function openLicenseViolations() {
           	var points = /*[[${openLicenseViolationsData}]]*/'noValue';
 
@@ -569,7 +569,7 @@
   		google.charts.setOnLoadCallback(openLicenseViolations);
 
       </script>
-      <div id="openLicenseViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+      <div id="openLicenseViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div> -->
  	
   
 </body>

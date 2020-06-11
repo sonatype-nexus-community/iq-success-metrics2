@@ -125,18 +125,18 @@
           	var data = new google.visualization.DataTable();
     	    data.addColumn('string', 'Application');
     	    data.addColumn('number', 'Discovered');
-    	    data.addColumn('number', 'Open');
     	    data.addColumn('number', 'Fixed');
     	    data.addColumn('number', 'Waived');
 
+    	    // removed column B which is Open
+    	    
     	    points.forEach(entry => {
     	    	var label = entry.label;
                 var pointA = entry.pointA;
-                var pointB = entry.pointB;
                 var pointC = entry.pointC;
                 var pointD = entry.pointD;
 
-                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`), parseInt(`${pointD}`) ]);
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointC}`), parseInt(`${pointD}`) ]);
             }); 
     	       
     	    var table = new google.visualization.Table(document.getElementById ('ApplicationsSecurityCriticalStatusChart'));

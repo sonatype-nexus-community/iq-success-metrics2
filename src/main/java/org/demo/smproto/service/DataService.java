@@ -84,6 +84,11 @@ public class DataService implements IDataService {
 		
 		return dataPoints;
 	}
+
+	public String latestPeriod() {
+	    String latestPeriod = executeSQL(SQLStatement.LatestTimePeriodStart).get(0).getLabel();
+		return latestPeriod;
+	}
 	
 	//@Modifying
 	//@Transactional

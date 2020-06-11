@@ -54,7 +54,13 @@ public class QueryService {
 	}
 	
 	public List<DataPoint> getOrganisationsOpenViolations(){
-		return dataService.getDataPoints(dataService.executeSQL(calculator.AddWhereClause(SQLStatement.OrganisationsOpenViolations, latestPeriod, "ORGANIZATION_NAME")));
+		String latestTimePeriod = dataService.latestPeriod();
+		return dataService.getDataPoints(dataService.executeSQL(calculator.AddWhereClauseOrgOpenViolations(SQLStatement.OrganisationsOpenViolations, latestTimePeriod, "ORGANIZATION_NAME")));
+	}
+	
+	public List<DataPoint> getApplicationsOpenViolations(){
+		String latestTimePeriod = dataService.latestPeriod();
+		return dataService.getDataPoints(dataService.executeSQL(calculator.AddWhereClauseAppOpenViolations(SQLStatement.ApplicationsOpenViolations, latestTimePeriod, "APPLICATION_NAME")));
 	}
 	
 //	public List<DataPoint> getApplicationSecurityViolations(){

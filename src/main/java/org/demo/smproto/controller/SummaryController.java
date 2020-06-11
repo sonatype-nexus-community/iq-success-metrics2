@@ -111,8 +111,13 @@ public class SummaryController {
 	    
 	    // Applications
 	    
-	    List<DataPoint> applicationViolationsData = qryService.getApplicationViolations();
+	    List<DataPoint> applicationViolationsData = qryService.getApplicationsOpenViolations();
 	    
+	    //String latestPeriod = dataService.executeSQL(SQLStatement.LatestTimePeriodStart).get(0).getLabel();
+	    //List<DataPoint> applicationViolationsData = dataService.getDataPoints(dataService.executeSQL(calculator.AddWhereClauseAppOpenViolations(SQLStatement.ApplicationsOpenViolations, "APPLICATION_NAME")));
+		
+		model.addAttribute("applicationViolationsData", applicationViolationsData);
+
 	    model.addAttribute("applicationCriticalViolationsAvg", calculator.sumAndAveragePointA(applicationViolationsData));
 	    model.addAttribute("mostCriticalApplication", new SummaryDataPoint(applicationViolationsData.get(0).getLabel(), (int) (applicationViolationsData.get(0).getPointA())));
 	    model.addAttribute("leastCriticalApplication", new SummaryDataPoint(applicationViolationsData.get(applicationViolationsData.size()-1).getLabel(), (int) (applicationViolationsData.get(applicationViolationsData.size()-1).getPointA())));

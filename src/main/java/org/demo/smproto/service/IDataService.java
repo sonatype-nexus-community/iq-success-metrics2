@@ -21,4 +21,6 @@ public interface IDataService {
 
 	List<PolicyViolation> getPolicyViolationPoints(List<PolicyViolation> runSQLStatement);
 	
+	String latestPeriod();
+	
 }

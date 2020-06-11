@@ -9,7 +9,7 @@ public class SQLStatement {
 //	public static String ApplicationSecurityViolations = "select application_name as label, sum(DISCOVERED_COUNT_SECURITY_CRITICAL) as pointA, sum(DISCOVERED_COUNT_SECURITY_SEVERE) as pointB, sum(DISCOVERED_COUNT_SECURITY_MODERATE) as pointC from metrics group by application_name order by pointA desc, pointB desc";
 //	public static String ApplicationLicenseViolations = "select application_name as label, sum(DISCOVERED_COUNT_LICENSE_CRITICAL) as pointA, sum(DISCOVERED_COUNT_LICENSE_SEVERE) as pointB, sum(DISCOVERED_COUNT_LICENSE_MODERATE) as pointC from metrics group by application_name order by pointA desc, pointB desc";
 
-	public static String ApplicationViolations = "select application_name as label, sum(DISCOVERED_COUNT_SECURITY_CRITICAL)+sum(DISCOVERED_COUNT_LICENSE_CRITICAL) as pointA, sum(DISCOVERED_COUNT_SECURITY_SEVERE)+sum(DISCOVERED_COUNT_LICENSE_SEVERE) as pointB, sum(DISCOVERED_COUNT_SECURITY_MODERATE)+sum(DISCOVERED_COUNT_LICENSE_MODERATE) as pointC from metrics group by application_name order by pointA desc, pointB desc";
+	public static String ApplicationViolations = "select application_name as label, sum(OPEN_COUNT_AT_TIME_PERIOD_END_SECURITY_Critical)+sum(OPEN_COUNT_AT_TIME_PERIOD_END_LICENSE_Critical) as pointA, sum(OPEN_COUNT_AT_TIME_PERIOD_END_SECURITY_Severe)+sum(OPEN_COUNT_AT_TIME_PERIOD_END_LICENSE_Severe) as pointB, sum(OPEN_COUNT_AT_TIME_PERIOD_END_SECURITY_Moderate)+sum(OPEN_COUNT_AT_TIME_PERIOD_END_LICENSE_Moderate) as pointC from metrics group by application_name order by pointA desc, pointB desc";
 
 	public static String MostScannedApplications = "select application_name as label, sum (evaluation_count) as pointA from metrics group by application_name order by 2 desc";
 
@@ -36,7 +36,8 @@ public class SQLStatement {
 			"			from metrics  group by time_period_start";
 		
 	public static String OrganisationsOpenViolations = "select  distinct organization_name as label, sum(OPEN_COUNT_AT_TIME_PERIOD_END_SECURITY_CRITICAL ) as pointA, sum(OPEN_COUNT_AT_TIME_PERIOD_END_SECURITY_SEVERE ) as pointB, sum(OPEN_COUNT_AT_TIME_PERIOD_END_SECURITY_MODERATE ) as pointC from metrics";
-	
+	public static String ApplicationsOpenViolations = "select  distinct application_name as label, sum(OPEN_COUNT_AT_TIME_PERIOD_END_SECURITY_CRITICAL ) as pointA, sum(OPEN_COUNT_AT_TIME_PERIOD_END_SECURITY_SEVERE ) as pointB, sum(OPEN_COUNT_AT_TIME_PERIOD_END_SECURITY_MODERATE ) as pointC from metrics";
+
 	public static String LatestTimePeriodStart = "select distinct time_period_start as label, 0 as pointA from metrics order by 1 desc limit 1";
 	
 	public static String TimePeriods = "select distinct time_period_start as label from metrics order by 1";
