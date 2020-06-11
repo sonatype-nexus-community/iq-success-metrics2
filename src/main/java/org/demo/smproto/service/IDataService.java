@@ -1,5 +1,6 @@
 package org.demo.smproto.service;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.demo.smproto.model.DataPoint;
@@ -22,5 +23,7 @@ public interface IDataService {
 	List<PolicyViolation> getPolicyViolationPoints(List<PolicyViolation> runSQLStatement);
 	
 	String latestPeriod();
+	
+	String getTimePeriod() throws ParseException;
 	
 }

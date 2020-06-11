@@ -40,9 +40,9 @@ public class UnsignedReportController {
 		log.info("In UnsignedReportController");
 		// Summary
 		
-		String timePeriod = qryService.getTimePeriod();
+		String timePeriod = dataService.getTimePeriod();
 		model.addAttribute("timePeriod", timePeriod);
-		model.addAttribute("applicationsOnboardedAvg", calculator.applicationsOnboardedAverage( qryService.getApplicationsOnboarded()));
+		model.addAttribute("applicationsOnboardedAvg", calculator.applicationsOnboardedAverage(qryService.getApplicationsOnboarded()));
 		model.addAttribute("numberOfScansAvg", calculator.sumAndAveragePointA(qryService.getNumberOfScans()));
 		model.addAttribute("applicationScansAvg", calculator.sumAndAveragePointA(qryService.getApplicationScans()));
 		
@@ -114,18 +114,12 @@ public class UnsignedReportController {
 	    
 	    // Applications
 	    
-	    //List<DataPoint> applicationViolationsData = qryService.getApplicationViolations();
-	    
-	    String latestPeriod = dataService.executeSQL(SQLStatement.LatestTimePeriodStart).get(0).getLabel();
-	    List<DataPoint> applicationViolationsData = dataService.getDataPoints(dataService.executeSQL(calculator.AddWhereClauseAppOpenViolations(SQLStatement.ApplicationsOpenViolations, latestPeriod, "APPLICATION_NAME")));
-		
-		model.addAttribute("applicationViolationsData", applicationViolationsData);
-	    
+	    List<DataPoint> applicationViolationsData = qryService.getOpenSecurityViolations();
+	   
 	    model.addAttribute("applicationCriticalViolationsAvg", calculator.sumAndAveragePointA(applicationViolationsData));
 	    model.addAttribute("mostCriticalApplication", new SummaryDataPoint(applicationViolationsData.get(0).getLabel(), (int) (applicationViolationsData.get(0).getPointA())));
 	    model.addAttribute("leastCriticalApplication", new SummaryDataPoint(applicationViolationsData.get(applicationViolationsData.size()-1).getLabel(), (int) (applicationViolationsData.get(applicationViolationsData.size()-1).getPointA())));
 	    	    
-	    
 	    // MTTR
 	    
 	    List<Float> pointA = new ArrayList<>();	
@@ -152,13 +146,8 @@ public class UnsignedReportController {
 		
 		model.addAttribute("applicationScansData", qryService.getApplicationScans());
 				
-		//model.addAttribute("organisationsOpenViolationsData", qryService.getOrganisationsOpenViolations());
+	    model.addAttribute("organisationsOpenViolationsData", qryService.getOrganisationsOpenViolations());
 		
-		//String latestPeriod = dataService.executeSQL(SQLStatement.LatestTimePeriodStart).get(0).getLabel();
-		
-		model.addAttribute("organisationsOpenViolationsData", dataService.getDataPoints(dataService.executeSQL(calculator.AddWhereClauseOrgOpenViolations(SQLStatement.OrganisationsOpenViolations, latestPeriod, "ORGANIZATION_NAME"))));
-
-
 		model.addAttribute("mostCriticalApplicationsData", qryService.getApplicationViolations());
 		
 		model.addAttribute("mostScannedApplicationsData", qryService.getMostScannedApplications());
@@ -166,7 +155,6 @@ public class UnsignedReportController {
 		model.addAttribute("mttrData", qryService.getMTTR());
 
 		
-	    
 	    // Report Security
 		
 		

@@ -1,9 +1,6 @@
 package org.demo.smproto.controller;
 
-import org.demo.smproto.service.CalculatorService;
-import org.demo.smproto.service.IDataService;
 import org.demo.smproto.service.QueryService;
-import org.demo.smproto.service.SQLStatement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ReportApplicationsController {
 	
 	@Autowired 
-	private IDataService dataService;
-	
-	@Autowired 
 	private QueryService qryService;
-	
-	@Autowired 
-	private CalculatorService calculator;
 	
 	private static final Logger log = LoggerFactory.getLogger(ReportApplicationsController.class);
 
@@ -44,12 +35,7 @@ public class ReportApplicationsController {
 		
 		model.addAttribute("applicationScansData", qryService.getApplicationScans());
 				
-		//model.addAttribute("organisationsOpenViolationsData", qryService.getOrganisationsOpenViolations());
-		
-		String latestPeriod = dataService.executeSQL(SQLStatement.LatestTimePeriodStart).get(0).getLabel();
-		
-		model.addAttribute("organisationsOpenViolationsData", dataService.getDataPoints(dataService.executeSQL(calculator.AddWhereClauseOrgOpenViolations(SQLStatement.OrganisationsOpenViolations, latestPeriod, "ORGANIZATION_NAME"))));
-
+		model.addAttribute("mostCriticalOrganisationsData", qryService.getOrganisationsOpenViolations());
 
 		model.addAttribute("mostCriticalApplicationsData", qryService.getApplicationsOpenViolations());
 		

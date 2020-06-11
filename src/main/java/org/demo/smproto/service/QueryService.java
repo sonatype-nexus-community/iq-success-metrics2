@@ -46,21 +46,15 @@ public class QueryService {
 	public List<DataPoint> getApplicationScans(){
 		return dataService.getDataPoints(dataService.executeSQL(SQLStatement.ApplicationScans));
 	}
-
-	public String getLatestTimePeriodStart(){
-		latestPeriod = dataService.executeSQL(SQLStatement.LatestTimePeriodStart).get(0).getLabel();
-		log.info("latest Period: " + latestPeriod);
-		return latestPeriod;
-	}
 	
 	public List<DataPoint> getOrganisationsOpenViolations(){
 		String latestTimePeriod = dataService.latestPeriod();
-		return dataService.getDataPoints(dataService.executeSQL(calculator.AddWhereClauseOrgOpenViolations(SQLStatement.OrganisationsOpenViolations, latestTimePeriod, "ORGANIZATION_NAME")));
+		return dataService.getDataPoints(dataService.executeSQL(calculator.AddWhereClauseOrgOpenViolations(SQLStatement.OrganisationsOpenSecurityViolations, latestTimePeriod, "ORGANIZATION_NAME")));
 	}
 	
 	public List<DataPoint> getApplicationsOpenViolations(){
 		String latestTimePeriod = dataService.latestPeriod();
-		return dataService.getDataPoints(dataService.executeSQL(calculator.AddWhereClauseAppOpenViolations(SQLStatement.ApplicationsOpenViolations, latestTimePeriod, "APPLICATION_NAME")));
+		return dataService.getDataPoints(dataService.executeSQL(calculator.AddWhereClauseAppOpenViolations(SQLStatement.ApplicationsOpenSecurityViolations, latestTimePeriod, "APPLICATION_NAME")));
 	}
 	
 //	public List<DataPoint> getApplicationSecurityViolations(){
@@ -108,7 +102,8 @@ public class QueryService {
 	}
 
 	public List<DataPoint> getOpenSecurityViolations(){
-		 return dataService.getDataPoints(dataService.executeSQL(SQLStatement.OpenSecurityViolations));
+		String latestTimePeriod = dataService.latestPeriod();
+		return dataService.getDataPoints(dataService.executeSQL(calculator.AddWhereClauseAppOpenViolations(SQLStatement.OpenSecurityViolations, latestTimePeriod, "APPLICATION_NAME")));
 	}
 	
 	public List<DataPoint> getCriticalLicenseViolations(){
@@ -136,49 +131,10 @@ public class QueryService {
 	}
 
 	public List<DataPoint> getOpenLicenseViolations(){
-		 return dataService.getDataPoints(dataService.executeSQL(SQLStatement.OpenLicenseViolations));
+		String latestTimePeriod = dataService.latestPeriod();
+		return dataService.getDataPoints(dataService.executeSQL(calculator.AddWhereClauseAppOpenViolations(SQLStatement.OpenLicenseViolations, latestTimePeriod, "APPLICATION_NAME")));
 	}
 
-	public String getTimePeriod() throws ParseException {
-		List<DataPoint> timePeriods = dataService.getDataPoints(dataService.executeSQL(SQLStatement.TimePeriods));
-		
-		long oneWeek = 604800000;
-		
-		String timePeriodLabel = "Week";
-		String firstTimePeriod;
-		String secondTimePeriod;
-		
-		if (timePeriods.size() > 1) {
-			firstTimePeriod = timePeriods.get(0).getLabel().toString();
-			secondTimePeriod = timePeriods.get(1).getLabel().toString();
-
-			long fp = this.convertDateStr(firstTimePeriod);
-			long sp = this.convertDateStr(secondTimePeriod);
-			
-			long diff = sp - fp;
-
-			if (diff <= oneWeek) {
-				timePeriodLabel = "week";
-			}
-			else {
-				timePeriodLabel = "month";
-
-			}
-		}
-		else {
-			timePeriodLabel = "week";
-		}
-		
-		return timePeriodLabel;
-	}
-	
-	private Long convertDateStr(String str) throws ParseException {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = sdf.parse(str);
-		long millis = date.getTime();
-		return millis;
-	}
-	
 	public List<PolicyViolation> getPolicyViolationsAge90(){
 		return dataService.getPolicyViolationPoints(dataService.executeSQL2(SQLStatement.PolicyViolationsAge90));
 	}
