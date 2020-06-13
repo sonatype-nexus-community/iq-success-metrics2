@@ -12,7 +12,7 @@
    
    <body>
    
-      <h2 class="page-title" th:text="'Success Metrics - Security Violations Report'"></h2>
+      <h2>Success Metrics - Security Violations Report</h2>
        <p class="date-title" th:text="${#dates.createNow()}"></p>
        
        <script th:inline="javascript">
@@ -36,7 +36,7 @@
                 data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`), parseInt(`${pointD}`) ]);
             }); 
     	    
-    	    var options = {'title':'Security Violations', 'width':750, 'height':400, colors: ['#F1DF22', 'green', 'orange', 'red']};  
+    	    var options = {'title':'Security Violations', 'width':750, 'height':400, isStacked: false, colors: ['#F1DF22', 'green', 'orange', 'red']};  
     	    
     	    /* var options_stacked = {
     	            isStacked: true,
@@ -55,7 +55,7 @@
     	            }
     	          }; */
     	    
-    	    var chart = new google.visualization.BarChart(document.getElementById ('securityViolationsChart'));
+    	    var chart = new google.visualization.ColumnChart(document.getElementById ('securityViolationsChart'));
     	    chart.draw(data, options);
     	 }
   		google.charts.setOnLoadCallback(securityViolations);
@@ -83,7 +83,7 @@
             }); 
     	    
     	    var options = {'title':'Open Security Violations', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};    	    
-    	    var chart = new google.visualization.BarChart(document.getElementById ('openSecurityViolationsChart'));
+    	    var chart = new google.visualization.ColumnChart(document.getElementById ('openSecurityViolationsChart'));
     	    chart.draw(data, options);
     	 }
   		google.charts.setOnLoadCallback(openSecurityViolations);
@@ -110,7 +110,7 @@
             }); 
     	    
     	    var options = {'title':'Discovered Security Violations', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};    	    
-    	    var chart = new google.visualization.BarChart(document.getElementById ('discoveredSecurityViolationsChart'));
+    	    var chart = new google.visualization.ColumnChart(document.getElementById ('discoveredSecurityViolationsChart'));
     	    chart.draw(data, options);
     	 }
   		google.charts.setOnLoadCallback(discoveredSecurityViolations);
@@ -138,7 +138,7 @@
             }); 
     	    
     	    var options = {'title':'Fixed Security Violations', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};    	    
-    	    var chart = new google.visualization.BarChart(document.getElementById ('fixedSecurityViolationsChart'));
+    	    var chart = new google.visualization.ColumnChart(document.getElementById ('fixedSecurityViolationsChart'));
     	    chart.draw(data, options);
     	 }
   		google.charts.setOnLoadCallback(fixedSecurityViolations);
@@ -165,7 +165,7 @@
             }); 
     	    
     	    var options = {'title':'Waived Security Violations', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};    	    
-    	    var chart = new google.visualization.BarChart(document.getElementById ('waivedSecurityViolationsChart'));
+    	    var chart = new google.visualization.ColumnChart(document.getElementById ('waivedSecurityViolationsChart'));
     	    chart.draw(data, options);
     	 }
   		google.charts.setOnLoadCallback(waivedSecurityViolations);
@@ -193,7 +193,7 @@
             }); 
     	    
     	    var options = {'title':'Critical Security Violations', 'width':750, 'height':400, colors: ['red', 'green', 'orange']};    	    
-    	    var chart = new google.visualization.BarChart(document.getElementById ('criticalSecurityViolationsChart'));
+    	    var chart = new google.visualization.ColumnChart(document.getElementById ('criticalSecurityViolationsChart'));
     	    chart.draw(data, options);
     	 }
   		google.charts.setOnLoadCallback(criticalSecurityViolations);
@@ -221,7 +221,7 @@
             }); 
     	    
     	    var options = {'title':'Severe Security Violations', 'width':750, 'height':400, colors: ['red', 'green', 'orange']};    	    
-    	    var chart = new google.visualization.BarChart(document.getElementById ('severeSecurityViolationsChart'));
+    	    var chart = new google.visualization.ColumnChart(document.getElementById ('severeSecurityViolationsChart'));
     	    chart.draw(data, options);
     	 }
   		google.charts.setOnLoadCallback(severeSecurityViolations);
@@ -248,7 +248,7 @@
             }); 
     	    
     	    var options = {'title':'Moderate Security Violations', 'width':750, 'height':400, colors: ['red', 'green', 'orange']};    	    
-    	    var chart = new google.visualization.BarChart(document.getElementById ('moderateSecurityViolationsChart'));
+    	    var chart = new google.visualization.ColumnChart(document.getElementById ('moderateSecurityViolationsChart'));
     	    chart.draw(data, options);
     	 }
   		google.charts.setOnLoadCallback(moderateSecurityViolations);

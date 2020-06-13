@@ -13,16 +13,16 @@
    
    <body>
    		
-      <h2 class="page-title" th:text="'Success Metrics Report'"></h2>
-          <p class="date-title" th:text="${#dates.createNow()}"></p>
+      <h2>Success Metrics Report</h2>
+      <p class="date-title" th:text="${#dates.createNow()}"></p>
       
-      <h3 class="page-title">Policy Violations Age</h3>
+      <div class="page-margin">
+      
+      <h3>Policy Violations Age</h3>
       
       <div class="page-title" role="alert" th:if="${!status}">
 	      <span th:text="${message}"></span>
   	  </div>
-      
-      
       
       <div th:if="${status}">
       
@@ -66,7 +66,7 @@
       
       
       <div th:if="${age7}">
-	      <h3 class="page-title">Security Policy Violations 0-7 Days</h3>
+	      <h3>Security Policy Violations 0-7 Days</h3>
 	      <script th:inline="javascript">
 	      	function securityPolicyViolationsAge7() {
 	          	var points = /*[[${policyViolationsAge7Data}]]*/'noValue';
@@ -97,7 +97,7 @@
       </div>
       
        <div th:if="${age30}">
-	      <h3 class="page-title">Security Policy Violations 8-30 Days</h3>
+	      <h3>Security Policy Violations 8-30 Days</h3>
 	      <script th:inline="javascript">
 	      	function securityPolicyViolationsAge30() {
 	          	var points = /*[[${policyViolationsAge30Data}]]*/'noValue';
@@ -128,7 +128,7 @@
       </div>
       
       <div th:if="${age60}">
-	      <h3 class="page-title">Security Policy Violations 31-60 Days</h3>
+	      <h3>Security Policy Violations 31-60 Days</h3>
 	      <script th:inline="javascript">
 	      	function securityPolicyViolationsAge60() {
 	          	var points = /*[[${policyViolationsAge60Data}]]*/'noValue';
@@ -159,7 +159,7 @@
       </div>
        
       <div th:if="${age90}">
-	      <h3 class="page-title">Security Policy Violations Over 60 Days</h3>
+	      <h3>Security Policy Violations Over 60 Days</h3>
 	      <script th:inline="javascript">
 	      	function securityPolicyViolationsAge90() {
 	          	var points = /*[[${policyViolationsAge90Data}]]*/'noValue';
@@ -187,6 +187,8 @@
 	
 	      </script>
       	  <div id="securityPolicyViolationsAge90Chart" style = "width: 550px; height: 400px;"></div>
+      </div>
+      
       </div>
       
       </div>
