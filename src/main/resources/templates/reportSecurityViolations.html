@@ -13,7 +13,7 @@
    <body>
    
       <h2 class="page-title" th:text="'Success Metrics - Security Violations Report'"></h2>
-       <p class="page-title" th:text="${#dates.createNow()}"></p>
+       <p class="date-title" th:text="${#dates.createNow()}"></p>
        
        <script th:inline="javascript">
       	function securityViolations() {
@@ -61,7 +61,7 @@
   		google.charts.setOnLoadCallback(securityViolations);
 
       </script>
-      <div id="securityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+      <div id="securityViolationsChart" style = "width: 650px; height: 400px;"></div>
    
    		
        <script th:inline="javascript">
@@ -89,7 +89,7 @@
   		google.charts.setOnLoadCallback(openSecurityViolations);
 
       </script>
-      <div id="openSecurityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+      <div id="openSecurityViolationsChart" style = "width: 650px; height: 400px;"></div>
  
  	<script th:inline="javascript">
       	function discoveredSecurityViolations() {
@@ -116,7 +116,7 @@
   		google.charts.setOnLoadCallback(discoveredSecurityViolations);
 
       </script>
-      <div id="discoveredSecurityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+      <div id="discoveredSecurityViolationsChart" style = "width: 650px; height: 400px;"></div>
       
       
       <script th:inline="javascript">
@@ -144,7 +144,7 @@
   		google.charts.setOnLoadCallback(fixedSecurityViolations);
 
       </script>
-      <div id="fixedSecurityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+      <div id="fixedSecurityViolationsChart" style = "width: 650px; height: 400px;"></div>
       
       <script th:inline="javascript">
       	function waivedSecurityViolations() {
@@ -171,7 +171,7 @@
   		google.charts.setOnLoadCallback(waivedSecurityViolations);
 
       </script>
-      <div id="waivedSecurityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+      <div id="waivedSecurityViolationsChart" style = "width: 650px; height: 400px;"></div>
       
  
       <script th:inline="javascript">
@@ -199,7 +199,7 @@
   		google.charts.setOnLoadCallback(criticalSecurityViolations);
 
       </script>
-      <div id="criticalSecurityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+      <div id="criticalSecurityViolationsChart" style = "width: 650px; height: 400px;"></div>
       
       
       <script th:inline="javascript">
@@ -227,7 +227,7 @@
   		google.charts.setOnLoadCallback(severeSecurityViolations);
 
       </script>
-      <div id="severeSecurityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+      <div id="severeSecurityViolationsChart" style = "width: 650px; height: 400px;"></div>
      
       <script th:inline="javascript">
       	function moderateSecurityViolations() {
@@ -254,7 +254,7 @@
   		google.charts.setOnLoadCallback(moderateSecurityViolations);
 
       </script>
-      <div id="moderateSecurityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+      <div id="moderateSecurityViolationsChart" style = "width: 650px; height: 400px;"></div>
       
       
       

@@ -14,7 +14,7 @@
    <body>
    		
       <h2 class="page-title" th:text="'Success Metrics Report'"></h2>
-          <p class="page-title" th:text="${#dates.createNow()}"></p>
+          <p class="date-title" th:text="${#dates.createNow()}"></p>
       
       <h3 class="page-title">Policy Violations Age</h3>
       
@@ -62,7 +62,7 @@
       google.charts.setOnLoadCallback(securityPolicyViolationsAge);
 
       </script>
-      <div id="securityPolicyViolationsAgeChart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
+      <div id="securityPolicyViolationsAgeChart" style = "width: 550px; height: 400px;"></div>
       
       
       <div th:if="${age7}">
@@ -93,7 +93,7 @@
 	        google.charts.setOnLoadCallback(securityPolicyViolationsAge7);
 	
 	      </script>
-	      <div id="securityPolicyViolationsAge7Chart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
+	      <div id="securityPolicyViolationsAge7Chart" style = "width: 550px; height: 400px;"></div>
       </div>
       
        <div th:if="${age30}">
@@ -124,7 +124,7 @@
 	        google.charts.setOnLoadCallback(securityPolicyViolationsAge30);
 	
 	      </script>
-	      <div id="securityPolicyViolationsAge30Chart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
+	      <div id="securityPolicyViolationsAge30Chart" style = "width: 550px; height: 400px;"></div>
       </div>
       
       <div th:if="${age60}">
@@ -155,7 +155,7 @@
 	        google.charts.setOnLoadCallback(securityPolicyViolationsAge60);
 	
 	      </script>
-      	<div id="securityPolicyViolationsAge60Chart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
+      	<div id="securityPolicyViolationsAge60Chart" style = "width: 550px; height: 400px;"></div>
       </div>
        
       <div th:if="${age90}">
@@ -186,7 +186,7 @@
 	        google.charts.setOnLoadCallback(securityPolicyViolationsAge90);
 	
 	      </script>
-      	  <div id="securityPolicyViolationsAge90Chart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
+      	  <div id="securityPolicyViolationsAge90Chart" style = "width: 550px; height: 400px;"></div>
       </div>
       
       </div>

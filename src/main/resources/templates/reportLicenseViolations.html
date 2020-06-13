@@ -13,7 +13,7 @@
    <body>
    
       <h2 class="page-title" th:text="'Success Metrics - License Violations Report'"></h2>
-       <p class="page-title" th:text="${#dates.createNow()}"></p>
+       <p class="date-title" th:text="${#dates.createNow()}"></p>
    
     <script th:inline="javascript">
       	function licenseViolations() {
@@ -61,7 +61,7 @@
   		google.charts.setOnLoadCallback(licenseViolations);
 
       </script>
-      <div id="licenseViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+      <div id="licenseViolationsChart" style = "width: 650px; height: 400px;"></div>
    		
        <script th:inline="javascript">
       	function openLicenseViolations() {
@@ -88,7 +88,7 @@
   		google.charts.setOnLoadCallback(openLicenseViolations);
 
       </script>
-      <div id="openLicenseViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+      <div id="openLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
  
  <script th:inline="javascript">
         function discoveredLicenseViolations() {
@@ -115,7 +115,7 @@
       google.charts.setOnLoadCallback(discoveredLicenseViolations);
 
       </script>
-      <div id="discoveredLicenseViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+      <div id="discoveredLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
 
 
       <script th:inline="javascript">
@@ -143,7 +143,7 @@
       google.charts.setOnLoadCallback(fixedLicenseViolations);
 
       </script>
-      <div id="fixedLicenseViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+      <div id="fixedLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
 
       <script th:inline="javascript">
         function waivedLicenseViolations() {
@@ -170,7 +170,7 @@
       google.charts.setOnLoadCallback(waivedLicenseViolations);
 
       </script>
-      <div id="waivedLicenseViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+      <div id="waivedLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
                                                        
       <script th:inline="javascript">
       	function criticalLicenseViolations() {
@@ -197,7 +197,7 @@
   		google.charts.setOnLoadCallback(criticalLicenseViolations);
 
       </script>
-      <div id="criticalLicenseViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+      <div id="criticalLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
       
       
       <script th:inline="javascript">
@@ -225,7 +225,7 @@
   		google.charts.setOnLoadCallback(severeLicenseViolations);
 
       </script>
-      <div id="severeLicenseViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+      <div id="severeLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
      
      <script th:inline="javascript">
       	function moderateLicenseViolations() {
@@ -252,7 +252,7 @@
   		google.charts.setOnLoadCallback(moderateLicenseViolations);
 
       </script>
-      <div id="moderateLicenseViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+      <div id="moderateLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
       
       
       
