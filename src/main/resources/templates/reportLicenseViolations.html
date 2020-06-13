@@ -13,9 +13,11 @@
    <body>
    
       <h2>Success Metrics - License Violations Report</h2>
-       <p class="date-title" th:text="${#dates.createNow()}"></p>
+      <p class="date-title" th:text="${#dates.createNow()}"></p>
    
-    <script th:inline="javascript">
+      <div style="page-break-always: always;">
+   
+    	<script th:inline="javascript">
       	function licenseViolations() {
           	var points = /*[[${licenseViolationsData}]]*/'noValue';
 
@@ -61,7 +63,7 @@
   		google.charts.setOnLoadCallback(licenseViolations);
 
       </script>
-      <div id="licenseViolationsChart" style = "width: 650px; height: 400px;"></div>
+        <div id="licenseViolationsChart" style = "width: 650px; height: 400px;"></div>
    		
        <script th:inline="javascript">
       	function openLicenseViolations() {
@@ -88,9 +90,13 @@
   		google.charts.setOnLoadCallback(openLicenseViolations);
 
       </script>
-      <div id="openLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
+       <div id="openLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
  
- <script th:inline="javascript">
+      </div>
+ 
+      <div style="page-break-always: always;">
+ 
+ 		<script th:inline="javascript">
         function discoveredLicenseViolations() {
             var points = /*[[${discoveredLicenseViolationsData}]]*/'noValue';
 
@@ -115,10 +121,10 @@
       google.charts.setOnLoadCallback(discoveredLicenseViolations);
 
       </script>
-      <div id="discoveredLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
+        <div id="discoveredLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
 
 
-      <script th:inline="javascript">
+        <script th:inline="javascript">
         function fixedLicenseViolations() {
             var points = /*[[${fixedLicenseViolationsData}]]*/'noValue';
 
@@ -143,7 +149,11 @@
       google.charts.setOnLoadCallback(fixedLicenseViolations);
 
       </script>
-      <div id="fixedLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
+        <div id="fixedLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
+
+      </div>
+
+      <div style="page-break-always: always;">
 
       <script th:inline="javascript">
         function waivedLicenseViolations() {
@@ -199,6 +209,9 @@
       </script>
       <div id="criticalLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
       
+      </div>
+      
+      <div style="page-break-always: always;">
       
       <script th:inline="javascript">
       	function severeLicenseViolations() {
@@ -227,7 +240,7 @@
       </script>
       <div id="severeLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
      
-     <script th:inline="javascript">
+      <script th:inline="javascript">
       	function moderateLicenseViolations() {
           	var points = /*[[${moderateLicenseViolationsData}]]*/'noValue';
 
@@ -253,9 +266,8 @@
 
       </script>
       <div id="moderateLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
-      
-      
-      
+     
+      </div>
       
       
    </body>

@@ -13,7 +13,9 @@
    <body>
    
       <h2>Success Metrics - Security Violations Report</h2>
-       <p class="date-title" th:text="${#dates.createNow()}"></p>
+      <p class="date-title" th:text="${#dates.createNow()}"></p>
+       
+      <div style="page-break-always: always;">
        
        <script th:inline="javascript">
       	function securityViolations() {
@@ -61,9 +63,8 @@
   		google.charts.setOnLoadCallback(securityViolations);
 
       </script>
-      <div id="securityViolationsChart" style = "width: 650px; height: 400px;"></div>
+       <div id="securityViolationsChart" style = "width: 650px; height: 400px;"></div>
    
-   		
        <script th:inline="javascript">
       	function openSecurityViolations() {
           	var points = /*[[${openSecurityViolationsData}]]*/'noValue';
@@ -89,9 +90,13 @@
   		google.charts.setOnLoadCallback(openSecurityViolations);
 
       </script>
-      <div id="openSecurityViolationsChart" style = "width: 650px; height: 400px;"></div>
- 
- 	<script th:inline="javascript">
+       <div id="openSecurityViolationsChart" style = "width: 650px; height: 400px;"></div>
+      
+      </div>
+      
+      <div style="page-break-always: always;">
+      
+ 		<script th:inline="javascript">
       	function discoveredSecurityViolations() {
           	var points = /*[[${discoveredSecurityViolationsData}]]*/'noValue';
 
@@ -116,10 +121,9 @@
   		google.charts.setOnLoadCallback(discoveredSecurityViolations);
 
       </script>
-      <div id="discoveredSecurityViolationsChart" style = "width: 650px; height: 400px;"></div>
+        <div id="discoveredSecurityViolationsChart" style = "width: 650px; height: 400px;"></div>
       
-      
-      <script th:inline="javascript">
+       <script th:inline="javascript">
       	function fixedSecurityViolations() {
           	var points = /*[[${fixedSecurityViolationsData}]]*/'noValue';
 
@@ -144,7 +148,11 @@
   		google.charts.setOnLoadCallback(fixedSecurityViolations);
 
       </script>
-      <div id="fixedSecurityViolationsChart" style = "width: 650px; height: 400px;"></div>
+       <div id="fixedSecurityViolationsChart" style = "width: 650px; height: 400px;"></div>
+      
+      </div>
+      
+      <div style="page-break-always: always;">
       
       <script th:inline="javascript">
       	function waivedSecurityViolations() {
@@ -173,7 +181,6 @@
       </script>
       <div id="waivedSecurityViolationsChart" style = "width: 650px; height: 400px;"></div>
       
- 
       <script th:inline="javascript">
       	function criticalSecurityViolations() {
           	var points = /*[[${criticalSecurityViolationsData}]]*/'noValue';
@@ -201,6 +208,9 @@
       </script>
       <div id="criticalSecurityViolationsChart" style = "width: 650px; height: 400px;"></div>
       
+      </div>
+      
+      <div style="page-break-always: always;">
       
       <script th:inline="javascript">
       	function severeSecurityViolations() {
@@ -256,12 +266,7 @@
       </script>
       <div id="moderateSecurityViolationsChart" style = "width: 650px; height: 400px;"></div>
       
-      
-      
-      
-      
-      
-      
-      
+      </div>
+       
    </body>
 </html>
