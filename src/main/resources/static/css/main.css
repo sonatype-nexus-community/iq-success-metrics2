@@ -66,3 +66,35 @@ span {
 	color: blue;
 }
 
+
+
+.cssHeaderRow {
+    background-color: orange;
+ }
+.cssTableRow {
+    background-color: white;
+}
+.cssOddTableRow {
+    background-color: #F0F1F2;
+}
+.cssSelectedTableRow {
+    font-size: 20px;
+    font-weight:bold;
+}
+.cssHoverTableRow {
+    background: #ccc;
+}
+.cssHeaderCell {
+    color: white;
+    font-size: 10px;
+     text-align: center;
+}
+.cssTableCell {
+    font-size: 10px;
+    padding: 10px !important;
+    border: solid 1px #FFFFFF;
+}
+.cssRowNumberCell {
+    text-align: left;
+}
+

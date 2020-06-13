@@ -15,6 +15,26 @@
    		
       <h2>Success Metrics Report</h2>
       <p class="date-title" th:text="${#dates.createNow()}"></p>
+      
+       <script>
+  		var cssClassNames = {
+	            'headerRow': 'cssHeaderRow',
+	            'tableRow': 'cssTableRow',
+	            'oddTableRow': 'cssOddTableRow',
+	            'selectedTableRow': 'cssSelectedTableRow',
+	            'hoverTableRow': 'cssHoverTableRow',
+	            'headerCell': 'cssHeaderCell',
+	            'tableCell': 'cssTableCell',
+	            'rowNumberCell': 'cssRowNumberCell'
+        	};
+    
+    	var tableOptions = {
+		    	showRowNumber: true,
+		        cssClassNames: cssClassNames,
+		        height: '100%',
+		        width: '100%'
+    		};
+  	  </script>
        
       <script th:inline="javascript">
       	function applicationsOnboarded() {
@@ -125,10 +145,10 @@
           	var points = /*[[${ApplicationsSecurityCriticalStatusData}]]*/'noValue';
 
           	var data = new google.visualization.DataTable();
-    	    data.addColumn('string', 'Application');
-    	    data.addColumn('number', 'Discovered');
-    	    data.addColumn('number', 'Fixed');
-    	    data.addColumn('number', 'Waived');
+    	    data.addColumn('string', 'Application Name');
+    	    data.addColumn('number', 'Discovered Violations');
+    	    data.addColumn('number', 'Fixed Violations');
+    	    data.addColumn('number', 'Waived Violations');
 
     	    // removed column B which is Open
     	    
@@ -142,7 +162,7 @@
             }); 
     	       
     	    var table = new google.visualization.Table(document.getElementById ('ApplicationsSecurityCriticalStatusChart'));
-    	    table.draw(data, {showRowNumber: true, width: '100%'});
+    	    table.draw(data, tableOptions);
     	 }
       	
         google.charts.setOnLoadCallback(ApplicationsSecurityCriticalStatus);
@@ -150,6 +170,7 @@
       </script>
       <div id="ApplicationsSecurityCriticalStatusChart" style = "width: 550px; height: 400px;"></div>
       
+      <br><br>
            
       <h3>Most Critical Organisations - (Open Security Violations)</h3>
       <script th:inline="javascript">
@@ -157,7 +178,7 @@
           	var points = /*[[${mostCriticalOrganisationsData}]]*/'noValue';
 
     		var data = new google.visualization.DataTable();
-    	    data.addColumn('string', 'Organisation');
+    	    data.addColumn('string', 'Organisation Name');
     	    data.addColumn('number', 'Critical Violations');
     	    data.addColumn('number', 'Severe Violations');
     	    data.addColumn('number', 'Moderate Violations');
@@ -171,7 +192,7 @@
             }); 
     	       
     	    var table = new google.visualization.Table(document.getElementById ('organisationsOpenViolationsChart'));
-    	    table.draw(data, {showRowNumber: true, width: '100%'});
+    	    table.draw(data, tableOptions);
     	 }
       	
         google.charts.setOnLoadCallback(organisationsOpenViolations);
@@ -186,7 +207,7 @@
           	var points = /*[[${mostCriticalApplicationsData}]]*/'noValue';
 
           	var data = new google.visualization.DataTable();
-    	    data.addColumn('string', 'Application');
+    	    data.addColumn('string', 'Application Name');
     	    data.addColumn('number', 'Critical Violations');
     	    data.addColumn('number', 'Severe Violations');
     	    data.addColumn('number', 'Moderate Violations');
@@ -200,7 +221,7 @@
             }); 
     	       
     	    var table = new google.visualization.Table(document.getElementById ('mostCriticalApplicationsChart'));
-    	    table.draw(data, {showRowNumber: true, width: '100%'});
+    	    table.draw(data, tableOptions);
     	 }
       	
         google.charts.setOnLoadCallback(mostCriticalApplications);
@@ -208,14 +229,15 @@
       </script>
       <div id="mostCriticalApplicationsChart" style = "width: 550px; height: 400px;"></div>
       
-     
+      <br><br>
+      
       <h3>Most Scanned Applications</h3>
       <script th:inline="javascript">
       	function mostScannedApplications() {
           	var points = /*[[${mostScannedApplicationsData}]]*/'noValue';
 
     		var data = new google.visualization.DataTable();
-    	    data.addColumn('string', 'Application');
+    	    data.addColumn('string', 'Application Name');
     	    data.addColumn('number', 'Number of Scans');
     	    
     	    points.forEach(entry => {
@@ -225,7 +247,7 @@
             }); 
     	       
     	    var table = new google.visualization.Table(document.getElementById ('mostScannedApplicationsChart'));
-    	    table.draw(data, {showRowNumber: true, width: '100%'});
+    	    table.draw(data, tableOptions);
     	 }
       	
         google.charts.setOnLoadCallback(mostScannedApplications);

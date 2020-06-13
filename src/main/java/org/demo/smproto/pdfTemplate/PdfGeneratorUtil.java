@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-import org.xhtmlrenderer.pdf.ITextRenderer;
+//import org.xhtmlrenderer.pdf.ITextRenderer;
 
 
 @Component
@@ -22,46 +22,46 @@ public class PdfGeneratorUtil {
 	
 	private static final Logger log = LoggerFactory.getLogger(PdfGeneratorUtil.class);
 
-	@Autowired
-	private TemplateEngine templateEngine;
-	
-	public void createPdf(String templateName, Map<String, Object> map) throws Exception {
-		Assert.notNull(templateName, "The templateName can not be null");
-		Context ctx = new Context();
-		if (map != null) {
-		     Iterator itMap = map.entrySet().iterator();
-		       while (itMap.hasNext()) {
-			  Map.Entry pair = (Map.Entry) itMap.next();
-				log.info("ctx: " + pair.getKey().toString() + ":" + pair.getValue());
-
-		          ctx.setVariable(pair.getKey().toString(), pair.getValue());
-			}
-		}
-		
-		log.info("template: " + templateName);
-
-		
-		String processedHtml = templateEngine.process(templateName, ctx);
-		  FileOutputStream os = null;
-		  String fileName = UUID.randomUUID().toString();
-
-	        try {
-	            final File outputFile = File.createTempFile(fileName, ".pdf");
-	            os = new FileOutputStream(outputFile);
-
-	            ITextRenderer renderer = new ITextRenderer();
-	            renderer.setDocumentFromString(processedHtml);
-	            renderer.layout();
-	            renderer.createPDF(os);
-	            renderer.finishPDF();
-	            log.info("PDF file created successfully: " + fileName);
-	        }
-	        finally {
-	            if (os != null) {
-	                try {
-	                    os.close();
-	                } catch (IOException e) { /*ignore*/ }
-	            }
-	        }
-	}
+//	@Autowired
+//	private TemplateEngine templateEngine;
+//	
+//	public void createPdf(String templateName, Map<String, Object> map) throws Exception {
+//		Assert.notNull(templateName, "The templateName can not be null");
+//		Context ctx = new Context();
+//		if (map != null) {
+//		     Iterator itMap = map.entrySet().iterator();
+//		       while (itMap.hasNext()) {
+//			  Map.Entry pair = (Map.Entry) itMap.next();
+//				log.info("ctx: " + pair.getKey().toString() + ":" + pair.getValue());
+//
+//		          ctx.setVariable(pair.getKey().toString(), pair.getValue());
+//			}
+//		}
+//		
+//		log.info("template: " + templateName);
+//
+//		
+//		String processedHtml = templateEngine.process(templateName, ctx);
+//		  FileOutputStream os = null;
+//		  String fileName = UUID.randomUUID().toString();
+//
+//	        try {
+//	            final File outputFile = File.createTempFile(fileName, ".pdf");
+//	            os = new FileOutputStream(outputFile);
+//
+//	            ITextRenderer renderer = new ITextRenderer();
+//	            renderer.setDocumentFromString(processedHtml);
+//	            renderer.layout();
+//	            renderer.createPDF(os);
+//	            renderer.finishPDF();
+//	            log.info("PDF file created successfully: " + fileName);
+//	        }
+//	        finally {
+//	            if (os != null) {
+//	                try {
+//	                    os.close();
+//	                } catch (IOException e) { /*ignore*/ }
+//	            }
+//	        }
+//	}
 }

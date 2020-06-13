@@ -22,15 +22,15 @@ public class PdfController {
 	@GetMapping({"/pdf"})
 	public String pdf() {
 		
-		Map<String,Object> data = new HashMap<String,Object>();
-	    data.put("name","James");
-	    try {
-	    	log.info("creating pdf");
-			pdfGeneratorUtil.createPdf("pdf",data);
-		} 
-	    catch (Exception e) {
-			e.printStackTrace();
-		} 
+//		Map<String,Object> data = new HashMap<String,Object>();
+//	    data.put("name","James");
+//	    try {
+//	    	log.info("creating pdf");
+//			pdfGeneratorUtil.createPdf("pdf",data);
+//		} 
+//	    catch (Exception e) {
+//			e.printStackTrace();
+//		} 
 		
 		return "pdf";
 	}
