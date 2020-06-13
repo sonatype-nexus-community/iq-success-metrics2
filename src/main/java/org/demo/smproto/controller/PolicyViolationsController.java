@@ -34,15 +34,26 @@ public class PolicyViolationsController {
 		File f = new File(csvFileName);
 		
 		if(f.exists() && !f.isDirectory()) { 
-					
+			
+			List<PolicyViolation> age7Data = qryService.getPolicyViolationsAge7();
 			List<PolicyViolation> age30Data = qryService.getPolicyViolationsAge30();
 			List<PolicyViolation> age60Data = qryService.getPolicyViolationsAge60();
 			List<PolicyViolation> age90Data = qryService.getPolicyViolationsAge90();
-			
+
+			int age7Count = age7Data.size();
 			int age30Count = age30Data.size();
 			int age60Count = age60Data.size();
 			int age90Count = age90Data.size();
 
+			if (age7Count > 0) {
+				model.addAttribute("policyViolationsAge7Data", age7Data);
+				model.addAttribute("policyViolationsAge7Number", age7Count);
+	            model.addAttribute("age7", true);
+			}
+			else {
+	            model.addAttribute("age7", false);
+			}
+			
 			if (age30Count > 0) {
 				model.addAttribute("policyViolationsAge30Data", age30Data);
 				model.addAttribute("policyViolationsAge30Number", age30Count);

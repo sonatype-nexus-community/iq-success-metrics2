@@ -7,6 +7,7 @@ import java.util.List;
 import org.demo.smproto.model.DataPoint;
 import org.demo.smproto.model.MTTRPoint;
 import org.demo.smproto.model.SummaryDataPoint;
+import org.demo.smproto.pdfTemplate.PdfGeneratorUtil;
 import org.demo.smproto.service.CalculatorService;
 import org.demo.smproto.service.IDataService;
 import org.demo.smproto.service.QueryService;
@@ -31,8 +32,6 @@ public class UnsignedReportController {
 	
 	@Autowired 
 	private QueryService qryService;
-
-	
 	
 	@GetMapping({"/unsignedReport"})
 	public String unsignedReport(Model model) throws ParseException {
@@ -170,8 +169,10 @@ public class UnsignedReportController {
 	          
 	    model.addAttribute("waivedSecurityViolationsData", qryService.getWaivedSecurityViolations());
 	        
-	    model.addAttribute("openSecurityViolationsData", qryService.getOpenSecurityViolations());
-		
+	    model.addAttribute("openSecurityViolationsData", qryService.getOpenSecurityViolationsTrend());
+	    
+	    model.addAttribute("securityViolationsData", qryService.getSecurityViolations());
+
 	    
 		// Report License
 		
@@ -188,10 +189,10 @@ public class UnsignedReportController {
 			    
 		model.addAttribute("waivedLicenseViolationsData", qryService.getWaivedLicenseViolations());
 				
-		model.addAttribute("openLicenseViolationsData", qryService.getOpenLicenseViolations());
+		model.addAttribute("openLicenseViolationsData", qryService.getOpenLicenseViolationsTrend());
 	    
-	    
+	    model.addAttribute("licenseViolationsData", qryService.getLicenseViolations());
+
 		return "unsignedReport";
 	}
-
 }

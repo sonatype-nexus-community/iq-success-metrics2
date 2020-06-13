@@ -31,7 +31,7 @@
             }); 
     	       
     	    var options = {'title':'Applications Onboarded (Scanned)', 'width':750, 'height':400};
-    	    var chart = new google.visualization.ColumnChart(document.getElementById ('applicationsOnboardedChart'));   
+    	    var chart = new google.visualization.BarChart(document.getElementById ('applicationsOnboardedChart'));   
     	    chart.draw(data, options);
     	 }
 
@@ -55,7 +55,7 @@
             }); 
     	       
     	    var options = {'title':'Scanned Applications', 'width':750, 'height':400};
-    	    var chart = new google.visualization.ColumnChart(document.getElementById ('applicationScansChart'));
+    	    var chart = new google.visualization.BarChart(document.getElementById ('applicationScansChart'));
     	    chart.draw(data, options);
     	 }
 
@@ -80,7 +80,7 @@
             }); 
     	       
     	    var options = {'title':'Number of Scans', 'width':750, 'height':400};
-    	    var chart = new google.visualization.ColumnChart(document.getElementById ('applicationsScannedChart'));
+    	    var chart = new google.visualization.BarChart(document.getElementById ('applicationsScannedChart'));
     	    chart.draw(data, options);
     	 }
 
@@ -108,7 +108,7 @@
             }); 
     	    
     	    var options = {'title':'MTTR (Days)', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};    	    
-    	    var chart = new google.visualization.ColumnChart(document.getElementById ('mttrChart'));
+    	    var chart = new google.visualization.BarChart(document.getElementById ('mttrChart'));
     	    chart.draw(data, options);
     	 }
   		google.charts.setOnLoadCallback(mttr);

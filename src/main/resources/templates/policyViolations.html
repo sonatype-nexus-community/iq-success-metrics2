@@ -32,16 +32,26 @@
     	var age90 = /*[[${policyViolationsAge90Number}]]*/'noValue';
     	var age60 = /*[[${policyViolationsAge60Number}]]*/'noValue';
     	var age30 = /*[[${policyViolationsAge30Number}]]*/'noValue';
+    	var age7 = /*[[${policyViolationsAge7Number}]]*/'noValue';
 
-        var data = google.visualization.arrayToDataTable([
+       /*  var data = google.visualization.arrayToDataTable([
           ['Age', 'Days'],
           ['>61 Days', age90],
           ['31-60 Days', age60],
-          ['0-30 Days', age30]
-        ]);
+          ['8-30 Days', age30],
+          ['0-7 Days', age7]
+        ]); */
+        
+        var data = google.visualization.arrayToDataTable([
+            ['Age', 'Days'],
+            ['0-7 Days', age7],
+            ['8-30 Days', age30],
+            ['31-60 Days', age60],
+            ['>61 Days', age90]
+          ]);
 
         var options = {
-          title: 'Age of Security Policy Violations'
+          title: 'Age of Security Policy Violations', colors: ['blue', 'orange', 'brown', 'red']
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('securityPolicyViolationsAgeChart'));
@@ -55,11 +65,11 @@
       <div id="securityPolicyViolationsAgeChart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
       
       
-      <div th:if="${age90}">
-	      <h3 class="page-title">Security Policy Violations Over 60 Days</h3>
+      <div th:if="${age7}">
+	      <h3 class="page-title">Security Policy Violations 0-7 Days</h3>
 	      <script th:inline="javascript">
-	      	function securityPolicyViolationsAge90() {
-	          	var points = /*[[${policyViolationsAge90Data}]]*/'noValue';
+	      	function securityPolicyViolationsAge7() {
+	          	var points = /*[[${policyViolationsAge7Data}]]*/'noValue';
 	
 	    		var data = new google.visualization.DataTable();
 	    	    data.addColumn('string', 'Policy Name');
@@ -76,14 +86,45 @@
 	                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`]);
 	            }); 
 	    	       
-	    	    var table = new google.visualization.Table(document.getElementById ('securityPolicyViolationsAge90Chart'));
+	    	    var table = new google.visualization.Table(document.getElementById ('securityPolicyViolationsAge7Chart'));
 	    	    table.draw(data, {showRowNumber: true, width: '100%'});
 	    	 }
 	      	
-	        google.charts.setOnLoadCallback(securityPolicyViolationsAge90);
+	        google.charts.setOnLoadCallback(securityPolicyViolationsAge7);
 	
 	      </script>
-      	  <div id="securityPolicyViolationsAge90Chart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
+	      <div id="securityPolicyViolationsAge7Chart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
+      </div>
+      
+       <div th:if="${age30}">
+	      <h3 class="page-title">Security Policy Violations 8-30 Days</h3>
+	      <script th:inline="javascript">
+	      	function securityPolicyViolationsAge30() {
+	          	var points = /*[[${policyViolationsAge30Data}]]*/'noValue';
+	
+	    		var data = new google.visualization.DataTable();
+	    	    data.addColumn('string', 'Policy Name');
+	    	    data.addColumn('string', 'Application Name');
+	    	    data.addColumn('string', 'Component');
+	    	    /*data.addColumn('string', 'Open Time');*/
+	
+	    	    points.forEach(entry => {
+	                var policyName = entry.policyName;
+	                var applicationName = entry.applicationName;
+	                var component = entry.component;
+	                /*var openTime = entry.openTime;*/
+	
+	                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`]);
+	            }); 
+	    	       
+	    	    var table = new google.visualization.Table(document.getElementById ('securityPolicyViolationsAge30Chart'));
+	    	    table.draw(data, {showRowNumber: true, width: '100%'});
+	    	 }
+	      	
+	        google.charts.setOnLoadCallback(securityPolicyViolationsAge30);
+	
+	      </script>
+	      <div id="securityPolicyViolationsAge30Chart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
       </div>
       
       <div th:if="${age60}">
@@ -116,12 +157,12 @@
 	      </script>
       	<div id="securityPolicyViolationsAge60Chart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
       </div>
-      
-      <div th:if="${age30}">
-	      <h3 class="page-title">Security Policy Violations 0-30 Days</h3>
+       
+      <div th:if="${age90}">
+	      <h3 class="page-title">Security Policy Violations Over 60 Days</h3>
 	      <script th:inline="javascript">
-	      	function securityPolicyViolationsAge30() {
-	          	var points = /*[[${policyViolationsAge30Data}]]*/'noValue';
+	      	function securityPolicyViolationsAge90() {
+	          	var points = /*[[${policyViolationsAge90Data}]]*/'noValue';
 	
 	    		var data = new google.visualization.DataTable();
 	    	    data.addColumn('string', 'Policy Name');
@@ -138,14 +179,14 @@
 	                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`]);
 	            }); 
 	    	       
-	    	    var table = new google.visualization.Table(document.getElementById ('securityPolicyViolationsAge30Chart'));
+	    	    var table = new google.visualization.Table(document.getElementById ('securityPolicyViolationsAge90Chart'));
 	    	    table.draw(data, {showRowNumber: true, width: '100%'});
 	    	 }
 	      	
-	        google.charts.setOnLoadCallback(securityPolicyViolationsAge30);
+	        google.charts.setOnLoadCallback(securityPolicyViolationsAge90);
 	
 	      </script>
-	      <div id="securityPolicyViolationsAge30Chart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
+      	  <div id="securityPolicyViolationsAge90Chart" style = "width: 550px; height: 400px; margin: 0 auto"></div>
       </div>
       
       </div>

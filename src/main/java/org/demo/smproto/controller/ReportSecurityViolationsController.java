@@ -41,8 +41,9 @@ public class ReportSecurityViolationsController {
 	          
 	    model.addAttribute("waivedSecurityViolationsData", qryService.getWaivedSecurityViolations());
 	        
-	    model.addAttribute("openSecurityViolationsData", qryService.getOpenSecurityViolations());
+	    model.addAttribute("openSecurityViolationsData", qryService.getOpenSecurityViolationsTrend());
 		
+	    model.addAttribute("securityViolationsData", qryService.getSecurityViolations());
 
         return "reportSecurityViolations";
     }

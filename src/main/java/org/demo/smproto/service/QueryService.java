@@ -147,7 +147,27 @@ public class QueryService {
 		return dataService.getPolicyViolationPoints(dataService.executeSQL2(SQLStatement.PolicyViolationsAge30));
 	}
 	
+	public List<PolicyViolation> getPolicyViolationsAge7(){
+		return dataService.getPolicyViolationPoints(dataService.executeSQL2(SQLStatement.PolicyViolationsAge7));
+	}
+	
 	public List<DataPoint> getApplicationsSecurityCriticalStatus(){
 		return dataService.getDataPoints(dataService.executeSQL(SQLStatement.ApplicationsSecurityCriticalStatus));
+	}
+	
+	public List<DataPoint> getOpenSecurityViolationsTrend(){
+		return dataService.getDataPoints(dataService.executeSQL(SQLStatement.OpenSecurityViolationsTrend));
+	}
+	
+	public List<DataPoint> getOpenLicenseViolationsTrend(){
+		return dataService.getDataPoints(dataService.executeSQL(SQLStatement.OpenLicenseViolationsTrend));
+	}
+	
+	public List<DataPoint> getSecurityViolations(){
+		return dataService.getDataPoints(dataService.executeSQL(SQLStatement.SecurityViolations));
+	}
+	
+	public List<DataPoint> getLicenseViolations(){
+		return dataService.getDataPoints(dataService.executeSQL(SQLStatement.LicenseViolations));
 	}
 }

@@ -94,7 +94,7 @@
             }); 
     	       
     	    var options = {'title':'Applications Onboarded (Scanned)', 'width':750, 'height':400};
-    	    var chart = new google.visualization.ColumnChart(document.getElementById ('applicationsOnboardedChart'));   
+    	    var chart = new google.visualization.BarChart(document.getElementById ('applicationsOnboardedChart'));   
     	    chart.draw(data, options);
     	 }
 
@@ -118,7 +118,7 @@
             }); 
     	       
     	    var options = {'title':'Scanned Applications', 'width':750, 'height':400};
-    	    var chart = new google.visualization.ColumnChart(document.getElementById ('applicationScansChart'));
+    	    var chart = new google.visualization.BarChart(document.getElementById ('applicationScansChart'));
     	    chart.draw(data, options);
     	 }
 
@@ -143,7 +143,7 @@
             }); 
     	       
     	    var options = {'title':'Number of Scans', 'width':750, 'height':400};
-    	    var chart = new google.visualization.ColumnChart(document.getElementById ('applicationsScannedChart'));
+    	    var chart = new google.visualization.BarChart(document.getElementById ('applicationsScannedChart'));
     	    chart.draw(data, options);
     	 }
 
@@ -172,7 +172,7 @@
             }); 
     	    
     	    var options = {'title':'MTTR (Days)', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};    	    
-    	    var chart = new google.visualization.ColumnChart(document.getElementById ('mttrChart'));
+    	    var chart = new google.visualization.BarChart(document.getElementById ('mttrChart'));
     	    chart.draw(data, options);
     	 }
   		google.charts.setOnLoadCallback(mttr);
@@ -181,16 +181,47 @@
       <div id="mttrChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
       
  	<!--  security violations -->
-  	
-  	<script th:inline="javascript">
-      	function criticalSecurityViolations() {
-          	var points = /*[[${criticalSecurityViolationsData}]]*/'noValue';
+ 	
+ 	 <script th:inline="javascript">
+      	function securityViolations() {
+          	var points = /*[[${securityViolationsData}]]*/'noValue';
 
     		var data = new google.visualization.DataTable();
     	    data.addColumn('string', 'label');
     	    data.addColumn('number', 'Discovered');
     	    data.addColumn('number', 'Fixed');
     	    data.addColumn('number', 'Waived');
+    	    data.addColumn('number', 'Open');
+
+    	    points.forEach(entry => {
+                var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                var pointD = entry.pointD;
+
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`), parseInt(`${pointD}`) ]);
+            }); 
+    	    
+    	    var options = {'title':'Security Violations', 'width':750, 'height':400, colors: ['#F1DF22', 'green', 'orange', 'red']};  
+    	   
+    	    var chart = new google.visualization.BarChart(document.getElementById ('securityViolationsChart'));
+    	    chart.draw(data, options);
+    	 }
+  		google.charts.setOnLoadCallback(securityViolations);
+
+      </script>
+      <div id="securityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+ 	
+ 	<script th:inline="javascript">
+      	function openSecurityViolations() {
+          	var points = /*[[${openSecurityViolationsData}]]*/'noValue';
+
+    		var data = new google.visualization.DataTable();
+    	    data.addColumn('string', 'label');
+    	    data.addColumn('number', 'Critical');
+    	    data.addColumn('number', 'Severe');
+    	    data.addColumn('number', 'Moderate');
     	    
     	    points.forEach(entry => {
                 var label = entry.label;
@@ -200,71 +231,14 @@
                 data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
             }); 
     	    
-    	    var options = {'title':'Critical Security Violations', 'width':750, 'height':400, colors: ['red', 'green', 'orange']};    	    
-    	    var chart = new google.visualization.ColumnChart(document.getElementById ('criticalSecurityViolationsChart'));
+    	    var options = {'title':'Open Security Violations', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};    	    
+    	    var chart = new google.visualization.BarChart(document.getElementById ('openSecurityViolationsChart'));
     	    chart.draw(data, options);
     	 }
-  		google.charts.setOnLoadCallback(criticalSecurityViolations);
+  		google.charts.setOnLoadCallback(openSecurityViolations);
 
       </script>
-      <div id="criticalSecurityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
-      
-      
-      <script th:inline="javascript">
-      	function severeSecurityViolations() {
-          	var points = /*[[${severeSecurityViolationsData}]]*/'noValue';
-
-    		var data = new google.visualization.DataTable();
-    	    data.addColumn('string', 'label');
-    	    data.addColumn('number', 'Discovered');
-    	    data.addColumn('number', 'Fixed');
-    	    data.addColumn('number', 'Waived');
-    	    
-    	    points.forEach(entry => {
-                var label = entry.label;
-                var pointA = entry.pointA;
-                var pointB = entry.pointB;
-                var pointC = entry.pointC;
-                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
-            }); 
-    	    
-    	    var options = {'title':'Severe Security Violations', 'width':750, 'height':400, colors: ['red', 'green', 'orange']};    	    
-    	    var chart = new google.visualization.ColumnChart(document.getElementById ('severeSecurityViolationsChart'));
-    	    chart.draw(data, options);
-    	 }
-  		google.charts.setOnLoadCallback(severeSecurityViolations);
-
-      </script>
-      <div id="severeSecurityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
-     
-      <script th:inline="javascript">
-      	function moderateSecurityViolations() {
-          	var points = /*[[${moderateSecurityViolationsData}]]*/'noValue';
-
-    		var data = new google.visualization.DataTable();
-    	    data.addColumn('string', 'label');
-    	    data.addColumn('number', 'Discovered');
-    	    data.addColumn('number', 'Fixed');
-    	    data.addColumn('number', 'Waived');
-    	    
-    	    points.forEach(entry => {
-                var label = entry.label;
-                var pointA = entry.pointA;
-                var pointB = entry.pointB;
-                var pointC = entry.pointC;
-                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
-            }); 
-    	    
-    	    var options = {'title':'Moderate Security Violations', 'width':750, 'height':400, colors: ['red', 'green', 'orange']};    	    
-    	    var chart = new google.visualization.ColumnChart(document.getElementById ('moderateSecurityViolationsChart'));
-    	    chart.draw(data, options);
-    	 }
-  		google.charts.setOnLoadCallback(moderateSecurityViolations);
-
-      </script>
-      <div id="moderateSecurityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
-      
-      
+      <div id="openSecurityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
       
       <script th:inline="javascript">
       	function discoveredSecurityViolations() {
@@ -285,7 +259,7 @@
             }); 
     	    
     	    var options = {'title':'Discovered Security Violations', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};    	    
-    	    var chart = new google.visualization.ColumnChart(document.getElementById ('discoveredSecurityViolationsChart'));
+    	    var chart = new google.visualization.BarChart(document.getElementById ('discoveredSecurityViolationsChart'));
     	    chart.draw(data, options);
     	 }
   		google.charts.setOnLoadCallback(discoveredSecurityViolations);
@@ -313,7 +287,7 @@
             }); 
     	    
     	    var options = {'title':'Fixed Security Violations', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};    	    
-    	    var chart = new google.visualization.ColumnChart(document.getElementById ('fixedSecurityViolationsChart'));
+    	    var chart = new google.visualization.BarChart(document.getElementById ('fixedSecurityViolationsChart'));
     	    chart.draw(data, options);
     	 }
   		google.charts.setOnLoadCallback(fixedSecurityViolations);
@@ -340,7 +314,7 @@
             }); 
     	    
     	    var options = {'title':'Waived Security Violations', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};    	    
-    	    var chart = new google.visualization.ColumnChart(document.getElementById ('waivedSecurityViolationsChart'));
+    	    var chart = new google.visualization.BarChart(document.getElementById ('waivedSecurityViolationsChart'));
     	    chart.draw(data, options);
     	 }
   		google.charts.setOnLoadCallback(waivedSecurityViolations);
@@ -348,11 +322,126 @@
       </script>
       <div id="waivedSecurityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
       
+  	
+  	<script th:inline="javascript">
+      	function criticalSecurityViolations() {
+          	var points = /*[[${criticalSecurityViolationsData}]]*/'noValue';
+
+    		var data = new google.visualization.DataTable();
+    	    data.addColumn('string', 'label');
+    	    data.addColumn('number', 'Discovered');
+    	    data.addColumn('number', 'Fixed');
+    	    data.addColumn('number', 'Waived');
+    	    
+    	    points.forEach(entry => {
+                var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
+            }); 
+    	    
+    	    var options = {'title':'Critical Security Violations', 'width':750, 'height':400, colors: ['red', 'green', 'orange']};    	    
+    	    var chart = new google.visualization.BarChart(document.getElementById ('criticalSecurityViolationsChart'));
+    	    chart.draw(data, options);
+    	 }
+  		google.charts.setOnLoadCallback(criticalSecurityViolations);
+
+      </script>
+      <div id="criticalSecurityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
       
       
-       <script th:inline="javascript">
-      	function openSecurityViolations() {
-          	var points = /*[[${openSecurityViolationsData}]]*/'noValue';
+      <script th:inline="javascript">
+      	function severeSecurityViolations() {
+          	var points = /*[[${severeSecurityViolationsData}]]*/'noValue';
+
+    		var data = new google.visualization.DataTable();
+    	    data.addColumn('string', 'label');
+    	    data.addColumn('number', 'Discovered');
+    	    data.addColumn('number', 'Fixed');
+    	    data.addColumn('number', 'Waived');
+    	    
+    	    points.forEach(entry => {
+                var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
+            }); 
+    	    
+    	    var options = {'title':'Severe Security Violations', 'width':750, 'height':400, colors: ['red', 'green', 'orange']};    	    
+    	    var chart = new google.visualization.BarChart(document.getElementById ('severeSecurityViolationsChart'));
+    	    chart.draw(data, options);
+    	 }
+  		google.charts.setOnLoadCallback(severeSecurityViolations);
+
+      </script>
+      <div id="severeSecurityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+     
+      <script th:inline="javascript">
+      	function moderateSecurityViolations() {
+          	var points = /*[[${moderateSecurityViolationsData}]]*/'noValue';
+
+    		var data = new google.visualization.DataTable();
+    	    data.addColumn('string', 'label');
+    	    data.addColumn('number', 'Discovered');
+    	    data.addColumn('number', 'Fixed');
+    	    data.addColumn('number', 'Waived');
+    	    
+    	    points.forEach(entry => {
+                var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
+            }); 
+    	    
+    	    var options = {'title':'Moderate Security Violations', 'width':750, 'height':400, colors: ['red', 'green', 'orange']};    	    
+    	    var chart = new google.visualization.BarChart(document.getElementById ('moderateSecurityViolationsChart'));
+    	    chart.draw(data, options);
+    	 }
+  		google.charts.setOnLoadCallback(moderateSecurityViolations);
+
+      </script>
+      <div id="moderateSecurityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+      
+        
+  	<!--  license violations -->
+  	
+  	<script th:inline="javascript">
+      	function licenseViolations() {
+          	var points = /*[[${licenseViolationsData}]]*/'noValue';
+
+    		var data = new google.visualization.DataTable();
+    	    data.addColumn('string', 'label');
+    	    data.addColumn('number', 'Discovered');
+    	    data.addColumn('number', 'Fixed');
+    	    data.addColumn('number', 'Waived');
+    	    data.addColumn('number', 'Open');
+
+    	    points.forEach(entry => {
+                var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                var pointD = entry.pointD;
+
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`), parseInt(`${pointD}`) ]);
+            }); 
+    	    
+    	    var options = {'title':'License Violations', 'width':750, 'height':400, colors: ['#F1DF22', 'green', 'orange', 'red']};  
+    	    
+    	    var chart = new google.visualization.BarChart(document.getElementById ('licenseViolationsChart'));
+    	    chart.draw(data, options);
+    	 }
+  		google.charts.setOnLoadCallback(licenseViolations);
+
+      </script>
+      <div id="licenseViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+  	
+  	 <script th:inline="javascript">
+      	function openLicenseViolations() {
+          	var points = /*[[${openLicenseViolationsData}]]*/'noValue';
 
     		var data = new google.visualization.DataTable();
     	    data.addColumn('string', 'label');
@@ -368,99 +457,16 @@
                 data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
             }); 
     	    
-    	    var options = {'title':'Open Security Violations', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};    	    
-    	    var chart = new google.visualization.ColumnChart(document.getElementById ('openSecurityViolationsChart'));
+    	    var options = {'title':'Open License Violations', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};    	    
+    	    var chart = new google.visualization.BarChart(document.getElementById ('openLicenseViolationsChart'));
     	    chart.draw(data, options);
     	 }
-  		google.charts.setOnLoadCallback(openSecurityViolations);
+  		google.charts.setOnLoadCallback(openLicenseViolations);
 
       </script>
-      <div id="openSecurityViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
-  	 
-  	<!--  license violations -->
-  	
-  	<script th:inline="javascript">
-      	function criticalLicenseViolations() {
-          	var points = /*[[${criticalLicenseViolationsData}]]*/'noValue';
-
-    		var data = new google.visualization.DataTable();
-    	    data.addColumn('string', 'label');
-    	    data.addColumn('number', 'Discovered');
-    	    data.addColumn('number', 'Fixed');
-    	    data.addColumn('number', 'Waived');
-    	    
-    	    points.forEach(entry => {
-                var label = entry.label;
-                var pointA = entry.pointA;
-                var pointB = entry.pointB;
-                var pointC = entry.pointC;
-                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
-            }); 
-    	    
-    	    var options = {'title':'Critical License Violations', 'width':750, 'height':400, colors: ['red', 'green', 'orange']};    	    
-    	    var chart = new google.visualization.ColumnChart(document.getElementById ('criticalLicenseViolationsChart'));
-    	    chart.draw(data, options);
-    	 }
-  		google.charts.setOnLoadCallback(criticalLicenseViolations);
-
-      </script>
-      <div id="criticalLicenseViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
-      
-      
-      <script th:inline="javascript">
-      	function severeLicenseViolations() {
-          	var points = /*[[${severeLicenseViolationsData}]]*/'noValue';
-
-    		var data = new google.visualization.DataTable();
-    	    data.addColumn('string', 'label');
-    	    data.addColumn('number', 'Discovered');
-    	    data.addColumn('number', 'Fixed');
-    	    data.addColumn('number', 'Waived');
-    	    
-    	    points.forEach(entry => {
-                var label = entry.label;
-                var pointA = entry.pointA;
-                var pointB = entry.pointB;
-                var pointC = entry.pointC;
-                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
-            }); 
-    	    
-    	    var options = {'title':'Severe License Violations', 'width':750, 'height':400, colors: ['red', 'green', 'orange']};    	    
-    	    var chart = new google.visualization.ColumnChart(document.getElementById ('severeLicenseViolationsChart'));
-    	    chart.draw(data, options);
-    	 }
-  		google.charts.setOnLoadCallback(severeLicenseViolations);
-
-      </script>
-      <div id="severeLicenseViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
-     
-     <script th:inline="javascript">
-      	function moderateLicenseViolations() {
-          	var points = /*[[${moderateLicenseViolationsData}]]*/'noValue';
-
-    		var data = new google.visualization.DataTable();
-    	    data.addColumn('string', 'label');
-    	    data.addColumn('number', 'Discovered');
-    	    data.addColumn('number', 'Fixed');
-    	    data.addColumn('number', 'Waived');
-    	    
-    	    points.forEach(entry => {
-                var label = entry.label;
-                var pointA = entry.pointA;
-                var pointB = entry.pointB;
-                var pointC = entry.pointC;
-                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
-            }); 
-    	    
-    	    var options = {'title':'Moderate License Violations', 'width':750, 'height':400, colors: ['red', 'green', 'orange']};    	    
-    	    var chart = new google.visualization.ColumnChart(document.getElementById ('moderateLicenseViolationsChart'));
-    	    chart.draw(data, options);
-    	 }
-  		google.charts.setOnLoadCallback(moderateLicenseViolations);
-
-      </script>
-      <div id="moderateLicenseViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
-      
+      <div id="openLicenseViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+ 	
+ 	 
       <script th:inline="javascript">
         function discoveredLicenseViolations() {
             var points = /*[[${discoveredLicenseViolationsData}]]*/'noValue';
@@ -480,7 +486,7 @@
             });
 
           var options = {'title':'Discovered License Violations', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};
-          var chart = new google.visualization.ColumnChart(document.getElementById ('discoveredLicenseViolationsChart'));
+          var chart = new google.visualization.BarChart(document.getElementById ('discoveredLicenseViolationsChart'));
           chart.draw(data, options);
        }
       google.charts.setOnLoadCallback(discoveredLicenseViolations);
@@ -508,7 +514,7 @@
             });
 
           var options = {'title':'Fixed License Violations', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};
-          var chart = new google.visualization.ColumnChart(document.getElementById ('fixedLicenseViolationsChart'));
+          var chart = new google.visualization.BarChart(document.getElementById ('fixedLicenseViolationsChart'));
           chart.draw(data, options);
        }
       google.charts.setOnLoadCallback(fixedLicenseViolations);
@@ -535,7 +541,7 @@
             });
 
           var options = {'title':'Waived License Violations', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};
-          var chart = new google.visualization.ColumnChart(document.getElementById ('waivedLicenseViolationsChart'));
+          var chart = new google.visualization.BarChart(document.getElementById ('waivedLicenseViolationsChart'));
           chart.draw(data, options);
        }
       google.charts.setOnLoadCallback(waivedLicenseViolations);
@@ -543,16 +549,17 @@
       </script>
       <div id="waivedLicenseViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
 ~                                                       
-
-       <script th:inline="javascript">
-      	function openLicenseViolations() {
-          	var points = /*[[${openLicenseViolationsData}]]*/'noValue';
+ 	
+  	
+  	<script th:inline="javascript">
+      	function criticalLicenseViolations() {
+          	var points = /*[[${criticalLicenseViolationsData}]]*/'noValue';
 
     		var data = new google.visualization.DataTable();
     	    data.addColumn('string', 'label');
-    	    data.addColumn('number', 'Critical');
-    	    data.addColumn('number', 'Severe');
-    	    data.addColumn('number', 'Moderate');
+    	    data.addColumn('number', 'Discovered');
+    	    data.addColumn('number', 'Fixed');
+    	    data.addColumn('number', 'Waived');
     	    
     	    points.forEach(entry => {
                 var label = entry.label;
@@ -562,15 +569,71 @@
                 data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
             }); 
     	    
-    	    var options = {'title':'Open License Violations', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};    	    
-    	    var chart = new google.visualization.ColumnChart(document.getElementById ('openLicenseViolationsChart'));
+    	    var options = {'title':'Critical License Violations', 'width':750, 'height':400, colors: ['red', 'green', 'orange']};    	    
+    	    var chart = new google.visualization.BarChart(document.getElementById ('criticalLicenseViolationsChart'));
     	    chart.draw(data, options);
     	 }
-  		google.charts.setOnLoadCallback(openLicenseViolations);
+  		google.charts.setOnLoadCallback(criticalLicenseViolations);
 
       </script>
-      <div id="openLicenseViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
- 	
+      <div id="criticalLicenseViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+      
+      
+      <script th:inline="javascript">
+      	function severeLicenseViolations() {
+          	var points = /*[[${severeLicenseViolationsData}]]*/'noValue';
+
+    		var data = new google.visualization.DataTable();
+    	    data.addColumn('string', 'label');
+    	    data.addColumn('number', 'Discovered');
+    	    data.addColumn('number', 'Fixed');
+    	    data.addColumn('number', 'Waived');
+    	    
+    	    points.forEach(entry => {
+                var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
+            }); 
+    	    
+    	    var options = {'title':'Severe License Violations', 'width':750, 'height':400, colors: ['red', 'green', 'orange']};    	    
+    	    var chart = new google.visualization.BarChart(document.getElementById ('severeLicenseViolationsChart'));
+    	    chart.draw(data, options);
+    	 }
+  		google.charts.setOnLoadCallback(severeLicenseViolations);
+
+      </script>
+      <div id="severeLicenseViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+     
+     <script th:inline="javascript">
+      	function moderateLicenseViolations() {
+          	var points = /*[[${moderateLicenseViolationsData}]]*/'noValue';
+
+    		var data = new google.visualization.DataTable();
+    	    data.addColumn('string', 'label');
+    	    data.addColumn('number', 'Discovered');
+    	    data.addColumn('number', 'Fixed');
+    	    data.addColumn('number', 'Waived');
+    	    
+    	    points.forEach(entry => {
+                var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
+            }); 
+    	    
+    	    var options = {'title':'Moderate License Violations', 'width':750, 'height':400, colors: ['red', 'green', 'orange']};    	    
+    	    var chart = new google.visualization.BarChart(document.getElementById ('moderateLicenseViolationsChart'));
+    	    chart.draw(data, options);
+    	 }
+  		google.charts.setOnLoadCallback(moderateLicenseViolations);
+
+      </script>
+      <div id="moderateLicenseViolationsChart" style = "width: 650px; height: 400px; margin: 0 auto"></div>
+     
+      
   
 </body>
 </html> 

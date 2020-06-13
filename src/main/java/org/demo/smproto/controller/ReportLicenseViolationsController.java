@@ -36,7 +36,10 @@ public class ReportLicenseViolationsController {
 			    
 		model.addAttribute("waivedLicenseViolationsData", qryService.getWaivedLicenseViolations());
 				
-		model.addAttribute("openLicenseViolationsData", qryService.getOpenLicenseViolations());
+		model.addAttribute("openLicenseViolationsData", qryService.getOpenLicenseViolationsTrend());
+		
+	    model.addAttribute("licenseViolationsData", qryService.getLicenseViolations());
+
 		
         return "reportLicenseViolations";
     }
