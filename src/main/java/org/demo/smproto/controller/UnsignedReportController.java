@@ -1,5 +1,9 @@
 package org.demo.smproto.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,17 +11,22 @@ import java.util.List;
 import org.demo.smproto.model.DataPoint;
 import org.demo.smproto.model.MTTRPoint;
 import org.demo.smproto.model.SummaryDataPoint;
-import org.demo.smproto.pdfTemplate.PdfGeneratorUtil;
 import org.demo.smproto.service.CalculatorService;
 import org.demo.smproto.service.IDataService;
 import org.demo.smproto.service.QueryService;
 import org.demo.smproto.service.SQLStatement;
+import org.dom4j.DocumentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import org.xhtmlrenderer.pdf.ITextRenderer;
 
 @Controller
 public class UnsignedReportController {
@@ -195,4 +204,5 @@ public class UnsignedReportController {
 
 		return "unsignedReport";
 	}
+
 }

@@ -6,7 +6,9 @@
       <title>Success Metrics Report</title>
       <script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script>
       <script type = "text/javascript">google.charts.load('current', {packages: ['corechart']});</script>
-      <script type = "text/javascript">google.charts.load('current', {packages: ['table']});</script>      
+      <script type = "text/javascript">google.charts.load('current', {packages: ['table']});</script> 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+           
       <link href="/css/main.css" rel="stylesheet">
       <img class="displayed" th:src="@{images/sonatype.png}"/>
    </head>
@@ -20,7 +22,9 @@
     <h2>Success Metrics</h2>
     <p class="date-title" th:text="${#dates.createNow()}"></p>
     <h2 style="margin: 24px;">Summary</h2>
-     
+    
+    <input id="save-pdf" type="button" value="Save as PDF" disabled />
+    
     <table class="summary-table">
     
     <tr>
@@ -101,6 +105,19 @@
     	       
     	    var options = {'title':'Applications Onboarded (Scanned)', 'width':750, 'height':400};
     	    var chart = new google.visualization.ColumnChart(document.getElementById ('applicationsOnboardedChart'));   
+    	    
+    	    var btnSave = document.getElementById('save-pdf');
+
+    	    google.visualization.events.addListener(chart, 'ready', function () {
+    	    	btnSave.disabled = false;
+    	    });
+    	    
+    	    btnSave.addEventListener('click', function () {
+    	        var doc = new jsPDF();
+    	        doc.addImage(chart.getImageURI(), 0, 0);
+    	        doc.save('chart.pdf');
+    	    }, false);
+    	    
     	    chart.draw(data, options);
     	 }
 
