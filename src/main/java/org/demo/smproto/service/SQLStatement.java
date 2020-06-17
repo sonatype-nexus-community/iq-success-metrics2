@@ -50,13 +50,26 @@ public class SQLStatement {
 	public static String PolicyViolationsAge30 = "select * from POLICYVIOLATIONS where parsedatetime(open_time, 'yyyy-MM-dd', 'en') > CURRENT_DATE - INTERVAL 30 DAY and parsedatetime(open_time, 'yyyy-MM-dd', 'en') < CURRENT_DATE - INTERVAL 7 DAY"; 
 	public static String PolicyViolationsAge7 = "select * from POLICYVIOLATIONS where parsedatetime(open_time, 'yyyy-MM-dd', 'en') >= CURRENT_DATE - INTERVAL 7 DAY "; 
 
+	public static String ApplicationEvaluationsAge90 = "select * from ApplicationEvaluations where parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') <= CURRENT_DATE - INTERVAL 90 DAY";
+	public static String ApplicationEvaluationsAge60 = "select * from ApplicationEvaluations where parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') > CURRENT_DATE - INTERVAL 90 DAY and parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') < CURRENT_DATE - INTERVAL 30 DAY";
+	public static String ApplicationEvaluationsAge30 = "select * from ApplicationEvaluations where parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') > CURRENT_DATE - INTERVAL 30 DAY and parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') < CURRENT_DATE - INTERVAL 7 DAY"; 
+	public static String ApplicationEvaluationsAge7 = "select * from ApplicationEvaluations where parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') >= CURRENT_DATE - INTERVAL 7 DAY "; 
+	
 	public static String PolicyViolationTables = "DROP TABLE IF EXISTS POLICYVIOLATIONS;" + 
 			"CREATE TABLE POLICYVIOLATIONS (" + 
 			"  policy_name VARCHAR(250) NOT NULL," + 
 			"  application_name VARCHAR(250) NOT NULL," + 
 			"  open_time VARCHAR(250) DEFAULT NULL," + 
-			"  component VARCHAR(250) DEFAULT NULL) " +
-			" AS SELECT policyname, applicationname, opentime, component FROM CSVREAD ";
+			"  component VARCHAR(250) DEFAULT NULL," +
+			"  stage VARCHAR(250) DEFAULT NULL) " +
+			" AS SELECT policyname, applicationname, opentime, component, stage FROM CSVREAD ";
+	
+	public static String ApplicationEvaluationsTable = "DROP TABLE IF EXISTS APPLICATIONEVALUATIONS;" + 
+			"CREATE TABLE APPLICATIONEVALUATIONS (" + 
+			"  application_name VARCHAR(250) NOT NULL," + 
+			"  evaluation_date VARCHAR(250) DEFAULT NULL," + 
+			"  stage VARCHAR(250) DEFAULT NULL) " +
+			" AS SELECT applicationname, evaluationdate, stage FROM CSVREAD ";
 	
 	public static String MetricsTable = "DROP TABLE IF EXISTS METRICS; " +
 			"CREATE TABLE METRICS (" +

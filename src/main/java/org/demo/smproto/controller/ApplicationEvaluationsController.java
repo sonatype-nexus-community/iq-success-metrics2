@@ -3,7 +3,7 @@ package org.demo.smproto.controller;
 import java.io.File;
 import java.util.List;
 
-import org.demo.smproto.model.PolicyViolation;
+import org.demo.smproto.model.ApplicationEvaluation;
 import org.demo.smproto.service.FileNameService;
 import org.demo.smproto.service.QueryService;
 import org.slf4j.Logger;
@@ -14,9 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class PolicyViolationsController {
+public class ApplicationEvaluationsController {
 	
-	private static final Logger log = LoggerFactory.getLogger(PolicyViolationsController.class);
+	private static final Logger log = LoggerFactory.getLogger(ApplicationEvaluationsController.class);
 
 	@Autowired 
 	private QueryService qryService;
@@ -24,21 +24,21 @@ public class PolicyViolationsController {
 	@Autowired
 	private FileNameService osName;
 	
-	@GetMapping({"/policyViolations"})
-    public String policyviolations(Model model) {
+	@GetMapping({"/applicationEvaluations"})
+	public String ApplicationEvaluations(Model model) {
 		 
-		log.info("In PolicyViolationsController");
+		log.info("In ApplicationEvaluationsController");
 		
-		String csvFileName = osName.getCSVFile("policyviolations");
+		String csvFileName = osName.getCSVFile("applicationevaluations");
 
 		File f = new File(csvFileName);
 		
 		if(f.exists() && !f.isDirectory()) { 
 			
-			List<PolicyViolation> age7Data = qryService.getPolicyViolationsAge7();
-			List<PolicyViolation> age30Data = qryService.getPolicyViolationsAge30();
-			List<PolicyViolation> age60Data = qryService.getPolicyViolationsAge60();
-			List<PolicyViolation> age90Data = qryService.getPolicyViolationsAge90();
+			List<ApplicationEvaluation> age7Data = qryService.getApplicationEvaluationsAge7();
+			List<ApplicationEvaluation> age30Data = qryService.getApplicationEvaluationsAge30();
+			List<ApplicationEvaluation> age60Data = qryService.getApplicationEvaluationsAge60();
+			List<ApplicationEvaluation> age90Data = qryService.getApplicationEvaluationsAge90();
 
 			int age7Count = age7Data.size();
 			int age30Count = age30Data.size();
@@ -46,8 +46,8 @@ public class PolicyViolationsController {
 			int age90Count = age90Data.size();
 
 			if (age7Count > 0) {
-				model.addAttribute("policyViolationsAge7Data", age7Data);
-				model.addAttribute("policyViolationsAge7Number", age7Count);
+				model.addAttribute("applicationEvaluationsAge7Data", age7Data);
+				model.addAttribute("applicationEvaluationsAge7Number", age7Count);
 	            model.addAttribute("age7", true);
 			}
 			else {
@@ -55,8 +55,8 @@ public class PolicyViolationsController {
 			}
 			
 			if (age30Count > 0) {
-				model.addAttribute("policyViolationsAge30Data", age30Data);
-				model.addAttribute("policyViolationsAge30Number", age30Count);
+				model.addAttribute("applicationEvaluationsAge30Data", age30Data);
+				model.addAttribute("applicationEvaluationsAge30Number", age30Count);
 	            model.addAttribute("age30", true);
 			}
 			else {
@@ -64,8 +64,8 @@ public class PolicyViolationsController {
 			}
 			
 			if (age60Count > 0) {
-				model.addAttribute("policyViolationsAge60Data", age60Data);
-				model.addAttribute("policyViolationsAge60Number", age60Count);
+				model.addAttribute("applicationEvaluationsAge60Data", age60Data);
+				model.addAttribute("applicationEvaluationsAge60Number", age60Count);
 	            model.addAttribute("age60", true);
 			}
 			else {
@@ -73,8 +73,8 @@ public class PolicyViolationsController {
 			}
 			
 			if (age90Count > 0) {
-				model.addAttribute("policyViolationsAge90Data", age90Data);
-				model.addAttribute("policyViolationsAge90Number", age90Count);
+				model.addAttribute("applicationEvaluationsAge90Data", age90Data);
+				model.addAttribute("applicationEvaluationsAge90Number", age90Count);
 	            model.addAttribute("age90", true);
 			}
 			else {
@@ -84,13 +84,12 @@ public class PolicyViolationsController {
 	        model.addAttribute("status", true);
 		}
 		else {
-			log.info("PolicyViolationsController: No policy violation data");
+			log.info("ApplicationEvaluationsController: No application evaluation data");
             model.addAttribute("message", "[No data]");
             model.addAttribute("status", false);
 		}
 
-		return "policyViolations";
+		return "applicationEvaluations";
 		
 	}
-
 }

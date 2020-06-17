@@ -11,9 +11,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-@Order(value=1)
+@Order(value=2)
 @Component
-public class LoadPolicyViolationsFileRunner implements CommandLineRunner {
+public class LoadApplicationScansFileRunner implements CommandLineRunner{
 	
 	private static final Logger log = LoggerFactory.getLogger(LoadPolicyViolationsFileRunner.class);
 
@@ -25,22 +25,23 @@ public class LoadPolicyViolationsFileRunner implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-		log.info("In: LoadPolicyViolationsFileRunner");
+		log.info("In: LoadApplicationScansFileRunner");
 
-		String csvFileName = fsName.getCSVFile("policyviolations");
-
+		String csvFileName = fsName.getCSVFile("applicationevaluations");
+		
 		log.info("Reading csv file: " + csvFileName);
 
 		File f = new File(csvFileName);
 		
 		if(f.exists() && !f.isDirectory()) { 
 
-			repositoryService.LoadPolicyViolationsCsvFile(csvFileName);
+			repositoryService.LoadApplicationEvaluationsCsvFile(csvFileName);
 			
-			log.info("Policy violations loaded.");
+			log.info("Application Evaluations loaded.");
 		}
 		else {
-			log.info("No policy violations data");
+			log.info("No Application Evaluations data");
 		}
 	}
+
 }

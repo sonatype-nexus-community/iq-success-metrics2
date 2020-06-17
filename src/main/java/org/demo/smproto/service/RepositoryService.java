@@ -19,4 +19,9 @@ public class RepositoryService {
 		String stmt = SQLStatement.MetricsTable + "('" + csvFile + "')";	
 		jdbcTemplate.execute(stmt);
 	}
+	
+	public void LoadApplicationEvaluationsCsvFile(String csvFile) {
+		String stmt = SQLStatement.ApplicationEvaluationsTable + "('" + csvFile + "')";	
+		jdbcTemplate.execute(stmt);
+	}
 }

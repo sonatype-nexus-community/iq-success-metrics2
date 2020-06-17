@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.demo.smproto.model.ApplicationEvaluation;
 import org.demo.smproto.model.DataPoint;
 import org.demo.smproto.model.MTTRPoint;
 import org.demo.smproto.model.Metric;
@@ -169,5 +170,21 @@ public class QueryService {
 	
 	public List<DataPoint> getLicenseViolations(){
 		return dataService.getDataPoints(dataService.executeSQL(SQLStatement.LicenseViolations));
+	}
+	
+	public List<ApplicationEvaluation> getApplicationEvaluationsAge90(){
+		return dataService.getApplicationEvaluationPoints(dataService.executeSQL4(SQLStatement.ApplicationEvaluationsAge90));
+	}
+		
+	public List<ApplicationEvaluation> getApplicationEvaluationsAge60(){
+		return dataService.getApplicationEvaluationPoints(dataService.executeSQL4(SQLStatement.ApplicationEvaluationsAge60));
+	}
+		
+	public List<ApplicationEvaluation> getApplicationEvaluationsAge30(){
+		return dataService.getApplicationEvaluationPoints(dataService.executeSQL4(SQLStatement.ApplicationEvaluationsAge30));
+	}
+		
+	public List<ApplicationEvaluation> getApplicationEvaluationsAge7(){
+		return dataService.getApplicationEvaluationPoints(dataService.executeSQL4(SQLStatement.ApplicationEvaluationsAge7));
 	}
 }

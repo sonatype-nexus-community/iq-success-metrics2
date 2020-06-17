@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.demo.smproto.model.ApplicationEvaluation;
 import org.demo.smproto.model.DataPoint;
 import org.demo.smproto.model.MTTRPoint;
 import org.demo.smproto.model.PolicyViolation;
@@ -34,6 +35,10 @@ public class DataService implements IDataService {
 	
 	public List<PolicyViolation> executeSQL2(String sqlStatement) {
 		return jtm.query(sqlStatement, new BeanPropertyRowMapper<>(PolicyViolation.class));  
+	}
+	
+	public List<ApplicationEvaluation> executeSQL4(String sqlStatement) {
+		return jtm.query(sqlStatement, new BeanPropertyRowMapper<>(ApplicationEvaluation.class));  
 	}
 	
 	public List<MTTRPoint> executeSQL3(String sqlStatement) {
@@ -87,6 +92,18 @@ public class DataService implements IDataService {
 		
 		return dataPoints;
 	}
+	
+	public List<ApplicationEvaluation> getApplicationEvaluationPoints(List<ApplicationEvaluation> dataList) {
+		List<ApplicationEvaluation> dataPoints = new ArrayList<ApplicationEvaluation>();
+
+		for (ApplicationEvaluation dp : dataList) {
+			//log.info(dp.toString());
+			dataPoints.add(dp);
+		}
+		
+		return dataPoints;
+	}
+
 
 	public String latestPeriod() {
 	    String latestPeriod = executeSQL(SQLStatement.LatestTimePeriodStart).get(0).getLabel();
@@ -132,6 +149,9 @@ public class DataService implements IDataService {
 		long millis = date.getTime();
 		return millis;
 	}
+
+	
+	
 	
 	//@Modifying
 	//@Transactional

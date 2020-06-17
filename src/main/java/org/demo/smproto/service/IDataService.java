@@ -3,6 +3,7 @@ package org.demo.smproto.service;
 import java.text.ParseException;
 import java.util.List;
 
+import org.demo.smproto.model.ApplicationEvaluation;
 import org.demo.smproto.model.DataPoint;
 import org.demo.smproto.model.MTTRPoint;
 import org.demo.smproto.model.PolicyViolation;
@@ -25,5 +26,9 @@ public interface IDataService {
 	String latestPeriod();
 	
 	String getTimePeriod() throws ParseException;
+
+	List<ApplicationEvaluation> getApplicationEvaluationPoints(List<ApplicationEvaluation> runSQLStatement);
+
+	List<ApplicationEvaluation> executeSQL4(String applicationEvaluationsAge90);
 	
 }
