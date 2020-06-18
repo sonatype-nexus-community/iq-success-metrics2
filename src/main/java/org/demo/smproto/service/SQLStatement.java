@@ -62,14 +62,14 @@ public class SQLStatement {
 			"  open_time VARCHAR(250) DEFAULT NULL," + 
 			"  component VARCHAR(250) DEFAULT NULL," +
 			"  stage VARCHAR(250) DEFAULT NULL) " +
-			" AS SELECT policyname, applicationname, opentime, component, stage FROM CSVREAD ";
+			" AS SELECT policyname, applicationname, parsedatetime(opentime, 'yyyy-MM-dd', 'en'), component, stage FROM CSVREAD ";
 	
 	public static String ApplicationEvaluationsTable = "DROP TABLE IF EXISTS APPLICATIONEVALUATIONS;" + 
 			"CREATE TABLE APPLICATIONEVALUATIONS (" + 
 			"  application_name VARCHAR(250) NOT NULL," + 
 			"  evaluation_date VARCHAR(250) DEFAULT NULL," + 
 			"  stage VARCHAR(250) DEFAULT NULL) " +
-			" AS SELECT applicationname, evaluationdate, stage FROM CSVREAD ";
+			" AS SELECT applicationname, parsedatetime(evaluationdate, 'yyyy-MM-dd', 'en'), stage FROM CSVREAD ";
 	
 	public static String MetricsTable = "DROP TABLE IF EXISTS METRICS; " +
 			"CREATE TABLE METRICS (" +

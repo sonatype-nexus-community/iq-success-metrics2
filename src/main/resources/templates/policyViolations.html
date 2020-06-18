@@ -40,7 +40,8 @@
 		    	showRowNumber: true,
 		        cssClassNames: cssClassNames,
 		        height: '100%',
-		        width: '100%'
+		        width: '100%',
+		        allowHtml: true
     		};
   	  </script>
       
@@ -95,15 +96,15 @@
 	    	    data.addColumn('string', 'Policy Name');
 	    	    data.addColumn('string', 'Application Name');
 	    	    data.addColumn('string', 'Component Name');
-	    	    /*data.addColumn('string', 'Open Time');*/
+	    	    data.addColumn('string', 'Open Time');
 	
 	    	    points.forEach(entry => {
 	                var policyName = entry.policyName;
 	                var applicationName = entry.applicationName;
 	                var component = entry.component;
-	                /*var openTime = entry.openTime;*/
+	                var openTime = entry.openTime;
 	
-	                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`]);
+	                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`, `${openTime}`]);
 	            }); 
 	    	       
 	    	    var table = new google.visualization.Table(document.getElementById ('securityPolicyViolationsAge7Chart'));
@@ -134,9 +135,9 @@
 	                var policyName = entry.policyName;
 	                var applicationName = entry.applicationName;
 	                var component = entry.component;
-	                /*var openTime = entry.openTime;*/
+	                var openTime = entry.openTime;
 	
-	                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`]);
+	                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`, `${openTime}`]);
 	            }); 
 	    	       
 	    	    var table = new google.visualization.Table(document.getElementById ('securityPolicyViolationsAge30Chart'));
@@ -161,7 +162,7 @@
 	    	    data.addColumn('string', 'Policy Name');
 	    	    data.addColumn('string', 'Application Name');
 	    	    data.addColumn('string', 'Component Name');
-	    	    /*data.addColumn('string', 'Open Time');*/
+	    	    data.addColumn('string', 'Open Time');
 	
 	    	    points.forEach(entry => {
 	                var policyName = entry.policyName;
@@ -169,7 +170,7 @@
 	                var component = entry.component;
 	                var openTime = entry.openTime;
 	
-	                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`]);
+	                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`, `${openTime}`]);
 	            }); 
 	    	       
 	    	    var table = new google.visualization.Table(document.getElementById ('securityPolicyViolationsAge60Chart'));
@@ -194,15 +195,15 @@
 	    	    data.addColumn('string', 'Policy Name');
 	    	    data.addColumn('string', 'Application Name');
 	    	    data.addColumn('string', 'Component Name');
-	    	    /*data.addColumn('string', 'Open Time');*/
+	    	    data.addColumn('string', 'Open Time');
 	
 	    	    points.forEach(entry => {
 	                var policyName = entry.policyName;
 	                var applicationName = entry.applicationName;
 	                var component = entry.component;
-	                /*var openTime = entry.openTime;*/
+	                var openTime = entry.openTime;
 	
-	                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`]);
+	                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`, `${openTime}`]);
 	            }); 
 	    	       
 	    	    var table = new google.visualization.Table(document.getElementById ('securityPolicyViolationsAge90Chart'));
