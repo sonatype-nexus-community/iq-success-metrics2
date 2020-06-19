@@ -64,8 +64,8 @@ public class ModelService {
 		Map<String, Object> map = new HashMap<>();
 		
 		String latestTimePeriod = utilityService.latestPeriod();
-	    List<DataPoint> applicationViolationsData = sqlService.executeSQLMetrics(sqlService.AddWhereClauseAppOpenViolations(SQLStatement.ApplicationsOpenSecurityViolations, latestTimePeriod, "APPLICATION_NAME"));
-	    List<DataPoint> organisationViolationsData = sqlService.executeSQLMetrics(sqlService.AddWhereClauseOrgOpenViolations(SQLStatement.OrganisationsOpenSecurityViolations, latestTimePeriod, "ORGANIZATION_NAME"));
+	    List<DataPoint> applicationViolationsData = sqlService.executeSQLMetrics(sqlService.AddWhereClauseAppOpenViolations(SQLStatement.ApplicationsOpenViolations, latestTimePeriod, "APPLICATION_NAME"));
+	    List<DataPoint> organisationViolationsData = sqlService.executeSQLMetrics(sqlService.AddWhereClauseOrgOpenViolations(SQLStatement.OrganisationsOpenViolations, latestTimePeriod, "ORGANIZATION_NAME"));
 	
 		map.put("applicationsOnboardedData", sqlService.executeSQLMetrics(SQLStatement.ApplicationsOnboarded));
 		map.put("numberOfScansData", sqlService.executeSQLMetrics(SQLStatement.NumberOfScans));
@@ -74,8 +74,9 @@ public class ModelService {
 		map.put("mostCriticalApplicationsData", applicationViolationsData);
 		map.put("mostScannedApplicationsData", sqlService.executeSQLMetrics(SQLStatement.MostScannedApplications));
 		map.put("mttrData", sqlService.executeSQLMTTR(SQLStatement.MTTR));
-		map.put("ApplicationsSecurityCriticalStatusData", sqlService.executeSQLMetrics(SQLStatement.ApplicationsSecurityCriticalStatus));
-		
+		map.put("applicationsSecurityStatusData", sqlService.executeSQLMetrics(SQLStatement.ApplicationsSecurityStatus));
+		map.put("applicationsLicenseStatusData", sqlService.executeSQLMetrics(SQLStatement.ApplicationsLicenseStatus));
+
 	    return map;
 	}
 
@@ -160,7 +161,7 @@ public class ModelService {
 	    
 	    // Applications
 		String latestTimePeriod = utilityService.latestPeriod();
-	    List<DataPoint> applicationViolationsData = sqlService.executeSQLMetrics(sqlService.AddWhereClauseAppOpenViolations(SQLStatement.ApplicationsOpenSecurityViolations, latestTimePeriod, "APPLICATION_NAME"));
+	    List<DataPoint> applicationViolationsData = sqlService.executeSQLMetrics(sqlService.AddWhereClauseAppOpenViolations(SQLStatement.ApplicationsOpenViolations, latestTimePeriod, "APPLICATION_NAME"));
 
 	    
 		map.put("applicationViolationsData", applicationViolationsData);
