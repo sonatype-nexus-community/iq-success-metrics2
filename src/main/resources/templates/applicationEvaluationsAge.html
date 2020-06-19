@@ -48,12 +48,12 @@
       <div th:if="${status}">
       
       <script th:inline="javascript">
-      function applicationEvaluationsAge() {
+      function age() {
         	
-    	var age90 = /*[[${applicationEvaluationsAge90Number}]]*/'noValue';
-    	var age60 = /*[[${applicationEvaluationsAge60Number}]]*/'noValue';
-    	var age30 = /*[[${applicationEvaluationsAge30Number}]]*/'noValue';
-    	var age7 = /*[[${applicationEvaluationsAge7Number}]]*/'noValue';
+    	var age90 = /*[[${age90Number}]]*/'noValue';
+    	var age60 = /*[[${age60Number}]]*/'noValue';
+    	var age30 = /*[[${age30Number}]]*/'noValue';
+    	var age7 = /*[[${age7Number}]]*/'noValue';
 
        /*  var data = google.visualization.arrayToDataTable([
           ['Age', 'Days'],
@@ -75,22 +75,22 @@
           title: 'Age of Application Evaluations', colors: ['blue', 'purple', 'brown', 'red']
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('applicationEvaluationsAgeChart'));
+        var chart = new google.visualization.PieChart(document.getElementById('ageChart'));
 
         chart.draw(data, options);
       }
       
-      google.charts.setOnLoadCallback(applicationEvaluationsAge);
+      google.charts.setOnLoadCallback(age);
 
       </script>
-      <div id="applicationEvaluationsAgeChart" style = "width: 550px; height: 400px;"></div>
+      <div id="ageChart" style = "width: 550px; height: 400px;"></div>
       
       
       <div th:if="${age7}">
 	      <h3>Application Evaluations 0-7 Days</h3>
 	      <script th:inline="javascript">
-	      	function applicationEvaluationsAge7() {
-	          	var points = /*[[${applicationEvaluationsAge7Data}]]*/'noValue';
+	      	function age7() {
+	          	var points = /*[[${age7Data}]]*/'noValue';
 	
 	    		var data = new google.visualization.DataTable();
 	    	    data.addColumn('string', 'Application Name');
@@ -107,14 +107,14 @@
 	                data.addRow([ `${applicationName}`, `${evaluationDate}`, `${stage}`]);
 	            }); 
 	    	       
-	    	    var table = new google.visualization.Table(document.getElementById ('applicationEvaluationsAge7Chart'));
+	    	    var table = new google.visualization.Table(document.getElementById ('age7Chart'));
 	    	    table.draw(data, tableOptions);
 	    	 }
 	      	
-	        google.charts.setOnLoadCallback(applicationEvaluationsAge7);
+	        google.charts.setOnLoadCallback(age7);
 	
 	      </script>
-	      <div id="applicationEvaluationsAge7Chart" style = "width: 550px; height: 400px;"></div>
+	      <div id="age7Chart" style = "width: 550px; height: 400px;"></div>
       </div>
       
       <br><br>
@@ -122,8 +122,8 @@
        <div th:if="${age30}">
 	      <h3>Application Evaluations 8-30 Days</h3>
 	      <script th:inline="javascript">
-	      	function applicationEvaluationsAge30() {
-	          	var points = /*[[${applicationEvaluationsAge30Data}]]*/'noValue';
+	      	function age30() {
+	          	var points = /*[[${age30Data}]]*/'noValue';
 	
 	    		var data = new google.visualization.DataTable();
 	    	    data.addColumn('string', 'Application Name');
@@ -140,14 +140,14 @@
 	                data.addRow([ `${applicationName}`, `${evaluationDate}`, `${stage}`]);
 	            }); 
 	    	       
-	    	    var table = new google.visualization.Table(document.getElementById ('applicationEvaluationsAge30Chart'));
+	    	    var table = new google.visualization.Table(document.getElementById ('age30Chart'));
 	    	    table.draw(data, tableOptions);
 	    	 }
 	      	
-	        google.charts.setOnLoadCallback(applicationEvaluationsAge30);
+	        google.charts.setOnLoadCallback(age30);
 	
 	      </script>
-	      <div id="applicationEvaluationsAge30Chart" style = "width: 550px; height: 400px;"></div>
+	      <div id="age30Chart" style = "width: 550px; height: 400px;"></div>
       </div>
       
       <br><br>
@@ -155,8 +155,8 @@
       <div th:if="${age60}">
 	      <h3>Application Evaluations 31-60 Days</h3>
 	      <script th:inline="javascript">
-	      	function applicationEvaluationsAge60() {
-	          	var points = /*[[${applicationEvaluationsAge60Data}]]*/'noValue';
+	      	function age60() {
+	          	var points = /*[[${age60Data}]]*/'noValue';
 	
 	    		var data = new google.visualization.DataTable();
 	    	    data.addColumn('string', 'Policy Name');
@@ -173,14 +173,14 @@
 	                data.addRow([ `${applicationName}`, `${evaluationDate}`, `${stage}`]);
 	            }); 
 	    	       
-	    	    var table = new google.visualization.Table(document.getElementById ('applicationEvaluationsAge60Chart'));
+	    	    var table = new google.visualization.Table(document.getElementById ('age60Chart'));
 	    	    table.draw(data, tableOptions);
 	    	 }
 	      	
-	        google.charts.setOnLoadCallback(applicationEvaluationsAge60);
+	        google.charts.setOnLoadCallback(age60);
 	
 	      </script>
-      	<div id="applicationEvaluationsAge60Chart" style = "width: 550px; height: 400px;"></div>
+      	<div id="age60Chart" style = "width: 550px; height: 400px;"></div>
       </div>
       
       <br><br>
@@ -188,8 +188,8 @@
       <div th:if="${age90}">
 	      <h3>Application Evaluations Over 60 Days</h3>
 	      <script th:inline="javascript">
-	      	function applicationEvaluationsAge90() {
-	          	var points = /*[[${applicationEvaluationsAge90Data}]]*/'noValue';
+	      	function age90() {
+	          	var points = /*[[${age90Data}]]*/'noValue';
 	
 	    		var data = new google.visualization.DataTable();
 	    	    data.addColumn('string', 'Policy Name');
@@ -206,14 +206,14 @@
 	                data.addRow([ `${applicationName}`, `${evaluationDate}`, `${stage}`]);
 	            }); 
 	    	       
-	    	    var table = new google.visualization.Table(document.getElementById ('applicationEvaluationsAge90Chart'));
+	    	    var table = new google.visualization.Table(document.getElementById ('age90Chart'));
 	    	    table.draw(data, tableOptions);
 	    	 }
 	      	
-	        google.charts.setOnLoadCallback(applicationEvaluationsAge90);
+	        google.charts.setOnLoadCallback(age90);
 	
 	      </script>
-      	  <div id="applicationEvaluationsAge90Chart" style = "width: 550px; height: 400px;"></div>
+      	  <div id="age90Chart" style = "width: 550px; height: 400px;"></div>
       </div>
       
       </div>

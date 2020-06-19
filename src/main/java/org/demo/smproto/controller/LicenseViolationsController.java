@@ -1,6 +1,5 @@
 package org.demo.smproto.controller;
 
-import java.text.ParseException;
 import java.util.Map;
 
 import org.demo.smproto.service.ModelService;
@@ -12,23 +11,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class SummaryController {
+public class LicenseViolationsController {
 	
+	private static final Logger log = LoggerFactory.getLogger(LicenseViolationsController.class);
+
 	@Autowired 
 	private ModelService modelService;
-
-	private static final Logger log = LoggerFactory.getLogger(SummaryController.class);
 	
-	@GetMapping({"/summary"})
-	public String summary(Model model) throws ParseException {
-		
-		log.info("In SummaryController");
+	@GetMapping({"/licenseViolations"})
+    public String licenseViolations(Model model) {
+						
+		log.info("In LicenseViolationsController");
 
-		Map <String, Object> map = modelService.setSummaryModel();
+		Map <String, Object> map = modelService.setLicenseReportModel();
 		
 		model.mergeAttributes(map);
-		
-	    return "summary";
-	}
-	
+
+        return "licenseViolations";
+    }
 }

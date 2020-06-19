@@ -47,32 +47,12 @@ public class CalculatorService {
 		return sumData;
 	}
 	
-//	public int sumPointA(List<DataPoint> dataList) {
-//		
-//		int sumData = 0;
-//
-//		for (DataPoint dp : dataList) {
-//			float rowTotal = dp.getPointA();
-//			sumData += rowTotal;
-//		}
-//		
-//		return sumData;
-//	}
-	
 	public SummaryAverage applicationsOnboardedAverage(List<DataPoint> dataList) {
 		
 		int countLabels = dataList.size();
-		// int sumData = 0;
 		
-		// for (DataPoint dp : dataList) {
-		// 	float count = dp.getPointA();
-		// 	sumData += count;
-		// }
-		
-		// latest time_period_start
 		int numberOfApplications = (int) dataList.get(dataList.size() - 1).getPointA();
 		
-		// int dataAverage = sumData/countLabels;
 		int dataAverage = numberOfApplications/countLabels;
 
 		return new SummaryAverage(numberOfApplications, dataAverage);
@@ -81,7 +61,6 @@ public class CalculatorService {
 	
 	public SummaryAverage sumAndAveragePointA(List<DataPoint> dataList) {
 		
-		//int countLabels = dataList.size();
 		int countLabels = 0;
 
 		int sumData = 0;
@@ -98,14 +77,6 @@ public class CalculatorService {
 		return new SummaryAverage(sumData, sumData/countLabels);
 	}
 	
-	public String AddWhereClauseOrgOpenViolations(String sql, String time_period_start, String group_by ) {
-		return sql + " where time_period_start = '" + time_period_start + "' group by " + group_by + " order by 2 desc, 3 desc";
-	}
-	
-	public String AddWhereClauseAppOpenViolations(String sql, String time_period_start, String group_by ) {
-		return sql + " where time_period_start = '" + time_period_start + "' group by " + group_by + " order by 2 desc, 3 desc";
-	}
-
 	public Object averagePoint(List<Float> points) {
 		int countPoints = 0;
 		
