@@ -1,4 +1,4 @@
-package org.demo.smproto.service;
+package org.nexusiq.successmetrics.service;
 
 import org.springframework.stereotype.Service;
 

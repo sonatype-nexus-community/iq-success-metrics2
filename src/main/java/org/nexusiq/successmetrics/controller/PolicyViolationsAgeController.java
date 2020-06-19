@@ -1,11 +1,11 @@
-package org.demo.smproto.controller;
+package org.nexusiq.successmetrics.controller;
 
 import java.io.File;
 import java.util.List;
 
-import org.demo.smproto.model.ApplicationEvaluation;
-import org.demo.smproto.service.SQLService;
-import org.demo.smproto.service.SQLStatement;
+import org.nexusiq.successmetrics.model.PolicyViolation;
+import org.nexusiq.successmetrics.service.SQLService;
+import org.nexusiq.successmetrics.service.SQLStatement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,30 +15,30 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class ApplicationEvaluationsAgeController {
+public class PolicyViolationsAgeController {
 	
-	private static final Logger log = LoggerFactory.getLogger(ApplicationEvaluationsAgeController.class);
-	
+	private static final Logger log = LoggerFactory.getLogger(PolicyViolationsAgeController.class);
+
 	@Autowired 
 	private SQLService sqlService;
 	
-	@Value("${csvfile.applicationEvaluations}")
-	private String csvApplicationEvaluationsFileName;
+	@Value("${csvfile.policyviolations}")
+	private String csvPolicyViolationsFileName;
 	
-	@GetMapping({"/applicationEvaluationsAge"})
-	public String applicationEvaluationsAge(Model model) {
+	@GetMapping({"/policyViolationsAge"})
+    public String policyviolationsAge(Model model) {
 		 
-		log.info("In ApplicationEvaluationsAgeController");
+		log.info("In PolicyViolationsAgeController");
 		
 
-		File f = new File(csvApplicationEvaluationsFileName);
+		File f = new File(csvPolicyViolationsFileName);
 		
 		if(f.exists() && !f.isDirectory()) { 
 			
-			List<ApplicationEvaluation> age7Data =  sqlService.executeSQLApplicationEvaluation(SQLStatement.ApplicationEvaluationsAge7);
-			List<ApplicationEvaluation> age30Data = sqlService.executeSQLApplicationEvaluation(SQLStatement.ApplicationEvaluationsAge30);
-			List<ApplicationEvaluation> age60Data = sqlService.executeSQLApplicationEvaluation(SQLStatement.ApplicationEvaluationsAge60);
-			List<ApplicationEvaluation> age90Data = sqlService.executeSQLApplicationEvaluation(SQLStatement.ApplicationEvaluationsAge90);
+			List<PolicyViolation> age7Data =  sqlService.executeSQLPolicyViolation(SQLStatement.PolicyViolationsAge7);
+			List<PolicyViolation> age30Data = sqlService.executeSQLPolicyViolation(SQLStatement.PolicyViolationsAge30);
+			List<PolicyViolation> age60Data =  sqlService.executeSQLPolicyViolation(SQLStatement.PolicyViolationsAge60);
+			List<PolicyViolation> age90Data =  sqlService.executeSQLPolicyViolation(SQLStatement.PolicyViolationsAge90);
 
 			int age7Count = age7Data.size();
 			int age30Count = age30Data.size();
@@ -84,12 +84,13 @@ public class ApplicationEvaluationsAgeController {
 	        model.addAttribute("status", true);
 		}
 		else {
-			log.info("ApplicationEvaluationsController: No application evaluation data");
+			log.info("PolicyViolationsController: No policy violation data");
             model.addAttribute("message", "[No data]");
             model.addAttribute("status", false);
 		}
 
-		return "applicationEvaluationsAge";
+		return "policyViolationsAge";
 		
 	}
+
 }

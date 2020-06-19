@@ -1,11 +1,11 @@
-package org.demo.smproto.service;
+package org.nexusiq.successmetrics.service;
 
 import java.util.List;
 
-import org.demo.smproto.model.ApplicationEvaluation;
-import org.demo.smproto.model.DataPoint;
-import org.demo.smproto.model.MTTRPoint;
-import org.demo.smproto.model.PolicyViolation;
+import org.nexusiq.successmetrics.model.ApplicationEvaluation;
+import org.nexusiq.successmetrics.model.DataPoint;
+import org.nexusiq.successmetrics.model.MTTRPoint;
+import org.nexusiq.successmetrics.model.PolicyViolation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

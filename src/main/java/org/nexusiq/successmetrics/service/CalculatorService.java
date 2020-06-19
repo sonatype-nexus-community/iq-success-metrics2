@@ -1,9 +1,9 @@
-package org.demo.smproto.service;
+package org.nexusiq.successmetrics.service;
 
 import java.util.List;
 
-import org.demo.smproto.model.DataPoint;
-import org.demo.smproto.model.SummaryAverage;
+import org.nexusiq.successmetrics.model.DataPoint;
+import org.nexusiq.successmetrics.model.SummaryAverage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

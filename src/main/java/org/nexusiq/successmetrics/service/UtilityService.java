@@ -1,11 +1,11 @@
-package org.demo.smproto.service;
+package org.nexusiq.successmetrics.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import org.demo.smproto.model.DataPoint;
+import org.nexusiq.successmetrics.model.DataPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

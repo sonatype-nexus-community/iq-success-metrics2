@@ -1,4 +1,4 @@
-package org.demo.smproto.service;
+package org.nexusiq.successmetrics.service;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.demo.smproto.model.DataPoint;
-import org.demo.smproto.model.MTTRPoint;
-import org.demo.smproto.model.PolicyViolation;
-import org.demo.smproto.model.SummaryDataPoint;
+import org.nexusiq.successmetrics.model.DataPoint;
+import org.nexusiq.successmetrics.model.MTTRPoint;
+import org.nexusiq.successmetrics.model.PolicyViolation;
+import org.nexusiq.successmetrics.model.SummaryDataPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

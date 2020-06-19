@@ -1,4 +1,4 @@
-package org.demo.smproto.model;
+package org.nexusiq.successmetrics.model;
 
 public class PolicyViolation {
 

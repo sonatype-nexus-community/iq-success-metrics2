@@ -1,4 +1,4 @@
-package org.demo.smproto;
+package org.nexusiq.successmetrics;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

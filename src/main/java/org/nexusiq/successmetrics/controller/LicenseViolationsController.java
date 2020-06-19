@@ -1,8 +1,8 @@
-package org.demo.smproto.controller;
+package org.nexusiq.successmetrics.controller;
 
 import java.util.Map;
 
-import org.demo.smproto.service.ModelService;
+import org.nexusiq.successmetrics.service.ModelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
