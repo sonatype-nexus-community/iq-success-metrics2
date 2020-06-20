@@ -1,5 +1,8 @@
 package org.nexusiq.successmetrics;
 
+import org.nexusiq.successmetrics.controller.ApplicationEvaluationsAgeController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;

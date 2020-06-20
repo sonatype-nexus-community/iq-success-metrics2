@@ -16,7 +16,7 @@ rm -rf ./quickstart
 mkdir quickstart
 cp -r ./smbuild/quickstart/* ./quickstart
 
-mvn clean package spring-boot:repackage
+mvn clean package -DskipTests spring-boot:repackage
 
 cp -v target/success-metrics-${version}.jar ./quickstart
 

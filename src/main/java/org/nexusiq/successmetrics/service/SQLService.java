@@ -44,4 +44,19 @@ public class SQLService {
 	public String AddWhereClauseAppOpenViolations(String sql, String time_period_start, String group_by ) {
 		return sql + " where time_period_start = '" + time_period_start + "' group by " + group_by + " order by 2 desc, 3 desc";
 	}
+	
+	public void LoadPolicyViolations(String csvFile) {
+		String stmt = SQLStatement.PolicyViolationTables + "('" + csvFile + "')";	
+		jtm.execute(stmt);
+	}
+	
+	public void LoadSuccessMetrics(String csvFile) {
+		String stmt = SQLStatement.MetricsTable + "('" + csvFile + "')";	
+		jtm.execute(stmt);
+	}
+	
+	public void LoadApplicationEvaluations(String csvFile) {
+		String stmt = SQLStatement.ApplicationEvaluationsTable + "('" + csvFile + "')";	
+		jtm.execute(stmt);
+	}
 }
