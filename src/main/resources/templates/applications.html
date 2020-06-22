@@ -127,7 +127,7 @@
                 data.addRow([ `${label}`, parseFloat(`${pointA}`), parseFloat(`${pointB}`), parseFloat(`${pointC}`) ]);
             }); 
     	    
-    	    var options = {'title':'MTTR (Days)', 'width':750, 'height':400, colors: ['red', 'orange', '#F1DF22']};    	    
+    	    var options = {'title':'MTTR (Days)', 'width':750, 'height':400, isStacked: true, colors: ['red', 'orange', '#F1DF22']};    	    
     	    var chart = new google.visualization.ColumnChart(document.getElementById ('mttrChart'));
     	    chart.draw(data, options);
     	 }
