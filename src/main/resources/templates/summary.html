@@ -1,59 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title th:text="'Success Metrics'"></title>
-    <link href="/css/main.css" rel="stylesheet">
-    <img class="displayed" th:src="@{images/sonatype.png}"/>
+<div th:insert="header :: headerFrag"></div>
 </head>
+
 <body>
-    <h2>Success Metrics Summary</h2>
-    <p class="date-title" th:text="${#dates.createNow()}"></p>
-        
-    <table class="summary-table">
-    <tr></tr>
-    
-    <tr>
-    <td>- Onboarded <span th:text="${applicationsOnboardedAvg.total}"/> applications at an average of <span th:text="${applicationsOnboardedAvg.avg}"/> per <span th:text="${timePeriod}"/></td>
-    </tr>
-    
-    <tr>
-    <td>- Scanned applications at an average of <span th:text="${applicationScansAvg.avg}"/> per <span th:text="${timePeriod}"/></td>
-    </tr>
-    
-    <tr>
-    <td>- Performed a total of <span th:text="${numberOfScansAvg.total}"/> scans at an average of <span th:text="${numberOfScansAvg.avg}"/> per <span th:text="${timePeriod}"/></td>
-    </tr>
-    
-    <tr>
-    <td><br>- Discovered <span th:text="${countDiscoveredSecurityViolations}"/> security violations <span class="inline-description">(Critical: </span>  <span th:text="${countDiscoveredCriticalSecurityViolations}"/>, <span class="inline-description">Severe: </span><span th:text="${countDiscoveredSevereSecurityViolations}"/>, <span class="inline-description">Moderate: </span><span th:text="${countDiscoveredModerateSecurityViolations}"/>)</td>
-     </td>
-    </tr>
    
-    <tr>
-    <td>- Fixed <span th:text="${countFixedSecurityViolations}"/> security violations from your open backlog <span class="inline-description">(Critical: </span> <span th:text="${countFixedCriticalSecurityViolations}"/>, <span class="inline-description">Severe: </span> <span th:text="${countFixedSevereSecurityViolations}"/>, <span class="inline-description">Moderate: </span> <span th:text="${countFixedModerateSecurityViolations}"/>)</td>
-    </tr>
+   <div class="jumbotron">
+   	<h3>Summary Report</h3>
    
-    <tr>
-    <td>- Waived <span th:text="${countWaivedSecurityViolations}"/> security violations from your open backlog <span class="inline-description">(Critical: </span> <span th:text="${countWaivedCriticalSecurityViolations}"/>, <span class="inline-description">Severe: </span> <span th:text="${countWaivedSevereSecurityViolations}"/>, <span class="inline-description">Moderate: </span> <span th:text="${countWaivedModerateSecurityViolations}"/>)</td>
-    </tr>
+   <div th:insert="summaryFragment :: summaryFrag"></div>
    
+   <table>
    <tr>
-    <td><br>- Discovered <span th:text="${countDiscoveredLicenseViolations}"/> license violations <span class="inline-description">(Critical: </span>  <span th:text="${countDiscoveredCriticalLicenseViolations}"/>, <span class="inline-description">Severe: </span><span th:text="${countDiscoveredSevereLicenseViolations}"/>, <span class="inline-description">Moderate: </span><span th:text="${countDiscoveredModerateLicenseViolations}"/>)</td>
-     </td>
-    </tr>
-  
-    <tr>
-    <td>- Fixed <span th:text="${countFixedLicenseViolations}"/> license violations from your open backlog <span class="inline-description">(Critical: </span> <span th:text="${countFixedCriticalLicenseViolations}"/>, <span class="inline-description">Severe: </span> <span th:text="${countFixedSevereLicenseViolations}"/>, <span class="inline-description">Moderate: </span> <span th:text="${countFixedModerateLicenseViolations}"/>)</td>
-    </tr>
-   
-    <tr>
-    <td>- Waived <span th:text="${countWaivedLicenseViolations}"/> license violations from your open backlog <span class="inline-description">(Critical: </span> <span th:text="${countWaivedCriticalLicenseViolations}"/>, <span class="inline-description">Severe: </span> <span th:text="${countWaivedSevereLicenseViolations}"/>, <span class="inline-description">Moderate: </span> <span th:text="${countWaivedModerateLicenseViolations}"/>)</td>
-    </tr>
-    
-    <tr><td class="reduced-risk"><br>&nbsp;&nbsp;Which means that your Fixing Rate (fixed + waived/discovered) is <span th:text="${reducedRisk}"/>%</td></tr>
-        
-    <tr>
     <td><br>- On average, each application has <span th:text="${applicationCriticalViolationsAvg.avg}"/> open critical violations</td>
     </tr>
     
@@ -61,15 +21,8 @@
     
     <tr><td>&nbsp;&nbsp;Least Critical Application: <span th:text="${leastCriticalApplication.label}"/> with <span th:text="${leastCriticalApplication.count}"/> critical violations</td></tr>
    
-   
-    <tr><td><br>- It took an average of <span th:text="${mttrCriticalAvg}"/> days to fix Critical violations</td></tr>
-  
-    <tr><td>- It took an average of <span th:text="${mttrSevereAvg}"/> days to fix Severe violations</td></tr>
-   
-    <tr><td>- It took an average of <span th:text="${mttrModerateAvg}"/> days to fix Moderate violations</td></tr>
-   
   	</table>
-  	
+  	</div>
   
 </body>
 </html> 

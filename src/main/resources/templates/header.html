@@ -1,0 +1,50 @@
+
+	<!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"/> -->
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"/> -->
+    
+ <div th:fragment="headerFrag">
+ 
+  	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	
+    <script src="webjars/jquery/3.5.1/jquery.min.js"></script>
+	<link href="webjars/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" />
+	<script src="webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	
+	<script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script>
+    <script type = "text/javascript">google.charts.load('current', {packages: ['corechart']});</script>
+    <script type = "text/javascript">google.charts.load('current', {packages: ['table']});</script> 
+    
+    <link href="/css/main.css" rel="stylesheet">
+	<img class="displayed" th:src="@{images/sonatype.png}"/>   
+	
+	<title th:text="'Success Metrics'"></title>
+	
+	<h3>Success Metrics</h3>
+    <p th:text="${#dates.createNow()}"></p>
+    
+     <script>
+  		var cssClassNames = {
+	            'headerRow': 'cssHeaderRow',
+	            'tableRow': 'cssTableRow',
+	            'oddTableRow': 'cssOddTableRow',
+	            'selectedTableRow': 'cssSelectedTableRow',
+	            'hoverTableRow': 'cssHoverTableRow',
+	            'headerCell': 'cssHeaderCell',
+	            'tableCell': 'cssTableCell',
+	            'rowNumberCell': 'cssRowNumberCell'
+        	};
+    
+    	var tableOptions = {
+		    	showRowNumber: true,
+		        cssClassNames: cssClassNames,
+		        height: '100%',
+		        width: '100%'
+    		};
+  	  </script>
+    
+ </div>
+   
+	
+	
+

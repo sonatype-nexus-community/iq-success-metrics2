@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<div th:insert="header :: headerFrag"></div>
+</head>
+   
+	<body>
+			<div class="jumbotron">
+			
+			<h4>Define Snapshot</h4>
+			 
+				
+			    <form action="#" th:action="@{/snapshot}" th:object="${snapshot}" method="post">
+			        
+			        <p>Start Period: 
+			        <select th:field="*{startPeriod}">
+						<option 
+							th:each="timePeriod: ${timePeriods}"
+							th:value="${timePeriod}"
+							th:text="${timePeriod}">
+						</option>
+					</select> 
+					</p>
+					
+					<p>End Period: 
+			        <select th:field="*{endPeriod}">
+						<option 
+							th:each="timePeriod: ${timePeriods}"
+							th:value="${timePeriod}"
+							th:text="${timePeriod}">
+						</option>
+					</select> 
+					</p>
+					
+					<p>Applications <em>(leave blank for all):</em>
+			        <select class="browser-default custom-select" th:field="*{applicationName}">
+						<option 
+							th:each="applicationName: ${applicationNames}"
+							th:value="${applicationName}"
+							th:text="${applicationName}">
+						</option>
+					</select> 
+					</p>
+					
+  					<button type="submit" class="btn btn-primary">Submit</button>				        	
+ 			        
+			    </form>
+			
+		</div>
+	</body>
+	
+</html> 
+

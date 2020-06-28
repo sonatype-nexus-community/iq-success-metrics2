@@ -28,7 +28,8 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-		<dependency>
+		
+		<!-- <dependency>
             <groupId>org.xhtmlrenderer</groupId>
             <artifactId>flying-saucer-pdf</artifactId>
             <version>9.1.4</version>
@@ -37,7 +38,8 @@
             <groupId>ognl</groupId>
             <artifactId>ognl</artifactId>
             <version>3.1.12</version>
-        </dependency>
+        </dependency> -->
+        
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-actuator</artifactId>
@@ -53,11 +55,36 @@
 			<scope>runtime</scope>
 		</dependency>
 		
-		<dependency>
+		<!-- <dependency>
 		    <groupId>com.opencsv</groupId>
 		    <artifactId>opencsv</artifactId>
 		    <version>5.0</version>
-		</dependency>
+		</dependency> -->
+		
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>3.5.1</version>
+        </dependency>
+ 
+       <!--  <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>popper.js</artifactId>
+            <version>1.14.1</version>
+        </dependency> -->
+ 
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>4.5.0</version>
+        </dependency>
+        
+        <!-- <dependency>
+		 <groupId>org.apache.tomcat.embed</groupId>
+		 <artifactId>tomcat-embed-jasper</artifactId>
+		 <scope>provided</scope>
+		</dependency> -->
+        
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

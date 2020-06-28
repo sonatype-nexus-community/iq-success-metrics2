@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="'Success Metrics'"></title>
-    <link href="/css/main.css" rel="stylesheet">
-	<img class="displayed" th:src="@{images/sonatype.png}"/>    
-</head>
-<body class="home-page">
 
-    <h2>Success Metrics</h2>
-    <p class="date-title" th:text="${#dates.createNow()}"></p>
-    
-    <div>
+<head>
+<div th:insert="header :: headerFrag"></div>
+</head>
+
+<body>
+
+    <div class="jumbotron">
     
     	<!-- 
     	<a th:href="@{metrics}">Metrics for React UI</a>

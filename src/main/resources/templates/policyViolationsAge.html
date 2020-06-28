@@ -1,49 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <html>
-   <head>
-      <title>Success Metrics Report</title>
-      <script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script>
-      <script type = "text/javascript">google.charts.load('current', {packages: ['corechart']});</script>
-      <script type = "text/javascript">google.charts.load('current', {packages: ['table']});</script>      
-      <link href="/css/main.css" rel="stylesheet">
-   	  <img class="displayed" th:src="@{images/sonatype.png}"/>    
-   
-   </head>
+
+<head>
+<div th:insert="header :: headerFrag"></div>
+</head>
    
    <body>
-   		
-      <h2>Success Metrics Report</h2>
-      <p class="date-title" th:text="${#dates.createNow()}"></p>
-      
-      <div class="page-margin">
-      
+   	
+      <div class="jumbotron">
       <h3>Policy Violations Age</h3>
       
       <div class="page-title" role="alert" th:if="${!status}">
 	      <span th:text="${message}"></span>
   	  </div>
-  	  
-  	  <script>
-  		var cssClassNames = {
-	            'headerRow': 'cssHeaderRow',
-	            'tableRow': 'cssTableRow',
-	            'oddTableRow': 'cssOddTableRow',
-	            'selectedTableRow': 'cssSelectedTableRow',
-	            'hoverTableRow': 'cssHoverTableRow',
-	            'headerCell': 'cssHeaderCell',
-	            'tableCell': 'cssTableCell',
-	            'rowNumberCell': 'cssRowNumberCell'
-        	};
-    
-    	var tableOptions = {
-		    	showRowNumber: true,
-		        cssClassNames: cssClassNames,
-		        height: '100%',
-		        width: '100%',
-		        allowHtml: true
-    		};
-  	  </script>
       
       <div th:if="${status}">
       
@@ -87,7 +57,8 @@
       
       
       <div th:if="${age7}">
-	      <h3>Security Policy Violations 0-7 Days</h3>
+      	  <br><br>
+	      <h4>Security Policy Violations 0-7 Days</h4>
 	      <script th:inline="javascript">
 	      	function securityage7() {
 	          	var points = /*[[${age7Data}]]*/'noValue';
@@ -96,15 +67,15 @@
 	    	    data.addColumn('string', 'Policy Name');
 	    	    data.addColumn('string', 'Application Name');
 	    	    data.addColumn('string', 'Component Name');
-	    	    data.addColumn('string', 'Open Time');
-	
+/* 	    	    data.addColumn('string', 'Open Time');
+ */	
 	    	    points.forEach(entry => {
 	                var policyName = entry.policyName;
 	                var applicationName = entry.applicationName;
 	                var component = entry.component;
 	                var openTime = entry.openTime;
 	
-	                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`, `${openTime}`]);
+	                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`]);
 	            }); 
 	    	       
 	    	    var table = new google.visualization.Table(document.getElementById ('securityage7Chart'));
@@ -117,10 +88,10 @@
 	      <div id="securityage7Chart" style = "width: 550px; height: 400px;"></div>
       </div>
       
-      <br><br>
       
        <div th:if="${age30}">
-	      <h3>Security Policy Violations 8-30 Days</h3>
+          <br><br>
+	      <h4>Security Policy Violations 8-30 Days</h4>
 	      <script th:inline="javascript">
 	      	function securityage30() {
 	          	var points = /*[[${age30Data}]]*/'noValue';
@@ -129,15 +100,15 @@
 	    	    data.addColumn('string', 'Policy Name');
 	    	    data.addColumn('string', 'Application Name');
 	    	    data.addColumn('string', 'Component Name');
-	    	    /*data.addColumn('string', 'Open Time');*/
-	
+/* 	    	    data.addColumn('string', 'Open Time');
+ */	
 	    	    points.forEach(entry => {
 	                var policyName = entry.policyName;
 	                var applicationName = entry.applicationName;
 	                var component = entry.component;
 	                var openTime = entry.openTime;
 	
-	                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`, `${openTime}`]);
+	                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`]);
 	            }); 
 	    	       
 	    	    var table = new google.visualization.Table(document.getElementById ('securityage30Chart'));
@@ -153,7 +124,8 @@
       <br><br>
       
       <div th:if="${age60}">
-	      <h3>Security Policy Violations 31-60 Days</h3>
+          <br><br>
+	      <h4>Security Policy Violations 31-60 Days</h4>
 	      <script th:inline="javascript">
 	      	function securityage60() {
 	          	var points = /*[[${age60Data}]]*/'noValue';
@@ -168,9 +140,9 @@
 	                var policyName = entry.policyName;
 	                var applicationName = entry.applicationName;
 	                var component = entry.component;
-	                var openTime = entry.openTime;
-	
-	                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`, `${openTime}`]);
+/* 	                var openTime = entry.openTime;
+ */	
+	                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`]);
 	            }); 
 	    	       
 	    	    var table = new google.visualization.Table(document.getElementById ('securityage60Chart'));
@@ -186,7 +158,8 @@
       <br><br>
        
       <div th:if="${age90}">
-	      <h3>Security Policy Violations Over 60 Days</h3>
+          <br><br>
+	      <h4>Security Policy Violations Over 60 Days</h4>
 	      <script th:inline="javascript">
 	      	function securityage90() {
 	          	var points = /*[[${age90Data}]]*/'noValue';
@@ -195,15 +168,15 @@
 	    	    data.addColumn('string', 'Policy Name');
 	    	    data.addColumn('string', 'Application Name');
 	    	    data.addColumn('string', 'Component Name');
-	    	    data.addColumn('string', 'Open Time');
-	
+/* 	    	    data.addColumn('string', 'Open Time');
+ */	
 	    	    points.forEach(entry => {
 	                var policyName = entry.policyName;
 	                var applicationName = entry.applicationName;
 	                var component = entry.component;
 	                var openTime = entry.openTime;
 	
-	                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`, `${openTime}`]);
+	                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`]);
 	            }); 
 	    	       
 	    	    var table = new google.visualization.Table(document.getElementById ('securityage90Chart'));

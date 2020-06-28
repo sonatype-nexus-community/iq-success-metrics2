@@ -182,4 +182,9 @@ public class SQLStatement {
 			"waivedCountSecuritySevere " +
 			" from csvread ";
 	
+	// Snapshot report
+	
+	public static String TimePeriodStart = "select distinct time_period_start as label from metrics order by 1";
+	public static String ApplicationNames = "select distinct application_name as label from metrics order by 1";
+	
 }
