@@ -16,8 +16,8 @@ public class HomeController {
 	public String home(Model model) {
 		log.info("In HomeController");
 		
-		model.addAttribute("policyViolationsreport", FileNameService.PolicyViolationsReport);
-		model.addAttribute("applicationEvaluationsreport", FileNameService.ApplicationEvaluationsReport);
+		model.addAttribute("policyViolationsreport", FileNameService.PolicyViolationsReportExists);
+		model.addAttribute("applicationEvaluationsreport", FileNameService.ApplicationEvaluationsReportExists);
 
 		return "home";
 	}

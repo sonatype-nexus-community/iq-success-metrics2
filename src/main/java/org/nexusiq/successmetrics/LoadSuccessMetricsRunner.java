@@ -33,11 +33,11 @@ public class LoadSuccessMetricsRunner implements CommandLineRunner {
 				
 		File f = new File(csvFileName.toString());
 		
-		if(f.exists() && !f.isDirectory()) { 
+		if(f.exists() && !f.isDirectory() && f.length() > 0) { 
 			
 			sqlService.LoadSuccessMetrics(csvFileName.toString());
 			
-			fileNameService.SuccessMetricsReport = true;
+			fileNameService.SuccessMetricsReportExists = true;
 
 			log.info("Success Metrics loaded.");
 		}

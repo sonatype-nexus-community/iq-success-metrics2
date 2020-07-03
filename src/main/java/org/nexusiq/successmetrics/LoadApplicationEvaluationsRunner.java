@@ -33,11 +33,11 @@ public class LoadApplicationEvaluationsRunner implements CommandLineRunner {
 				
 		File f = new File(csvFileName.toString());
 		
-		if(f.exists() && !f.isDirectory()) { 
+		if(f.exists() && !f.isDirectory() && f.length() > 0) { 
 			
 			sqlService.LoadApplicationEvaluations(csvFileName.toString());
 			
-			fileNameService.ApplicationEvaluationsReport = true;
+			fileNameService.ApplicationEvaluationsReportExists = true;
 
 			log.info("Application Evaluations loaded.");			
 		}

@@ -19,7 +19,7 @@ public class StartupRunner implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 				
-		if (!FileNameService.SuccessMetricsReport) {
+		if (!FileNameService.SuccessMetricsReportExists) {
 			log.error("Exiting... no data files found");
 			System.exit(-1);
 		}

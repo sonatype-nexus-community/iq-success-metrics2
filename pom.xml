@@ -16,7 +16,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-    	<app.main.class>org.demo.smproto.SmprotoApplication</app.main.class>
+    	<app.main.class>org.nexusiq.successmetrics.SuccessMetricsApplication</app.main.class>
 	</properties>
 
 	<dependencies>

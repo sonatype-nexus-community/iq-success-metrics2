@@ -11,7 +11,7 @@
 	
     <div th:insert="summaryFragment :: summaryFrag"></div>
    
-    <table>
+    <table class="summary-table">
     <tr>
     <td><br>- On average, each application has <span th:text="${applicationCriticalViolationsAvg.avg}"/> open critical violations</td>
     </tr>
@@ -24,13 +24,19 @@
   	
   	<br><br>
   	
-  	<!--  applications -->
+	<div style="page-break-before: always;"/> 	
+ 
+ 	<!--  applications -->
     <div th:insert="applicationsFragment :: applicationsFrag"></div>
-
+ 	
+ 	<div style="page-break-before: always;"/> 	
+ 	
  	<!--  security violations -->
  	<div th:insert="securityViolationsFragment :: securityViolationsFrag"></div>
  	
-  	<!--  license violations -->
+ 	<div style="page-break-before: always;"/> 	
+ 	
+   	<!--  license violations -->
     <div th:insert="licenseViolationsFragment :: licenseViolationsFrag"></div>
   	
     </div>

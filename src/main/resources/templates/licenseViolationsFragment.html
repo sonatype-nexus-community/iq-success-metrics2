@@ -75,7 +75,8 @@
       </script>
        <div id="openLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
   
-      <div style="page-break-always: always;">
+  	<div style="page-break-before: always;"/> 	
+  
  
  		<script th:inline="javascript">
         function discoveredLicenseViolations() {
@@ -132,7 +133,8 @@
       </script>
       <div id="fixedLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
 
-      <div style="page-break-always: always;">
+	<div style="page-break-before: always;"/> 	
+
 
       <script th:inline="javascript">
         function waivedLicenseViolations() {
@@ -187,11 +189,9 @@
 
       </script>
       <div id="criticalLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
-      
-      </div>
-      
-      <div style="page-break-always: always;">
-      
+     
+     	<div style="page-break-before: always;"/> 	
+            
       <script th:inline="javascript">
       	function severeLicenseViolations() {
           	var points = /*[[${severeLicenseViolationsData}]]*/'noValue';

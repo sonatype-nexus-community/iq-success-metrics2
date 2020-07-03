@@ -1,5 +1,21 @@
 
-.my-custom-scrollbar {
+span {
+	color: blue;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.inline-span {
+	color: black;
+	font-size: 20px;
+	font-weight: normal;
+	font-style: italic;
+}
+
+
+
+
+/* .my-custom-scrollbar {
 position: relative;
 height: 400px;
 overflow: auto;
@@ -19,7 +35,7 @@ table.dataTable thead .sorting_desc:before,
 table.dataTable thead .sorting_desc_disabled:after,
 table.dataTable thead .sorting_desc_disabled:before {
 bottom: .5em;
-}
+} */
 
 /* 
 tbody td {

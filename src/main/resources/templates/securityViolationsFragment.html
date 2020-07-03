@@ -75,9 +75,9 @@
 
       </script>
        <div id="openSecurityViolationsChart" style = "width: 650px; height: 400px;"></div>
-            
-      <div style="page-break-always: always;">
-      
+                  
+       	<div style="page-break-before: always;"/> 	
+       
  		<script th:inline="javascript">
       	function discoveredSecurityViolations() {
           	var points = /*[[${discoveredSecurityViolationsData}]]*/'noValue';
@@ -131,11 +131,9 @@
 
       </script>
        <div id="fixedSecurityViolationsChart" style = "width: 650px; height: 400px;"></div>
-      
-      </div>
-      
-      <div style="page-break-always: always;">
-      
+                  
+     	<div style="page-break-before: always;"/> 	
+     
       <script th:inline="javascript">
       	function waivedSecurityViolations() {
           	var points = /*[[${waivedSecurityViolationsData}]]*/'noValue';
@@ -189,11 +187,9 @@
 
       </script>
       <div id="criticalSecurityViolationsChart" style = "width: 650px; height: 400px;"></div>
-      
-      </div>
-      
-      <div style="page-break-always: always;">
-      
+     
+     	<div style="page-break-before: always;"/> 	
+       
       <script th:inline="javascript">
       	function severeSecurityViolations() {
           	var points = /*[[${severeSecurityViolationsData}]]*/'noValue';
@@ -247,5 +243,6 @@
 
       </script>
       <div id="moderateSecurityViolationsChart" style = "width: 650px; height: 400px;"></div>
+     
      </div>
      

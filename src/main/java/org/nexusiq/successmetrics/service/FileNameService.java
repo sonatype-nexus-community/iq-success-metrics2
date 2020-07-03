@@ -15,9 +15,9 @@ public class FileNameService {
 	@Value("${csvfile.applicationEvaluations}")
 	private String csvApplicationEvaluationsFileName;
 	
-	public static boolean PolicyViolationsReport = false;
-	public static boolean ApplicationEvaluationsReport = false;
-	public static boolean SuccessMetricsReport = false;
+	public static boolean PolicyViolationsReportExists = false;
+	public static boolean ApplicationEvaluationsReportExists = false;
+	public static boolean SuccessMetricsReportExists = false;
 
 	
 	public String getFilename(String metricType) {

@@ -34,11 +34,11 @@ public class LoadPolicyViolationsRunner implements CommandLineRunner {
 				
 		File f = new File(csvFileName.toString());
 		
-		if(f.exists() && !f.isDirectory()) { 
+		if(f.exists() && !f.isDirectory() && f.length() > 0) { 
 			
 			sqlService.LoadPolicyViolations(csvFileName.toString());
 			
-			fileNameService.PolicyViolationsReport = true;
+			fileNameService.PolicyViolationsReportExists = true;
 			
 			log.info("Policy Vioaltions loaded.");
 		}
