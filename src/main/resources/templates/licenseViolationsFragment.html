@@ -23,23 +23,6 @@
     	    
     	    var options = {'title':'License Violations', 'width':750, 'height':400, isStacked: true, colors: ['#F1DF22', 'green', 'orange', 'red']};  
     	    
-    	    /* var options_stacked = {
-    	            isStacked: true,
-    	            height: 300,
-    	            legend: {position: 'top', maxLines: 3},
-    	            vAxis: {minValue: 0}
-    	          };
-    	    
-    	    var options_fullStacked = {
-    	            isStacked: 'percent',
-    	            height: 300,
-    	            legend: {position: 'top', maxLines: 3},
-    	            vAxis: {
-    	              minValue: 0,
-    	              ticks: [0, .3, .6, .9, 1]
-    	            }
-    	          }; */
-    	    
     	    var chart = new google.visualization.ColumnChart(document.getElementById ('licenseViolationsChart'));
     	    chart.draw(data, options);
     	 }

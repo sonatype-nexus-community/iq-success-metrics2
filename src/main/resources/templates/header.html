@@ -16,12 +16,14 @@
     <script type = "text/javascript">google.charts.load('current', {packages: ['table']});</script> 
     
     <link href="/css/main.css" rel="stylesheet">
-	<img class="displayed" th:src="@{images/sonatype.png}"/>   
+    
+    <div class="text-center">
+	    <img class="displayed" th:src="@{images/sonatype.png}"/>   
+		<title th:text="'Success Metrics'"></title>
+		<h3>Success Metrics</h3>
+	    <p th:text="${#dates.createNow()}"></p>
+    </div>
 	
-	<title th:text="'Success Metrics'"></title>
-	
-	<h3>Success Metrics</h3>
-    <p th:text="${#dates.createNow()}"></p>
     
      <script>
   		var cssClassNames = {

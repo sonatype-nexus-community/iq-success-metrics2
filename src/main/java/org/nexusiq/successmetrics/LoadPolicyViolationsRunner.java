@@ -40,10 +40,10 @@ public class LoadPolicyViolationsRunner implements CommandLineRunner {
 			
 			fileNameService.PolicyViolationsReportExists = true;
 			
-			log.info("Policy Vioaltions loaded.");
+			log.info("Policy Violations loaded.");
 		}
 		else {
-			log.info("No Policy Vioaltions data");
+			log.info("No Policy Violations data");
 		}
 	}
 }
