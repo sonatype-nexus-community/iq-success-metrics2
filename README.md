@@ -30,7 +30,7 @@ Linux: create-datafiles.sh <iq-host-url> <iq-username> <iq-password> <period-fil
 iq-host-url - your Nexus IQ Url, but with no backslash at the end
 iq-username - your Nexus IQ user name that has access to data set you'd like to report on
 iq-password - your Nexus IQ password
-period - weekly.json or monthly.json
+period-file - weekly.json or monthly.json
 
 Example:  create-datafiles.bat http://localhost:8070 admin admin123 monthly.json
 
