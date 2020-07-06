@@ -58,7 +58,7 @@ iq-username - your Nexus IQ user name that has access to data set you'd like to 
 iq-password - your Nexus IQ password
 period - weekly or monthly
 
-Example:  create-csvfile.bat http://localhost:8070 admin admin123 weekly
+Example:  create-csvfile.bat http://localhost:8070 admin admin123 monthly
 
 The output is saved to successmetrics.csv in the current directory
 
@@ -87,6 +87,10 @@ When the file is loaded, you should see output similar to below after which app 
 ```
 
 Open a browser and go to http://localhost:4040
+
+**Save PDF files**
+
+The *Unsigned Report* is designed to be saved to pdf. It contains most of the other reports. The recommended way to do to this is by selecting the 'Save to PDF' option with the Print menu option of your wweb browser.
 
 **Development**
 
