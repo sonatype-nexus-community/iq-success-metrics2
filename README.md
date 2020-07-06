@@ -10,13 +10,43 @@ unzip quickstart.zip
 cd quickstart
 ```
 
-**Make Config Updates**
+**Make Config Updates for Success Metrics**
 
  * Edit either the *weekly.json* or *monthly.json* file to adjust the firstTimePeriod (the week or month to start reporting from) 
- * (Additional information can be found here: https://help.sonatype.com/iqserver/automating/rest-apis/success-metrics-data-rest-api---v2).
+ * You may also choose to add an end period (Additional information can be found here: https://help.sonatype.com/iqserver/automating/rest-apis/success-metrics-data-rest-api---v2).
 
-**Create the csv file**
- * The script named below makes a call to the [Success Metrics REST API](https://help.sonatype.com/iqserver/automating/rest-apis/success-metrics-data-rest-api---v2) referenced above to extract the metrics into a CSV file.
+**Create the csv files**
+
+*There are some scripts available to help ease creation of the required CSV files. There are two ways you can create these files depending on if you have python3 available on the system where the scripts will be run*
+ 
+ * If you have python3 available
+ * Open a command prompt and run 
+
+
+```
+Windows: create-datafiles.bat <iq-host-url> <iq-username> <iq-password> <period-file>
+Linux: create-datafiles.sh <iq-host-url> <iq-username> <iq-password> <period-file>
+
+iq-host-url - your Nexus IQ Url, but with no backslash at the end
+iq-username - your Nexus IQ user name that has access to data set you'd like to report on
+iq-password - your Nexus IQ password
+period - weekly.json or monthly.json
+
+Example:  create-datafiles.bat http://localhost:8070 admin admin123 monthly.json
+
+The script will run 3 python3 programs that each extract data from different Nexus IQ REST API's
+
+All output files are saved to the current directory
+
+The following CSV files are created:
+
+successmetrics.csv - from the Success Metrics API (https://help.sonatype.com/iqserver/automating/rest-apis/success-metrics-data-rest-api---v2)
+policyviolations.csv - from the Policy Violation API (https://help.sonatype.com/iqserver/automating/rest-apis/policy-violation-rest-api---v2)
+applicationevaluations.csv - from the Report-related API (https://help.sonatype.com/iqserver/automating/rest-apis/report-related-rest-apis---v2)
+
+```
+
+ * If you do not have python3 on your system
  * Open a command prompt and run 
 
 ```
@@ -44,7 +74,7 @@ The output is saved to successmetrics.csv in the current directory
 
    Still within the command prompt window, run
 ```
-Windows: run-app.bat file  
+Windows: run-app.bat  
 Linux: run-app.sh
 ```
 
@@ -53,8 +83,7 @@ The data file is loaded on start-up of the app. Larger files may take a few mins
 When the file is loaded, you should see output similar to below after which app is ready for access
 
 ```
-2020-05-27 11:04:33.893  INFO 99343 --- [           main] o.d.s.LoadSuccessMetricsFileRunner       : Loading database...
-2020-05-27 11:04:33.908  INFO 99343 --- [           main] o.d.s.LoadSuccessMetricsFileRunner       : Ready for browsing
+2020-07-06 10:45:48.036  INFO 93848 --- [           main] o.nexusiq.successmetrics.StartupRunner   : Ready for browsing at http://localhost:4040
 ```
 
 Open a browser and go to http://localhost:4040
