@@ -34,7 +34,7 @@ period-file - weekly.json or monthly.json
 
 Example:  create-datafiles.bat http://localhost:8070 admin admin123 monthly.json
 
-The script will run 3 python3 programs that each extract data from different Nexus IQ REST API's
+The script will run three python3 programs that each extract data from different Nexus IQ REST API's
 
 All output files are saved to the current directory
 
