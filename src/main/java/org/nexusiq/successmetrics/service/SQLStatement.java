@@ -61,10 +61,10 @@ public class SQLStatement {
 	public static String PolicyViolationsAge30 = "select * from POLICYVIOLATIONS where parsedatetime(open_time, 'yyyy-MM-dd', 'en') > CURRENT_DATE - INTERVAL 30 DAY and parsedatetime(open_time, 'yyyy-MM-dd', 'en') < CURRENT_DATE - INTERVAL 7 DAY"; 
 	public static String PolicyViolationsAge7 = "select * from POLICYVIOLATIONS where parsedatetime(open_time, 'yyyy-MM-dd', 'en') >= CURRENT_DATE - INTERVAL 7 DAY "; 
 
-	public static String ApplicationEvaluationsAge90 = "select * from ApplicationEvaluations where parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') <= CURRENT_DATE - INTERVAL 90 DAY";
-	public static String ApplicationEvaluationsAge60 = "select * from ApplicationEvaluations where parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') > CURRENT_DATE - INTERVAL 90 DAY and parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') < CURRENT_DATE - INTERVAL 30 DAY";
-	public static String ApplicationEvaluationsAge30 = "select * from ApplicationEvaluations where parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') > CURRENT_DATE - INTERVAL 30 DAY and parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') < CURRENT_DATE - INTERVAL 7 DAY"; 
-	public static String ApplicationEvaluationsAge7 = "select * from ApplicationEvaluations where parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') >= CURRENT_DATE - INTERVAL 7 DAY "; 
+	public static String ApplicationEvaluationsAge90 = "select * from ApplicationEvaluations where parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') <= CURRENT_DATE - INTERVAL 90 DAY order by 1";
+	public static String ApplicationEvaluationsAge60 = "select * from ApplicationEvaluations where parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') > CURRENT_DATE - INTERVAL 90 DAY and parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') < CURRENT_DATE - INTERVAL 30 DAY order by 1";
+	public static String ApplicationEvaluationsAge30 = "select * from ApplicationEvaluations where parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') > CURRENT_DATE - INTERVAL 30 DAY and parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') < CURRENT_DATE - INTERVAL 7 DAY order by 1"; 
+	public static String ApplicationEvaluationsAge7 = "select * from ApplicationEvaluations where parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') >= CURRENT_DATE - INTERVAL 7 DAY order by 1"; 
 	
 	
 	public static String ApplicationsSecurityStatus = "select APPLICATION_NAME as label, " + 

@@ -59,15 +59,15 @@
 	    	    data.addColumn('string', 'Policy Name');
 	    	    data.addColumn('string', 'Application Name');
 	    	    data.addColumn('string', 'Component Name');
-/* 	    	    data.addColumn('string', 'Open Time');
- */	
+	    	    data.addColumn('string', 'Open Time');
+ 	
 	    	    points.forEach(entry => {
 	                var policyName = entry.policyName;
 	                var applicationName = entry.applicationName;
 	                var component = entry.component;
 	                var openTime = entry.openTime;
 	
-	                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`]);
+	                data.addRow([ `${policyName}`, `${applicationName}`, `${component}`, `${openTime}`]);
 	            }); 
 	    	       
 	    	    var table = new google.visualization.Table(document.getElementById ('securityage7Chart'));
