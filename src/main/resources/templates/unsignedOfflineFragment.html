@@ -1,0 +1,174 @@
+
+<div th:fragment="unsignedOfflineFrag">
+
+	<div class="chart-container" style="position: relative; width:50vw">
+    	
+    	<canvas id="applicationsOnboardedDataChart" width="400" height="400"></canvas>
+      	<script th:inline="javascript">
+	     	var points = /*[[${applicationsOnboardedData}]]*/'noValue';
+	     	var pdata = [];
+	     	var labels = [];
+	     	
+	     	points.forEach(entry => {
+	            var label = entry.label;
+	            var point = entry.pointA;
+	            labels.push(label);
+	            pdata.push(point);
+	        }); 
+	     	
+			var applicationsOnboardedDataChartCtx = document.getElementById('applicationsOnboardedDataChart').getContext('2d');
+			
+			var data = {
+					labels: labels,
+					datasets: [{
+						label: 'Applications Onboarded (Scanned)',
+			            data: pdata,
+			            barThickness: 10,
+			            maxBarThickness: 15,
+			            backgroundColor: olBarColor
+					}]
+			};
+			
+	     	var myBarChart = new Chart(applicationsOnboardedDataChartCtx, {
+	     	    type: 'bar',
+	            data: data,
+	            options: olChartOptions
+	        });
+     	</script>
+     	
+     	
+     	<canvas id="applicationScansDataChart" width="400" height="400"></canvas>
+      	<script th:inline="javascript">
+	     	var points = /*[[${applicationScansData}]]*/'noValue';
+	     	var pdata = [];
+	     	var labels = [];
+	     	
+	     	points.forEach(entry => {
+	            var label = entry.label;
+	            var point = entry.pointA;
+	            labels.push(label);
+	            pdata.push(point);
+	        }); 
+	     	
+			var applicationScansDataChartCtx = document.getElementById('applicationScansDataChart').getContext('2d');
+			
+			var data = {
+					labels: labels,
+					datasets: [{
+						label: 'Scanned Applications',
+			            data: pdata,
+			            barThickness: 10,
+			            maxBarThickness: 15,
+			            backgroundColor: olBarColor
+					}]
+			};
+			
+	     	var myBarChart = new Chart(applicationScansDataChartCtx, {
+	     	    type: 'bar',
+	            data: data,
+	            options: olChartOptions
+	        });
+     	</script>
+     	
+   
+    	<canvas id="numberOfScansDataChart" width="400" height="400"></canvas>
+      	<script th:inline="javascript">
+	     	var points = /*[[${numberOfScansData}]]*/'noValue';
+	     	var pdata = [];
+	     	var labels = [];
+	     	
+	     	points.forEach(entry => {
+	            var label = entry.label;
+	            var point = entry.pointA;
+	            labels.push(label);
+	            pdata.push(point);
+	        }); 
+	     	
+			var numberOfScansDataChartCtx = document.getElementById('numberOfScansDataChart').getContext('2d');
+			
+			var data = {
+					labels: labels,
+					datasets: [{
+						label: 'Number of Scans',
+			            data: pdata,
+			            barThickness: 10,
+			            maxBarThickness: 15,
+			            backgroundColor: olBarColor
+					}]
+			};
+			
+	     	var myBarChart = new Chart(numberOfScansDataChartCtx, {
+	     	    type: 'bar',
+	            data: data,
+	            options: olChartOptions
+	        });
+     	</script>
+    
+     	<canvas id="mttrDataChart" width="400" height="400"></canvas>
+      	<script th:inline="javascript">
+	     	var points = /*[[${mttrData}]]*/'noValue';
+	     	var dataA = [];
+	     	var dataB = [];
+	     	var dataC = [];
+
+	     	var labels = [];
+	     	
+	     	points.forEach(entry => {
+	            var label = entry.label;
+	            var pointA = entry.pointA;
+	            var pointB = entry.pointB;
+	            var pointC = entry.pointC;
+	            labels.push(label);
+	            dataA.push(pointA);
+	            dataB.push(pointB);
+	            dataC.push(pointC);
+	        }); 
+	     	
+			var mttrDataChartCtx = document.getElementById('mttrDataChart').getContext('2d');
+			
+			var data = {
+					labels: labels,
+					datasets: [
+						{
+							label: 'Critical',
+							data: dataA,
+							backgroundColor: 'red' // green
+						},
+						{
+							label: 'Severe',
+							data: dataB,
+							backgroundColor: 'orange' // green
+						},
+						{
+							label: 'Moderate',
+							data: dataC,
+							backgroundColor: 'yellow' // green
+						}
+					]};
+			
+	     	var myBarChart = new Chart(mttrDataChartCtx, {
+	     	    type: 'bar',
+	            data: data,
+	            options: {
+	            	layout: {
+			            padding: {
+			                left: 100,
+			                right: 100,
+			                top: 100,
+			                bottom: 100
+			            }
+	            	},
+			        scales: {
+			               xAxes: [{ stacked: true }],
+			               yAxes: [{ stacked: true }]
+			        },
+			        title: {
+			            display: true,
+			            text: 'MTTR (Days)'
+			        }
+	     		}
+	        });
+     	</script>
+     </div>
+
+</div>

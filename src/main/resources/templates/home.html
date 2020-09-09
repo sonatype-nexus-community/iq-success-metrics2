@@ -10,36 +10,29 @@
     <div class="jumbotron">
     
     	<div class="home-page-menu">
-    	<!-- 
-    	<a th:href="@{metrics}">Metrics for React UI</a>
-        <br><br>
-        <a th:href="@{ui}">React UI Sample</a>
-        <br><br>
-        <a th:href="@{data}">Show Data</a>
-        <br><br>
-        <a th:href="@{/h2}">Database console (user:install)</a>
-        <br><br> 
-        -->
-        
-        <a th:href="@{unsigned}">Unsigned Report</a>
+    	
+    	<a th:href="@{unsigned}">Unsigned Report</a>
         <br><br>
         <a th:href="@{summary}">Summary Report</a>
-        <br><br>
-        <a th:href="@{applications}">Applications Report</a>
         <br><br>
         <a th:href="@{securityViolations}">Security Violations Report</a>
         <br><br>
         <a th:href="@{licenseViolations}">License Violations Report</a>
         <br><br>
-        
-        <div th:if="${policyViolationsreport}">
-        <a th:href="@{policyViolationsAge}">Policy Violations Age Report</a>
-        <br><br>
+  
+      	<div th:if="${netAvailable}">
+	        <a th:href="@{applications}">Applications Report</a>
+	        <br><br>
+	        <div th:if="${policyViolationsreport}">
+	        <a th:href="@{policyViolationsAge}">Policy Violations Age Report</a>
+	        <br><br>
+	        </div>
+	        
+	        <div th:if="${applicationEvaluationsreport}">
+	        <a th:href="@{applicationEvaluationsAge}">Application Evaluations Age Report</a>
+	        </div>
         </div>
         
-        <div th:if="${applicationEvaluationsreport}">
-        <a th:href="@{applicationEvaluationsAge}">Application Evaluations Age Report</a>
-        </div>
        </div>
     </div>
     

@@ -14,6 +14,8 @@
 	<script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script>
     <script type = "text/javascript">google.charts.load('current', {packages: ['corechart']});</script>
     <script type = "text/javascript">google.charts.load('current', {packages: ['table']});</script> 
+    <script type="text/javascript" src="/js/Chart.min.js"></script>
+    
     
     <link href="/css/main.css" rel="stylesheet">
     
@@ -43,6 +45,32 @@
 		        height: '100%',
 		        width: '100%'
     		};
+    	
+    	var olBarColor = 'blue';
+    	
+    	var olChartOptions = {
+    			layout: {
+    	            padding: {
+    	                left: 100,
+    	                right: 100,
+    	                top: 100,
+    	                bottom: 100
+    	            }
+    	        },
+    	        scales: {
+    	            yAxes: [{
+     	              ticks: {
+    	                beginAtZero: true
+    	              }
+    	            }],
+    	            xAxes: [{
+     	              ticks: {
+    	                beginAtZero: true
+    	              }
+    	            }]
+    	        }
+    	    };
+    	
   	  </script>
     
  </div>
