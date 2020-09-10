@@ -14,6 +14,7 @@ cd quickstart
 
  * Edit either the *weekly.json* or *monthly.json* file to adjust the firstTimePeriod (the week or month to start reporting from) 
  * You may also choose to add an end period (Additional information can be found here: https://help.sonatype.com/iqserver/automating/rest-apis/success-metrics-data-rest-api---v2).
+ * For larger installations, we recommend limiting the data to extract to a smaller period (e.g. since the previous month or few weeks) or subset of organisations and applications. Information on how to adjust the request body (in the weekly.json ot monthly.json files) can be found at the success metrics page above.
 
 **Create the csv files**
 
@@ -113,6 +114,7 @@ To run:
 **The Fine Print**
 * We recommend running it for 4 weeks of data at a time and for sets of orgs instead of the full scope if you have a large dataset.
 * It is worth noting that this is NOT SUPPORTED by Sonatype, and is a contribution of ours to the open source community (read: you!)
+* The application only supports Nexus IQ instances running with the embedded database. It currently does not run with installations using an external Postgres database.
 
 * Don't worry, using this community item does not "void your warranty". In a worst case scenario, you may be asked by the Sonatype Support team to remove the community item in order to determine the root cause of any issues.
 
