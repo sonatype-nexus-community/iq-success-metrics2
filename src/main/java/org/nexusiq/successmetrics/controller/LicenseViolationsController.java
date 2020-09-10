@@ -3,6 +3,7 @@ package org.nexusiq.successmetrics.controller;
 import java.util.Map;
 
 import org.nexusiq.successmetrics.service.ModelService;
+import org.nexusiq.successmetrics.service.NetworkService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class LicenseViolationsController {
 	@Autowired 
 	private ModelService modelService;
 	
+	@Autowired 
+	private NetworkService networkService;
+	
 	@GetMapping({"/licenseViolations"})
     public String licenseViolations(Model model) {
 						
@@ -27,6 +31,10 @@ public class LicenseViolationsController {
 		
 		model.mergeAttributes(map);
 
+		boolean netAvailable = networkService.netIsAvailable();
+
+		model.addAttribute("netAvailable", netAvailable);
+		
         return "licenseViolations";
     }
 }

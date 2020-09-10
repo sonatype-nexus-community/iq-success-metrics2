@@ -164,7 +164,7 @@
                 data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
             }); 
     	    
-    	    var options = {'title':'Critical License Violations', 'width':750, 'height':400, isStacked: true, colors: ['red', 'green', 'orange']};    	    
+    	    var options = {'title':'Critical License Violations (Discovered)', 'width':750, 'height':400, isStacked: true, colors: ['red', 'green', 'orange']};    	    
     	    var chart = new google.visualization.ColumnChart(document.getElementById ('criticalLicenseViolationsChart'));
     	    chart.draw(data, options);
     	 }
@@ -193,7 +193,7 @@
                 data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
             }); 
     	    
-    	    var options = {'title':'Severe License Violations', 'width':750, 'height':400, isStacked: true, colors: ['red', 'green', 'orange']};    	    
+    	    var options = {'title':'Severe License Violations (Discovered)', 'width':750, 'height':400, isStacked: true, colors: ['red', 'green', 'orange']};    	    
     	    var chart = new google.visualization.ColumnChart(document.getElementById ('severeLicenseViolationsChart'));
     	    chart.draw(data, options);
     	 }
@@ -220,7 +220,7 @@
                 data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
             }); 
     	    
-    	    var options = {'title':'Moderate License Violations', 'width':750, 'height':400, isStacked: true, colors: ['red', 'green', 'orange']};    	    
+    	    var options = {'title':'Moderate License Violations (Discovered)', 'width':750, 'height':400, isStacked: true, colors: ['red', 'green', 'orange']};    	    
     	    var chart = new google.visualization.ColumnChart(document.getElementById ('moderateLicenseViolationsChart'));
     	    chart.draw(data, options);
     	 }

@@ -162,7 +162,7 @@
                 data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
             }); 
     	    
-    	    var options = {'title':'Critical Security Violations', 'width':750, 'height':400, isStacked: true, colors: ['red', 'green', 'orange']};    	    
+    	    var options = {'title':'Critical Security Violations (Discovered)', 'width':750, 'height':400, isStacked: true, colors: ['red', 'green', 'orange']};    	    
     	    var chart = new google.visualization.ColumnChart(document.getElementById ('criticalSecurityViolationsChart'));
     	    chart.draw(data, options);
     	 }
@@ -191,7 +191,7 @@
                 data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
             }); 
     	    
-    	    var options = {'title':'Severe Security Violations', 'width':750, 'height':400, isStacked: true, colors: ['red', 'green', 'orange']};    	    
+    	    var options = {'title':'Severe Security Violations (Discovered)', 'width':750, 'height':400, isStacked: true, colors: ['red', 'green', 'orange']};    	    
     	    var chart = new google.visualization.ColumnChart(document.getElementById ('severeSecurityViolationsChart'));
     	    chart.draw(data, options);
     	 }
@@ -218,7 +218,7 @@
                 data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
             }); 
     	    
-    	    var options = {'title':'Moderate Security Violations', 'width':750, 'height':400, isStacked: true, colors: ['red', 'green', 'orange']};    	    
+    	    var options = {'title':'Moderate Security Violations (Discovered)', 'width':750, 'height':400, isStacked: true, colors: ['red', 'green', 'orange']};    	    
     	    var chart = new google.visualization.ColumnChart(document.getElementById ('moderateSecurityViolationsChart'));
     	    chart.draw(data, options);
     	 }
