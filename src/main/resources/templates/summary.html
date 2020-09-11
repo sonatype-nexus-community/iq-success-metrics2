@@ -9,9 +9,10 @@
    
    <div class="jumbotron">
    	<h3>Summary Report</h3>
-   
+   </div>
    <div th:insert="summaryFragment :: summaryFrag"></div>
    
+   <div>
    <table>
    <tr>
     <td><br>- On average, each application has <span th:text="${applicationCriticalViolationsAvg.avg}"/> open critical violations</td>

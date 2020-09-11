@@ -5,6 +5,7 @@ import java.util.List;
 import org.nexusiq.successmetrics.model.ApplicationEvaluation;
 import org.nexusiq.successmetrics.model.DataPoint;
 import org.nexusiq.successmetrics.model.MTTRPoint;
+import org.nexusiq.successmetrics.model.Metric;
 import org.nexusiq.successmetrics.model.PolicyViolation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,10 @@ public class SQLService {
 
 	@Autowired 
     private JdbcTemplate jtm;
+	
+	public List<Metric> executeSQLRawData(String sqlStatement) {
+		return jtm.query(sqlStatement, new BeanPropertyRowMapper<>(Metric.class));  
+	}
 	
 	public List<DataPoint> executeSQLMetrics(String sqlStatement) {
 		return jtm.query(sqlStatement, new BeanPropertyRowMapper<>(DataPoint.class));  

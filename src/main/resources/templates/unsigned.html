@@ -8,6 +8,7 @@
 <body>
 	<div class="jumbotron">
 	<h3>Summary Report</h3>
+	</div>
 	
     <div th:insert="summaryFragment :: summaryFrag"></div>
    
@@ -45,8 +46,19 @@
     </div>
     
 	<div style="background-color:white;" th:if="${!netAvailable}">
-		<div th:insert="unsignedOfflineFragment :: unsignedOfflineFrag"></div>
-  	</div>
+		
+		<!--  applications -->
+		<div th:insert="applicationsOfflineFragment :: applicationsOfflineFrag"></div>
+		
+		<!--  security violations -->
+	 	<div th:insert="securityViolationsOfflineFragment :: securityViolationsOfflineFrag"></div>
+	 	
+	 	<div style="page-break-before: always;"/> 	
+	 	
+	   	<!--  license violations -->
+	    <div th:insert="licenseViolationsOfflineFragment :: licenseViolationsOfflineFrag"></div>
+	  	</div>
+	  	
   	
 </body>
 </html> 

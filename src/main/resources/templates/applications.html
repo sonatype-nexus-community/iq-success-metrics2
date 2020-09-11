@@ -10,163 +10,25 @@
    <body>
    	
    	<div class="jumbotron">
-   		<h3>Applications Report</h3>
-   		<br>
-   	
- 	  <div th:insert="applicationsFragment :: applicationsFrag"></div>
-      <br>
-      
-      <h4>Security Violations - Remediation</h4>
-	  <script th:inline="javascript">
-      	function ApplicationsSecurityCriticalStatus() {
-          	var points = /*[[${applicationsSecurityStatusData}]]*/'noValue';
-
-          	var data = new google.visualization.DataTable();
-    	    data.addColumn('string', 'Application Name');
-    	    data.addColumn('number', 'Discovered Violations');
-    	    data.addColumn('number', 'Fixed Violations');
-    	    data.addColumn('number', 'Waived Violations');
-
-    	    // removed column B which is Open
-    	    
-    	    points.forEach(entry => {
-    	    	var label = entry.label;
-                var pointA = entry.pointA;
-                var pointB = entry.pointB;
-                var pointC = entry.pointC;
-
-                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
-            }); 
-    	       
-    	    var table = new google.visualization.Table(document.getElementById ('ApplicationsSecurityCriticalStatusChart'));
-    	    table.draw(data, tableOptions);
-    	 }
-      	
-        google.charts.setOnLoadCallback(ApplicationsSecurityCriticalStatus);
-
-      </script>
-      <div id="ApplicationsSecurityCriticalStatusChart" style = "width: 550px; height: 400px;"></div>
-      
-      <br><br>
-      
-       <h4>License Violations - Remediation</h4>
-	  <script th:inline="javascript">
-      	function ApplicationsLicenseCriticalStatus() {
-          	var points = /*[[${applicationsLicenseStatusData}]]*/'noValue';
-
-          	var data = new google.visualization.DataTable();
-    	    data.addColumn('string', 'Application Name');
-    	    data.addColumn('number', 'Discovered Violations');
-    	    data.addColumn('number', 'Fixed Violations');
-    	    data.addColumn('number', 'Waived Violations');
-
-    	    // removed column B which is Open
-    	    
-    	    points.forEach(entry => {
-    	    	var label = entry.label;
-                var pointA = entry.pointA;
-                var pointB = entry.pointB;
-                var pointC = entry.pointC;
-
-                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
-            }); 
-    	       
-    	    var table = new google.visualization.Table(document.getElementById ('ApplicationsLicenseCriticalStatusChart'));
-    	    table.draw(data, tableOptions);
-    	 }
-      	
-        google.charts.setOnLoadCallback(ApplicationsLicenseCriticalStatus);
-
-      </script>
-      <div id="ApplicationsLicenseCriticalStatusChart" style = "width: 550px; height: 400px;"></div>
-      
-      <br><br>
-           
-      <h4>Most Critical Organisations - (Open Violations)</h4>
-      <script th:inline="javascript">
-      	function organisationsOpenViolations() {
-          	var points = /*[[${mostCriticalOrganisationsData}]]*/'noValue';
-
-    		var data = new google.visualization.DataTable();
-    	    data.addColumn('string', 'Organisation Name');
-    	    data.addColumn('number', 'Critical Violations');
-    	    data.addColumn('number', 'Severe Violations');
-    	    data.addColumn('number', 'Moderate Violations');
-    	    
-    	    points.forEach(entry => {
-    	    	var label = entry.label;
-                var pointA = entry.pointA;
-                var pointB = entry.pointB;
-                var pointC = entry.pointC;
-                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
-            }); 
-    	       
-    	    var table = new google.visualization.Table(document.getElementById ('organisationsOpenViolationsChart'));
-    	    table.draw(data, tableOptions);
-    	 }
-      	
-        google.charts.setOnLoadCallback(organisationsOpenViolations);
-
-      </script>
-      <div id="organisationsOpenViolationsChart" style = "width: 550px; height: 400px;"></div>
-      
-      <br><br>
-      
-      <h4>Most Critical Applications (Open Violations)</h4>
-	  <script th:inline="javascript">
-      	function mostCriticalApplications() {
-          	var points = /*[[${mostCriticalApplicationsData}]]*/'noValue';
-
-          	var data = new google.visualization.DataTable();
-    	    data.addColumn('string', 'Application Name');
-    	    data.addColumn('number', 'Critical Violations');
-    	    data.addColumn('number', 'Severe Violations');
-    	    data.addColumn('number', 'Moderate Violations');
-    	    
-    	    points.forEach(entry => {
-    	    	var label = entry.label;
-                var pointA = entry.pointA;
-                var pointB = entry.pointB;
-                var pointC = entry.pointC;
-                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
-            }); 
-    	       
-    	    var table = new google.visualization.Table(document.getElementById ('mostCriticalApplicationsChart'));
-    	    table.draw(data, tableOptions);
-    	 }
-      	
-        google.charts.setOnLoadCallback(mostCriticalApplications);
-
-      </script>
-      <div id="mostCriticalApplicationsChart" style = "width: 550px; height: 400px;"></div>
-      
-      <br><br>
-      
-      <h4>Most Scanned Applications</h4>
-      <script th:inline="javascript">
-      	function mostScannedApplications() {
-          	var points = /*[[${mostScannedApplicationsData}]]*/'noValue';
-
-    		var data = new google.visualization.DataTable();
-    	    data.addColumn('string', 'Application Name');
-    	    data.addColumn('number', 'Number of Scans');
-    	    
-    	    points.forEach(entry => {
-                var label = entry.label;
-                var point = entry.pointA;
-                data.addRow([ `${label}`, parseInt(`${point}`) ]);
-            }); 
-    	       
-    	    var table = new google.visualization.Table(document.getElementById ('mostScannedApplicationsChart'));
-    	    table.draw(data, tableOptions);
-    	 }
-      	
-        google.charts.setOnLoadCallback(mostScannedApplications);
-
-      </script>
-      <div id="mostScannedApplicationsChart" style = "width: 550px; height: 400px;"></div>
-      
-      </div>
+	   	<h3>Applications Report</h3>
+	   	<br>
+	</div>
+	   	
+	   	<div th:if="${netAvailable}">
+	 	  <div th:insert="applicationsFragment :: applicationsFrag"></div>
+	      <br>
+	      <div style="margin-left: 50px;">
+	      	<div th:insert="violationsAndRemediationFragment :: violationsAndRemediationFrag"></div>
+	      	<br><br>
+	      </div>
+	    </div>
+	    
+	    <div th:if="${!netAvailable}">
+	 	  <div th:insert="applicationsOfflineFragment :: applicationsOfflineFrag"></div>
+	      <br>
+	      <div th:insert="violationsAndRemediationOfflineFragment :: violationsAndRemediationOfflineFrag"></div>
+	      <br><br>
+	    </div>
       
    </body>
 </html>

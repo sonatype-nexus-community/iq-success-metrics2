@@ -55,11 +55,11 @@
 			<scope>runtime</scope>
 		</dependency>
 		
-		<!-- <dependency>
+		<dependency>
 		    <groupId>com.opencsv</groupId>
 		    <artifactId>opencsv</artifactId>
-		    <version>5.0</version>
-		</dependency> -->
+		    <version>5.2</version>
+		</dependency>
 		
         <dependency>
             <groupId>org.webjars</groupId>

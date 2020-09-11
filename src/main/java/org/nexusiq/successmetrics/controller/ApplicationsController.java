@@ -3,6 +3,7 @@ package org.nexusiq.successmetrics.controller;
 import java.util.Map;
 
 import org.nexusiq.successmetrics.service.ModelService;
+import org.nexusiq.successmetrics.service.NetworkService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class ApplicationsController {
 	@Autowired 
 	private ModelService modelService;
 	
+	@Autowired 
+	private NetworkService networkService;
+	
 	private static final Logger log = LoggerFactory.getLogger(ApplicationsController.class);
 
 	@GetMapping({"/applications"})
@@ -31,6 +35,10 @@ public class ApplicationsController {
 		Map <String, Object> map = modelService.setApplicationsReportModel();
 		
 		model.mergeAttributes(map);
+		
+		boolean netAvailable = networkService.netIsAvailable();
+
+		model.addAttribute("netAvailable", netAvailable);
 		
         return "applications";
     }

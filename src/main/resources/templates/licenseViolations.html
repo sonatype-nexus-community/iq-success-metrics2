@@ -9,6 +9,7 @@
    <body>
 	   <div class="jumbotron">
 	      <h3>License Violations Report</h3>
+	   </div>
 	   	      
 	       <div style="background-color:white;" th:if="${netAvailable}">
 		    	<div th:insert="licenseViolationsFragment :: licenseViolationsFrag"></div>
@@ -17,9 +18,7 @@
 		    <div style="background-color:white;" th:if="${!netAvailable}">
 				<div th:insert="licenseViolationsOfflineFragment :: licenseViolationsOfflineFrag"></div>
 		  	</div>
-  	
-  	
-	   </div>
+  
    </body>
  
 </html>

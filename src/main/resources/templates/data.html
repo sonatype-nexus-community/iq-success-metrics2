@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/main.css" rel="stylesheet">
+    <img class="displayed" th:src="@{images/sonatype.png}"/>  
+    
+    <style>
+	    td,th {
+		  text-align: center;
+		  vertical-align: middle;
+		  font-size: 15px;
+		  font-family: Arial, Helvetica, sans-serif;
+		}
+		
+		tr:hover {
+		    background: lightgrey;
+		}
+    </style>  
+</head>
+<body>
+      
+  <h2>Success Metrics data</h2>
+  
+  <div class="alert alert-danger" role="alert" th:if="${!status}">
+      <strong>Error:</strong>
+      <span th:text="${message}"></span>
+  </div>
+
+  <table class="table table-striped" th:if="${status}">
+      <thead>
+      <tr>
+          <th scope="col">Organisation</th>
+          <th scope="col">Application</th>
+          <th scope="col">Period</th>
+          <th scope="col">Evaluations</th>
+          <th scope="col">Disc.Sec.Cri</th>
+          <th scope="col">Fix.Sec.Cri</th>
+          <th scope="col">Waiv.Sec.Cri</th>
+          <th scope="col">Open.Sec.Cri</th>
+          <th scope="col">Disc.Lic.Cri</th>
+          <th scope="col">Fix.Lic.Cri</th>
+          <th scope="col">Waiv.Lic.Cri</th>
+          <th scope="col">Open.Lic.Cri</th>
+          <th scope="col">MTTR.Cri</th>
+          <th scope="col">MTTR.Sec</th>
+          <th scope="col">MTTR.Mod</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="metric : ${metrics}">
+          <td th:text="${metric.organizationName}"></td>
+          <td th:text="${metric.applicationPublicId}"></td>
+          <td th:text="${metric.timePeriodStart}"></td>
+          <td th:text="${metric.evaluationCount}"></td>
+          <td th:text="${metric.discoveredCountSecurityCritical}"></td>
+          <td th:text="${metric.fixedCountSecurityCritical}"></td>
+          <td th:text="${metric.waivedCountSecurityCritical}"></td>
+          <td th:text="${metric.openCountAtTimePeriodEndSecurityCritical}"></td>
+          <td th:text="${metric.discoveredCountLicenseCritical}"></td>
+          <td th:text="${metric.fixedCountLicenseCritical}"></td>
+          <td th:text="${metric.waivedCountLicenseCritical}"></td>
+          <td th:text="${metric.openCountAtTimePeriodEndLicenseCritical}"></td>
+          
+          <div th:with="mttrCritical=${metric.mttrCriticalThreat}" th:if="${metric.mttrCriticalThreat ne null}">
+			  <td th:text="${#numbers.formatDecimal(mttrCritical, 1, 2)}"></td>
+		  </div>
+		  
+		  <div th:with="mttrSevere=${metric?.mttrSevereThreat}" th:if="${metric.mttrSevereThreat ne null}">
+			  <td th:text="${#numbers.formatDecimal(mttrSevere, 1, 2)}"></td>
+		  </div>
+		  
+		  <div th:with="mttrModerate=${metric?.mttrModerateThreat}" th:if="${metric.mttrModerateThreat ne null}">
+			  <td th:text="${#numbers.formatDecimal(mttrModerate, 1, 2)}"></td>
+		  </div>
+		  
+      </tr>
+      </tbody>
+  </table>
+         
+</body>
+</html>
