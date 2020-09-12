@@ -17,7 +17,7 @@ public class MetricsService {
 	private IMetricsService metricsService;
 	
 	public List<Metric> getAllMetrics() {
-		return metricsService.findByOrderByOrganizationNameAsc();
+		return metricsService.findAll();
 	}
 	
 }

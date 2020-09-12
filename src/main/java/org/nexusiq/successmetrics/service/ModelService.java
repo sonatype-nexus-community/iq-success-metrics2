@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.nexusiq.successmetrics.model.DataPoint;
 import org.nexusiq.successmetrics.model.MTTRPoint;
+import org.nexusiq.successmetrics.model.Metric;
 import org.nexusiq.successmetrics.model.PolicyViolation;
 import org.nexusiq.successmetrics.model.SummaryDataPoint;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,10 @@ public class ModelService {
 	
 	@Autowired 
 	private UtilityService utilityService;
+	
+	public List<Metric> setRawData(){
+	    return sqlService.executeSQLRawData("select * from metrics");
+	}
 	
 	public Map<String, Object> setSecurityReportModel() {
 		
@@ -177,9 +182,9 @@ public class ModelService {
 	    List<Float> pointC = new ArrayList<>();	
 	    
 	    for (MTTRPoint dp : sqlService.executeSQLMTTR(SQLStatement.MTTR)) {
-	    	pointA.add(dp.getPointA());
-	    	pointB.add(dp.getPointB());
-	    	pointC.add(dp.getPointC());
+	    	pointA.add(dp.getPointA()/86400000);
+	    	pointB.add(dp.getPointB()/86400000);
+	    	pointC.add(dp.getPointC()/86400000);
 		}
 	    
 	    map.put("mttrCriticalAvg", String.format("%.02f", calculator.averagePoint(pointA)));

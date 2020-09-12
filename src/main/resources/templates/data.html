@@ -7,7 +7,7 @@
     
     <style>
 	    td,th {
-		  text-align: center;
+		  text-align: left;
 		  vertical-align: middle;
 		  font-size: 12px;
 		  font-family: Arial, Helvetica, sans-serif;
@@ -33,6 +33,7 @@
           <th scope="col">Organisation</th>
           <th scope="col">Application</th>
           <th scope="col">Period</th>
+          <th scope="col">&nbsp;&nbsp;</th>
           <th scope="col">Evaluations</th>
           <th scope="col">Disc.Sec.Cri</th>
           <th scope="col">Fix.Sec.Cri</th>
@@ -42,9 +43,9 @@
           <th scope="col">Fix.Lic.Cri</th>
           <th scope="col">Waiv.Lic.Cri</th>
           <th scope="col">Open.Lic.Cri</th>
-          <!-- <th scope="col">MTTR.Cri</th>
+          <th scope="col">MTTR.Cri</th>
           <th scope="col">MTTR.Sec</th>
-          <th scope="col">MTTR.Mod</th> -->
+          <th scope="col">MTTR.Mod</th>
       </tr>
       </thead>
       <tbody>
@@ -52,6 +53,7 @@
           <td th:text="${metric.organizationName}"></td>
           <td th:text="${metric.applicationPublicId}"></td>
           <td th:text="${metric.timePeriodStart}"></td>
+          <td>&nbsp;&nbsp;</td>
           <td th:text="${metric.evaluationCount}"></td>
           <td th:text="${metric.discoveredCountSecurityCritical}"></td>
           <td th:text="${metric.fixedCountSecurityCritical}"></td>
@@ -61,19 +63,22 @@
           <td th:text="${metric.fixedCountLicenseCritical}"></td>
           <td th:text="${metric.waivedCountLicenseCritical}"></td>
           <td th:text="${metric.openCountAtTimePeriodEndLicenseCritical}"></td>
-          <!-- 
-          <div th:with="mttrCritical=${metric.mttrCriticalThreat/86400000}" th:if="${metric.mttrCriticalThreat ne null}">
+          <td th:text="${metric.mttrCriticalThreat}"></td>
+          <td th:text="${metric.mttrSevereThreat}"></td>
+          <td th:text="${metric.mttrModerateThreat}"></td>
+          
+          <!-- <div th:with="mttrCritical=${metric.mttrCriticalThreat}" th:if="${metric.mttrCriticalThreat ne null}">
 			  <td th:text="${#numbers.formatDecimal(mttrCritical, 1, 2)}"></td>
 		  </div>
 		  
-		  <div th:with="mttrSevere=${metric?.mttrSevereThreat/86400000}" th:if="${metric.mttrSevereThreat ne null}">
+		  <div th:with="mttrSevere=${metric?.mttrSevereThreat}" th:if="${metric.mttrSevereThreat ne null}">
 			  <td th:text="${#numbers.formatDecimal(mttrSevere, 1, 2)}"></td>
 		  </div>
 		  
-		  <div th:with="mttrModerate=${metric?.mttrModerateThreat/86400000}" th:if="${metric.mttrModerateThreat ne null}">
+		  <div th:with="mttrModerate=${metric?.mttrModerateThreat}" th:if="${metric.mttrModerateThreat ne null}">
 			  <td th:text="${#numbers.formatDecimal(mttrModerate, 1, 2)}"></td>
-		  </div>
-		   -->
+		  </div> -->
+		  
       </tr>
       </tbody>
   </table>

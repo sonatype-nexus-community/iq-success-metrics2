@@ -5,6 +5,7 @@ import java.util.List;
 import org.nexusiq.successmetrics.model.Metric;
 import org.nexusiq.successmetrics.service.IMetricsService;
 import org.nexusiq.successmetrics.service.MetricsService;
+import org.nexusiq.successmetrics.service.ModelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,13 @@ public class DataController {
 	@Autowired 
 	private MetricsService metricsService;
 	
+	@Autowired 
+	private ModelService modelService;
+	
 	@GetMapping({"/data"})
 	public String data(Model model) {
 	
-		List<Metric> metrics = metricsService.getAllMetrics();
+		List<Metric> metrics = modelService.setRawData();
 				
         if (metrics.isEmpty()) {
         	log.info("DataController: No metrics data");
