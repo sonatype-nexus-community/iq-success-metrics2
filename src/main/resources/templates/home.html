@@ -22,8 +22,6 @@
         <a th:href="@{applications}">Applications Report</a>
         <br><br>
   
-      	<div th:if="${netAvailable}">
-	        
 	        <div th:if="${policyViolationsreport}">
 	        <a th:href="@{policyViolationsAge}">Policy Violations Age Report</a>
 	        <br><br>
@@ -32,8 +30,7 @@
 	        <div th:if="${applicationEvaluationsreport}">
 	        <a th:href="@{applicationEvaluationsAge}">Application Evaluations Age Report</a>
 	        </div>
-        </div>
-        
+         
        </div>
     </div>
     

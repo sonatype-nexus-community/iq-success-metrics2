@@ -13,20 +13,11 @@
 	   	<h3>Applications Report</h3>
 	   	<br>
 	</div>
-	   	
-	   	<!-- <div th:if="${netAvailable}">
-	 	  <div th:insert="applicationsFragment :: applicationsFrag"></div>
-	      <br>
-	      <div style="margin-left: 50px;">
-	      	<div th:insert="violationsAndRemediationFragment :: violationsAndRemediationFrag"></div>
-	      	<br><br>
-	      </div>
-	    </div> -->
 	    
 	    <div>
 	 	  <div th:insert="applicationsOfflineFragment :: applicationsOfflineFrag"></div>
 	      <br>
-	      <div th:insert="violationsAndRemediationOfflineFragment :: violationsAndRemediationOfflineFrag"></div>
+	      <div th:insert="applicationsTablesOfflineFragment :: applicationsTablesOfflineFrag"></div>
 	      <br><br>
 	    </div>
       

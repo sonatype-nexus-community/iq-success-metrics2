@@ -42,9 +42,9 @@
           <th scope="col">Fix.Lic.Cri</th>
           <th scope="col">Waiv.Lic.Cri</th>
           <th scope="col">Open.Lic.Cri</th>
-          <th scope="col">MTTR.Cri</th>
+          <!-- <th scope="col">MTTR.Cri</th>
           <th scope="col">MTTR.Sec</th>
-          <th scope="col">MTTR.Mod</th>
+          <th scope="col">MTTR.Mod</th> -->
       </tr>
       </thead>
       <tbody>
@@ -61,7 +61,7 @@
           <td th:text="${metric.fixedCountLicenseCritical}"></td>
           <td th:text="${metric.waivedCountLicenseCritical}"></td>
           <td th:text="${metric.openCountAtTimePeriodEndLicenseCritical}"></td>
-          
+          <!-- 
           <div th:with="mttrCritical=${metric.mttrCriticalThreat/86400000}" th:if="${metric.mttrCriticalThreat ne null}">
 			  <td th:text="${#numbers.formatDecimal(mttrCritical, 1, 2)}"></td>
 		  </div>
@@ -73,7 +73,7 @@
 		  <div th:with="mttrModerate=${metric?.mttrModerateThreat/86400000}" th:if="${metric.mttrModerateThreat ne null}">
 			  <td th:text="${#numbers.formatDecimal(mttrModerate, 1, 2)}"></td>
 		  </div>
-		  
+		   -->
       </tr>
       </tbody>
   </table>

@@ -3,7 +3,7 @@
 
 	<div class="chart-container" style="position: relative; width:50vw">
     	
-    	<canvas id="applicationsOnboardedDataChart" width="400" height="400"></canvas>
+    	<canvas id="applicationsOnboardedDataChart" width="600" height="600"></canvas>
       	<script th:inline="javascript">
 	     	var points = /*[[${applicationsOnboardedData}]]*/'noValue';
 	     	var pdata = [];
@@ -23,7 +23,7 @@
 					datasets: [{
 						label: 'Applications Onboarded (Scanned)',
 			            data: pdata,
-			            barThickness: 10,
+			            barThickness: 15,
 			            maxBarThickness: 15,
 			            backgroundColor: olBarColor
 					}]

@@ -13,8 +13,7 @@ cd ..
 rm -v ./quickstart.zip
 rm -rf ./quickstart
 
-mkdir quickstart
-cp -r ./smbuild/quickstart/* ./quickstart
+unzip ./smbuild/qs.zip
 
 mvn clean package -DskipTests spring-boot:repackage
 
