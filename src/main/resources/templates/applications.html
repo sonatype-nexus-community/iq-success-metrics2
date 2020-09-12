@@ -3,7 +3,7 @@
 <html>
 
 <head>
-<div th:insert="header :: headerFrag"></div>
+<div th:insert="header2 :: header2Frag"></div>
 </head>
 
    
@@ -14,16 +14,16 @@
 	   	<br>
 	</div>
 	   	
-	   	<div th:if="${netAvailable}">
+	   	<!-- <div th:if="${netAvailable}">
 	 	  <div th:insert="applicationsFragment :: applicationsFrag"></div>
 	      <br>
 	      <div style="margin-left: 50px;">
 	      	<div th:insert="violationsAndRemediationFragment :: violationsAndRemediationFrag"></div>
 	      	<br><br>
 	      </div>
-	    </div>
+	    </div> -->
 	    
-	    <div th:if="${!netAvailable}">
+	    <div>
 	 	  <div th:insert="applicationsOfflineFragment :: applicationsOfflineFrag"></div>
 	      <br>
 	      <div th:insert="violationsAndRemediationOfflineFragment :: violationsAndRemediationOfflineFrag"></div>

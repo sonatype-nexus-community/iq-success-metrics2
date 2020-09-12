@@ -1,0 +1,62 @@
+
+.custom-scrollbar {
+	position: relative;
+	height: 600px;
+	overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+	display: block;
+} 
+
+
+/*
+*
+* ==========================================
+* CUSTOM UTIL CLASSES
+* ==========================================
+*
+*/
+/* .table-fixed tbody {
+    height: 600px;
+    overflow-y: auto;
+    width: 100%;
+} */
+
+/* .table-fixed thead,
+.table-fixed tbody,
+.table-fixed tr,
+.table-fixed td,
+.table-fixed th {
+    display: block;
+} */
+
+/* .table-fixed tbody td,
+.table-fixed tbody th,
+.table-fixed thead > tr > th {
+    float: left;
+    position: relative;
+
+    &::after {
+        content: '';
+        clear: both;
+        display: block;
+    }
+}  */
+
+/*
+*
+* ==========================================
+* FOR DEMO PURPOSES
+* ==========================================
+*
+*/
+
+/* body {
+    background: #74ebd5;
+    background: -webkit-linear-gradient(to right, #74ebd5, #ACB6E5);
+    background: linear-gradient(to right, #74ebd5, #ACB6E5);
+    min-height: 100vh;
+
+} */
+
