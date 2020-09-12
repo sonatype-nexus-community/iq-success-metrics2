@@ -9,7 +9,7 @@
 	    td,th {
 		  text-align: center;
 		  vertical-align: middle;
-		  font-size: 15px;
+		  font-size: 12px;
 		  font-family: Arial, Helvetica, sans-serif;
 		}
 		
@@ -62,15 +62,15 @@
           <td th:text="${metric.waivedCountLicenseCritical}"></td>
           <td th:text="${metric.openCountAtTimePeriodEndLicenseCritical}"></td>
           
-          <div th:with="mttrCritical=${metric.mttrCriticalThreat}" th:if="${metric.mttrCriticalThreat ne null}">
+          <div th:with="mttrCritical=${metric.mttrCriticalThreat/86400000}" th:if="${metric.mttrCriticalThreat ne null}">
 			  <td th:text="${#numbers.formatDecimal(mttrCritical, 1, 2)}"></td>
 		  </div>
 		  
-		  <div th:with="mttrSevere=${metric?.mttrSevereThreat}" th:if="${metric.mttrSevereThreat ne null}">
+		  <div th:with="mttrSevere=${metric?.mttrSevereThreat/86400000}" th:if="${metric.mttrSevereThreat ne null}">
 			  <td th:text="${#numbers.formatDecimal(mttrSevere, 1, 2)}"></td>
 		  </div>
 		  
-		  <div th:with="mttrModerate=${metric?.mttrModerateThreat}" th:if="${metric.mttrModerateThreat ne null}">
+		  <div th:with="mttrModerate=${metric?.mttrModerateThreat/86400000}" th:if="${metric.mttrModerateThreat ne null}">
 			  <td th:text="${#numbers.formatDecimal(mttrModerate, 1, 2)}"></td>
 		  </div>
 		  

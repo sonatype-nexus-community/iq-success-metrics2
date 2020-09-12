@@ -1,0 +1,96 @@
+<div th:fragment="violationsAndRemediationOfflineFrag">
+
+<!-- <div>
+	
+	
+	<style>
+		tbody {
+		  display: block;  
+		  max-height: 400px;  
+		  overflow-y: scroll;  
+		}
+    </style> 
+    
+   
+    
+    
+    <style>
+		td,th {
+		  text-align: left;
+		  vertical-align: middle;
+		  font-size: 15px;
+		  font-family: Arial, Helvetica, sans-serif;
+		};
+	</style>
+	
+	<style>
+		thead {
+		  display: table;  
+		}
+	</style>
+     
+</div> -->
+
+<div>
+	<style>
+		.vrtable {
+  			border: 1px solid lightgrey;
+  			margin-left: 100px;
+  			font-size: 15px;
+		  	font-family: Arial, Helvetica, sans-serif;
+		};
+	</style>
+	<style>
+		thead {
+		    background-color: lightgrey;
+		    display:block; 
+		}
+	</style>
+	 <style>
+    	tr:hover {
+		    background: lightgrey;
+		};
+    </style>
+    <style>
+		tbody {
+		  max-height: 400px;  
+		  overflow-y: scroll;
+		  display:block;   
+		}
+    </style> 
+    <style>
+     	th, td {
+		  padding: 15px;
+		}
+    </style>
+   
+</div>
+	
+	
+
+    
+	<div style="style=height:50px; overflow:auto;">
+	
+    
+ 	<table class="vrtable">
+      <thead>
+      <tr>
+          <th scope="col">Application Name</th>
+          <th scope="col">Discovered Violations</th>
+          <th scope="col">Fixed Violations</th>
+          <th scope="col">Waived Violations</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="dp : ${applicationsSecurityStatusData}">
+        <td th:text="${dp.label}"></td>
+      	<td th:text="${dp.pointA}"></td>
+      	<td th:text="${dp.pointB}"></td>
+      	<td th:text="${dp.pointC}"></td>
+      </tr>
+      </tbody>
+  	</table>
+  	
+  	</div>
+       
+</div>
