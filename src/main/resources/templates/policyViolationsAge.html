@@ -36,14 +36,13 @@
 			var data = {
 					labels: labels,
 					datasets: [{
-						label: 'Applications Onboarded (Scanned)',
 						backgroundColor: ["lightgreen", "orange","lightblue","red"],
 			            data: pdata,
  					}]
 			};
 			
 	     	var myChart = new Chart(securityageChartCtx, {
-	     	    type: 'pie',
+	     	    type: 'doughnut',
 	            data: data,
 	            options: {
 	            	title: {
@@ -52,6 +51,10 @@
 	            		position: 'bottom'
 	            	}
 	            	
+	            },
+	            centerText: {
+	                display: true,
+	                text: "280"
 	            }
 	        });
      	</script>
@@ -69,6 +72,7 @@
 	<table class="table table-fixed table-striped">
     <thead>
     <tr>
+    	<th/>
 		<th>Policy Name</th>
 		<th>Application Name</th>
 		<th>Component Name</th>
@@ -76,7 +80,8 @@
 	</tr>
     </thead>
     <tbody>
-    <tr th:each="dp : ${age7Data}">
+    <tr th:each="dp,iter : ${age7Data}">
+    	<td th:text="${iter.index}+1"></td>
       	<td th:text="${dp.policyName}"></td>
       	<td th:text="${dp.applicationName}"></td>
       	<td th:text="${dp.component}"></td>
@@ -102,6 +107,7 @@
 	<table class="table table-fixed table-striped">
     <thead>
     <tr>
+    	<th/>
 		<th>Policy Name</th>
 		<th>Application Name</th>
 		<th>Component Name</th>
@@ -109,7 +115,8 @@
 	</tr>
     </thead>
     <tbody>
-    <tr th:each="dp : ${age30Data}">
+    <tr th:each="dp,iter : ${age30Data}">
+    	<td th:text="${iter.index}+1"></td>
       	<td th:text="${dp.policyName}"></td>
       	<td th:text="${dp.applicationName}"></td>
       	<td th:text="${dp.component}"></td>
@@ -135,6 +142,7 @@
 	<table class="table table-fixed table-striped">
     <thead>
     <tr>
+    	<th/>
 		<th>Policy Name</th>
 		<th>Application Name</th>
 		<th>Component Name</th>
@@ -142,7 +150,8 @@
 	</tr>
     </thead>
     <tbody>
-    <tr th:each="dp : ${age60Data}">
+    <tr th:each="dp,iter : ${age60Data}">
+    	<td th:text="${iter.index}+1"></td>
       	<td th:text="${dp.policyName}"></td>
       	<td th:text="${dp.applicationName}"></td>
       	<td th:text="${dp.component}"></td>
@@ -168,6 +177,7 @@
 	<table class="table table-fixed table-striped">
     <thead>
     <tr>
+    	<th/>
 		<th>Policy Name</th>
 		<th>Application Name</th>
 		<th>Component Name</th>
@@ -175,7 +185,8 @@
 	</tr>
     </thead>
     <tbody>
-    <tr th:each="dp : ${age90Data}">
+    <tr th:each="dp,iter : ${age90Data}">
+    	<td th:text="${iter.index}+1"></td>
       	<td th:text="${dp.policyName}"></td>
       	<td th:text="${dp.applicationName}"></td>
       	<td th:text="${dp.component}"></td>

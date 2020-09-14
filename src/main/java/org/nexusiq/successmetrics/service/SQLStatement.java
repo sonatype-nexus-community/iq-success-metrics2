@@ -27,13 +27,13 @@ public class SQLStatement {
 	public static String WaivedLicenseViolations = "select time_period_start as label, sum(waived_Count_License_Critical) as pointA, sum(waived_Count_License_Severe) as pointB, sum(waived_Count_License_Moderate) as pointC from metrics group by time_period_start";
 	public static String OpenLicenseViolations = "select time_period_start as label, sum(OPEN_COUNT_AT_TIME_PERIOD_END_LICENSE_Critical) as pointA, sum(OPEN_COUNT_AT_TIME_PERIOD_END_LICENSE_SEVERE) as pointB, sum(OPEN_COUNT_AT_TIME_PERIOD_END_LICENSE_MODERATE) as pointC from metrics";
 
-	public static String MTTR2 = "select TIME_PERIOD_START as label, \n" + 
+	public static String MTTR = "select TIME_PERIOD_START as label, \n" + 
 			"			ifnull(avg(case when ifnull(MTTR_CRITICAL_THREAT,0) <>0 then ifnull(MTTR_CRITICAL_THREAT,0) else null end)/86400000,0) as pointA,  \n" + 
 			"			ifnull(avg(case when ifnull(MTTR_SEVERE_THREAT,0) <> 0 then ifnull(MTTR_SEVERE_THREAT,0) else null end)/86400000,0) as pointB,  \n" + 
 			"			ifnull(avg(case when ifnull(MTTR_MODERATE_THREAT,0) <> 0 then ifnull(MTTR_MODERATE_THREAT,0) else null end)/86400000,0)  as pointC \n" + 
 			"			from metrics  group by time_period_start";
 
-	public static String MTTR = "select TIME_PERIOD_START as label, \n" + 
+	public static String MTTR2 = "select TIME_PERIOD_START as label, \n" + 
 			"			ifnull(MTTR_CRITICAL_THREAT,0) as pointA,  \n" + 
 			"			ifnull(MTTR_SEVERE_THREAT,0) as pointB,  \n" + 
 			"			ifnull(MTTR_MODERATE_THREAT,0)  as pointC \n" + 

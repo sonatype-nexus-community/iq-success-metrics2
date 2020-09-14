@@ -6,18 +6,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.nexusiq.successmetrics.controller.SummaryController;
 import org.nexusiq.successmetrics.model.DataPoint;
 import org.nexusiq.successmetrics.model.MTTRPoint;
 import org.nexusiq.successmetrics.model.Metric;
 import org.nexusiq.successmetrics.model.PolicyViolation;
 import org.nexusiq.successmetrics.model.SummaryDataPoint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ModelService {
 		
-	
+	private static final Logger log = LoggerFactory.getLogger(ModelService.class);
+
 	@Autowired 
 	private CalculatorService calculator;
 	
@@ -81,7 +85,7 @@ public class ModelService {
 		map.put("mttrData", sqlService.executeSQLMTTR(SQLStatement.MTTR));
 		map.put("applicationsSecurityStatusData", sqlService.executeSQLMetrics(SQLStatement.ApplicationsSecurityStatus));
 		map.put("applicationsLicenseStatusData", sqlService.executeSQLMetrics(SQLStatement.ApplicationsLicenseStatus));
-
+		
 	    return map;
 	}
 
@@ -181,18 +185,40 @@ public class ModelService {
 	    List<Float> pointB = new ArrayList<>();	
 	    List<Float> pointC = new ArrayList<>();	
 	    
-	    for (MTTRPoint dp : sqlService.executeSQLMTTR(SQLStatement.MTTR)) {
-	    	pointA.add(dp.getPointA()/86400000);
-	    	pointB.add(dp.getPointB()/86400000);
-	    	pointC.add(dp.getPointC()/86400000);
+	    List<MTTRPoint> mttrPoints = this.getMttr();
+	    
+	    for (MTTRPoint dp : mttrPoints) {
+	    	pointA.add(dp.getPointA());
+	    	pointB.add(dp.getPointB());
+	    	pointC.add(dp.getPointC());
 		}
 	    
-	    map.put("mttrCriticalAvg", String.format("%.02f", calculator.averagePoint(pointA)));
-	    map.put("mttrSevereAvg", String.format("%.02f", calculator.averagePoint(pointB)));
-	    map.put("mttrModerateAvg", String.format("%.02f", calculator.averagePoint(pointC)));	
+	    map.put("mttrCriticalAvg", String.format("%.0f", calculator.averagePoint(pointA)));
+	    map.put("mttrSevereAvg", String.format("%.0f", calculator.averagePoint(pointB)));
+	    map.put("mttrModerateAvg", String.format("%.0f", calculator.averagePoint(pointC)));	
 	    
 		return map;
 		
+	}
+	
+	private List<MTTRPoint> getMttr() {
+		
+		List<MTTRPoint> mttr = new ArrayList<MTTRPoint>();
+		
+	    List<MTTRPoint> MTTRPoints = sqlService.executeSQLMTTR(SQLStatement.MTTR2);
+	    
+	    for (MTTRPoint dp : MTTRPoints) {
+	    	MTTRPoint cp = new MTTRPoint();
+	        cp.setLabel(dp.getLabel());
+	    	cp.setPointA(dp.getPointA()/86400000);
+	    	cp.setPointB(dp.getPointB()/86400000);
+	    	cp.setPointC(dp.getPointC()/86400000);
+
+	    	mttr.add(cp);
+	    }
+	    
+	    return mttr;
+
 	}
 	
 
