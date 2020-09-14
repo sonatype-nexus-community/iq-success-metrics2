@@ -18,8 +18,15 @@
     </thead>
     <tbody>
     <tr th:each="dp : ${applicationsSecurityStatusData}">
+    
       	<td th:text="${dp.label}"></td>
-      	<td th:text="${dp.pointA}"></td>
+      	
+      	<!-- <td th:text="${dp.pointA}"></td> -->
+      	
+      	<div th:with="pointA=${dp.pointA}">
+			 <td th:text="${#numbers.formatDecimal(pointA, 1, 0)}"></td>
+		</div>
+		
       	<td th:text="${dp.pointB}"></td>
       	<td th:text="${dp.pointC}"></td>
     </tr>
@@ -50,7 +57,11 @@
     <tbody>
     <tr th:each="dp : ${applicationsLicenseStatusData}">
       	<td th:text="${dp.label}"></td>
-      	<td th:text="${dp.pointA}"></td>
+      	<!-- <td th:text="${dp.pointA}"></td> -->
+      	
+      	<div th:with="pointA=${dp.pointA}">
+			 <td th:text="${#numbers.formatDecimal(pointA, 1, 0)}"></td>
+		</div>
       	<td th:text="${dp.pointB}"></td>
       	<td th:text="${dp.pointC}"></td>
     </tr>
@@ -81,7 +92,11 @@
     <tbody>
     <tr th:each="dp : ${mostCriticalOrganisationsData}">
       	<td th:text="${dp.label}"></td>
-      	<td th:text="${dp.pointA}"></td>
+      	<!-- <td th:text="${dp.pointA}"></td> -->
+      	
+      	<div th:with="pointA=${dp.pointA}">
+			 <td th:text="${#numbers.formatDecimal(pointA, 1, 0)}"></td>
+		</div>
       	<td th:text="${dp.pointB}"></td>
       	<td th:text="${dp.pointC}"></td>
     </tr>
@@ -112,7 +127,11 @@
     <tbody>
     <tr th:each="dp : ${mostCriticalApplicationsData}">
       	<td th:text="${dp.label}"></td>
-      	<td th:text="${dp.pointA}"></td>
+      	<!-- <td th:text="${dp.pointA}"></td> -->
+      	
+      	<div th:with="pointA=${dp.pointA}">
+			 <td th:text="${#numbers.formatDecimal(pointA, 1, 0)}"></td>
+		</div>
       	<td th:text="${dp.pointB}"></td>
       	<td th:text="${dp.pointC}"></td>
     </tr>
@@ -141,7 +160,11 @@
     <tbody>
     <tr th:each="dp : ${mostScannedApplicationsData}">
       	<td th:text="${dp.label}"></td>
-      	<td th:text="${dp.pointA}"></td>
+      	<!-- <td th:text="${dp.pointA}"></td> -->
+      	
+      	<div th:with="pointA=${dp.pointA}">
+			 <td th:text="${#numbers.formatDecimal(pointA, 1, 0)}"></td>
+		</div>
     </tr>
     </tbody>
     </table>
