@@ -19,9 +19,6 @@ public class LicenseViolationsController {
 	@Autowired 
 	private ModelService modelService;
 	
-	@Autowired 
-	private NetworkService networkService;
-	
 	@GetMapping({"/licenseViolations"})
     public String licenseViolations(Model model) {
 						
@@ -30,10 +27,6 @@ public class LicenseViolationsController {
 		Map <String, Object> map = modelService.setLicenseReportModel();
 		
 		model.mergeAttributes(map);
-
-		boolean netAvailable = networkService.netIsAvailable();
-
-		model.addAttribute("netAvailable", netAvailable);
 		
         return "licenseViolations";
     }

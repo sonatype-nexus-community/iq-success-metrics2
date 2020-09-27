@@ -1,0 +1,179 @@
+            
+<div th:fragment="applicationsTablesFrag">
+
+<h5 style="margin-left: 100px;">Security Violations - Remediation</h5>
+<div class="container">
+<div class="row">
+<div class="col-xl mx-auto w-auto bg-white rounded shadow">
+<div class="table-responsive table-wrapper-scroll-y custom-scrollbar">
+	
+	<table class="table table-fixed table-striped">
+    <thead>
+    <tr>
+		<th>Application Name</th>
+		<th>Discovered Violations</th>
+		<th>Fixed Violations</th>
+		<th>Waived Violations</th>
+	</tr>
+    </thead>
+    <tbody>
+    <tr th:each="dp : ${applicationsSecurityStatusData}">
+    
+      	<td th:text="${dp.label}"></td>
+      	
+      	<!-- <td th:text="${dp.pointA}"></td> -->
+      	
+      	<div th:with="pointA=${dp.pointA}">
+			 <td th:text="${#numbers.formatDecimal(pointA, 1, 0)}"></td>
+		</div>
+		
+      	<td th:text="${dp.pointB}"></td>
+      	<td th:text="${dp.pointC}"></td>
+    </tr>
+    </tbody>
+    </table>
+    
+</div>
+</div>
+</div>
+</div>
+
+<br><br>
+<h5 style="margin-left: 100px;">License Violations - Remediation</h5>
+<div class="container">
+<div class="row">
+<div class="col-xl mx-auto w-auto bg-white rounded shadow">
+<div class="table-responsive table-wrapper-scroll-y custom-scrollbar">
+	
+	<table class="table table-fixed table-striped">
+    <thead>
+    <tr>
+		<th>Application Name</th>
+		<th>Discovered Violations</th>
+		<th>Fixed Violations</th>
+		<th>Waived Violations</th>
+	</tr>
+    </thead>
+    <tbody>
+    <tr th:each="dp : ${applicationsLicenseStatusData}">
+      	<td th:text="${dp.label}"></td>
+      	<!-- <td th:text="${dp.pointA}"></td> -->
+      	
+      	<div th:with="pointA=${dp.pointA}">
+			 <td th:text="${#numbers.formatDecimal(pointA, 1, 0)}"></td>
+		</div>
+      	<td th:text="${dp.pointB}"></td>
+      	<td th:text="${dp.pointC}"></td>
+    </tr>
+    </tbody>
+    </table>
+    
+</div>
+</div>
+</div>
+</div>
+
+<br><br>
+<h5 style="margin-left: 100px;">Most Critical Organisations - (Open Violations)</h5>
+<div class="container">
+<div class="row">
+<div class="col-xl mx-auto w-auto bg-white rounded shadow">
+<div class="table-responsive table-wrapper-scroll-y custom-scrollbar">
+	
+	<table class="table table-fixed table-striped">
+    <thead>
+    <tr>
+		<th>Organisation Name</th>
+		<th>Critical Violations</th>
+		<th>Severe Violations</th>
+		<th>Moderate Violations</th>
+	</tr>
+    </thead>
+    <tbody>
+    <tr th:each="dp : ${mostCriticalOrganisationsData}">
+      	<td th:text="${dp.label}"></td>
+      	<!-- <td th:text="${dp.pointA}"></td> -->
+      	
+      	<div th:with="pointA=${dp.pointA}">
+			 <td th:text="${#numbers.formatDecimal(pointA, 1, 0)}"></td>
+		</div>
+      	<td th:text="${dp.pointB}"></td>
+      	<td th:text="${dp.pointC}"></td>
+    </tr>
+    </tbody>
+    </table>
+    
+</div>
+</div>
+</div>
+</div>
+
+<br><br>
+<h5 style="margin-left: 100px;">Most Critical Applications (Open Violations)</h5>
+<div class="container">
+<div class="row">
+<div class="col-xl mx-auto w-auto bg-white rounded shadow">
+<div class="table-responsive table-wrapper-scroll-y custom-scrollbar">
+	
+	<table class="table table-fixed table-striped">
+    <thead>
+    <tr>
+		<th>Application Name</th>
+		<th>Critical Violations</th>
+		<th>Severe Violations</th>
+		<th>Moderate Violations</th>
+	</tr>
+    </thead>
+    <tbody>
+    <tr th:each="dp : ${mostCriticalApplicationsData}">
+      	<td th:text="${dp.label}"></td>
+      	<!-- <td th:text="${dp.pointA}"></td> -->
+      	
+      	<div th:with="pointA=${dp.pointA}">
+			 <td th:text="${#numbers.formatDecimal(pointA, 1, 0)}"></td>
+		</div>
+      	<td th:text="${dp.pointB}"></td>
+      	<td th:text="${dp.pointC}"></td>
+    </tr>
+    </tbody>
+    </table>
+    
+</div>
+</div>
+</div>
+</div>
+
+<br><br>
+<h5 style="margin-left: 100px;">Most Scanned Applications</h5>
+<div class="container">
+<div class="row">
+<div class="col-xl mx-auto w-auto bg-white rounded shadow">
+<div class="table-responsive table-wrapper-scroll-y custom-scrollbar">
+	
+	<table class="table table-fixed table-striped">
+    <thead>
+    <tr>
+		<th>Application Name</th>
+		<th>Number of Scans</th>
+	</tr>
+    </thead>
+    <tbody>
+    <tr th:each="dp : ${mostScannedApplicationsData}">
+      	<td th:text="${dp.label}"></td>
+      	<!-- <td th:text="${dp.pointA}"></td> -->
+      	
+      	<div th:with="pointA=${dp.pointA}">
+			 <td th:text="${#numbers.formatDecimal(pointA, 1, 0)}"></td>
+		</div>
+    </tr>
+    </tbody>
+    </table>
+    
+</div>
+</div>
+</div>
+</div>
+ 
+</div>
+ 
+            

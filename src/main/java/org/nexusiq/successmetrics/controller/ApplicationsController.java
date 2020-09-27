@@ -22,9 +22,6 @@ public class ApplicationsController {
 	@Autowired 
 	private ModelService modelService;
 	
-	@Autowired 
-	private NetworkService networkService;
-	
 	private static final Logger log = LoggerFactory.getLogger(ApplicationsController.class);
 
 	@GetMapping({"/applications"})
@@ -35,10 +32,6 @@ public class ApplicationsController {
 		Map <String, Object> map = modelService.setApplicationsReportModel();
 		
 		model.mergeAttributes(map);
-		
-		boolean netAvailable = networkService.netIsAvailable();
-
-		model.addAttribute("netAvailable", netAvailable);
 		
         return "applications";
     }

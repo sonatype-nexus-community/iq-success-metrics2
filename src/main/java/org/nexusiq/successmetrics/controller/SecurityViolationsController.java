@@ -24,9 +24,6 @@ public class SecurityViolationsController {
 	@Autowired 
 	private ModelService modelService;
 
-	@Autowired 
-	private NetworkService networkService;
-	
 	@GetMapping({"/securityViolations"})
     public String securityViolations(Model model) {
 						
@@ -35,11 +32,6 @@ public class SecurityViolationsController {
 		Map <String, Object> map = modelService.setSecurityReportModel();
 		
 		model.mergeAttributes(map);
-		
-
-		boolean netAvailable = networkService.netIsAvailable();
-
-		model.addAttribute("netAvailable", netAvailable);
 	    
         return "securityViolations";
     }

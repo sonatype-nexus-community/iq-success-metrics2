@@ -22,14 +22,21 @@
         <a th:href="@{applications}">Applications Report</a>
         <br><br>
   
-	        <div th:if="${policyViolationsreport}">
-	        <a th:href="@{policyViolationsAge}">Policy Violations Age Report</a>
-	        <br><br>
-	        </div>
+	    <div th:if="${policyViolationsreport}">
+	    <a th:href="@{policyViolationsAge}">Policy Violations Age Report</a>
+	    <br><br>
+	    </div>
 	        
-	        <div th:if="${applicationEvaluationsreport}">
-	        <a th:href="@{applicationEvaluationsAge}">Application Evaluations Age Report</a>
-	        </div>
+	    <div th:if="${applicationEvaluationsreport}">
+	    <a th:href="@{applicationEvaluationsAge}">Application Evaluations Age Report</a>
+	    <br><br>
+	    </div>
+	    
+	    <div th:if="${smdata}">
+	    <a th:href="@{data}">Raw data</a>
+	    <br>
+	    <a th:href="@{/h2}">Database</a>
+	    </div>
          
        </div>
     </div>

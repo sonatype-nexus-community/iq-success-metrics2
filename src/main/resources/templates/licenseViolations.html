@@ -11,14 +11,10 @@
 	      <h3>License Violations Report</h3>
 	   </div>
 	   	      
-	       <div style="background-color:white;" th:if="${netAvailable}">
+	       <div style="background-color:white;">
 		    	<div th:insert="licenseViolationsFragment :: licenseViolationsFrag"></div>
 		    </div>
 		    
-		    <div style="background-color:white;" th:if="${!netAvailable}">
-				<div th:insert="licenseViolationsOfflineFragment :: licenseViolationsOfflineFrag"></div>
-		  	</div>
-  
    </body>
  
 </html>

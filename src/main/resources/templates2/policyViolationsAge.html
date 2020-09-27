@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
+
+<head>
+<div th:insert="header2 :: header2Frag"></div>
+</head>
+   
+   <body>
+   	
+      <div class="jumbotron">
+      <h4>Policy Violations Age</h4>
+      </div>
+      
+      <div class="page-title" role="alert" th:if="${!status}">
+	      <span th:text="${message}"></span>
+  	  </div>
+      
+      <div th:if="${status}">
+      
+      <div class="chart-container" style="margin-left: 100px; width:40vw">
+    
+    	<canvas id="securityageChart" width="400" height="400"></canvas>
+      	<script th:inline="javascript">
+	      	var age90 = /*[[${age90Number}]]*/'noValue';
+	    	var age60 = /*[[${age60Number}]]*/'noValue';
+	    	var age30 = /*[[${age30Number}]]*/'noValue';
+	    	var age7 = /*[[${age7Number}]]*/'noValue';
+	    	
+	    	
+	     	var pdata = [age7, age30, age60, age90];
+	     	var labels = ['0-7 Days', '8-30 Days', '31-60 Days', '>60 Days'];
+	     	
+			var securityageChartCtx = document.getElementById('securityageChart').getContext('2d');
+			
+			var data = {
+					labels: labels,
+					datasets: [{
+						backgroundColor: ["lightgreen", "orange","lightblue","red"],
+			            data: pdata,
+ 					}]
+			};
+			
+	     	var myChart = new Chart(securityageChartCtx, {
+	     	    type: 'doughnut',
+	            data: data,
+	            options: {
+	            	title: {
+	            		display: true,
+	            		text: 'Age of Existing Security Policy Violations',
+	            		position: 'bottom'
+	            	}
+	            	
+	            },
+	            centerText: {
+	                display: true,
+	                text: "280"
+	            }
+	        });
+     	</script>
+      </div>
+     
+      
+<br><br><br><br>
+<div th:if="${age7}"> 
+<h5 style="margin-left: 100px;">Security Policy Violations 0-7 Days</h5>
+<div class="container">
+<div class="row">
+<div class="col-xl mx-auto w-auto bg-white rounded shadow">
+<div class="table-responsive table-wrapper-scroll-y custom-scrollbar">
+	
+	<table class="table table-fixed table-striped">
+    <thead>
+    <tr>
+    	<th/>
+		<th>Policy Name</th>
+		<th>Application Name</th>
+		<th>Component Name</th>
+		<th>Open Time</th>
+	</tr>
+    </thead>
+    <tbody>
+    <tr th:each="dp,iter : ${age7Data}">
+    	<td th:text="${iter.index}+1"></td>
+      	<td th:text="${dp.policyName}"></td>
+      	<td th:text="${dp.applicationName}"></td>
+      	<td th:text="${dp.component}"></td>
+      	<td th:text="${dp.openTime}"></td>
+    </tr>
+    </tbody>
+    </table>
+    
+</div>
+</div>
+</div>
+</div>
+</div>
+<br><br>
+
+<div th:if="${age30}"> 
+<h5 style="margin-left: 100px;">Security Policy Violations 8-30 Days</h5>
+<div class="container">
+<div class="row">
+<div class="col-xl mx-auto w-auto bg-white rounded shadow">
+<div class="table-responsive table-wrapper-scroll-y custom-scrollbar">
+	
+	<table class="table table-fixed table-striped">
+    <thead>
+    <tr>
+    	<th/>
+		<th>Policy Name</th>
+		<th>Application Name</th>
+		<th>Component Name</th>
+		<th>Open Time</th>
+	</tr>
+    </thead>
+    <tbody>
+    <tr th:each="dp,iter : ${age30Data}">
+    	<td th:text="${iter.index}+1"></td>
+      	<td th:text="${dp.policyName}"></td>
+      	<td th:text="${dp.applicationName}"></td>
+      	<td th:text="${dp.component}"></td>
+      	<td th:text="${dp.openTime}"></td>
+    </tr>
+    </tbody>
+    </table>
+    
+</div>
+</div>
+</div>
+</div>
+</div>
+<br><br>
+
+<div th:if="${age60}"> 
+<h5 style="margin-left: 100px;">Security Policy Violations 31-60 Days</h5>
+<div class="container">
+<div class="row">
+<div class="col-xl mx-auto w-auto bg-white rounded shadow">
+<div class="table-responsive table-wrapper-scroll-y custom-scrollbar">
+	
+	<table class="table table-fixed table-striped">
+    <thead>
+    <tr>
+    	<th/>
+		<th>Policy Name</th>
+		<th>Application Name</th>
+		<th>Component Name</th>
+		<th>Open Time</th>
+	</tr>
+    </thead>
+    <tbody>
+    <tr th:each="dp,iter : ${age60Data}">
+    	<td th:text="${iter.index}+1"></td>
+      	<td th:text="${dp.policyName}"></td>
+      	<td th:text="${dp.applicationName}"></td>
+      	<td th:text="${dp.component}"></td>
+      	<td th:text="${dp.openTime}"></td>
+    </tr>
+    </tbody>
+    </table>
+    
+</div>
+</div>
+</div>
+</div>
+</div>
+<br><br>
+
+<div th:if="${age90}"> 
+<h5 style="margin-left: 100px;">Security Policy Violations over 60 Days</h5>
+<div class="container">
+<div class="row">
+<div class="col-xl mx-auto w-auto bg-white rounded shadow">
+<div class="table-responsive table-wrapper-scroll-y custom-scrollbar">
+	
+	<table class="table table-fixed table-striped">
+    <thead>
+    <tr>
+    	<th/>
+		<th>Policy Name</th>
+		<th>Application Name</th>
+		<th>Component Name</th>
+		<th>Open Time</th>
+	</tr>
+    </thead>
+    <tbody>
+    <tr th:each="dp,iter : ${age90Data}">
+    	<td th:text="${iter.index}+1"></td>
+      	<td th:text="${dp.policyName}"></td>
+      	<td th:text="${dp.applicationName}"></td>
+      	<td th:text="${dp.component}"></td>
+      	<td th:text="${dp.openTime}"></td>
+    </tr>
+    </tbody>
+    </table>
+    
+</div>
+</div>
+</div>
+</div>
+</div>
+<br><br>
+
+      
+   </body>
+</html>

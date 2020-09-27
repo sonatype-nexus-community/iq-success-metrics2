@@ -20,9 +20,6 @@ public class UnsignedController {
 	@Autowired 
 	private ModelService modelService;
 	
-	@Autowired 
-	private NetworkService networkService;
-	
 	@GetMapping({"/unsigned"})
 	public String unsigned(Model model) throws ParseException {
 		
@@ -38,10 +35,6 @@ public class UnsignedController {
 		model.mergeAttributes(licenseMap);
 		model.mergeAttributes(securityMap);
 		
-		boolean netAvailable = networkService.netIsAvailable();
-
-		model.addAttribute("netAvailable", netAvailable);
-
 		return "unsigned";
 	}
 

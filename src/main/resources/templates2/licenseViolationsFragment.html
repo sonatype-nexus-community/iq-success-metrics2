@@ -1,0 +1,233 @@
+<div th:fragment="licenseViolationsFrag">
+
+	<script th:inline="javascript">
+      	function licenseViolations() {
+          	var points = /*[[${licenseViolationsData}]]*/'noValue';
+
+    		var data = new google.visualization.DataTable();
+    	    data.addColumn('string', 'label');
+    	    data.addColumn('number', 'Discovered');
+    	    data.addColumn('number', 'Fixed');
+    	    data.addColumn('number', 'Waived');
+    	    data.addColumn('number', 'Open');
+
+    	    points.forEach(entry => {
+                var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                var pointD = entry.pointD;
+
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`), parseInt(`${pointD}`) ]);
+            }); 
+    	    
+    	    var options = {'title':'License Violations', 'width':750, 'height':400, isStacked: true, colors: ['#F1DF22', 'green', 'orange', 'red']};  
+    	    
+    	    var chart = new google.visualization.ColumnChart(document.getElementById ('licenseViolationsChart'));
+    	    chart.draw(data, options);
+    	 }
+  		google.charts.setOnLoadCallback(licenseViolations);
+
+      </script>
+        <div id="licenseViolationsChart" style = "width: 650px; height: 400px;"></div>
+   		
+       <script th:inline="javascript">
+      	function openLicenseViolations() {
+          	var points = /*[[${openLicenseViolationsData}]]*/'noValue';
+
+    		var data = new google.visualization.DataTable();
+    	    data.addColumn('string', 'label');
+    	    data.addColumn('number', 'Critical');
+    	    data.addColumn('number', 'Severe');
+    	    data.addColumn('number', 'Moderate');
+    	    
+    	    points.forEach(entry => {
+                var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
+            }); 
+    	    
+    	    var options = {'title':'Open License Violations', 'width':750, 'height':400, isStacked: true, colors: ['red', 'orange', '#F1DF22']};    	    
+    	    var chart = new google.visualization.ColumnChart(document.getElementById ('openLicenseViolationsChart'));
+    	    chart.draw(data, options);
+    	 }
+  		google.charts.setOnLoadCallback(openLicenseViolations);
+
+      </script>
+       <div id="openLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
+  
+  	<div style="page-break-before: always;"/> 	
+  
+ 
+ 		<script th:inline="javascript">
+        function discoveredLicenseViolations() {
+            var points = /*[[${discoveredLicenseViolationsData}]]*/'noValue';
+
+        var data = new google.visualization.DataTable();
+          data.addColumn('string', 'label');
+          data.addColumn('number', 'Critical');
+          data.addColumn('number', 'Severe');
+          data.addColumn('number', 'Moderate');
+
+          points.forEach(entry => {
+                var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
+            });
+
+          var options = {'title':'Discovered License Violations', 'width':750, 'height':400, isStacked: true, colors: ['red', 'orange', '#F1DF22']};
+          var chart = new google.visualization.ColumnChart(document.getElementById ('discoveredLicenseViolationsChart'));
+          chart.draw(data, options);
+       }
+      google.charts.setOnLoadCallback(discoveredLicenseViolations);
+
+      </script>
+        <div id="discoveredLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
+
+
+        <script th:inline="javascript">
+        function fixedLicenseViolations() {
+            var points = /*[[${fixedLicenseViolationsData}]]*/'noValue';
+
+        var data = new google.visualization.DataTable();
+          data.addColumn('string', 'label');
+          data.addColumn('number', 'Critical');
+          data.addColumn('number', 'Severe');
+          data.addColumn('number', 'Moderate');
+
+          points.forEach(entry => {
+                var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
+            });
+
+          var options = {'title':'Fixed License Violations', 'width':750, 'height':400, isStacked: true, colors: ['red', 'orange', '#F1DF22']};
+          var chart = new google.visualization.ColumnChart(document.getElementById ('fixedLicenseViolationsChart'));
+          chart.draw(data, options);
+       }
+      google.charts.setOnLoadCallback(fixedLicenseViolations);
+
+      </script>
+      <div id="fixedLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
+
+	<div style="page-break-before: always;"/> 	
+
+
+      <script th:inline="javascript">
+        function waivedLicenseViolations() {
+            var points = /*[[${waivedLicenseViolationsData}]]*/'noValue';
+
+        var data = new google.visualization.DataTable();
+          data.addColumn('string', 'label');
+          data.addColumn('number', 'Critical');
+          data.addColumn('number', 'Severe');
+          data.addColumn('number', 'Moderate');
+
+          points.forEach(entry => {
+                var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
+            });
+
+          var options = {'title':'Waived License Violations', 'width':750, 'height':400, isStacked: true, colors: ['red', 'orange', '#F1DF22']};
+          var chart = new google.visualization.ColumnChart(document.getElementById ('waivedLicenseViolationsChart'));
+          chart.draw(data, options);
+       }
+      google.charts.setOnLoadCallback(waivedLicenseViolations);
+
+      </script>
+      <div id="waivedLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
+                                                       
+      <script th:inline="javascript">
+      	function criticalLicenseViolations() {
+          	var points = /*[[${criticalLicenseViolationsData}]]*/'noValue';
+
+    		var data = new google.visualization.DataTable();
+    	    data.addColumn('string', 'label');
+    	    data.addColumn('number', 'Discovered');
+    	    data.addColumn('number', 'Fixed');
+    	    data.addColumn('number', 'Waived');
+    	    
+    	    points.forEach(entry => {
+                var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
+            }); 
+    	    
+    	    var options = {'title':'Critical License Violations (Discovered)', 'width':750, 'height':400, isStacked: true, colors: ['red', 'green', 'orange']};    	    
+    	    var chart = new google.visualization.ColumnChart(document.getElementById ('criticalLicenseViolationsChart'));
+    	    chart.draw(data, options);
+    	 }
+  		google.charts.setOnLoadCallback(criticalLicenseViolations);
+
+      </script>
+      <div id="criticalLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
+     
+     	<div style="page-break-before: always;"/> 	
+            
+      <script th:inline="javascript">
+      	function severeLicenseViolations() {
+          	var points = /*[[${severeLicenseViolationsData}]]*/'noValue';
+
+    		var data = new google.visualization.DataTable();
+    	    data.addColumn('string', 'label');
+    	    data.addColumn('number', 'Discovered');
+    	    data.addColumn('number', 'Fixed');
+    	    data.addColumn('number', 'Waived');
+    	    
+    	    points.forEach(entry => {
+                var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
+            }); 
+    	    
+    	    var options = {'title':'Severe License Violations (Discovered)', 'width':750, 'height':400, isStacked: true, colors: ['red', 'green', 'orange']};    	    
+    	    var chart = new google.visualization.ColumnChart(document.getElementById ('severeLicenseViolationsChart'));
+    	    chart.draw(data, options);
+    	 }
+  		google.charts.setOnLoadCallback(severeLicenseViolations);
+
+      </script>
+      <div id="severeLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
+     
+      <script th:inline="javascript">
+      	function moderateLicenseViolations() {
+          	var points = /*[[${moderateLicenseViolationsData}]]*/'noValue';
+
+    		var data = new google.visualization.DataTable();
+    	    data.addColumn('string', 'label');
+    	    data.addColumn('number', 'Discovered');
+    	    data.addColumn('number', 'Fixed');
+    	    data.addColumn('number', 'Waived');
+    	    
+    	    points.forEach(entry => {
+                var label = entry.label;
+                var pointA = entry.pointA;
+                var pointB = entry.pointB;
+                var pointC = entry.pointC;
+                data.addRow([ `${label}`, parseInt(`${pointA}`), parseInt(`${pointB}`), parseInt(`${pointC}`) ]);
+            }); 
+    	    
+    	    var options = {'title':'Moderate License Violations (Discovered)', 'width':750, 'height':400, isStacked: true, colors: ['red', 'green', 'orange']};    	    
+    	    var chart = new google.visualization.ColumnChart(document.getElementById ('moderateLicenseViolationsChart'));
+    	    chart.draw(data, options);
+    	 }
+  		google.charts.setOnLoadCallback(moderateLicenseViolations);
+
+      </script>
+      <div id="moderateLicenseViolationsChart" style = "width: 650px; height: 400px;"></div>
+      
+    </div>
+     

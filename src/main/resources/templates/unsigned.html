@@ -27,8 +27,7 @@
   	
 	<div style="page-break-before: always;"/> 	
 	
-	<div th:if="${netAvailable}">
-	  		
+ 	  		
 	 	<!--  applications -->
 	    <div th:insert="applicationsFragment :: applicationsFrag"></div>
 	 	
@@ -43,21 +42,8 @@
 	    <div th:insert="licenseViolationsFragment :: licenseViolationsFrag"></div>
 	  	</div>
   	
-    </div>
-    
-	<div style="background-color:white;" th:if="${!netAvailable}">
-		
-		<!--  applications -->
-		<div th:insert="applicationsOfflineFragment :: applicationsOfflineFrag"></div>
-		
-		<!--  security violations -->
-	 	<div th:insert="securityViolationsOfflineFragment :: securityViolationsOfflineFrag"></div>
-	 	
-	 	<div style="page-break-before: always;"/> 	
-	 	
-	   	<!--  license violations -->
-	    <div th:insert="licenseViolationsOfflineFragment :: licenseViolationsOfflineFrag"></div>
-	  	</div>
+     
+	
 	  	
   	
 </body>
