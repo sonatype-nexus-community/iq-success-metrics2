@@ -34,7 +34,7 @@ period-file - weekly.json or monthly.json
 
 Example (Windows):  create-data.bat http://localhost:8070 admin admin123 monthly.json
 
-*The script will detect if python3 is available in order to generate additional data*
+The script will check if python3 is available. If so, it will generate additional an data file
 
 All output files are saved to the current directory
 
