@@ -28,6 +28,7 @@ public class LoadSuccessMetricsRunner implements CommandLineRunner {
 		log.info("In: LoadSuccessMetricsFileRunner");
 		
 		String csvFileName = fileNameService.getFilename("successmetrics");
+		String header = "applicationId,applicationName,applicationPublicId,";
 		
 		log.info("Reading csv file: " + csvFileName);
 				
@@ -35,11 +36,19 @@ public class LoadSuccessMetricsRunner implements CommandLineRunner {
 		
 		if(f.exists() && !f.isDirectory() && f.length() > 0) { 
 			
-			sqlService.LoadSuccessMetrics(csvFileName.toString());
 			
-			fileNameService.SuccessMetricsReportExists = true;
+			String firstLine = fileNameService.getFirstLine(csvFileName);
+			
+			if (!firstLine.startsWith(header)) {
+				log.error(firstLine);
+			}
+			else {
+				sqlService.LoadSuccessMetrics(csvFileName.toString());
+				
+				fileNameService.SuccessMetricsReportExists = true;
 
-			log.info("Success Metrics loaded.");
+				log.info("Success Metrics loaded.");
+			}
 		}
 		else {
 			log.info("No Success Metrics data");

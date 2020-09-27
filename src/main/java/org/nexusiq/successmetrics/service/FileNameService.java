@@ -1,5 +1,9 @@
 package org.nexusiq.successmetrics.service;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +37,14 @@ public class FileNameService {
 		
 		return fileName;
 		
+	}
+	
+	public String getFirstLine(String fileName) throws IOException {
+	    BufferedReader br = new BufferedReader(new FileReader(fileName)); 
+
+	    String line = br.readLine(); 
+	    br.close();
+	    return line;
 	}
 	
 }
