@@ -32,7 +32,7 @@ iq-username - your Nexus IQ user name that has access to data set you'd like to 
 iq-password - your Nexus IQ password
 period-file - weekly.json or monthly.json
 
-Example:  create-data.bat http://localhost:8070 admin admin123 monthly.json
+Example (Windows):  create-data.bat http://localhost:8070 admin admin123 monthly.json
 
 The script will detect if python3 is available in order to generate additional data
 
