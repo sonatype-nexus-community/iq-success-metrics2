@@ -10,7 +10,7 @@ unzip quickstart.zip
 cd quickstart
 ```
 
-**Make Config Updates for Success Metrics**
+**(Optional) Make Config Updates for Success Metrics**
 
  * Edit either the *weekly.json* or *monthly.json* file to adjust the firstTimePeriod (the week or month to start reporting from) 
  * You may also choose to add an end period (Additional information can be found here: https://help.sonatype.com/iqserver/automating/rest-apis/success-metrics-data-rest-api---v2).
