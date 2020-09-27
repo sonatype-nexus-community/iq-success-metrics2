@@ -14,54 +14,35 @@ cd quickstart
 
  * Edit either the *weekly.json* or *monthly.json* file to adjust the firstTimePeriod (the week or month to start reporting from) 
  * You may also choose to add an end period (Additional information can be found here: https://help.sonatype.com/iqserver/automating/rest-apis/success-metrics-data-rest-api---v2).
- * For larger installations, we recommend limiting the data to extract to a smaller period (e.g. since the previous month or few weeks) or subset of organisations and applications. Information on how to adjust the request body (in the weekly.json ot monthly.json files) can be found at the success metrics page above.
+ * For larger installations, we recommend limiting the data to extract to a smaller period (e.g. since the previous month or few weeks) or subset of organisations and/or applications. Information on how to adjust the request body (in the weekly.json ot monthly.json files) can be found at the success metrics page above.
 
 **Create the csv files**
 
-*There are some scripts available to help ease creation of the required CSV files. There are two ways you can create these files depending on if you have python3 available on the system where the scripts will be run*
+*There are some scripts available to help ease creation of the required CSV files.*
  
  * If you have python3 available
  * Open a command prompt and run 
 
 
 ```
-Windows: create-datafiles.bat <iq-host-url> <iq-username> <iq-password> <period-file>
-Linux: create-datafiles.sh <iq-host-url> <iq-username> <iq-password> <period-file>
+Windows: create-data.bat <iq-host-url> <iq-username> <iq-password> <period-file>
+Linux: create-data.sh <iq-host-url> <iq-username> <iq-password> <period-file>
 
 iq-host-url - your Nexus IQ Url, but with no backslash at the end
 iq-username - your Nexus IQ user name that has access to data set you'd like to report on
 iq-password - your Nexus IQ password
 period-file - weekly.json or monthly.json
 
-Example:  create-datafiles.bat http://localhost:8070 admin admin123 monthly.json
+Example:  create-data.bat http://localhost:8070 admin admin123 monthly.json
 
-The script will run three python3 programs that each extract data from different Nexus IQ REST API's
+The script will detect if python3 is available in order to generate additional data
 
 All output files are saved to the current directory
 
 The following CSV files are created:
 
 successmetrics.csv - from the Success Metrics API (https://help.sonatype.com/iqserver/automating/rest-apis/success-metrics-data-rest-api---v2)
-policyviolations.csv - from the Policy Violation API (https://help.sonatype.com/iqserver/automating/rest-apis/policy-violation-rest-api---v2)
-applicationevaluations.csv - from the Report-related API (https://help.sonatype.com/iqserver/automating/rest-apis/report-related-rest-apis---v2)
-
-```
-
- * If you do not have python3 on your system
- * Open a command prompt and run 
-
-```
-Windows: create-csvfile.bat <iq-host-url> <iq-username> <iq-password> <period>
-Linux: create-csvfile.sh <iq-host-url> <iq-username> <iq-password> <period>
-
-iq-host-url - your Nexus IQ Url, but with no backslash at the end
-iq-username - your Nexus IQ user name that has access to data set you'd like to report on
-iq-password - your Nexus IQ password
-period - weekly or monthly
-
-Example:  create-csvfile.bat http://localhost:8070 admin admin123 monthly
-
-The output is saved to successmetrics.csv in the current directory
+applicationevaluations.csv - from the Report-related API (https://help.sonatype.com/iqserver/automating/rest-apis/report-related-rest-apis---v2) - python3 only
 
 ```
 
