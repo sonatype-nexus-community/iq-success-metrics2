@@ -20,7 +20,6 @@ cd quickstart
 
 *There are some scripts available to help ease creation of the required CSV files.*
  
- * If you have python3 available
  * Open a command prompt and run 
 
 
