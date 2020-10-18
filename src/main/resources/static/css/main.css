@@ -1,24 +1,27 @@
 
+.chart-container {
+    margin-left: 15%;
+}
+
+/* table {
+    font-size: 14px;
+    margin-left: 15%;
+    margin-right: 15%;
+    height: '75%';
+    width: '75%';
+    border: 1px solid black;
+}   */
+
+td, th {
+    border: 1px solid black;
+    width: 10px;
+    font-size: 16px;
+}
+
 span {
 	color: blue;
 	font-weight: bold;
-	font-size: 20px;
-}
-
-.inline-span {
-	color: black;
-	font-size: 20px;
-	font-weight: normal;
-	font-style: italic;
-}
- 
-table {
-  font-size: 20px;
-  margin: 24px;
-}  
-
-.home-page-menu {
-	text-align: center;
+    font-size: 16px;
 }
 
 .custom-scrollbar {
@@ -30,6 +33,7 @@ table {
 .table-wrapper-scroll-y {
 	display: block;
 } 
+
 
 
 

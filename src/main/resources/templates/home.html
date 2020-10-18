@@ -9,19 +9,17 @@
 
     <div class="jumbotron">
     
-    	<div class="home-page-menu">
+    	<div class="text-center">
     	
     	<a th:href="@{unsigned}">Unsigned Report</a>
         <br><br>
-        <a th:href="@{summary}">Summary Report</a>
+        <a th:href="@{applications}">Applications Report</a>
         <br><br>
         <a th:href="@{securityViolations}">Security Violations Report</a>
         <br><br>
         <a th:href="@{licenseViolations}">License Violations Report</a>
         <br><br>
-        <a th:href="@{applications}">Applications Report</a>
-        <br><br>
-  
+        
 	    <!-- <div th:if="${policyViolationsreport}">
 	    <a th:href="@{policyViolationsAge}">Policy Violations Age Report</a>
 	    <br><br>
@@ -33,8 +31,6 @@
 	    </div>
 	    
 	    <div th:if="${smdata}">
-	    <a th:href="@{data}">Raw data</a>
-	    <br>
 	    <a th:href="@{/h2}">Database</a>
 	    </div>
          
