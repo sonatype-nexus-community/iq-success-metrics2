@@ -8,8 +8,8 @@ plugins {
 }
 
 group = 'org.sonatype.cs'
-version = '4.0'
-sourceCompatibility = '11'
+version = '4.2'
+sourceCompatibility = '8'
 
 repositories {
 	mavenCentral()
@@ -43,8 +43,12 @@ nexusIQScan {
 }
 
 clean.doFirst {
-    delete "${rootDir}/iq-success-metrics.zip/"
-	delete "${rootDir}/iq-success-metrics"
+	delete "${rootDir}/success-metrics.zip/"
+	delete "${rootDir}/success-metrics"
+}
+
+build.doFirst {
+	mkdir 'success-metrics'
 }
 
 task copydependencies(type: Copy) {
@@ -52,32 +56,28 @@ task copydependencies(type: Copy) {
   into 'build/dependencies'
 }
 
-task copyReleaseScripts (type: Copy) {
-	from "${rootDir}/release-sm", "build/libs"
-	include "*.jar", "*.py", "*.json"
-	exclude "datafiles"
-	into "${rootDir}/iq-success-metrics"
-}
-
 task release (type: Copy) {
-	from 'build/libs', 'release-sm'
+	from 'build/libs', 'release-files'
 	include '*.jar'
 	include '*.py'
 	include '*.json'
-	into 'iq-success-metrics'
+	include '*.sh'
+	include '*.bat'
+	into 'success-metrics'
 }
 
 task bundle(type: Zip) {
-   from 'build/libs'
-   include '*.jar'
-   include 'run.sh'
-   archiveName 'success-metrics.zip'
-   destinationDir(file(projectDir))
+	from 'success-metrics'
+	archiveName 'success-metrics.zip'
+	destinationDir(file(projectDir))
+	doLast {
+		delete 'success-metrics'
+	}
 }
 
-task runfile()  {
+task runfile  {
     doLast {
-        new File('build/libs', "run.sh").text = """
+        new File('success-metrics', 'run.sh').text = """
 #!/bin/sh
 #Version: $version
 #Buildtime: ${new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date())}
@@ -87,4 +87,7 @@ java -jar success-metrics-${version}.jar
     }
 }
 
-bundle.dependsOn runfile
+release.dependsOn runfile
+bundle.dependsOn release
+
+

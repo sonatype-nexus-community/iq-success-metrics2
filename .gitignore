@@ -33,14 +33,6 @@ out/
 ### VS Code ###
 .vscode/
 
-.gradle
-
 datafiles
-
-*.json
-*.csv
-
 iq-success-metrics
-
-
 
