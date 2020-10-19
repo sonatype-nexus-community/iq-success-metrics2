@@ -2,12 +2,14 @@
 ## Getting Started
 
 **Download the java app for success metrics**
-  * Click on the *quickstart.zip* file, then download (there is a download button on the lower right)
-  * Unzip the contents to your directory of choice, then navigate to the *quickstart* directory
+  * Click on the *success-metrics.zip* file, then download (there is a download button on the lower right)
+  * Unzip the contents into a directory of your choice
 
 ```
-unzip quickstart.zip
-cd quickstart
+mkdir success-metrics
+cd success-metrics
+<place success-metrics.zip>
+unzip success-metrics.zip
 ```
 
 **(Optional) Make Config Updates for Success Metrics**
@@ -34,14 +36,13 @@ period-file - weekly.json or monthly.json
 
 Example (Windows):  create-data.bat http://localhost:8070 admin admin123 monthly.json
 
-The script will check if python3 is available. If so, it will generate an additional data file
+The script will check if python3 is available. If so, it will generate additional data files
 
-All output files are saved to the current directory
+All output files are saved into a directory called *datafiles* in the current directory
 
-The following CSV files are created:
+One or more CSV files will be created.
 
-successmetrics.csv - from the Success Metrics API (https://help.sonatype.com/iqserver/automating/rest-apis/success-metrics-data-rest-api---v2)
-applicationevaluations.csv - from the Report-related API (https://help.sonatype.com/iqserver/automating/rest-apis/report-related-rest-apis---v2) - python3 only
+At least one file called *successmetrics.csv* must be present fot the application to run when it is launched
 
 ```
 
@@ -49,14 +50,14 @@ applicationevaluations.csv - from the Report-related API (https://help.sonatype.
    
    This app is a simple web app running by default on port 4040. 
    
-   By default, the app looks for the data to load in the file *successmetrics.csv* from the current directory
+   By default, the app looks for the data to load in the file *datafiles/successmetrics.csv* from the current directory
 
    You only need to keep the app running long enough to review the reports and print them to PDF
 
-   Still within the command prompt window, run
+   Still within the command window, run
 ```
-Windows: run-app.bat  
-Linux: run-app.sh
+Windows: run.bat  
+Linux: sh run.sh
 ```
 
 The data file is loaded on start-up of the app. Larger files may take a few mins.
@@ -71,7 +72,7 @@ Open a browser and go to http://localhost:4040
 
 **Save PDF files**
 
-The *Unsigned Report* is designed to be saved to pdf. It contains most of the other reports. The recommended way to do to this is by selecting the 'Save to PDF' option with the Print menu option of your wweb browser.
+The *Unsigned Report* is designed to be saved to pdf. It contains most of the other reports. The recommended way to do to this is by selecting the 'Save to PDF' option with the Print menu option of your web browser.
 
 **Development**
 
@@ -82,13 +83,13 @@ Should you wish to edit the source code:
   * At the root directory of the repo
 ```
 To test:
-`mvn clean spring-boot:run`
+`./gradlew bootRun`
 
 To build:
-`mvn clean package spring-boot:repackage`
+`gradle clean build bundle`
 
 To run:
-`java -jar target/success-metrics-<version>.jar`
+`java -jar success-metrics-<version>.jar`
 ```
 
 **The Fine Print**
