@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'org.sonatype.cs'
-version = '0.0.1-SNAPSHOT'
+version = '4.0'
 sourceCompatibility = '11'
 
 repositories {
@@ -33,10 +33,6 @@ dependencies {
 	}
 }
 
-test {
-	useJUnitPlatform()
-}
-
 nexusIQScan {
   username = 'admin'
   password = 'admin123'
@@ -46,14 +42,29 @@ nexusIQScan {
   allConfigurations = true 
 }
 
-task appclean(type: Delete) {
-    delete "${rootDir}/success-metrics.zip/"
-	delete "${rootDir}/quickstart-sm"
+clean.doFirst {
+    delete "${rootDir}/iq-success-metrics.zip/"
+	delete "${rootDir}/iq-success-metrics"
 }
 
 task copydependencies(type: Copy) {
   from configurations.default
   into 'build/dependencies'
+}
+
+task copyReleaseScripts (type: Copy) {
+	from "${rootDir}/release-sm", "build/libs"
+	include "*.jar", "*.py", "*.json"
+	exclude "datafiles"
+	into "${rootDir}/iq-success-metrics"
+}
+
+task release (type: Copy) {
+	from 'build/libs', 'release-sm'
+	include '*.jar'
+	include '*.py'
+	include '*.json'
+	into 'iq-success-metrics'
 }
 
 task bundle(type: Zip) {
@@ -66,7 +77,6 @@ task bundle(type: Zip) {
 
 task runfile()  {
     doLast {
-		mkdir 'quickstart-sm'
         new File('build/libs', "run.sh").text = """
 #!/bin/sh
 #Version: $version
@@ -78,4 +88,3 @@ java -jar success-metrics-${version}.jar
 }
 
 bundle.dependsOn runfile
-runfile.dependsOn appclean
