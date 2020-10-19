@@ -65,7 +65,8 @@ The data file is loaded on start-up of the app. Larger files may take a few mins
 When the file is loaded, you should see output similar to below after which app is ready for access
 
 ```
-2020-07-06 10:45:48.036  INFO 93848 --- [           main] o.nexusiq.successmetrics.StartupRunner   : Ready for browsing at http://localhost:4040
+2020-10-19 20:49:01.271  INFO 93369 --- [  restartedMain] o.s.cs.metrics.service.FileService       : Data loaded.
+2020-10-19 20:49:01.271  INFO 93369 --- [  restartedMain] o.s.cs.metrics.runner.StartupRunner      : Ready for browsing at http://localhost:4040
 ```
 
 Open a browser and go to http://localhost:4040
