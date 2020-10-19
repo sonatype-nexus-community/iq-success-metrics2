@@ -1,7 +1,10 @@
+import java.text.SimpleDateFormat
+
 plugins {
 	id 'org.springframework.boot' version '2.3.4.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
+	id 'org.sonatype.gradle.plugins.scan' version '1.2.0'
 }
 
 group = 'org.sonatype.cs'
@@ -33,3 +36,46 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+nexusIQScan {
+  username = 'admin'
+  password = 'admin123'
+  serverUrl = 'http://localhost:8070'
+  applicationId = 'success-metrics'
+  stage = 'build'  
+  allConfigurations = true 
+}
+
+task appclean(type: Delete) {
+    delete "${rootDir}/success-metrics.zip/"
+	delete "${rootDir}/quickstart-sm"
+}
+
+task copydependencies(type: Copy) {
+  from configurations.default
+  into 'build/dependencies'
+}
+
+task bundle(type: Zip) {
+   from 'build/libs'
+   include '*.jar'
+   include 'run.sh'
+   archiveName 'success-metrics.zip'
+   destinationDir(file(projectDir))
+}
+
+task runfile()  {
+    doLast {
+		mkdir 'quickstart-sm'
+        new File('build/libs', "run.sh").text = """
+#!/bin/sh
+#Version: $version
+#Buildtime: ${new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date())}
+#Application-name: success-metrics
+java -jar success-metrics-${version}.jar
+"""
+    }
+}
+
+bundle.dependsOn runfile
+runfile.dependsOn appclean
