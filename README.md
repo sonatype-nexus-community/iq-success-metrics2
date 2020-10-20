@@ -6,10 +6,8 @@
   * Unzip the contents into a directory of your choice
 
 ```
-mkdir success-metrics
-cd success-metrics
-<place success-metrics.zip>
 unzip success-metrics.zip
+cd success-metrics
 ```
 
 **(Optional) Make Config Updates for Success Metrics**
