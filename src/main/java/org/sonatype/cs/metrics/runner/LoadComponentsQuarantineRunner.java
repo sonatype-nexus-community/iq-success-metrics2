@@ -26,7 +26,7 @@ public class LoadComponentsQuarantineRunner implements CommandLineRunner {
     @Override
 	public void run(String... args) throws Exception {
 
-        log.info("In LoadComponentsQuarantineRunner");
+        // log.info("In LoadComponentsQuarantineRunner");
         
         String stmt = SqlStatement.ComponentsQuarantineTables;	
 

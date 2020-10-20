@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'org.sonatype.cs'
-version = '4.3'
+version = '4.4'
 sourceCompatibility = '8'
 
 repositories {
@@ -59,10 +59,8 @@ task copydependencies(type: Copy) {
 task release (type: Copy) {
 	from 'build/libs', 'release-files'
 	include '*.jar'
-	include '*.py'
 	include '*.json'
-	include '*.sh'
-	include '*.bat'
+	include 'create-*'
 	into 'success-metrics'
 }
 
@@ -70,9 +68,9 @@ task bundle(type: Zip) {
 	from 'success-metrics/'
 	archiveName 'success-metrics.zip'
 	destinationDir(file(projectDir))
-	doLast {
-		delete 'success-metrics'
-	}
+	// doLast {
+	// 	delete 'success-metrics'
+	// }
 }
 
 task runfile  {

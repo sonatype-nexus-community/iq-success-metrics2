@@ -33,6 +33,8 @@ out/
 ### VS Code ###
 .vscode/
 
-datafiles
-iq-success-metrics
+success-metrics
+*.csv
+./*.json
+bin/*
 

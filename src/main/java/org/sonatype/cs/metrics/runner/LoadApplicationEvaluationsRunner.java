@@ -26,7 +26,7 @@ public class LoadApplicationEvaluationsRunner implements CommandLineRunner {
     @Override
 	public void run(String... args) throws Exception {
 
-        log.info("In ApplicationEvaluationsMetricsRunner");
+        //log.info("In ApplicationEvaluationsMetricsRunner");
         
         String stmt = SqlStatement.ApplicationEvaluationsTable;	
 

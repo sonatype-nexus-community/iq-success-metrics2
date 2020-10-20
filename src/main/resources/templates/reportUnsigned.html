@@ -44,9 +44,9 @@
             </tr>
         </thead>
         <tbody>
-            <tr><td>Onboarded <span th:text="${applicationsOnboardedAvg[0]}"/> applications at an average of <span th:text="${applicationsOnboardedAvg[1]}"/> per week</td></tr>
-            <tr><td>Scanned applications at an average of <span th:text="${numberOfApplicationsScannedAvg[1]}"/> per week</td></tr>
-            <tr><td>Performed a total of <span th:text="${numberOfScansAvg[0]}"/> scans at an average of <span th:text="${numberOfScansAvg[1]}"/> per week</td></tr>
+            <tr><td>Onboarded <span th:text="${applicationsOnboardedAvg[0]}"/> applications at an average of <span th:text="${applicationsOnboardedAvg[1]}"/> per <span th:text="${timePeriod}"/></td></tr>
+            <tr><td>Scanned applications at an average of <span th:text="${numberOfApplicationsScannedAvg[1]}"/> per <span th:text="${timePeriod}"/></td></tr>
+            <tr><td>Performed a total of <span th:text="${numberOfScansAvg[0]}"/> scans at an average of <span th:text="${numberOfScansAvg[1]}"/> per <span th:text="${timePeriod}"/></td></tr>
         </tbody>
     </table>
 

@@ -16,15 +16,12 @@ public class FileService {
 
 	private static final Logger log = LoggerFactory.getLogger(FileService.class);
 	
-	@Value("${data.dir}")
-	private String datadir;
-	
 	@Autowired
 	private DataService dataService;
 	
 	public boolean loadFile(String filename, String stmt) throws IOException {
 
-		String metricsFile = datadir + "/" + filename;
+		String metricsFile = filename;
 
 		String sqlStmt = stmt + " ('" + metricsFile + "')";	
 
@@ -49,29 +46,30 @@ public class FileService {
 
 		boolean isValid = false;
 
-		String metricsFile = datadir + "/" + filename;
+		String metricsFile = filename;
 
 		File f = new File(metricsFile);
 
-        if (f.exists() && !f.isDirectory() && f.length() > 0) {
-			isValid = true;
+        if (f.exists()){
+			if (!f.isDirectory() && f.length() > 0) {
+				isValid = true;
 
-			if (header.length() > 0){
-				String firstLine = this.getFirstLine(metricsFile);
+				if (header.length() > 0){
+					String firstLine = this.getFirstLine(metricsFile);
 
-				if (!firstLine.startsWith(header)) {
-					log.error("Invalid header");
-					log.error("-> " + firstLine);
-					isValid = false;
-				} 
+					if (!firstLine.startsWith(header)) {
+						log.error("Invalid header");
+						log.error("-> " + firstLine);
+						isValid = false;
+					} 
+				}
 			}
-			
+			else {
+				log.info("No data");
+				isValid = false;
+			}
 		}
-		else {
-			log.info("No data");
-			isValid = false;
-		}
-
+	
 		return isValid;
 	}
 }

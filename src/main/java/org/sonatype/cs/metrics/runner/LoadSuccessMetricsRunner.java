@@ -34,6 +34,7 @@ public class LoadSuccessMetricsRunner implements CommandLineRunner {
             fileService.loadFile(metricsFile, stmt);
         }
         else {
+            log.info(metricsFile + " file not found");
             System.exit(-1);
         }
 	}

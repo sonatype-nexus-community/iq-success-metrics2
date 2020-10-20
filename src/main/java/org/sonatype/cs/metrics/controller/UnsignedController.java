@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -26,13 +27,15 @@ public class UnsignedController {
     private TimePeriodService timePeriodService;
 
     @GetMapping({ "/unsigned" })
-    public String applications(Model model) {
+    public String applications(Model model) throws ParseException {
 
         log.info("In UnsignedController");
 
         String latestTimePeriod = timePeriodService.latestPeriod();
-	    //List<DataPoint> applicationViolationsData = sqlService.executeSQLMetrics(sqlService.AddWhereClauseAppOpenViolations(SQLStatement.ApplicationsOpenViolations, latestTimePeriod, "APPLICATION_NAME"));
-
+        String timePeriod = timePeriodService.getTimePeriod();
+		
+        model.addAttribute("timePeriod", timePeriod);
+        
         List<DbRow> applicationsOnboarded = dataService.runSql(SqlStatement.ApplicationsOnboarded);
         List<DbRow> numberOfScans = dataService.runSql(SqlStatement.NumberOfScans);
         List<DbRow> numberOfApplicationsScanned = dataService.runSql(SqlStatement.NumberOfApplicationsScanned);

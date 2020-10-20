@@ -26,7 +26,7 @@ public class LoadPolicyViolationsRunner implements CommandLineRunner {
     @Override
 	public void run(String... args) throws Exception {
 
-        log.info("In LoadPolicyViolationsRunner");
+        //log.info("In LoadPolicyViolationsRunner");
         
         String stmt = SqlStatement.PolicyViolationsTables;	
 
