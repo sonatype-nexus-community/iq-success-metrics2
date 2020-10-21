@@ -24,25 +24,38 @@ cd success-metrics
 
 
 ```
-Windows: create-data.bat <iq-host-url> <iq-username> <iq-password> <period-file>
-Linux: create-data.sh <iq-host-url> <iq-username> <iq-password> <period-file>
+Windows: create-successmetrics-csv.bat <iq-host-url> <iq-username> <iq-password> <period-file>
+Linux: create-successmetrics-csv.sh <iq-host-url> <iq-username> <iq-password> <period-file>
 
 iq-host-url - your Nexus IQ Url, but with no backslash at the end
 iq-username - your Nexus IQ user name that has access to data set you'd like to report on
 iq-password - your Nexus IQ password
 period-file - weekly.json or monthly.json
 
-Example (Windows):  create-data.bat http://localhost:8070 admin admin123 monthly.json
+Example (Windows):  create-successmetrics-csv.bat http://localhost:8070 admin admin123 monthly.json
+```
 
-The script will check if python3 is available. If so, it will generate additional data files
+*If you have python3 available, you may use the following script to produce the successmetrics.csv file as well as additonal data files for reporting (nb: these additional reports are not yet available)
 
-All output files are saved into a directory called *datafiles* in the current directory
+ * Open a command prompt and run
+ 
+```
+Windows: create-datafiles.bat <iq-host-url> <iq-username> <iq-password> <period-file>
+Linux: create-datafiles.sh <iq-host-url> <iq-username> <iq-password> <period-file>
 
-One or more CSV files will be created.
+iq-host-url - your Nexus IQ Url, but with no backslash at the end
+iq-username - your Nexus IQ user name that has access to data set you'd like to report on
+iq-password - your Nexus IQ password
+period-file - weekly.json or monthly.json
 
-At least one file called *successmetrics.csv* must be present fot the application to run when it is launched
+Example (Windows):  create-datafiles.bat http://localhost:8070 admin admin123 monthly.json
 
 ```
+
+A number of CSV files will be created.
+
+In all cases, at least one file called *successmetrics.csv* must be present for the application to run when it is launched
+
 
 **Start the reporting app**
    
