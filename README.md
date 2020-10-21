@@ -35,7 +35,7 @@ period-file - weekly.json or monthly.json
 Example (Windows):  create-successmetrics-csv.bat http://localhost:8070 admin admin123 monthly.json
 ```
 
-If you have python3 available, you may use the following script to produce the successmetrics.csv file as well as additonal data files for reporting (nb: these additional reports are not yet available)
+If you have python3 available, you may use the following script to produce the *successmetrics.csv* file as well as additonal data files for reporting (nb: these additional reports are not yet available)
 
  * Open a command prompt and run
  
