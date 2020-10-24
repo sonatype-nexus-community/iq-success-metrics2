@@ -18,8 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class PolicyViolationsAgeController {
-	private static final Logger log = LoggerFactory.getLogger(PolicyViolationsAgeController.class);
+public class ApplicationEvaluationsController {
+	private static final Logger log = LoggerFactory.getLogger(ApplicationEvaluationsController.class);
 
     @Autowired
     private DataService dataService;
@@ -27,15 +27,15 @@ public class PolicyViolationsAgeController {
     @Autowired
     private UtilService utilService;
 
-    @GetMapping({ "/policyViolationsAge" })
-    public String policyViolationsAge(Model model) {
+    @GetMapping({ "/applicationEvaluations" })
+    public String applicationEvaluations(Model model) {
 
-        log.info("In PolicyViolationsAgeController");
+        log.info("In ApplicationEvaluationsController");
 
-        List<DbRowStr> age7Data =  dataService.runSqlStr(SqlStatement.PolicyViolationsAge7);
-		List<DbRowStr> age30Data = dataService.runSqlStr(SqlStatement.PolicyViolationsAge30);
-		List<DbRowStr> age60Data =  dataService.runSqlStr(SqlStatement.PolicyViolationsAge60);
-        List<DbRowStr> age90Data =  dataService.runSqlStr(SqlStatement.PolicyViolationsAge90);
+        List<DbRowStr> age7Data =  dataService.runSqlStr(SqlStatement.ApplicationEvaluationsAge7);
+		List<DbRowStr> age30Data = dataService.runSqlStr(SqlStatement.ApplicationEvaluationsAge30);
+		List<DbRowStr> age60Data =  dataService.runSqlStr(SqlStatement.ApplicationEvaluationsAge60);
+        List<DbRowStr> age90Data =  dataService.runSqlStr(SqlStatement.ApplicationEvaluationsAge90);
 
         Map<String, Object> age7Map = utilService.dataMap("age7", age7Data);
         Map<String, Object> age30Map = utilService.dataMap("age30", age30Data);
@@ -49,6 +49,7 @@ public class PolicyViolationsAgeController {
 
         model.addAttribute("status", true);
 
-        return "reportPolicyViolationsAge";
+        return "reportApplicationEvaluations";
     }
+    
 }

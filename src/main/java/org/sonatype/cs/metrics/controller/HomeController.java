@@ -22,6 +22,7 @@ public class HomeController {
         
 		model.addAttribute("smdata", smdata);
 		model.addAttribute("policyViolationsreport", true);
+		model.addAttribute(("applicationEvaluationsreport"), true);
 
 		return "home";
 	}
