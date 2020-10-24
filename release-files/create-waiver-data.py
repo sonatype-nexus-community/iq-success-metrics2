@@ -30,9 +30,9 @@ def writeToCsvFile(componentWaivers):
 	repositoryWaivers = componentWaivers['repositoryWaivers']
 
 	with open(csvfile, 'w') as fd:
-			fd.write("Name,Stage,PackageUrl,PolicyName,ThreatLevel,Comment\n")
+			fd.write("ApplicationName,Stage,PackageUrl,PolicyName,ThreatLevel,Comment\n")
 			for waiver in applicationWaivers:
-				name = waiver['application']['publicId']
+				applicationName = waiver['application']['publicId']
 				stages = waiver['stages']
                 
 				for stage in stages:
@@ -48,7 +48,7 @@ def writeToCsvFile(componentWaivers):
 							threatLevel = waivedPolicyViolation['threatLevel']
 							comment = waivedPolicyViolation['policyWaiver']['comment']
 
-							line = name + "," + stageId + "," + packageUrl + policyName + "," + str(threatLevel) + "," + comment + "\n"
+							line = applicationName + "," + stageId + "," + packageUrl + "," + policyName + "," + str(threatLevel) + "," + comment + "\n"
 							fd.write(line)
 	
 	fd.close()

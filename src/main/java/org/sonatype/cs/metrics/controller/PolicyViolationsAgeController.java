@@ -1,7 +1,5 @@
 package org.sonatype.cs.metrics.controller;
 
-import java.io.File;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +10,6 @@ import org.sonatype.cs.metrics.service.DataService;
 import org.sonatype.cs.metrics.util.SqlStatement;
 import org.sonatype.cs.metrics.util.UtilService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

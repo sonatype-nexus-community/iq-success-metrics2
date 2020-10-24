@@ -23,6 +23,8 @@ public class HomeController {
 		model.addAttribute("smdata", smdata);
 		model.addAttribute("policyViolationsreport", true);
 		model.addAttribute(("applicationEvaluationsreport"), true);
+		model.addAttribute(("componentsqreport"), true);
+		model.addAttribute(("componentWaiversReport"), true);
 
 		return "home";
 	}

@@ -28,7 +28,17 @@
 	    <div th:if="${applicationEvaluationsreport}">
 	    <a th:href="@{applicationEvaluations}">Application Evaluations Report</a>
 	    <br><br>
-	    </div>
+		</div>
+
+		<div th:if="${componentsqreport}">
+		<a th:href="@{componentsq}">Components In Quarantine Report</a>
+		<br><br>
+		</div>
+		
+		<div th:if="${componentWaiversReport}">
+		<a th:href="@{componentWaivers}">Component Waivers Report</a>
+		<br><br>
+		</div>
 	    
 	    <div th:if="${smdata}">
 	    <a th:href="@{/h2}">Database</a>

@@ -195,6 +195,14 @@ public class SqlStatement {
 	public static String ApplicationEvaluationsAge30 = "select application_name as pointA, evaluation_date as pointB, stage as pointC from application_evaluation where parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') > CURRENT_DATE - INTERVAL 30 DAY and parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') < CURRENT_DATE - INTERVAL 7 DAY order by 1"; 
 	public static String ApplicationEvaluationsAge7 = "select application_name as pointA, evaluation_date as pointB, stage as pointC from application_evaluation where parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') >= CURRENT_DATE - INTERVAL 7 DAY order by 1"; 
 	
+	public static String ComponentsInQuarantine = "select repository as pointA, format as pointB, packageUrl as pointC, " +
+													"quarantineTime as pointD, policyName as pointE, threatLevel as pointF " +
+													"from COMPONENT_QUARANTINE order by 1 asc";
+
+	public static String ComponentWaivers = "select application_name as pointA, stage as pointB, packageUrl as pointC, " +
+													"policyName as pointD, threatLevel as pointE, comment as pointF " +
+													"from COMPONENT_WAIVER order by 1 asc";
+
     public static final String MetricsTable = "DROP TABLE IF EXISTS METRIC; " +
 			"CREATE TABLE METRIC (" +
 			"id INT default null, " + 
@@ -284,7 +292,7 @@ public class SqlStatement {
 			"  stage VARCHAR(250) DEFAULT NULL) " +
 			" AS SELECT applicationname, parsedatetime(evaluationdate, 'yyyy-MM-dd', 'en'), stage FROM CSVREAD ";
  
-	public static final String ComponentsQuarantineTables = "DROP TABLE IF EXISTS COMPONENT_QUARANTINE;" + 
+	public static final String ComponentsInQuarantineTable = "DROP TABLE IF EXISTS COMPONENT_QUARANTINE;" + 
 			"CREATE TABLE COMPONENT_QUARANTINE (" + 
 			"  repository VARCHAR(250) NOT NULL," +
 			"  format VARCHAR(250) NOT NULL," + 
@@ -294,4 +302,15 @@ public class SqlStatement {
 			"  threatLevel VARCHAR(250) DEFAULT NULL) " +
 			" AS SELECT repository, format, packageUrl, parsedatetime(quarantineTime, 'yyyy-MM-dd', 'en'), policyName, threatLevel FROM CSVREAD ";
 
+	public static final String ComponentWaiversTable = "DROP TABLE IF EXISTS COMPONENT_WAIVER;" + 
+			"CREATE TABLE COMPONENT_WAIVER (" + 
+			"  application_name VARCHAR(250) NOT NULL," +
+			"  stage VARCHAR(250) NOT NULL," + 
+			"  packageUrl VARCHAR(250) NOT NULL," + 
+			"  policyName VARCHAR(250) DEFAULT NULL," +
+			"  threatLevel VARCHAR(250) DEFAULT NULL," +
+			"  comment VARCHAR(250) DEFAULT NULL) " +
+			" AS SELECT applicationName, stage, packageUrl, policyName, threatLevel, comment FROM CSVREAD ";
+
 }
+
