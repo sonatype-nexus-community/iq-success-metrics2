@@ -12,7 +12,7 @@ import org.sonatype.cs.metrics.model.DbRow;
 import org.sonatype.cs.metrics.model.Mttr;
 import org.sonatype.cs.metrics.service.DataService;
 import org.sonatype.cs.metrics.util.SqlStatement;
-import org.sonatype.cs.metrics.util.TimePeriodService;
+import org.sonatype.cs.metrics.util.UtilService;
 
 @Controller
 public class ApplicationsController {
@@ -23,7 +23,7 @@ public class ApplicationsController {
     private DataService dataService;
 
     @Autowired
-    private TimePeriodService timePeriodService;
+    private UtilService timePeriodService;
 
     @GetMapping({ "/applications" })
     public String applications(Model model) {

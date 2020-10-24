@@ -16,8 +16,7 @@ public class DbRow {
         this.pointD = pointD;
     }
 
-    public DbRow() {
-    }
+    public DbRow(){}
 
     public String getLabel() {
         return label;

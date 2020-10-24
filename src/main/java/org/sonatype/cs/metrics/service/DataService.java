@@ -1,10 +1,9 @@
 package org.sonatype.cs.metrics.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.sonatype.cs.metrics.model.DbRow;
-import org.sonatype.cs.metrics.model.Metric;
+import org.sonatype.cs.metrics.model.DbRowStr;
 import org.sonatype.cs.metrics.model.Mttr;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -22,6 +21,10 @@ public class DataService  {
       
     public List<DbRow> runSql(String stmt) {
         return jtm.query(stmt, new BeanPropertyRowMapper<>(DbRow.class));  
+    }
+
+    public List<DbRowStr> runSqlStr(String stmt) {
+        return jtm.query(stmt, new BeanPropertyRowMapper<>(DbRowStr.class));  
     }
 
     public List<Mttr> runSqlMttr(String stmt) {

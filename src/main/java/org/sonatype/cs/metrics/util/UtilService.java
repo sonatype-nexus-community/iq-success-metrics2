@@ -3,15 +3,18 @@ package org.sonatype.cs.metrics.util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.sonatype.cs.metrics.model.DbRow;
+import org.sonatype.cs.metrics.model.DbRowStr;
 import org.sonatype.cs.metrics.service.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TimePeriodService {
+public class UtilService {
 
 	@Autowired
 	private DataService dataService;
@@ -60,5 +63,22 @@ public class TimePeriodService {
 		long millis = date.getTime();
 		return millis;
 	}
+
+	public Map<String, Object> dataMap(String key, List<DbRowStr> data) {
+
+        Map<String, Object> map = new HashMap<>();
+
+        if (data.size() > 0){
+            map.put(key + "Data", data);
+            map.put(key + "Number", data.size());
+            map.put(key, true);
+        }
+        else {
+            map.put(key + "Number", 0);
+            map.put(key, false);
+        }
+
+        return map;
+    }
     
 }

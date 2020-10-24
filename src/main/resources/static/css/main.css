@@ -34,6 +34,12 @@ span {
 	display: block;
 } 
 
+.applicationTable {
+    cellspacing: 0;
+    width: 100%;
 
+}
 
-
+h5 {
+    margin-left: 300px;
+}

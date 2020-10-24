@@ -21,6 +21,7 @@ public class HomeController {
         log.info("In HomeController");
         
 		model.addAttribute("smdata", smdata);
+		model.addAttribute("policyViolationsreport", true);
 
 		return "home";
 	}

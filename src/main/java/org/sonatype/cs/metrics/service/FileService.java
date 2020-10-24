@@ -19,16 +19,11 @@ public class FileService {
 	@Autowired
 	private DataService dataService;
 	
-	public boolean loadFile(String filename, String stmt) throws IOException {
+	public boolean loadFile(String fileName, String stmt) throws IOException {
+		log.info("Reading data file: " + fileName);
 
-		String metricsFile = filename;
-
-		String sqlStmt = stmt + " ('" + metricsFile + "')";	
-
-		log.info("Reading data file: " + metricsFile);
-
+		String sqlStmt = stmt + " ('" + fileName + "')";	
 		dataService.runSqlLoad(sqlStmt);
-
 		log.info("Data loaded.");
 		
 		return true;
@@ -40,6 +35,16 @@ public class FileService {
 	    String line = br.readLine(); 
 	    br.close();
 	    return line;
+	}
+
+	public boolean isAvailable(String metricsFile){
+		File f = new File(metricsFile);
+		if (f.exists() && f.length() > 0 && !f.isDirectory()){
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	public boolean isDataValid(String filename, String header) throws IOException {

@@ -185,6 +185,16 @@ public class SqlStatement {
 													            "sum(WAIVED_COUNT_LICENSE_CRITICAL) + sum(WAIVED_COUNT_LICENSE_SEVERE) + sum(WAIVED_COUNT_LICENSE_MODERATE) as pointC " +
 													            "from METRIC group by APPLICATION_NAME order by 2 desc";
 	
+	public static String PolicyViolationsAge90 = "select policy_name as pointA, application_name as pointB, open_time as pointC, component as pointD, stage as pointE from policy_violation where parsedatetime(open_time, 'yyyy-MM-dd', 'en') <= CURRENT_DATE - INTERVAL 90 DAY";
+	public static String PolicyViolationsAge60 = "select policy_name as pointA, application_name as pointB, open_time as pointC, component as pointD, stage as pointE from policy_violation where parsedatetime(open_time, 'yyyy-MM-dd', 'en') > CURRENT_DATE - INTERVAL 90 DAY and parsedatetime(open_time, 'yyyy-MM-dd', 'en') < CURRENT_DATE - INTERVAL 30 DAY";
+	public static String PolicyViolationsAge30 = "select policy_name as pointA, application_name as pointB, open_time as pointC, component as pointD, stage as pointE from policy_violation where parsedatetime(open_time, 'yyyy-MM-dd', 'en') > CURRENT_DATE - INTERVAL 30 DAY and parsedatetime(open_time, 'yyyy-MM-dd', 'en') < CURRENT_DATE - INTERVAL 7 DAY"; 	
+	public static String PolicyViolationsAge7 = "select policy_name as pointA, application_name as pointB, open_time as pointC, component as pointD, stage as pointE from policy_violation where parsedatetime(open_time, 'yyyy-MM-dd', 'en') >= CURRENT_DATE - INTERVAL 7 DAY";
+	
+	public static String ApplicationEvaluationsAge90 = "select * from ApplicationEvaluations where parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') <= CURRENT_DATE - INTERVAL 90 DAY order by 1";
+	public static String ApplicationEvaluationsAge60 = "select * from ApplicationEvaluations where parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') > CURRENT_DATE - INTERVAL 90 DAY and parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') < CURRENT_DATE - INTERVAL 30 DAY order by 1";
+	public static String ApplicationEvaluationsAge30 = "select * from ApplicationEvaluations where parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') > CURRENT_DATE - INTERVAL 30 DAY and parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') < CURRENT_DATE - INTERVAL 7 DAY order by 1"; 
+	public static String ApplicationEvaluationsAge7 = "select * from ApplicationEvaluations where parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') >= CURRENT_DATE - INTERVAL 7 DAY order by 1"; 
+	
     public static final String MetricsTable = "DROP TABLE IF EXISTS METRIC; " +
 			"CREATE TABLE METRIC (" +
 			"id INT default null, " + 

@@ -18,7 +18,10 @@ public class LoadComponentsQuarantineRunner implements CommandLineRunner {
     private static final String fileHeader = "Repository,Format,PackageUrl,QuarantineTime,PolicyName,ThreatLevel";
 
     @Value("${data.componentquarantinemetrics}")
-    private String metricsFile;
+    private String fileName;
+
+    @Value("${data.dir}")
+    private String dataDir;
 
     @Autowired
     private FileService fileService;
@@ -29,6 +32,7 @@ public class LoadComponentsQuarantineRunner implements CommandLineRunner {
         // log.info("In LoadComponentsQuarantineRunner");
         
         String stmt = SqlStatement.ComponentsQuarantineTables;	
+        String metricsFile = dataDir + "/" + fileName;
 
         if (fileService.isDataValid(metricsFile, fileHeader)) {
             fileService.loadFile(metricsFile, stmt);

@@ -37,4 +37,5 @@ success-metrics
 *.csv
 ./*.json
 bin/*
+datafiles
 

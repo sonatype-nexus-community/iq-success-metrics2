@@ -18,7 +18,10 @@ public class LoadApplicationEvaluationsRunner implements CommandLineRunner {
     private static final String fileHeader = "ApplicationName,EvaluationDate,Stage";
 
     @Value("${data.applicationevaluationsmetrics}")
-    private String metricsFile;
+    private String fileName;
+
+    @Value("${data.dir}")
+    private String dataDir;
 
     @Autowired
     private FileService fileService;
@@ -29,6 +32,7 @@ public class LoadApplicationEvaluationsRunner implements CommandLineRunner {
         //log.info("In ApplicationEvaluationsMetricsRunner");
         
         String stmt = SqlStatement.ApplicationEvaluationsTable;	
+        String metricsFile = dataDir + "/" + fileName;
 
         if (fileService.isDataValid(metricsFile, fileHeader)) {
             fileService.loadFile(metricsFile, stmt);

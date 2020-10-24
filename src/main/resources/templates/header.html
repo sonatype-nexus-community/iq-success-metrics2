@@ -109,7 +109,35 @@
             colors: ['#0742FA', '#F90707', '#08B005', '#900C3F']
         }
 
-       
+        var donutPlotOptions = {
+			expandOnClick: true,
+			donut: {
+				size: '45%',
+					labels: {
+						show: true,
+						name: {
+							show: true
+						},
+						value: {
+							show: true
+						},
+						total: {
+							show: true,
+							showAlways: true,
+							label: 'Total',
+							fontSize: '10px',
+							fontFamily: 'Helvetica, Arial, sans-serif',
+							fontWeight: 400,
+							color: '#373d3f',
+							formatter: function (w) {
+							    return w.globals.seriesTotals.reduce((a, b) => {
+									return a + b
+								}, 0)
+							}
+						}
+					}
+				}
+			}
 
     </script>
   

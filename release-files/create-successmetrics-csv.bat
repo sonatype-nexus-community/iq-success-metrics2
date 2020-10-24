@@ -9,8 +9,13 @@ set iquser=%2
 set iqpwd=%3
 set payloadfile=%4
 
+datadir="./datafiles"
+if [ -d "${datadir}" ]; then
+mkdir ${datadir}
+fi
+
 echo using curl [%errorlevel%]
-set outputfile=successmetrics.csv
+set outputfile=%datadir%/successmetrics.csv
 echo curl -u %iquser%:%iqpwd% -X POST -H "Accept: text/csv" -H "Content-Type: application/json" -o %outputfile% -d@%payloadfile%.json %iqurl%/api/v2/reports/metrics
 curl -u %iquser%:%iqpwd% -X POST -H "Accept: text/csv" -H "Content-Type: application/json" -o %outputfile% -d@%payloadfile%.json %iqurl%/api/v2/reports/metrics
 goto :endscript

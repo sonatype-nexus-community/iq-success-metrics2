@@ -18,7 +18,10 @@ public class LoadSuccessMetricsRunner implements CommandLineRunner {
     private static final String fileHeader = "applicationId,applicationName,applicationPublicId,";
 
     @Value("${data.successmetrics}")
-    private String metricsFile;
+    private String fileName;
+
+    @Value("${data.dir}")
+    private String dataDir;
 
     @Autowired
     private FileService fileService;
@@ -29,6 +32,7 @@ public class LoadSuccessMetricsRunner implements CommandLineRunner {
         log.info("In: LoadSuccessMetricsRunner");
         
         String stmt = SqlStatement.MetricsTable;	
+        String metricsFile = dataDir + "/" + fileName;
 
         if (fileService.isDataValid(metricsFile, fileHeader)) {
             fileService.loadFile(metricsFile, stmt);

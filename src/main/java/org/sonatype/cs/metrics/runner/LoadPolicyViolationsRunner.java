@@ -18,7 +18,10 @@ public class LoadPolicyViolationsRunner implements CommandLineRunner {
     private static final String fileHeader = "PolicyName,CVE,ApplicationName,OpenTime,Component,Stage";
 
     @Value("${data.policyviolationsmetrics}")
-    private String metricsFile;
+    private String fileName;
+
+    @Value("${data.dir}")
+    private String dataDir;
 
     @Autowired
     private FileService fileService;
@@ -28,7 +31,8 @@ public class LoadPolicyViolationsRunner implements CommandLineRunner {
 
         //log.info("In LoadPolicyViolationsRunner");
         
-        String stmt = SqlStatement.PolicyViolationsTables;	
+        String stmt = SqlStatement.PolicyViolationsTables;
+        String metricsFile = dataDir + "/" + fileName;
 
         if (fileService.isDataValid(metricsFile, fileHeader)) {
             fileService.loadFile(metricsFile, stmt);
