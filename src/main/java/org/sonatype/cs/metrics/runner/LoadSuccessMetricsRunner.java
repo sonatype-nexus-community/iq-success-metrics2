@@ -26,18 +26,16 @@ public class LoadSuccessMetricsRunner implements CommandLineRunner {
     @Autowired
     private FileService fileService;
 
+    public static boolean fileLoaded = false;
+
     @Override
 	public void run(String... args) throws Exception {
-
-        log.info("In: LoadSuccessMetricsRunner");
         
         String stmt = SqlStatement.MetricsTable;	
         String metricsFile = dataDir + "/" + fileName;
+        fileLoaded = fileService.loadMetricsFile(metricsFile, fileHeader, stmt);
 
-        if (fileService.isDataValid(metricsFile, fileHeader)) {
-            fileService.loadFile(metricsFile, stmt);
-        }
-        else {
+        if (!fileLoaded){
             log.info(metricsFile + " file not found");
             System.exit(-1);
         }

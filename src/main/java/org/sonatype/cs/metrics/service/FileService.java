@@ -8,7 +8,6 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,36 +17,36 @@ public class FileService {
 	
 	@Autowired
 	private DataService dataService;
-	
-	public boolean loadFile(String fileName, String stmt) throws IOException {
-		log.info("Reading data file: " + fileName);
 
+	public boolean loadMetricsFile(String fileName, String header, String stmt) throws IOException {
+		boolean status = false;
+
+		if (isHeaderValid(fileName, header)){
+			status = loadFile(fileName, stmt);
+		}
+
+		return status;
+	}
+
+	private boolean loadFile(String fileName, String stmt) throws IOException {
+		log.info("Reading file: " + fileName);
 		String sqlStmt = stmt + " ('" + fileName + "')";	
 		dataService.runSqlLoad(sqlStmt);
 		log.info("Data loaded.");
-		
 		return true;
 	}
 	
-	public String getFirstLine(String fileName) throws IOException {
-	    BufferedReader br = new BufferedReader(new FileReader(fileName)); 
+	// public boolean isAvailable(String metricsFile){
+	// 	File f = new File(metricsFile);
+	// 	if (f.exists() && f.length() > 0 && !f.isDirectory()){
+	// 		return true;
+	// 	}
+	// 	else {
+	// 		return false;
+	// 	}
+	// }
 
-	    String line = br.readLine(); 
-	    br.close();
-	    return line;
-	}
-
-	public boolean isAvailable(String metricsFile){
-		File f = new File(metricsFile);
-		if (f.exists() && f.length() > 0 && !f.isDirectory()){
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	public boolean isDataValid(String filename, String header) throws IOException {
+	private boolean isHeaderValid(String filename, String header) throws IOException {
 
 		boolean isValid = false;
 
@@ -77,4 +76,13 @@ public class FileService {
 	
 		return isValid;
 	}
+
+	private String getFirstLine(String fileName) throws IOException {
+	    BufferedReader br = new BufferedReader(new FileReader(fileName)); 
+
+	    String line = br.readLine(); 
+	    br.close();
+	    return line;
+	}
+	
 }

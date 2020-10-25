@@ -26,16 +26,13 @@ public class LoadApplicationEvaluationsRunner implements CommandLineRunner {
     @Autowired
     private FileService fileService;
 
+    public static boolean fileLoaded = false;
+
     @Override
 	public void run(String... args) throws Exception {
-
-        //log.info("In ApplicationEvaluationsMetricsRunner");
         
         String stmt = SqlStatement.ApplicationEvaluationsTable;	
         String metricsFile = dataDir + "/" + fileName;
-
-        if (fileService.isDataValid(metricsFile, fileHeader)) {
-            fileService.loadFile(metricsFile, stmt);
-        }
+        fileLoaded = fileService.loadMetricsFile(metricsFile, fileHeader, stmt);
     }
 }

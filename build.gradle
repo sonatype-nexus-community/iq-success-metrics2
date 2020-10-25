@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'org.sonatype.cs'
-version = '4.4'
+version = '4.5'
 sourceCompatibility = '8'
 
 repositories {
@@ -85,7 +85,7 @@ java -jar success-metrics-${version}.jar
     }
 }
 
-release.dependsOn runfile
-bundle.dependsOn release
+// release.dependsOn runfile
+// bundle.dependsOn release
 
 
