@@ -35,7 +35,7 @@ period-file - weekly.json or monthly.json
 Example (Windows):  create-successmetrics-csv.bat http://localhost:8070 admin admin123 monthly.json
 ```
 
-If you have python3 available, you may use the following script to produce the *successmetrics.csv* file as well as additonal data files for reporting (nb: these additional reports are not yet available)
+If you have python3 available, you may use the following script to produce additonal data files for reporting. These files include list of policy violations, applications scanned last date, list of components in quarantine (nxrm3) and waivers
 
  * Open a command prompt and run
  
@@ -46,16 +46,13 @@ Linux: create-datafiles.sh <iq-host-url> <iq-username> <iq-password> <period-fil
 iq-host-url - your Nexus IQ Url, but with no backslash at the end
 iq-username - your Nexus IQ user name that has access to data set you'd like to report on
 iq-password - your Nexus IQ password
-period-file - weekly.json or monthly.json
 
-Example (Windows):  create-datafiles.bat http://localhost:8070 admin admin123 monthly.json
+Example (Windows):  create-datafiles.bat http://localhost:8070 admin admin123 
 
 ```
 
-A number of CSV files will be created.
-
 In all cases, at least one file called *successmetrics.csv* must be present for the application to run when it is launched
-
+All files are (or must be) created in a sub-directory called *datafiles*
 
 
 **Start the reporting app**
