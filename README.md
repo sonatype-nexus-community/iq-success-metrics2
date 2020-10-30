@@ -24,35 +24,22 @@ cd success-metrics
 
 
 ```
-Windows: create-successmetrics-csv.bat <iq-host-url> <iq-username> <iq-password> <period-file>
-Linux: create-successmetrics-csv.sh <iq-host-url> <iq-username> <iq-password> <period-file>
-
-iq-host-url - your Nexus IQ Url, but with no backslash at the end
-iq-username - your Nexus IQ user name that has access to data set you'd like to report on
-iq-password - your Nexus IQ password
-period-file - weekly.json or monthly.json
-
-Example (Windows):  create-successmetrics-csv.bat http://localhost:8070 admin admin123 monthly.json
-```
-
-If you have python3 available, you may use the following script to produce additonal data files for reporting. These files include list of policy violations, applications scanned last date, list of components in quarantine (nxrm3) and waivers
-
- * Open a command prompt and run
- 
-```
 Windows: create-datafiles.bat <iq-host-url> <iq-username> <iq-password> <period-file>
 Linux: create-datafiles.sh <iq-host-url> <iq-username> <iq-password> <period-file>
 
 iq-host-url - your Nexus IQ Url, but with no backslash at the end
 iq-username - your Nexus IQ user name that has access to data set you'd like to report on
 iq-password - your Nexus IQ password
+period-file - weekly.json or monthly.json
 
-Example (Windows):  create-datafiles.bat http://localhost:8070 admin admin123 
-
+Example (Windows):  create-datafiles.bat http://localhost:8070 admin admin123 monthly.json
 ```
 
-In all cases, at least one file called *successmetrics.csv* must be present for the application to run when it is launched
-All files are (or must be) created in a sub-directory called *datafiles*
+If you have python3 available, the script will detect it and produce additonal data files for reporting. 
+These files include list of policy violations, applications scanned last date, list of components in quarantine (nxrm3) and list of waivers.
+
+In all cases, at least one file called *successmetrics.csv* will be created. We suggest opening the file and check to ensure it contains data.
+All files are created in a sub-directory called *datafiles* from where the app will find them.
 
 
 **Start the reporting app**

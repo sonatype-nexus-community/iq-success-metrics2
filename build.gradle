@@ -3,13 +3,15 @@ import java.text.SimpleDateFormat
 plugins {
 	id 'org.springframework.boot' version '2.3.4.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
-	id 'java'
+	id 'java-library'
 	id 'org.sonatype.gradle.plugins.scan' version '1.2.0'
 }
 
 group = 'org.sonatype.cs'
-version = '4.5'
+version = '4.6'
 sourceCompatibility = '8'
+
+def bundledir = 'successmetrics/successmetrics'
 
 repositories {
 	mavenCentral()
@@ -23,7 +25,7 @@ dependencies {
 	implementation 'org.webjars:jquery:3.5.1'
 	implementation 'org.webjars:bootstrap:4.5.0'
 
-	compile 'com.opencsv:opencsv:5.2'
+	compileOnly 'com.opencsv:opencsv:5.2'
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
@@ -37,18 +39,18 @@ nexusIQScan {
   username = 'admin'
   password = 'admin123'
   serverUrl = 'http://localhost:8070'
-  applicationId = 'success-metrics'
+  applicationId = 'successmetrics'
   stage = 'build'  
   allConfigurations = true 
 }
 
 clean.doFirst {
-	delete "${rootDir}/success-metrics.zip/"
-	delete "${rootDir}/success-metrics"
+	delete "${rootDir}/successmetrics.zip/"
+	delete "${rootDir}/successmetrics"
 }
 
 build.doFirst {
-	mkdir 'success-metrics'
+	mkdir "${bundledir}"
 }
 
 task copydependencies(type: Copy) {
@@ -57,35 +59,29 @@ task copydependencies(type: Copy) {
 }
 
 task release (type: Copy) {
-	from 'build/libs', 'release-files'
+	from 'build/libs', 'releasefiles'
 	include '*.jar'
 	include '*.json'
 	include 'create-*'
-	into 'success-metrics'
-}
+	into "${bundledir}"
 
-task bundle(type: Zip) {
-	from 'success-metrics/'
-	archiveName 'success-metrics.zip'
-	destinationDir(file(projectDir))
-	// doLast {
-	// 	delete 'success-metrics'
-	// }
-}
-
-task runfile  {
-    doLast {
-        new File('success-metrics', 'run.sh').text = """
+	doLast {
+        new File("${bundledir}", 'run.sh').text = """
 #!/bin/sh
 #Version: $version
 #Buildtime: ${new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date())}
-#Application-name: success-metrics
-java -jar success-metrics-${version}.jar
+#Application-name: successmetrics
+java -jar successmetrics-${version}.jar
 """
     }
 }
 
-// release.dependsOn runfile
-// bundle.dependsOn release
+task bundle(type: Zip) {
+	from 'successmetrics'
+	archiveName 'successmetrics.zip'
+	destinationDir(file(projectDir))
+}
+
+bundle.dependsOn release
 
 
