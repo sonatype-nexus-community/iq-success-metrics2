@@ -50,6 +50,9 @@ def writeToCsvFile(componentWaivers):
 							threatLevel = waivedPolicyViolation['threatLevel']
 							comment = waivedPolicyViolation['policyWaiver']['comment']
 
+							if "\n" in comment:
+								comment = comment.replace("\n", "-")
+
 							line = applicationName + "," + stageId + "," + packageUrl + "," + policyName + "," + str(threatLevel) + "," + comment + "\n"
 							fd.write(line)
 	
@@ -73,7 +76,7 @@ def writeToCsvFile(componentWaivers):
 							threatLevel = waivedPolicyViolation['threatLevel']
 							comment = waivedPolicyViolation['policyWaiver']['comment']
 
-							line = name + "," + stageId + "," + packageUrl + policyName + "," + str(threatLevel) + "," + comment + "\n"
+							line = name + "," + stageId + "," + packageUrl + "," + policyName + "," + str(threatLevel) + "," + comment + "\n"
 							fd.write(line)
             
 	return
@@ -83,7 +86,7 @@ def main():
     componentWaivers = get_metrics()
 
     with open(jsonfile, 'w') as fd:
-    		json.dump(componentWaivers, fd)
+    		json.dump(componentWaivers, fd, indent=4)
 	
     print(jsonfile)
 

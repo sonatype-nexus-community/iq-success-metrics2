@@ -66,11 +66,7 @@ task release (type: Copy) {
 	into "${bundledir}"
 
 	doLast {
-        new File("${bundledir}", 'run.sh').text = """
-#!/bin/sh
-#Version: $version
-#Buildtime: ${new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date())}
-#Application-name: successmetrics
+        new File("${bundledir}", 'runapp').text = """
 java -jar successmetrics-${version}.jar
 """
     }
