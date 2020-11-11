@@ -18,7 +18,7 @@ cd success-metrics
 
 **Create the csv files**
 
-*There are some scripts available to help ease creation of the required CSV files.*
+*There is a script available to help ease creation of the required CSV file(s).*
  
  * Open a command prompt and run 
 
@@ -35,10 +35,11 @@ period-file - weekly.json or monthly.json
 Example (Windows):  create-datafiles.bat http://localhost:8070 admin admin123 monthly.json
 ```
 
-If you have python3 available, the script will detect it and produce additonal data files for reporting. 
-These files include list of policy violations, applications scanned last date, list of components in quarantine (nxrm3) and list of waivers.
+The script will create a file called *successmetrics.csv*. We suggest opening the file and check to ensure it contains metrics data.
 
-In all cases, at least one file called *successmetrics.csv* will be created. We suggest opening the file and check to ensure it contains data.
+If you have python3 available, the script will detect it and produce additonal data files for reporting. 
+These additional files include a list of policy violations, applications scanned last date, list of components in quarantine (nxrm3) and list of waivers.
+
 All files are created in a sub-directory called *datafiles* from where the app will find them.
 
 
@@ -52,13 +53,13 @@ All files are created in a sub-directory called *datafiles* from where the app w
 
    Still within the command window, run
 ```
-Windows: run.bat  
-Linux: sh run.sh
+Windows: runapp  
+Linux: sh runapp
 ```
 
-The data file is loaded on start-up of the app. Larger files may take a few mins.
+The data file(s) are loaded on start-up of the app. Larger files may take a few mins.
 
-When the file is loaded, you should see output similar to below after which app is ready for access
+On completion, you should see output similar to below after which app is ready for access
 
 ```
 2020-10-19 20:49:01.271  INFO 93369 --- [  restartedMain] o.s.cs.metrics.service.FileService       : Data loaded.
