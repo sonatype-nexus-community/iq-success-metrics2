@@ -1,6 +1,10 @@
 
 ## Getting Started
 
+**Prerequisites**
+  * Java 8+
+  * (optional) python3
+  
 **Download the java app for success metrics**
   * Click on the *success-metrics.zip* file, then download (there is a download button on the lower right)
   * Unzip the contents into a directory of your choice
