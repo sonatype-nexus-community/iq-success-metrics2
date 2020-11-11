@@ -53,8 +53,8 @@ All files are created in a sub-directory called *datafiles* from where the app w
 
    Still within the command window, run
 ```
-Windows: runapp  
-Linux: sh runapp
+Windows: runapp.bat 
+Linux: sh runapp.bat
 ```
 
 The data file(s) are loaded on start-up of the app. Larger files may take a few mins.
