@@ -32,7 +32,7 @@ public class LoadSuccessMetricsRunner implements CommandLineRunner {
 	public void run(String... args) throws Exception {
         
         String stmt = SqlStatement.MetricsTable;	
-        String metricsFile = dataDir + "/" + fileName;
+        String metricsFile = fileName;
         fileLoaded = fileService.loadMetricsFile(metricsFile, fileHeader, stmt);
 
         if (!fileLoaded){
