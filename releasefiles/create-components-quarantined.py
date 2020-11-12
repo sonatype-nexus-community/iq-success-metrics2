@@ -8,10 +8,8 @@ iqurl = sys.argv[1]
 iquser = sys.argv[2]
 iqpwd = sys.argv[3]
 
-outputdir = 'datafiles'
-
-jsonfile = '{}/{}'.format(outputdir, 'componentsinquarantine.json')
-csvfile = '{}/{}'.format(outputdir, 'componentsinquarantine.csv')
+jsonfile = 'componentsinquarantine.json'
+csvfile = 'componentsinquarantine.csv'
 
 def get_metrics():
 	req = requests.get('{}/api/v2/reports/components/quarantined'.format(iqurl), auth=(iquser, iqpwd), verify=False)

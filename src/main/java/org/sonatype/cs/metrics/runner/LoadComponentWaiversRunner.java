@@ -21,9 +21,6 @@ public class LoadComponentWaiversRunner implements CommandLineRunner {
     @Value("${data.componentwaiversmetrics}")
     private String fileName;
 
-    @Value("${data.dir}")
-    private String dataDir;
-
     @Autowired
     private FileService fileService;
 
@@ -33,7 +30,6 @@ public class LoadComponentWaiversRunner implements CommandLineRunner {
 	public void run(String... args) throws Exception {
         
         String stmt = SqlStatement.ComponentWaiversTable;	
-        String metricsFile = dataDir + "/" + fileName;
-        fileLoaded = fileService.loadMetricsFile(metricsFile, fileHeader, stmt);
+        fileLoaded = fileService.loadMetricsFile(fileName, fileHeader, stmt);
     }
 }

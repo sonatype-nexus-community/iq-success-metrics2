@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'org.sonatype.cs'
-version = '4.6.1'
+version = '4.7'
 sourceCompatibility = '8'
 
 def bundledir = 'successmetrics/successmetrics'
@@ -62,7 +62,7 @@ task release (type: Copy) {
 	from 'build/libs', 'releasefiles'
 	include '*.jar'
 	include '*.json'
-	include 'create-*'
+	include 'create*'
 	into "${bundledir}"
 
 	doLast {

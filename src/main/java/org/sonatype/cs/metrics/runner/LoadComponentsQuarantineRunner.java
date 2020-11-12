@@ -20,9 +20,6 @@ public class LoadComponentsQuarantineRunner implements CommandLineRunner {
     @Value("${data.componentquarantinemetrics}")
     private String fileName;
 
-    @Value("${data.dir}")
-    private String dataDir;
-
     @Autowired
     private FileService fileService;
 
@@ -32,8 +29,7 @@ public class LoadComponentsQuarantineRunner implements CommandLineRunner {
 	public void run(String... args) throws Exception {
         
         String stmt = SqlStatement.ComponentsInQuarantineTable;	
-        String metricsFile = dataDir + "/" + fileName;
-        fileLoaded = fileService.loadMetricsFile(metricsFile, fileHeader, stmt);
+        fileLoaded = fileService.loadMetricsFile(fileName, fileHeader, stmt);
     }
     
 }

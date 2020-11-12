@@ -20,9 +20,6 @@ public class LoadApplicationEvaluationsRunner implements CommandLineRunner {
     @Value("${data.applicationevaluationsmetrics}")
     private String fileName;
 
-    @Value("${data.dir}")
-    private String dataDir;
-
     @Autowired
     private FileService fileService;
 
@@ -32,7 +29,6 @@ public class LoadApplicationEvaluationsRunner implements CommandLineRunner {
 	public void run(String... args) throws Exception {
         
         String stmt = SqlStatement.ApplicationEvaluationsTable;	
-        String metricsFile = dataDir + "/" + fileName;
-        fileLoaded = fileService.loadMetricsFile(metricsFile, fileHeader, stmt);
+        fileLoaded = fileService.loadMetricsFile(fileName, fileHeader, stmt);
     }
 }

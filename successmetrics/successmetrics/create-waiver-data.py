@@ -8,10 +8,8 @@ iqurl = sys.argv[1]
 iquser = sys.argv[2]
 iqpwd = sys.argv[3]
 
-outputdir = 'datafiles'
-
-jsonfile = '{}/{}'.format(outputdir, 'componentwaivers.json')
-csvfile = '{}/{}'.format(outputdir, 'componentwaivers.csv')
+jsonfile = 'componentwaivers.json'
+csvfile = 'componentwaivers.csv'
 
 def get_metrics():
 	req = requests.get('{}/api/v2/reports/components/waivers'.format(iqurl), auth=(iquser, iqpwd), verify=False)

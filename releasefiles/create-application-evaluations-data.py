@@ -8,10 +8,8 @@ iqurl = sys.argv[1]
 iquser = sys.argv[2]
 iqpwd = sys.argv[3]
 
-outputdir = 'datafiles'
-
-jsonfile = '{}/{}'.format(outputdir, 'applicationevaluations.json')
-csvfile = '{}/{}'.format(outputdir, 'applicationevaluations.csv')
+jsonfile = 'applicationevaluations.json'
+csvfile = 'applicationevaluations.csv'
 
 def get_metrics():
 	req = requests.get('{}/api/v2/reports/applications'.format(iqurl), auth=(iquser, iqpwd), verify=False)

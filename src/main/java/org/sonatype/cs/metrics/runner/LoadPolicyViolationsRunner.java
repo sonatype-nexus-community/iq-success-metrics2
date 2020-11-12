@@ -20,9 +20,6 @@ public class LoadPolicyViolationsRunner implements CommandLineRunner {
     @Value("${data.policyviolationsmetrics}")
     private String fileName;
 
-    @Value("${data.dir}")
-    private String dataDir;
-
     @Autowired
     private FileService fileService;
 
@@ -32,8 +29,7 @@ public class LoadPolicyViolationsRunner implements CommandLineRunner {
 	public void run(String... args) throws Exception {
         
         String stmt = SqlStatement.PolicyViolationsTables;
-        String metricsFile = dataDir + "/" + fileName;
-        fileLoaded = fileService.loadMetricsFile(metricsFile, fileHeader, stmt);
+        fileLoaded = fileService.loadMetricsFile(fileName, fileHeader, stmt);
     }
     
 }

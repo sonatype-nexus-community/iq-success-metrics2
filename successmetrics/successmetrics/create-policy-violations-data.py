@@ -8,10 +8,8 @@ iqurl = sys.argv[1]
 iquser = sys.argv[2]
 iqpwd = sys.argv[3]
 
-outputdir = 'datafiles'
-
-jsonfile = '{}/{}'.format(outputdir, 'policyviolations.json')
-csvfile = '{}/{}'.format(outputdir, 'policyviolations.csv')
+jsonfile = 'policyviolations.json'
+csvfile = 'policyviolations.csv'
 
 def getNexusIqData(api):
 	url = "{}{}" . format(iqurl, api)
