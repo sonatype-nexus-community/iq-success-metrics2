@@ -26,32 +26,43 @@ cd success-metrics
  
  * Open a command prompt and run 
 
-
 ```
-Windows: create-datafiles.bat <iq-host-url> <iq-username> <iq-password> <period-file>
-Linux: create-datafiles.sh <iq-host-url> <iq-username> <iq-password> <period-file>
+Windows: createfile-successmetrics.bat <iq-host-url> <iq-username> <iq-password> <period-file>
+Linux: createfile-successmetrics.sh <iq-host-url> <iq-username> <iq-password> <period-file>
 
 iq-host-url - your Nexus IQ Url, but with no backslash at the end
 iq-username - your Nexus IQ user name that has access to data set you'd like to report on
 iq-password - your Nexus IQ password
 period-file - weekly.json or monthly.json
 
-Example (Windows):  create-datafiles.bat http://localhost:8070 admin admin123 monthly.json
+Example (Windows):  createfile-successmetrics.bat http://localhost:8070 admin admin123 monthly.json
 ```
 
 The script will create a file called *successmetrics.csv*. We suggest opening the file and check to ensure it contains metrics data.
 
-If you have python3 available, the script will detect it and produce additonal data files for reporting. 
+If you have python3 available, you can run the following scriptto produce additonal data files for reporting, all of which will be read by the app on startup.
+
+```
+Windows: create-datafiles.bat <iq-host-url> <iq-username> <iq-password>
+Linux: create-datafiles.sh <iq-host-url> <iq-username> <iq-password>
+
+iq-host-url - your Nexus IQ Url, but with no backslash at the end
+iq-username - your Nexus IQ user name that has access to data set you'd like to report on
+iq-password - your Nexus IQ password
+
+Example (Windows):  createfiles-metrics.bat http://localhost:8070 admin admin123
+```
+
 These additional files include a list of policy violations, applications scanned last date, list of components in quarantine (nxrm3) and list of waivers.
 
-All files are created in a sub-directory called *datafiles* from where the app will find them.
+All files are created in the current directory from where the app will find them.
 
 
 **Start the reporting app**
    
    This app is a simple web app running by default on port 4040. 
    
-   By default, the app looks for the data to load in the file *datafiles/successmetrics.csv* from the current directory
+   By default, the app looks for the data to load in the the current directory
 
    You only need to keep the app running long enough to review the reports and print them to PDF
 
