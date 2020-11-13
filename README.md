@@ -40,7 +40,7 @@ Example (Windows):  createfile-successmetrics.bat http://localhost:8070 admin ad
 
 The script will create a file called *successmetrics.csv*. We suggest opening the file and check to ensure it contains metrics data.
 
-If you have python3 available, you can run the following scriptto produce additonal data files for reporting, all of which will be read by the app on startup.
+If you have python3 available, you can run the following script to produce additonal data files for reporting, all of which will be read by the app on startup.
 
 ```
 Windows: create-datafiles.bat <iq-host-url> <iq-username> <iq-password>
@@ -53,9 +53,9 @@ iq-password - your Nexus IQ password
 Example (Windows):  createfiles-metrics.bat http://localhost:8070 admin admin123
 ```
 
-These additional files include a list of policy violations, applications scanned last date, list of components in quarantine (nxrm3) and list of waivers.
+These additional files include list of policy violations, applications scanned last date, list of components in quarantine (nxrm3) and list of waivers.
 
-All files are created in the current directory from where the app will find them.
+All files are created in the current directory.
 
 
 **Start the reporting app**
