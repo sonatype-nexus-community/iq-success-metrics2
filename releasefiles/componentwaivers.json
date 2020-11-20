@@ -1,0 +1,969 @@
+{
+    "applicationWaivers": [
+        {
+            "application": {
+                "id": "2c18505a8f8b4e19993dbfb9790adacf",
+                "publicId": "demo-scan",
+                "name": "ademo-scan",
+                "organizationId": "79c9460fb3ee46858c73e972252e3847",
+                "contactUserName": null
+            },
+            "stages": [
+                {
+                    "stageId": "build",
+                    "componentPolicyViolations": [
+                        {
+                            "component": {
+                                "packageUrl": "pkg:maven/Log4j/log4j@1.2.17?type=jar",
+                                "hash": "5af35056b4d257e4b64b",
+                                "componentIdentifier": {
+                                    "format": "maven",
+                                    "coordinates": {
+                                        "artifactId": "log4j",
+                                        "classifier": "",
+                                        "extension": "jar",
+                                        "groupId": "Log4j",
+                                        "version": "1.2.17"
+                                    }
+                                },
+                                "displayName": "Log4j : log4j : 1.2.17"
+                            },
+                            "waivedPolicyViolations": [
+                                {
+                                    "policyId": "0f48e950d8364c90b6aeb883bb0bde5f",
+                                    "policyName": "Security-Critical",
+                                    "policyViolationId": "94b4960d4ca64a3fa19f7fbb9d8f7b27",
+                                    "threatLevel": 10,
+                                    "constraintViolations": [
+                                        {
+                                            "constraintId": "222eadb6b90f42c895f6cd5013f1e21d",
+                                            "constraintName": "Critical risk CVSS score",
+                                            "reasons": [
+                                                {
+                                                    "reason": "Found security vulnerability CVE-2019-17571 with severity >= 9 (severity = 9.8)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "CVE-2019-17571"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "policyWaiver": {
+                                        "policyWaiverId": "7dc21bf59b2b46bf91aecb165d58e6be",
+                                        "comment": "",
+                                        "createTime": "2020-11-13T12:15:16.727+0000",
+                                        "isObsolete": false,
+                                        "scopeOwnerType": "application",
+                                        "scopeOwnerId": "2c18505a8f8b4e19993dbfb9790adacf",
+                                        "scopeOwnerName": "ademo-scan",
+                                        "hash": "5af35056b4d257e4b64b",
+                                        "policyId": "0f48e950d8364c90b6aeb883bb0bde5f"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "component": {
+                                "packageUrl": "pkg:maven/hsqldb/hsqldb@1.8.0.7?type=jar",
+                                "hash": "20554954120b3cc9f088",
+                                "componentIdentifier": {
+                                    "format": "maven",
+                                    "coordinates": {
+                                        "artifactId": "hsqldb",
+                                        "classifier": "",
+                                        "extension": "jar",
+                                        "groupId": "hsqldb",
+                                        "version": "1.8.0.7"
+                                    }
+                                },
+                                "displayName": "hsqldb : hsqldb : 1.8.0.7"
+                            },
+                            "waivedPolicyViolations": [
+                                {
+                                    "policyId": "0f48e950d8364c90b6aeb883bb0bde5f",
+                                    "policyName": "Security-Critical",
+                                    "policyViolationId": "48337dd1cf984537a056df82131db7fb",
+                                    "threatLevel": 10,
+                                    "constraintViolations": [
+                                        {
+                                            "constraintId": "222eadb6b90f42c895f6cd5013f1e21d",
+                                            "constraintName": "Critical risk CVSS score",
+                                            "reasons": [
+                                                {
+                                                    "reason": "Found security vulnerability CVE-2007-4575 with severity >= 9 (severity = 9.3)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "CVE-2007-4575"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "policyWaiver": {
+                                        "policyWaiverId": "c7a1eb587d274421b5d08c8e88826ff2",
+                                        "comment": "",
+                                        "createTime": "2020-11-11T11:23:21.963+0000",
+                                        "isObsolete": false,
+                                        "scopeOwnerType": "application",
+                                        "scopeOwnerId": "2c18505a8f8b4e19993dbfb9790adacf",
+                                        "scopeOwnerName": "ademo-scan",
+                                        "hash": "20554954120b3cc9f088",
+                                        "policyId": "0f48e950d8364c90b6aeb883bb0bde5f"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "component": {
+                                "packageUrl": "pkg:maven/apache-collections/commons-collections@3.1?type=jar",
+                                "hash": "40fb048097caeacdb11d",
+                                "componentIdentifier": {
+                                    "format": "maven",
+                                    "coordinates": {
+                                        "artifactId": "commons-collections",
+                                        "classifier": "",
+                                        "extension": "jar",
+                                        "groupId": "apache-collections",
+                                        "version": "3.1"
+                                    }
+                                },
+                                "displayName": "apache-collections : commons-collections : 3.1"
+                            },
+                            "waivedPolicyViolations": [
+                                {
+                                    "policyId": "0f48e950d8364c90b6aeb883bb0bde5f",
+                                    "policyName": "Security-Critical",
+                                    "policyViolationId": "f29cf8bfb8004319b314fde64ec00a25",
+                                    "threatLevel": 10,
+                                    "constraintViolations": [
+                                        {
+                                            "constraintId": "222eadb6b90f42c895f6cd5013f1e21d",
+                                            "constraintName": "Critical risk CVSS score",
+                                            "reasons": [
+                                                {
+                                                    "reason": "Found security vulnerability sonatype-2015-0002 with severity >= 9 (severity = 9.0)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "sonatype-2015-0002"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "policyWaiver": {
+                                        "policyWaiverId": "627eb9f5ca274ce4b554e0322b37cd9f",
+                                        "comment": "My top waiver",
+                                        "createTime": "2020-11-04T11:32:19.244+0000",
+                                        "isObsolete": false,
+                                        "scopeOwnerType": "organization",
+                                        "scopeOwnerId": "79c9460fb3ee46858c73e972252e3847",
+                                        "scopeOwnerName": "OrgA",
+                                        "hash": "40fb048097caeacdb11d",
+                                        "policyId": "0f48e950d8364c90b6aeb883bb0bde5f"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "component": {
+                                "packageUrl": "pkg:maven/commons-fileupload/commons-fileupload@1.2.2?type=jar",
+                                "hash": "1e48256a2341047e7d72",
+                                "componentIdentifier": {
+                                    "format": "maven",
+                                    "coordinates": {
+                                        "artifactId": "commons-fileupload",
+                                        "classifier": "",
+                                        "extension": "jar",
+                                        "groupId": "commons-fileupload",
+                                        "version": "1.2.2"
+                                    }
+                                },
+                                "displayName": "commons-fileupload : commons-fileupload : 1.2.2"
+                            },
+                            "waivedPolicyViolations": [
+                                {
+                                    "policyId": "4d70696b6abb40eaa9cc792c28666071",
+                                    "policyName": "Security-High",
+                                    "policyViolationId": "b5e9807d5f46475cbcc44b34928e30cf",
+                                    "threatLevel": 9,
+                                    "constraintViolations": [
+                                        {
+                                            "constraintId": "50f6b66de6f9494cad7b770873f56aff",
+                                            "constraintName": "High risk CVSS score",
+                                            "reasons": [
+                                                {
+                                                    "reason": "Found security vulnerability CVE-2013-2186 with severity >= 7 (severity = 7.5)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "CVE-2013-2186"
+                                                    }
+                                                },
+                                                {
+                                                    "reason": "Found security vulnerability CVE-2013-2186 with severity < 9 (severity = 7.5)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "CVE-2013-2186"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "policyWaiver": {
+                                        "policyWaiverId": "152e6ed758eb4c408f2c3963ba40fb3e",
+                                        "comment": "Found security vulnerability CVE-2013-2186 with severity >= 7 (severity = 7.5)\n14 days",
+                                        "createTime": "2020-11-06T09:33:06.624+0000",
+                                        "expiryTime": "2020-11-20T23:59:59.999+0000",
+                                        "isObsolete": false,
+                                        "scopeOwnerType": "application",
+                                        "scopeOwnerId": "2c18505a8f8b4e19993dbfb9790adacf",
+                                        "scopeOwnerName": "ademo-scan",
+                                        "hash": "1e48256a2341047e7d72",
+                                        "policyId": "4d70696b6abb40eaa9cc792c28666071"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "application": {
+                "id": "03bd129ca1ed4ae7bfe8e60d6c8b007d",
+                "publicId": "smproto",
+                "name": "smproto",
+                "organizationId": "13479537d9074576b0e47fe8e32749a0",
+                "contactUserName": null
+            },
+            "stages": [
+                {
+                    "stageId": "build",
+                    "componentPolicyViolations": [
+                        {
+                            "component": {
+                                "packageUrl": "pkg:maven/me.yogendra/api-demo@1.0.0?type=jar",
+                                "hash": "9ba5beeaf4ecc27cb5c8",
+                                "componentIdentifier": {
+                                    "format": "maven",
+                                    "coordinates": {
+                                        "artifactId": "api-demo",
+                                        "classifier": "",
+                                        "extension": "jar",
+                                        "groupId": "me.yogendra",
+                                        "version": "1.0.0"
+                                    }
+                                },
+                                "displayName": "me.yogendra : api-demo : 1.0.0"
+                            },
+                            "waivedPolicyViolations": [
+                                {
+                                    "policyId": "5966d38efa674a61a462de40f77f585f",
+                                    "policyName": "Security-Critical",
+                                    "policyViolationId": "c8ceb229766a40da83addd6859165983",
+                                    "threatLevel": 10,
+                                    "constraintViolations": [
+                                        {
+                                            "constraintId": "42d599ebf09e4bc8814615facb4c00ee",
+                                            "constraintName": "Critical risk CVSS score",
+                                            "reasons": [
+                                                {
+                                                    "reason": "Found security vulnerability CVE-2016-1000027 with severity >= 9 (severity = 9.8)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "CVE-2016-1000027"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "policyWaiver": {
+                                        "comment": "Related policy waiver not found. Please re-evaluate.",
+                                        "isObsolete": true,
+                                        "hash": null,
+                                        "policyId": null
+                                    }
+                                },
+                                {
+                                    "policyId": "5966d38efa674a61a462de40f77f585f",
+                                    "policyName": "Security-Critical",
+                                    "policyViolationId": "9c38ae0a1f9940f3afc876c443c2932a",
+                                    "threatLevel": 10,
+                                    "constraintViolations": [
+                                        {
+                                            "constraintId": "42d599ebf09e4bc8814615facb4c00ee",
+                                            "constraintName": "Critical risk CVSS score",
+                                            "reasons": [
+                                                {
+                                                    "reason": "Found security vulnerability CVE-2020-10683 with severity >= 9 (severity = 9.8)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "CVE-2020-10683"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "policyWaiver": {
+                                        "comment": "Related policy waiver not found. Please re-evaluate.",
+                                        "isObsolete": true,
+                                        "hash": null,
+                                        "policyId": null
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "application": {
+                "id": "f94f0d15c6b242fbac2e8b2989b43764",
+                "publicId": "webgoat",
+                "name": "awebgoat",
+                "organizationId": "79c9460fb3ee46858c73e972252e3847",
+                "contactUserName": null
+            },
+            "stages": [
+                {
+                    "stageId": "build",
+                    "componentPolicyViolations": [
+                        {
+                            "component": {
+                                "packageUrl": "pkg:maven/hsqldb/hsqldb@1.8.0.7?type=jar",
+                                "hash": "20554954120b3cc9f088",
+                                "componentIdentifier": {
+                                    "format": "maven",
+                                    "coordinates": {
+                                        "artifactId": "hsqldb",
+                                        "classifier": "",
+                                        "extension": "jar",
+                                        "groupId": "hsqldb",
+                                        "version": "1.8.0.7"
+                                    }
+                                },
+                                "displayName": "hsqldb : hsqldb : 1.8.0.7"
+                            },
+                            "waivedPolicyViolations": [
+                                {
+                                    "policyId": "a9b454f38de44603bcf0abba76d23b2a",
+                                    "policyName": "Security-Critical",
+                                    "policyViolationId": "9fc6feb12dab4849b2884b5c6d1bb12b",
+                                    "threatLevel": 10,
+                                    "constraintViolations": [
+                                        {
+                                            "constraintId": "65a43e7a7e0548d8b2fa94153c192a53",
+                                            "constraintName": "Critical risk CVSS score",
+                                            "reasons": [
+                                                {
+                                                    "reason": "Found security vulnerability CVE-2007-4575 with severity >= 9 (severity = 9.3)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "CVE-2007-4575"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "policyWaiver": {
+                                        "comment": "Related policy waiver not found. Please re-evaluate.",
+                                        "isObsolete": true,
+                                        "hash": null,
+                                        "policyId": null
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "application": {
+                "id": "b47a2533598f48d892348f56284d1192",
+                "publicId": "webgoat-legacy-ci",
+                "name": "webgoat-legacy-ci",
+                "organizationId": "6d7b5653bcf94bda95ba3bd61167d904",
+                "contactUserName": null
+            },
+            "stages": [
+                {
+                    "stageId": "build",
+                    "componentPolicyViolations": [
+                        {
+                            "component": {
+                                "packageUrl": "pkg:a-name/org.webjars%20angular-ui-bootstrap@0.11.0",
+                                "hash": "7ed83d6b9c78bf0880d4",
+                                "componentIdentifier": {
+                                    "format": "a-name",
+                                    "coordinates": {
+                                        "name": "org.webjars angular-ui-bootstrap",
+                                        "qualifier": "",
+                                        "version": "0.11.0"
+                                    }
+                                },
+                                "displayName": "org.webjars angular-ui-bootstrap 0.11.0"
+                            },
+                            "waivedPolicyViolations": [
+                                {
+                                    "policyId": "6b0cbcb82ecd44359ea33453d5c5d4cf",
+                                    "policyName": "Security-Medium",
+                                    "policyViolationId": "8edf1b43c3ea44eea60588a7429e9f7d",
+                                    "threatLevel": 7,
+                                    "constraintViolations": [
+                                        {
+                                            "constraintId": "98f23f62db324f8282bd52690c13cf8e",
+                                            "constraintName": "Medium risk CVSS score",
+                                            "reasons": [
+                                                {
+                                                    "reason": "Found security vulnerability sonatype-2015-0115 with severity >= 4 (severity = 6.5)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "sonatype-2015-0115"
+                                                    }
+                                                },
+                                                {
+                                                    "reason": "Found security vulnerability sonatype-2015-0115 with severity < 7 (severity = 6.5)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "sonatype-2015-0115"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "policyWaiver": {
+                                        "comment": "Related policy waiver not found. Please re-evaluate.",
+                                        "isObsolete": true,
+                                        "hash": null,
+                                        "policyId": null
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "component": {
+                                "packageUrl": "pkg:maven/javax.servlet/jstl@1.2?type=jar",
+                                "hash": "74aca283cd4f4b4f3e42",
+                                "componentIdentifier": {
+                                    "format": "maven",
+                                    "coordinates": {
+                                        "artifactId": "jstl",
+                                        "classifier": "",
+                                        "extension": "jar",
+                                        "groupId": "javax.servlet",
+                                        "version": "1.2"
+                                    }
+                                },
+                                "displayName": "javax.servlet : jstl : 1.2"
+                            },
+                            "waivedPolicyViolations": [
+                                {
+                                    "policyId": "c42910c7d01f4e94b6086efb7b3de4ab",
+                                    "policyName": "Security-High",
+                                    "policyViolationId": "640aa63c0098491d94e8d56e894de61f",
+                                    "threatLevel": 9,
+                                    "constraintViolations": [
+                                        {
+                                            "constraintId": "98ffa14a17004f7aab8d764753afb167",
+                                            "constraintName": "High risk CVSS score",
+                                            "reasons": [
+                                                {
+                                                    "reason": "Found security vulnerability CVE-2015-0254 with severity >= 7 (severity = 7.5)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "CVE-2015-0254"
+                                                    }
+                                                },
+                                                {
+                                                    "reason": "Found security vulnerability CVE-2015-0254 with severity < 9 (severity = 7.5)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "CVE-2015-0254"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "policyWaiver": {
+                                        "comment": "Related policy waiver not found. Please re-evaluate.",
+                                        "isObsolete": true,
+                                        "hash": null,
+                                        "policyId": null
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "component": {
+                                "packageUrl": "pkg:maven/org.springframework.security/spring-security-web@3.2.4.RELEASE?type=jar",
+                                "hash": "197d803ab63dd3523d9d",
+                                "componentIdentifier": {
+                                    "format": "maven",
+                                    "coordinates": {
+                                        "artifactId": "spring-security-web",
+                                        "classifier": "",
+                                        "extension": "jar",
+                                        "groupId": "org.springframework.security",
+                                        "version": "3.2.4.RELEASE"
+                                    }
+                                },
+                                "displayName": "org.springframework.security : spring-security-web : 3.2.4.RELEASE"
+                            },
+                            "waivedPolicyViolations": [
+                                {
+                                    "policyId": "c42910c7d01f4e94b6086efb7b3de4ab",
+                                    "policyName": "Security-High",
+                                    "policyViolationId": "6db4cbf29dca4e789d700d0ee25cc646",
+                                    "threatLevel": 9,
+                                    "constraintViolations": [
+                                        {
+                                            "constraintId": "98ffa14a17004f7aab8d764753afb167",
+                                            "constraintName": "High risk CVSS score",
+                                            "reasons": [
+                                                {
+                                                    "reason": "Found security vulnerability CVE-2016-9879 with severity >= 7 (severity = 7.5)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "CVE-2016-9879"
+                                                    }
+                                                },
+                                                {
+                                                    "reason": "Found security vulnerability CVE-2016-9879 with severity < 9 (severity = 7.5)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "CVE-2016-9879"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "policyWaiver": {
+                                        "comment": "Related policy waiver not found. Please re-evaluate.",
+                                        "isObsolete": true,
+                                        "hash": null,
+                                        "policyId": null
+                                    }
+                                },
+                                {
+                                    "policyId": "c42910c7d01f4e94b6086efb7b3de4ab",
+                                    "policyName": "Security-High",
+                                    "policyViolationId": "3c5ea844de724657afdac5369005b4d3",
+                                    "threatLevel": 9,
+                                    "constraintViolations": [
+                                        {
+                                            "constraintId": "98ffa14a17004f7aab8d764753afb167",
+                                            "constraintName": "High risk CVSS score",
+                                            "reasons": [
+                                                {
+                                                    "reason": "Found security vulnerability sonatype-2017-0641 with severity >= 7 (severity = 7.1)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "sonatype-2017-0641"
+                                                    }
+                                                },
+                                                {
+                                                    "reason": "Found security vulnerability sonatype-2017-0641 with severity < 9 (severity = 7.1)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "sonatype-2017-0641"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "policyWaiver": {
+                                        "comment": "Related policy waiver not found. Please re-evaluate.",
+                                        "isObsolete": true,
+                                        "hash": null,
+                                        "policyId": null
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "application": {
+                "id": "eede4dc6c1ec4d01a06384ead39bf141",
+                "publicId": "webgoat-w1",
+                "name": "webgoat-w1",
+                "organizationId": "6d7b5653bcf94bda95ba3bd61167d904",
+                "contactUserName": null
+            },
+            "stages": [
+                {
+                    "stageId": "build",
+                    "componentPolicyViolations": [
+                        {
+                            "component": {
+                                "packageUrl": "pkg:maven/apache-collections/commons-collections@3.1?type=jar",
+                                "hash": "40fb048097caeacdb11d",
+                                "componentIdentifier": {
+                                    "format": "maven",
+                                    "coordinates": {
+                                        "artifactId": "commons-collections",
+                                        "classifier": "",
+                                        "extension": "jar",
+                                        "groupId": "apache-collections",
+                                        "version": "3.1"
+                                    }
+                                },
+                                "displayName": "apache-collections : commons-collections : 3.1"
+                            },
+                            "waivedPolicyViolations": [
+                                {
+                                    "policyId": "0f48e950d8364c90b6aeb883bb0bde5f",
+                                    "policyName": "Security-Critical",
+                                    "policyViolationId": "38120843429f408a9cb387b204732f49",
+                                    "threatLevel": 10,
+                                    "constraintViolations": [
+                                        {
+                                            "constraintId": "222eadb6b90f42c895f6cd5013f1e21d",
+                                            "constraintName": "Critical risk CVSS score",
+                                            "reasons": [
+                                                {
+                                                    "reason": "Found security vulnerability sonatype-2015-0002 with severity >= 9 (severity = 9.0)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "sonatype-2015-0002"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "policyWaiver": {
+                                        "policyWaiverId": "3c79e11730da47289c82109c7cc29019",
+                                        "comment": "This is waiver for the webgoat w1 project",
+                                        "createTime": "2020-10-20T13:50:12.124+0000",
+                                        "isObsolete": false,
+                                        "scopeOwnerType": "application",
+                                        "scopeOwnerId": "eede4dc6c1ec4d01a06384ead39bf141",
+                                        "scopeOwnerName": "webgoat-w1",
+                                        "hash": "40fb048097caeacdb11d",
+                                        "policyId": "0f48e950d8364c90b6aeb883bb0bde5f"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "application": {
+                "id": "2db21f1a86b54bc5ae51e36e75e1dec2",
+                "publicId": "webgoat6",
+                "name": "webgoat6",
+                "organizationId": "4ee6bdf80f0a4fc8958d5d1a0c0af079",
+                "contactUserName": null
+            },
+            "stages": [
+                {
+                    "stageId": "build",
+                    "componentPolicyViolations": [
+                        {
+                            "component": {
+                                "packageUrl": "pkg:maven/commons-fileupload/commons-fileupload@1.2.2?type=jar",
+                                "hash": "1e48256a2341047e7d72",
+                                "componentIdentifier": {
+                                    "format": "maven",
+                                    "coordinates": {
+                                        "artifactId": "commons-fileupload",
+                                        "classifier": "",
+                                        "extension": "jar",
+                                        "groupId": "commons-fileupload",
+                                        "version": "1.2.2"
+                                    }
+                                },
+                                "displayName": "commons-fileupload : commons-fileupload : 1.2.2"
+                            },
+                            "waivedPolicyViolations": [
+                                {
+                                    "policyId": "0f48e950d8364c90b6aeb883bb0bde5f",
+                                    "policyName": "Security-Critical",
+                                    "policyViolationId": "51d54ca4f2f140689746c7f8c4039a16",
+                                    "threatLevel": 10,
+                                    "constraintViolations": [
+                                        {
+                                            "constraintId": "222eadb6b90f42c895f6cd5013f1e21d",
+                                            "constraintName": "Critical risk CVSS score",
+                                            "reasons": [
+                                                {
+                                                    "reason": "Found security vulnerability CVE-2016-1000031 with severity >= 9 (severity = 9.8)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "CVE-2016-1000031"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "policyWaiver": {
+                                        "comment": "Related policy waiver not found. Please re-evaluate.",
+                                        "isObsolete": true,
+                                        "hash": null,
+                                        "policyId": null
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "application": {
+                "id": "63716745601f473795238315894d94e6",
+                "publicId": "webgoaty",
+                "name": "bwebgoaty",
+                "organizationId": "6151c71649a145de942ee35a217d975b",
+                "contactUserName": null
+            },
+            "stages": [
+                {
+                    "stageId": "build",
+                    "componentPolicyViolations": [
+                        {
+                            "component": {
+                                "packageUrl": "pkg:maven/hsqldb/hsqldb@1.8.0.7?type=jar",
+                                "hash": "20554954120b3cc9f088",
+                                "componentIdentifier": {
+                                    "format": "maven",
+                                    "coordinates": {
+                                        "artifactId": "hsqldb",
+                                        "classifier": "",
+                                        "extension": "jar",
+                                        "groupId": "hsqldb",
+                                        "version": "1.8.0.7"
+                                    }
+                                },
+                                "displayName": "hsqldb : hsqldb : 1.8.0.7"
+                            },
+                            "waivedPolicyViolations": [
+                                {
+                                    "policyId": "5966d38efa674a61a462de40f77f585f",
+                                    "policyName": "Security-Critical",
+                                    "policyViolationId": "d6177566b9ea4a8d9fe123db0c5d4127",
+                                    "threatLevel": 10,
+                                    "constraintViolations": [
+                                        {
+                                            "constraintId": "42d599ebf09e4bc8814615facb4c00ee",
+                                            "constraintName": "Critical risk CVSS score",
+                                            "reasons": [
+                                                {
+                                                    "reason": "Found security vulnerability CVE-2007-4575 with severity >= 9 (severity = 9.3)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "CVE-2007-4575"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "policyWaiver": {
+                                        "comment": "Related policy waiver not found. Please re-evaluate.",
+                                        "isObsolete": true,
+                                        "hash": null,
+                                        "policyId": null
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "component": {
+                                "packageUrl": "pkg:maven/apache-collections/commons-collections@3.1?type=jar",
+                                "hash": "40fb048097caeacdb11d",
+                                "componentIdentifier": {
+                                    "format": "maven",
+                                    "coordinates": {
+                                        "artifactId": "commons-collections",
+                                        "classifier": "",
+                                        "extension": "jar",
+                                        "groupId": "apache-collections",
+                                        "version": "3.1"
+                                    }
+                                },
+                                "displayName": "apache-collections : commons-collections : 3.1"
+                            },
+                            "waivedPolicyViolations": [
+                                {
+                                    "policyId": "5966d38efa674a61a462de40f77f585f",
+                                    "policyName": "Security-Critical",
+                                    "policyViolationId": "3b0ac78dd68a45d4af2b5503731b8ce8",
+                                    "threatLevel": 10,
+                                    "constraintViolations": [
+                                        {
+                                            "constraintId": "42d599ebf09e4bc8814615facb4c00ee",
+                                            "constraintName": "Critical risk CVSS score",
+                                            "reasons": [
+                                                {
+                                                    "reason": "Found security vulnerability sonatype-2015-0002 with severity >= 9 (severity = 9.0)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "sonatype-2015-0002"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "policyWaiver": {
+                                        "comment": "Related policy waiver not found. Please re-evaluate.",
+                                        "isObsolete": true,
+                                        "hash": null,
+                                        "policyId": null
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "component": {
+                                "packageUrl": "pkg:maven/commons-fileupload/commons-fileupload@1.2.2?type=jar",
+                                "hash": "1e48256a2341047e7d72",
+                                "componentIdentifier": {
+                                    "format": "maven",
+                                    "coordinates": {
+                                        "artifactId": "commons-fileupload",
+                                        "classifier": "",
+                                        "extension": "jar",
+                                        "groupId": "commons-fileupload",
+                                        "version": "1.2.2"
+                                    }
+                                },
+                                "displayName": "commons-fileupload : commons-fileupload : 1.2.2"
+                            },
+                            "waivedPolicyViolations": [
+                                {
+                                    "policyId": "5966d38efa674a61a462de40f77f585f",
+                                    "policyName": "Security-Critical",
+                                    "policyViolationId": "22148c9700304e39a4441ca0e2e96be0",
+                                    "threatLevel": 10,
+                                    "constraintViolations": [
+                                        {
+                                            "constraintId": "42d599ebf09e4bc8814615facb4c00ee",
+                                            "constraintName": "Critical risk CVSS score",
+                                            "reasons": [
+                                                {
+                                                    "reason": "Found security vulnerability CVE-2016-1000031 with severity >= 9 (severity = 9.8)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "CVE-2016-1000031"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "policyWaiver": {
+                                        "comment": "Related policy waiver not found. Please re-evaluate.",
+                                        "isObsolete": true,
+                                        "hash": null,
+                                        "policyId": null
+                                    }
+                                },
+                                {
+                                    "policyId": "c42910c7d01f4e94b6086efb7b3de4ab",
+                                    "policyName": "Security-High",
+                                    "policyViolationId": "7324ac916beb4c0797d36357d31aec4e",
+                                    "threatLevel": 9,
+                                    "constraintViolations": [
+                                        {
+                                            "constraintId": "98ffa14a17004f7aab8d764753afb167",
+                                            "constraintName": "High risk CVSS score",
+                                            "reasons": [
+                                                {
+                                                    "reason": "Found security vulnerability CVE-2013-2186 with severity >= 7 (severity = 7.5)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "CVE-2013-2186"
+                                                    }
+                                                },
+                                                {
+                                                    "reason": "Found security vulnerability CVE-2013-2186 with severity < 9 (severity = 7.5)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "CVE-2013-2186"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "policyWaiver": {
+                                        "comment": "Related policy waiver not found. Please re-evaluate.",
+                                        "isObsolete": true,
+                                        "hash": null,
+                                        "policyId": null
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "repositoryWaivers": [
+        {
+            "repository": {
+                "repositoryId": "b635d81e1db948fb9515b14ff0ca01b6",
+                "publicId": "maven-central",
+                "format": "maven2"
+            },
+            "stages": [
+                {
+                    "stageId": "proxy",
+                    "componentPolicyViolations": [
+                        {
+                            "component": {
+                                "packageUrl": "pkg:maven/io.netty/netty-codec-http@4.1.16.Final?type=jar",
+                                "hash": "d64312378b438dfdad84",
+                                "componentIdentifier": {
+                                    "format": "maven",
+                                    "coordinates": {
+                                        "artifactId": "netty-codec-http",
+                                        "classifier": "",
+                                        "extension": "jar",
+                                        "groupId": "io.netty",
+                                        "version": "4.1.16.Final"
+                                    }
+                                },
+                                "displayName": "io.netty : netty-codec-http : 4.1.16.Final"
+                            },
+                            "waivedPolicyViolations": [
+                                {
+                                    "policyId": "a9b454f38de44603bcf0abba76d23b2a",
+                                    "policyName": "Security-Critical",
+                                    "policyViolationId": "f6520b585529449d8145df7eafef15c9",
+                                    "threatLevel": 10,
+                                    "constraintViolations": [
+                                        {
+                                            "constraintId": "65a43e7a7e0548d8b2fa94153c192a53",
+                                            "constraintName": "Critical risk CVSS score",
+                                            "reasons": [
+                                                {
+                                                    "reason": "Found security vulnerability CVE-2019-20444 with severity >= 9 (severity = 9.1)",
+                                                    "reference": {
+                                                        "type": "SECURITY_VULNERABILITY_REFID",
+                                                        "value": "CVE-2019-20444"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ],
+                                    "policyWaiver": {
+                                        "comment": "Related policy waiver not found. Please re-evaluate.",
+                                        "isObsolete": true,
+                                        "hash": null,
+                                        "policyId": null
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

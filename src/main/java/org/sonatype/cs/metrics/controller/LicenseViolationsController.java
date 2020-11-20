@@ -27,13 +27,13 @@ public class LicenseViolationsController {
 
         List<DbRow> LicenseViolations = dataService.runSql(SqlStatement.LicenseViolations);
         List<DbRow> discoveredLicenseViolations = dataService.runSql(SqlStatement.DiscoveredLicenseViolations);
-        List<DbRow> openLicenseViolations = dataService.runSql(SqlStatement.OpenLicenseViolations);
+        //List<DbRow> openLicenseViolations = dataService.runSql(SqlStatement.OpenLicenseViolations);
         List<DbRow> fixedLicenseViolations = dataService.runSql(SqlStatement.FixedLicenseViolations);
         List<DbRow> waivedLicenseViolations = dataService.runSql(SqlStatement.WaivedLicenseViolations);
 
         model.addAttribute("LicenseViolations", LicenseViolations);
         model.addAttribute("discoveredLicenseViolations", discoveredLicenseViolations);
-        model.addAttribute("openLicenseViolations", openLicenseViolations);
+        //model.addAttribute("openLicenseViolations", openLicenseViolations);
 		model.addAttribute("fixedLicenseViolations", fixedLicenseViolations);
 		model.addAttribute("waivedLicenseViolations", waivedLicenseViolations);
 

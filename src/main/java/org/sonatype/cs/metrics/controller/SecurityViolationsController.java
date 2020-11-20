@@ -27,13 +27,13 @@ public class SecurityViolationsController {
 
         List<DbRow> securityViolations = dataService.runSql(SqlStatement.SecurityViolations);
         List<DbRow> discoveredSecurityViolations = dataService.runSql(SqlStatement.DiscoveredSecurityViolations);
-        List<DbRow> openSecurityViolations = dataService.runSql(SqlStatement.OpenSecurityViolations);
+        //List<DbRow> openSecurityViolations = dataService.runSql(SqlStatement.OpenSecurityViolations);
         List<DbRow> fixedSecurityViolations = dataService.runSql(SqlStatement.FixedSecurityViolations);
         List<DbRow> waivedSecurityViolations = dataService.runSql(SqlStatement.WaivedSecurityViolations);
 
         model.addAttribute("securityViolations", securityViolations);
         model.addAttribute("discoveredSecurityViolations", discoveredSecurityViolations);
-        model.addAttribute("openSecurityViolations", openSecurityViolations);
+        //model.addAttribute("openSecurityViolations", openSecurityViolations);
 		model.addAttribute("fixedSecurityViolations", fixedSecurityViolations);
 		model.addAttribute("waivedSecurityViolations", waivedSecurityViolations);
 

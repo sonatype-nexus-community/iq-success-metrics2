@@ -51,22 +51,18 @@ public class UnsignedController {
 		model.addAttribute("numberOfApplicationsScannedAvg", sumAndAveragePointA(numberOfApplicationsScanned));
 
         DbRow discoveredSecurityViolationsTotals = dataService.runSql(SqlStatement.DiscoveredSecurityViolationsTotals).get(0);
-        DbRow openSecurityViolationsTotals = dataService.runSql(SqlStatement.OpenSecurityViolationsTotals).get(0);
         DbRow fixedSecurityViolationsTotals = dataService.runSql(SqlStatement.FixedSecurityViolationsTotals).get(0);
         DbRow waivedSecurityViolationsTotals = dataService.runSql(SqlStatement.WaivedSecurityViolationsTotals).get(0);
 
         model.addAttribute("discoveredSecurityViolationsTotals", discoveredSecurityViolationsTotals);
-        model.addAttribute("openSecurityViolationsTotals", openSecurityViolationsTotals);
         model.addAttribute("fixedSecurityViolationsTotals", fixedSecurityViolationsTotals);
         model.addAttribute("waivedSecurityViolationsTotals", waivedSecurityViolationsTotals);
 
         DbRow discoveredLicenseViolationsTotals = dataService.runSql(SqlStatement.DiscoveredLicenseViolationsTotals).get(0);
-        DbRow openLicenseViolationsTotals = dataService.runSql(SqlStatement.OpenLicenseViolationsTotals).get(0);
         DbRow fixedLicenseViolationsTotals = dataService.runSql(SqlStatement.FixedLicenseViolationsTotals).get(0);
         DbRow waivedLicenseViolationsTotals = dataService.runSql(SqlStatement.WaivedLicenseViolationsTotals).get(0);
 
         model.addAttribute("discoveredLicenseViolationsTotals", discoveredLicenseViolationsTotals);
-        model.addAttribute("openLicenseViolationsTotals", openLicenseViolationsTotals);
         model.addAttribute("fixedLicenseViolationsTotals", fixedLicenseViolationsTotals);
         model.addAttribute("waivedLicenseViolationsTotals", waivedLicenseViolationsTotals);
 
@@ -97,25 +93,21 @@ public class UnsignedController {
 
         List<DbRow> securityViolations = dataService.runSql(SqlStatement.SecurityViolations);
         List<DbRow> discoveredSecurityViolations = dataService.runSql(SqlStatement.DiscoveredSecurityViolations);
-        List<DbRow> openSecurityViolations = dataService.runSql(SqlStatement.OpenSecurityViolations);
         List<DbRow> fixedSecurityViolations = dataService.runSql(SqlStatement.FixedSecurityViolations);
         List<DbRow> waivedSecurityViolations = dataService.runSql(SqlStatement.WaivedSecurityViolations);
 
         model.addAttribute("securityViolations", securityViolations);
         model.addAttribute("discoveredSecurityViolations", discoveredSecurityViolations);
-        model.addAttribute("openSecurityViolations", openSecurityViolations);
 		model.addAttribute("fixedSecurityViolations", fixedSecurityViolations);
         model.addAttribute("waivedSecurityViolations", waivedSecurityViolations);
         
         List<DbRow> LicenseViolations = dataService.runSql(SqlStatement.LicenseViolations);
         List<DbRow> discoveredLicenseViolations = dataService.runSql(SqlStatement.DiscoveredLicenseViolations);
-        List<DbRow> openLicenseViolations = dataService.runSql(SqlStatement.OpenLicenseViolations);
         List<DbRow> fixedLicenseViolations = dataService.runSql(SqlStatement.FixedLicenseViolations);
         List<DbRow> waivedLicenseViolations = dataService.runSql(SqlStatement.WaivedLicenseViolations);
 
         model.addAttribute("LicenseViolations", LicenseViolations);
         model.addAttribute("discoveredLicenseViolations", discoveredLicenseViolations);
-        model.addAttribute("openLicenseViolations", openLicenseViolations);
 		model.addAttribute("fixedLicenseViolations", fixedLicenseViolations);
 		model.addAttribute("waivedLicenseViolations", waivedLicenseViolations);
 

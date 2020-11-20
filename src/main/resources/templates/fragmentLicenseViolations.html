@@ -17,13 +17,11 @@
 	            var pointA = entry.pointA;
 	            var pointB = entry.pointB;
 	            var pointC = entry.pointC;
-	            var pointD = entry.pointD;
 
 	            labels.push(label);
 	            dataA.push(pointA);
 	            dataB.push(pointB);
 	            dataC.push(pointC);
-	            dataD.push(pointD);
 
             }); 
             
@@ -32,7 +30,7 @@
                 dataLabels: barchartlabels,
                 grid: grid,
                 legend: legend,
-                colors: ['#0742FA', '#FA0707', '#08B005', '#900C3F'],
+                colors: ['#FA0707', '#08B005', '#F99A07'],
                 fill: fillViolationsSummary,
 
                 series: [{
@@ -40,16 +38,12 @@
                     data: dataA
                 },
                 {
-                    name: 'Open',
+                    name: 'Fixed',
                     data: dataB
                 },
                 {
-                    name: 'Fixed',
-                    data: dataC
-                },
-                {
                     name: 'Waived',
-                    data: dataD
+                    data: dataC
                 }],
                 xaxis: {
                     categories: labels,
@@ -112,53 +106,7 @@
             chart.render();
         </script>
 
-        <div id="openLicenseViolationsChart"></div>
-        <script th:inline="javascript">
-            var points = /*[[${openLicenseViolations}]]*/'noValue';
-            var dataA = [];
-            var dataB = [];
-            var dataC = [];
-
-            var labels = [];
-            
-            points.forEach(entry => {
-                labels.push(entry.label);
-                dataA.push(entry.pointA);
-                dataB.push(entry.pointB);
-                dataC.push(entry.pointC);
-            }); 
-
-            var options = {
-                chart: stackedbarchart,
-                dataLabels: barchartlabels,
-                grid: grid,
-                legend: legend,
-                colors: ['#F90707', '#F99A07', '#F9DC07'],
-                fill: fillStacked,
-                series: [{
-                    name: 'Critical',
-                    data: dataA
-                },
-                {
-                    name: 'Severe',
-                    data: dataB
-                },
-                {
-                    name: 'Moderate',
-                    data: dataC
-                }],
-                xaxis: {
-                    categories: labels,
-                },
-                title: {
-                    text: 'Open License Violations',
-                    align: 'left'
-                },
-            }
-
-            var chart = new ApexCharts(document.querySelector("#openLicenseViolationsChart"), options);
-            chart.render();
-        </script>
+        <div style="page-break-before: always;"/> 	
 
         <div id="fixedLicenseViolationsChart"></div>
         <script th:inline="javascript">

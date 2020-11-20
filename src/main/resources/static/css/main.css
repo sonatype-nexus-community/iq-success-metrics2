@@ -43,3 +43,18 @@ span {
 h5 {
     margin-left: 300px;
 }
+
+@media print {
+
+  .apexcharts-legend-marker:before {
+    content: "\25A0";
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    line-height: 12px;
+    font-size: 24px;
+  }
+
+}
+

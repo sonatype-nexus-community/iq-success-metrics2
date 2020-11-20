@@ -1,2 +1,2 @@
 
-java -jar successmetrics-4.7.jar
+java -jar successmetrics-48.jar

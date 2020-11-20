@@ -38,4 +38,9 @@ success-metrics
 ./*.json
 bin/*
 datafiles
+*.json
+
+
+
+
 
