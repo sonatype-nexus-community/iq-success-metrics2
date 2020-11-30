@@ -1,2 +1,2 @@
 
-java -jar successmetrics-49.jar
+java -jar successmetrics-50.jar
