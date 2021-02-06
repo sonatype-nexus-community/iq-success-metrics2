@@ -60,10 +60,11 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 
 		if (runMode.contains("SERVLET")) {
 			loadSuccessMetricsData();
-			fileLoader();
+			additionalDataLoad();
 		} 
 		else {
 			log.info("CLI mode");
+			loadSuccessMetricsData();
 
 			String html = cliService.parseThymeleafTemplate(htmlTemplate);
 			cliService.generatePdfFromHtml(html);
@@ -86,7 +87,7 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 		}
 	}
 
-	public void fileLoader() throws IOException {
+	public void additionalDataLoad() throws IOException {
 		applicationEvaluationsFileLoaded = loadData(DataLoaderParams.aeFileHeader, DataLoaderParams.aeDatafile, SqlStatement.ApplicationEvaluationsTable);
 		policyViolationsDataLoaded = loadData(DataLoaderParams.pvFileHeader, DataLoaderParams.pvDatafile, SqlStatement.PolicyViolationsTables);
 		componentsQuarantineLoaded = loadData(DataLoaderParams.cqFileHeader, DataLoaderParams.cqDatafile,SqlStatement.ComponentsInQuarantineTable);
