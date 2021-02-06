@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'org.sonatype.cs'
-version = '51'
+version = '51.1'
 sourceCompatibility = '8'
 
 def bundledir = 'successmetrics/successmetrics'
@@ -30,9 +30,11 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
 	
+	/*
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+	*/
 }
 
 nexusIQScan {

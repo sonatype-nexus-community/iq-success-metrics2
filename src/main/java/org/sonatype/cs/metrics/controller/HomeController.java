@@ -2,10 +2,7 @@ package org.sonatype.cs.metrics.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonatype.cs.metrics.runner.LoadApplicationEvaluationsRunner;
-import org.sonatype.cs.metrics.runner.LoadComponentWaiversRunner;
-import org.sonatype.cs.metrics.runner.LoadComponentsQuarantineRunner;
-import org.sonatype.cs.metrics.runner.LoadPolicyViolationsRunner;
+import org.sonatype.cs.metrics.SuccessMetricsApplication;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,10 +22,10 @@ public class HomeController {
 		log.info("In HomeController");
 		
 		model.addAttribute("smdata", smdata);
-		model.addAttribute("policyViolationsreport", LoadPolicyViolationsRunner.fileLoaded);
-		model.addAttribute(("applicationEvaluationsreport"), LoadApplicationEvaluationsRunner.fileLoaded);
-		model.addAttribute(("componentsqreport"), LoadComponentsQuarantineRunner.fileLoaded);
-		model.addAttribute(("componentWaiversReport"), LoadComponentWaiversRunner.fileLoaded);
+		model.addAttribute("policyViolationsreport", SuccessMetricsApplication.policyViolationsDataLoaded);
+		model.addAttribute(("applicationEvaluationsreport"), SuccessMetricsApplication.applicationEvaluationsFileLoaded);
+		model.addAttribute(("componentsqreport"), SuccessMetricsApplication.componentsQuarantineLoaded);
+		model.addAttribute(("componentWaiversReport"), SuccessMetricsApplication.componentWaiversLoaded);
 
 		return "home";
 	}
