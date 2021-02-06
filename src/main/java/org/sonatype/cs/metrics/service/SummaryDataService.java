@@ -1,20 +1,16 @@
 package org.sonatype.cs.metrics.service;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.sonatype.cs.metrics.model.DbRow;
+import org.sonatype.cs.metrics.model.Mttr;
+import org.sonatype.cs.metrics.util.SqlStatement;
 import org.sonatype.cs.metrics.util.UtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
-
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.sonatype.cs.metrics.model.DbRow;
-import org.sonatype.cs.metrics.model.Mttr;
-import org.sonatype.cs.metrics.service.DataService;
-import org.sonatype.cs.metrics.util.SqlStatement;
-import org.sonatype.cs.metrics.util.UtilService;
 
 @Service
 public class SummaryDataService {

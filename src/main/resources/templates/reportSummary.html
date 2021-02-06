@@ -3,32 +3,11 @@
 <body>
 
   <div>
-    <h3>Summary Report</h3>
+    <h3>Nexus IQ Success Metrics Report</h3>
+    <p th:text="${#dates.createNow()}"></p>
   </div>
 
-  <h3 style="text-align: center; color: green">
-    <span th:text="'Welcome to ' + '!'"></span>
-  </h3>
-
-  <table style="width:100%">
-    <tr>
-      <th>Firstname</th>
-      <th>Lastname</th> 
-      <th>Age</th>
-    </tr>
-    <tr>
-      <td>Jill</td>
-      <td>Smith</td> 
-      <td>50</td>
-    </tr>
-    <tr>
-      <td>Eve</td>
-      <td>Jackson</td> 
-      <td>94</td>
-    </tr>
-  </table>
-
-  <table style="width:100%">
+  <!-- <table style="width:100%">
     <thead>
         <tr>
             <th></th>
@@ -47,9 +26,9 @@
             <td>98</td>
         </tr>
     </tbody>
-  </table>
+  </table> -->
 
-  <table class="table table-hover">
+  <table class="table table-hover" style="width:100%">
     <thead class="thead-dark">
         <tr>
             <th scope="col"></th>
@@ -62,6 +41,7 @@
     </tbody>
 </table>
 
+<br/><br/>
 
   <table style="width:100%">
     <thead>
@@ -70,7 +50,7 @@
         <th>Total</th>
         <th>Critical</th>
         <th>Severe</th>
-        <th>Moderte</th>
+        <th>Moderate</th>
     </tr>
     </thead>
     <tbody>
@@ -136,6 +116,8 @@
       </tr>
       </tbody>
     </table>
+
+    <br/><br/>
 
     <table class="table table-hover">
       <thead class="thead-dark">
