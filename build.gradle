@@ -24,6 +24,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.webjars:jquery:3.5.1'
 	implementation 'org.webjars:bootstrap:4.5.0'
+	implementation 'org.thymeleaf:thymeleaf:3.0.11.RELEASE'
+	implementation 'org.xhtmlrenderer:flying-saucer-pdf:9.1.20'
 
 	compileOnly 'com.opencsv:opencsv:5.2'
 

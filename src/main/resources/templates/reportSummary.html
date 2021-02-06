@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<div>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+  <script src="webjars/jquery/3.5.1/jquery.min.js"></script>
+  <link href="webjars/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+  <script src="/js/apexcharts.min.js"></script>
+  <link rel="stylesheet" href="/css/apexcharts.css">
+
+  <link href="/css/main.css" rel="stylesheet">
+  
+  <div class="text-center">
+      <img class="displayed" th:src="@{images/sonatype.png}"/>   
+      <title th:text="'Success Metrics'"></title>
+      <h3>Success Metrics</h3>
+      <p th:text="${#dates.createNow()}"></p>
+  </div>
+
+  <script>
+      var height = '700px'
+      var width = '950px'
+
+      var grid = {
+          row: {
+              colors: ['#f3f3f3', 'transparent'],
+              opacity: 0.5
+          }
+      }
+
+      var barchartlabels = {
+          enabled: true,
+          enabledOnSeries: undefined,
+          formatter: function (val, opts) {
+              return val
+          },
+          textAnchor: 'middle',
+          distributed: false,
+          offsetX: 0,
+          offsetY: 0,
+          style: {
+              fontSize: '10px',
+              fontFamily: 'Helvetica, Arial, sans-serif',
+              fontWeight: 'bold',
+              colors: ['#fff']
+          },
+          background: {
+              enabled: false,
+              foreColor: '#fff',
+              padding: 4,
+              borderRadius: 2,
+              borderWidth: 2,
+              borderColor: '#fff',
+              opacity: 0.9,
+              
+          },
+          
+      }
+
+      var barchart = {
+          type: 'bar',
+          height: height,
+          width: width,
+          zoom: {
+              enabled: false
+          }
+      }
+
+      var linechart = {
+          type: 'line',
+          height: height,
+          width: width,
+          zoom: {
+              enabled: false
+          }
+      }
+
+      var stackedbarchart = {
+          type: 'bar',
+          height: height,
+          width: width,
+          stacked: true,
+          toolbar: {
+              show: true
+          },
+          zoom: {
+              enabled: true
+          }
+      }
+
+      var legend = {
+          position: 'top',
+          horizontalAlign: 'left',
+          offsetX: 120
+      }
+
+      var fillbar = {
+          colors: '#0118FD'
+      }
+
+      var fillStacked = {
+          colors: ['#F90707', '#F99A07', '#F9DC07']
+      }
+
+      var fillViolationsSummary = {
+          colors: ['#FA0707', '#08B005', '#F99A07', '#0080FF'],
+      }
+
+      var donutPlotOptions = {
+    expandOnClick: true,
+    donut: {
+      size: '45%',
+        labels: {
+          show: true,
+          name: {
+            show: true
+          },
+          value: {
+            show: true
+          },
+          total: {
+            show: true,
+            showAlways: true,
+            label: 'Total',
+            fontSize: '10px',
+            fontFamily: 'Helvetica, Arial, sans-serif',
+            fontWeight: 400,
+            color: '#373d3f',
+            formatter: function (w) {
+                return w.globals.seriesTotals.reduce((a, b) => {
+                return a + b
+              }, 0)
+            }
+          }
+        }
+      }
+    }
+
+  </script>
+</div>
+
+</head>
+
+<body>
+	<div class="jumbotron">
+	<h3>Summary Report</h3>
+    </div>
+
+    <div>
+    <div class="container">
+    <div class="row">
+    <div class="col-xl mx-auto bg-white rounded">
+    <div class="table-responsive table-wrapper-scroll-y">
+    
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Onboarded <span th:text="${applicationsOnboardedAvg[0]}"/> applications at an average of <span th:text="${applicationsOnboardedAvg[1]}"/> per <span th:text="${timePeriod}"/></td></tr>
+            <tr><td>Scanned applications at an average of <span th:text="${numberOfApplicationsScannedAvg[1]}"/> per <span th:text="${timePeriod}"/></td></tr>
+            <tr><td>Performed a total of <span th:text="${numberOfScansAvg[0]}"/> scans at an average of <span th:text="${numberOfScansAvg[1]}"/> per <span th:text="${timePeriod}"/></td></tr>
+        </tbody>
+    </table>
+
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col"></th>
+                <th scope="col" th:text="Total"></th>
+                <th scope="col" th:text="Critical"></th>
+                <th scope="col" th:text="Severe"></th>
+                <th scope="col" th:text="Moderate"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="font-weight:bold" th:text="'Discovered Security Violations'"></td>
+                <td th:text="${discoveredSecurityViolationsTotals.pointA}+${discoveredSecurityViolationsTotals.pointB}+${discoveredSecurityViolationsTotals.pointC}"></td>
+                <td th:text="${discoveredSecurityViolationsTotals.pointA}"></td>
+                <td th:text="${discoveredSecurityViolationsTotals.pointB}"></td>
+                <td th:text="${discoveredSecurityViolationsTotals.pointC}"></td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold" th:text="'Open Security Violations'"></td>
+                <td th:text="${openSecurityViolationsTotals.pointA}+${openSecurityViolationsTotals.pointB}+${openSecurityViolationsTotals.pointC}"></td>
+                <td th:text="${openSecurityViolationsTotals.pointA}"></td>
+                <td th:text="${openSecurityViolationsTotals.pointB}"></td>
+                <td th:text="${openSecurityViolationsTotals.pointC}"></td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold" th:text="'Fixed Security Violations'"></td>
+                <td th:text="${fixedSecurityViolationsTotals.pointA}+${fixedSecurityViolationsTotals.pointB}+${fixedSecurityViolationsTotals.pointC}"></td>
+                <td th:text="${fixedSecurityViolationsTotals.pointA}"></td>
+                <td th:text="${fixedSecurityViolationsTotals.pointB}"></td>
+                <td th:text="${fixedSecurityViolationsTotals.pointC}"></td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold" th:text="'Waived Security Violations'"></td>
+                <td th:text="${waivedSecurityViolationsTotals.pointA}+${waivedSecurityViolationsTotals.pointB}+${waivedSecurityViolationsTotals.pointC}"></td>
+                <td th:text="${waivedSecurityViolationsTotals.pointA}"></td>
+                <td th:text="${waivedSecurityViolationsTotals.pointB}"></td>
+                <td th:text="${waivedSecurityViolationsTotals.pointC}"></td>
+            </tr>
+            <tr>
+                <td style="background-color: aliceblue;"></td><td style="background-color: aliceblue;"></td>
+                <td style="background-color: aliceblue;"></td><td style="background-color: aliceblue;"></td><td style="background-color: aliceblue;"></td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold" th:text="'Discovered License Violations'"></td>
+                <td th:text="${discoveredLicenseViolationsTotals.pointA}+${discoveredLicenseViolationsTotals.pointB}+${discoveredLicenseViolationsTotals.pointC}"></td>
+                <td th:text="${discoveredLicenseViolationsTotals.pointA}"></td>
+                <td th:text="${discoveredLicenseViolationsTotals.pointB}"></td>
+                <td th:text="${discoveredLicenseViolationsTotals.pointC}"></td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold" th:text="'Open License Violations'"></td>
+                <td th:text="${openLicenseViolationsTotals.pointA}+${openLicenseViolationsTotals.pointB}+${openLicenseViolationsTotals.pointC}"></td>
+                <td th:text="${openLicenseViolationsTotals.pointA}"></td>
+                <td th:text="${openLicenseViolationsTotals.pointB}"></td>
+                <td th:text="${openLicenseViolationsTotals.pointC}"></td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold" th:text="'Fixed License Violations'"></td>
+                <td th:text="${fixedLicenseViolationsTotals.pointA}+${fixedLicenseViolationsTotals.pointB}+${fixedLicenseViolationsTotals.pointC}"></td>
+                <td th:text="${fixedLicenseViolationsTotals.pointA}"></td>
+                <td th:text="${fixedLicenseViolationsTotals.pointB}"></td>
+                <td th:text="${fixedLicenseViolationsTotals.pointC}"></td>
+            </tr>
+            <tr>
+                <td style="font-weight:bold" th:text="'Waived License Violations'"></td>
+                <td th:text="${waivedLicenseViolationsTotals.pointA}+${waivedLicenseViolationsTotals.pointB}+${waivedLicenseViolationsTotals.pointC}"></td>
+                <td th:text="${waivedLicenseViolationsTotals.pointA}"></td>
+                <td th:text="${waivedLicenseViolationsTotals.pointB}"></td>
+                <td th:text="${waivedLicenseViolationsTotals.pointC}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td> Your fix rate is <span th:text="${fixRate}"/>%</td></tr>
+            <tr><td> It took an average of <span th:text="${mttrAvg[0]}"/> days to fix critical violations</td></tr>
+            <tr><td> It took an average of <span th:text="${mttrAvg[1]}"/> days to fix severe violations</td></tr>
+            <tr><td> It took an average of <span th:text="${mttrAvg[2]}"/> days to fix moderate violations</td></tr>
+            <tr><td style="background-color: aliceblue;"></td></tr>
+            <tr><td> On average, each application has <span th:text="${openCriticalViolationsAvg}"/> open critical violations</td></tr>
+            <tr><td> Most critical application has <span th:text="${mostCriticalApplicationCount}"/> critical violations</td></tr>
+            <tr><td> Least critical application has <span th:text="${leastCriticalApplicationCount}"/> critical violations</td></tr>
+
+        </tbody>
+    </table>
+
+    </div>
+     
+</body>
