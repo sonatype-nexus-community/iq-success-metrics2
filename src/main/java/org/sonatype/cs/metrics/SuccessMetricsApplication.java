@@ -40,6 +40,9 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 	@Value("${data.successmetrics}")
 	private String successmetricsDatafile;
 
+	@Value("${server.port}")
+	private String port;
+
 	@Autowired
 	private FileService fileService;
 
@@ -61,6 +64,7 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 		if (runMode.contains("SERVLET")) {
 			loadSuccessMetricsData();
 			additionalDataLoad();
+			log.info("Ready for viewing at http://localhost:" + port);
 		} 
 		else {
 			log.info("CLI mode");

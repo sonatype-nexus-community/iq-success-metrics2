@@ -54,25 +54,31 @@ public class FileService {
 
 		File f = new File(metricsFile);
 
-        if (f.exists()){
-			if (!f.isDirectory() && f.length() > 0) {
-				isValid = true;
+      if (f.exists()){
+				if (!f.isDirectory() && f.length() > 0) {
+					isValid = true;
 
-				if (header.length() > 0){
-					String firstLine = this.getFirstLine(metricsFile);
+						if (header.length() > 0){
+							String firstLine = this.getFirstLine(metricsFile);
 
-					if (!firstLine.startsWith(header)) {
-						log.error("Invalid header");
-						log.error("-> " + firstLine);
-						isValid = false;
-					} 
+							if (!firstLine.startsWith(header)) {
+								log.error("Invalid header");
+								log.error("-> " + firstLine);
+								isValid = false;
+							} 
+							else {
+								if (this.countLines(metricsFile) < 2){
+									//log.warn("No metrics data in file");
+									isValid = false;
+								}
+							}
+						}
+				}
+				else {
+					log.info("No data");
+					isValid = false;
 				}
 			}
-			else {
-				log.info("No data");
-				isValid = false;
-			}
-		}
 	
 		return isValid;
 	}
@@ -84,5 +90,20 @@ public class FileService {
 	    br.close();
 	    return line;
 	}
+
+	private int countLines(String fileName) throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(fileName)); 
+
+		String line = br.readLine(); 
+		int lineCount = 0;
+
+		while (line != null){
+			lineCount++;
+			line = br.readLine();
+		}
+
+		br.close();
+		return lineCount;
+}
 	
 }

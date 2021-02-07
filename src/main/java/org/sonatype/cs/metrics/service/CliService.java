@@ -72,5 +72,7 @@ public class CliService {
     renderer.createPDF(outputStream);
 
     outputStream.close();
+
+    log.info("created pdf report: " + outputFolder);
 	}
 }
