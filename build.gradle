@@ -70,7 +70,7 @@ task release (type: Copy) {
 	into "${bundledir}"
 
 	doLast {
-  	new File("${bundledir}", 'runapp-ui.bat').text = """
+  	new File("${bundledir}", 'runapp.bat').text = """
 java -jar successmetrics-${version}.jar
 """
 		new File("${bundledir}", 'runapp-cli.bat').text = """
