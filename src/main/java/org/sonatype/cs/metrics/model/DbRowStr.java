@@ -8,16 +8,19 @@ public class DbRowStr {
     private String pointD;
     private String pointE;
     private String pointF;
+    private String pointG;
+
 
     public DbRowStr(){}
 
-    public DbRowStr(String pointA, String pointB, String pointC, String pointD, String pointE, String pointF) {
+    public DbRowStr(String pointA, String pointB, String pointC, String pointD, String pointE, String pointF, String pointG) {
         this.pointA = pointA;
         this.pointB = pointB;
         this.pointC = pointC;
         this.pointD = pointD;
         this.pointE = pointE;
         this.pointF = pointF;
+        this.pointG = pointG;
     }
 
     public String getPointA() {
@@ -66,6 +69,14 @@ public class DbRowStr {
 
     public void setPointF(String pointF) {
         this.pointF = pointF;
+    }
+
+    public String getPointG() {
+        return pointG;
+    }
+
+    public void setPointG(String pointG) {
+        this.pointG = pointG;
     }
 
     @Override

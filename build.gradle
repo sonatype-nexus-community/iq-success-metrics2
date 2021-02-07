@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'org.sonatype.cs'
-version = '51.3'
+version = '52'
 sourceCompatibility = '8'
 
 def bundledir = 'successmetrics/successmetrics'
@@ -70,8 +70,11 @@ task release (type: Copy) {
 	into "${bundledir}"
 
 	doLast {
-        new File("${bundledir}", 'runapp.bat').text = """
+  	new File("${bundledir}", 'runapp-ui.bat').text = """
 java -jar successmetrics-${version}.jar
+"""
+		new File("${bundledir}", 'runapp-cli.bat').text = """
+java -Dspring.profiles.active=cli -jar successmetrics-${version}.jar
 """
     }
 }

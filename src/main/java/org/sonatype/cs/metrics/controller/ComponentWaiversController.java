@@ -26,7 +26,7 @@ public class ComponentWaiversController {
 
         List<DbRowStr> componentWaivers =  dataService.runSqlStr(SqlStatement.ComponentWaivers);
         model.addAttribute("componentWaivers", componentWaivers);
-
+        
         return "reportComponentWaivers";
     }
     

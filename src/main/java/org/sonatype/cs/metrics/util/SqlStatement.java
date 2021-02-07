@@ -199,7 +199,7 @@ public class SqlStatement {
 													"from COMPONENT_QUARANTINE order by 1 asc";
 
 	public static String ComponentWaivers = "select application_name as pointA, stage as pointB, packageUrl as pointC, " +
-													"policyName as pointD, threatLevel as pointE, comment as pointF " +
+													"policyName as pointD, threatLevel as pointE, comment as pointF, createDate as pointG " +
 													"from COMPONENT_WAIVER order by 1 asc";
 
     public static final String MetricsTable = "DROP TABLE IF EXISTS METRIC; " +
@@ -308,8 +308,9 @@ public class SqlStatement {
 			"  packageUrl VARCHAR(250) NOT NULL," + 
 			"  policyName VARCHAR(250) DEFAULT NULL," +
 			"  threatLevel VARCHAR(250) DEFAULT NULL," +
-			"  comment VARCHAR(250) DEFAULT NULL) " +
-			" AS SELECT applicationName, stage, packageUrl, policyName, threatLevel, comment FROM CSVREAD ";
+			"  comment VARCHAR(250) DEFAULT NULL," +
+			"  createDate VARCHAR(250) DEFAULT NULL) " +
+			" AS SELECT applicationName, stage, packageUrl, policyName, threatLevel, comment, createDate FROM CSVREAD ";
 
 }
 
