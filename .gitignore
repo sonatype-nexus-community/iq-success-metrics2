@@ -40,6 +40,11 @@ bin/*
 datafiles
 *.json
 
+.DS_Store
+successmetrics-reports/
+
+
+
 
 
 
