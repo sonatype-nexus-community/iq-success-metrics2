@@ -5,12 +5,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import com.lowagie.text.DocumentException;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,20 +22,21 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.lowagie.text.DocumentException;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
 
 @Service
-public class CliService {
+public class PdfService {
 
-  private static final Logger log = LoggerFactory.getLogger(CliService.class);
+  private static final Logger log = LoggerFactory.getLogger(PdfService.class);
 
-  @Value("${cli.outputdir}")
-	private String outputdir;
-
+  @Value("${pdf.outputdir}")
+  private String outputdir;
+  
+  @Value("${pdf.htmltemplate}")
+  private String htmlTemplate;
+  
   @Autowired
   private SummaryDataService summaryDataService;
 
@@ -75,4 +78,5 @@ public class CliService {
 
     log.info("created pdf report: " + outputFolder);
 	}
+	
 }

@@ -10,7 +10,7 @@ import com.lowagie.text.DocumentException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonatype.cs.metrics.service.CliService;
+import org.sonatype.cs.metrics.service.PdfService;
 import org.sonatype.cs.metrics.service.FileService;
 import org.sonatype.cs.metrics.util.DataLoaderParams;
 import org.sonatype.cs.metrics.util.SqlStatement;
@@ -34,7 +34,7 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 	@Value("${spring.main.web-application-type}")
 	private String runMode;
 
-	@Value("${cli.htmltemplate}")
+	@Value("${pdf.htmltemplate}")
 	private String htmlTemplate;
 
 	@Value("${data.successmetrics}")
@@ -47,7 +47,7 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 	private FileService fileService;
 
 	@Autowired
-	private CliService cliService;
+	private PdfService pdfService;
 
 	public static void main(String[] args) {
 		// SpringApplication.run(SuccessMetricsApplication.class, args);
@@ -60,18 +60,16 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		log.info("Run mode: " + runMode);
+		
+		loadSuccessMetricsData();
 
 		if (runMode.contains("SERVLET")) {
-			loadSuccessMetricsData();
 			additionalDataLoad();
 			log.info("Ready for viewing at http://localhost:" + port);
 		} 
 		else {
-			log.info("CLI mode");
-			loadSuccessMetricsData();
-
-			String html = cliService.parseThymeleafTemplate(htmlTemplate);
-			cliService.generatePdfFromHtml(html);
+			String html = pdfService.parseThymeleafTemplate(htmlTemplate);
+			pdfService.generatePdfFromHtml(html);
 
 			System.exit(0);
 		}
