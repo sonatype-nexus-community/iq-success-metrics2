@@ -15,6 +15,7 @@ import org.sonatype.cs.metrics.model.DbRow;
 import org.sonatype.cs.metrics.model.DbRowStr;
 import org.sonatype.cs.metrics.service.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,6 +26,11 @@ public class UtilService {
     private static long oneWeekMs = 604800000;
     private static long oneMonthMs = 2629800000L;
     
+    @Value("${data.previous.weeks}")
+	private int dataPreviousWeeks;
+    
+    @Value("${data.previous.months}")
+	private int dataPreviousMonths;
     
 	@Autowired
 	private DataService dataService;
@@ -34,36 +40,53 @@ public class UtilService {
 		return latestPeriod;
 	}
     
-    public String previousPeriod() throws ParseException {
-	    String currentPeriod = dataService.runSql(SqlStatementPreviousPeriod.LatestTimePeriodStart).get(0).getLabel();
+    public String getPreviousPeriod() throws ParseException {
+	    String currentPeriod = this.latestPeriod();
 	    log.info("Current Period: " + currentPeriod);
-	    
-	    String previousPeriod = currentPeriod;
-	    
+	    	    
 	    long currentPeriodMs = this.convertDateStr(currentPeriod);
-	    log.info("Current PeriodMs: " + Long.toString(currentPeriodMs));
+	    //log.info("Current Period (ms): " + Long.toString(currentPeriodMs));
 	    
 	    String timePeriod = this.getTimePeriod();
-	    log.info("time period: " + timePeriod);
 	    
 	    long previousPeriodCalc;
 	    long previousPeriodMs;
 	    
 	    if (timePeriod == "week") {
 	    	previousPeriodCalc = oneWeekMs;
-	    }
+ 	    }
 	    else {
 	    	previousPeriodCalc = oneMonthMs;
-	    }
+ 	    }
 	    
-	    previousPeriodMs = currentPeriodMs - (previousPeriodCalc * 4);
-	    log.info("previousPeriodMs: " + previousPeriodMs);
+	    int dataPreviousPeriod = previousPeriodFrequency();
+	    previousPeriodMs = currentPeriodMs - (previousPeriodCalc * dataPreviousPeriod);
+	    //log.info("Previous Period (ms): " + previousPeriodMs);
 	  
 	    DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-	    log.info("previousPeriod Date: " + df.format(previousPeriodMs));
+	    String previousPeriod = df.format(previousPeriodMs);
+	    log.info("Previous Period: " + df.format(previousPeriodMs) + " (" + dataPreviousPeriod + " " + timePeriod + "s)");
+
+	    log.info("Period Frequency: " + timePeriod);
 
 		return previousPeriod;
 	}
+    
+    public int previousPeriodFrequency() throws ParseException {
+    	
+    	int dataPreviousPeriod = 0;
+    	
+	    String timePeriod = this.getTimePeriod();
+    	
+		if (timePeriod == "week") {
+	    	dataPreviousPeriod  = dataPreviousWeeks;
+	    }
+	    else {
+	    	dataPreviousPeriod = dataPreviousMonths;
+	    }
+		
+		return dataPreviousPeriod;
+    }
 	
 	public String getTimePeriod() throws ParseException {
 		List<DbRow> timePeriods = dataService.runSql(SqlStatement.TimePeriods);

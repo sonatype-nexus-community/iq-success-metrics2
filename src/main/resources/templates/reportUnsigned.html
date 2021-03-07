@@ -19,23 +19,23 @@
     
     <table class="table table-hover">
         <thead class="thead-dark">
-            <tr>
-                <th scope="col">Current Period</th>
-                <th scope="col">Previous Period</th>
+            <tr>             
+                <th scope="col">Current Period <span style="color:white;font-size:10px" th:text="${latestTimePeriod}"/></th>
+                <th scope="col">Previous Period <span style="color:white;font-size:10px" th:text="${ppPeriodStr}"/></th>
             </tr>
         </thead>
         <tbody>
             <tr>
             <td>Onboarded <span th:text="${applicationsOnboardedAvg[0]}"/> applications at an average of <span th:text="${applicationsOnboardedAvg[1]}"/> per <span th:text="${timePeriod}"/></td>
-            <td>Onboarded <span th:text="${ppapplicationsOnboardedAvg[0]}"/> applications at an average of <span th:text="${ppapplicationsOnboardedAvg[1]}"/> per <span th:text="${pptimePeriod}"/></td>
+            <td>Onboarded <span th:text="${ppapplicationsOnboardedAvg[0]}"/> applications at an average of <span th:text="${ppapplicationsOnboardedAvg[1]}"/> per <span th:text="${timePeriod}"/></td>
             </tr>
             <tr>
             <td>Scanned applications at an average of <span th:text="${numberOfApplicationsScannedAvg[1]}"/> per <span th:text="${timePeriod}"/></td>
-            <td>Scanned applications at an average of <span th:text="${ppnumberOfApplicationsScannedAvg[1]}"/> per <span th:text="${pptimePeriod}"/></td>
+            <td>Scanned applications at an average of <span th:text="${ppnumberOfApplicationsScannedAvg[1]}"/> per <span th:text="${timePeriod}"/></td>
             </tr>
             <tr>
             <td>Performed a total of <span th:text="${numberOfScansAvg[0]}"/> scans at an average of <span th:text="${numberOfScansAvg[1]}"/> per <span th:text="${timePeriod}"/></td>
-            <td>Performed a total of <span th:text="${ppnumberOfScansAvg[0]}"/> scans at an average of <span th:text="${ppnumberOfScansAvg[1]}"/> per <span th:text="${pptimePeriod}"/></td>
+            <td>Performed a total of <span th:text="${ppnumberOfScansAvg[0]}"/> scans at an average of <span th:text="${ppnumberOfScansAvg[1]}"/> per <span th:text="${timePeriod}"/></td>
             </tr>
         </tbody>
     </table>

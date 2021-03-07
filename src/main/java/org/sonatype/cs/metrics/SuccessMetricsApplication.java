@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.ParseException;
 
 import com.lowagie.text.DocumentException;
 
@@ -14,6 +15,7 @@ import org.sonatype.cs.metrics.service.PdfService;
 import org.sonatype.cs.metrics.service.FileService;
 import org.sonatype.cs.metrics.util.DataLoaderParams;
 import org.sonatype.cs.metrics.util.SqlStatement;
+import org.sonatype.cs.metrics.util.UtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -48,6 +50,7 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 
 	@Autowired
 	private PdfService pdfService;
+	
 
 	public static void main(String[] args) {
 		// SpringApplication.run(SuccessMetricsApplication.class, args);
@@ -75,10 +78,8 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 		}
 	}
 
-	private void loadSuccessMetricsData() throws IOException {
+	private void loadSuccessMetricsData() throws IOException, ParseException {
 		String fileHeader = "applicationId,applicationName,applicationPublicId,";
-
-		log.info("loading success metrics");
 
 		String stmt = SqlStatement.MetricsTable;
 		boolean fileLoaded = fileService.loadMetricsFile(DataLoaderParams.smDatafile, fileHeader, stmt);
@@ -86,6 +87,9 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 		if (!fileLoaded) {
 			log.info(DataLoaderParams.smDatafile + " file not found");
 			System.exit(-1);
+		}
+		else {
+			fileService.loadPreviousPeriodData();
 		}
 	}
 

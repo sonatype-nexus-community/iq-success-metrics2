@@ -4,9 +4,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sonatype.cs.metrics.util.SqlStatement;
+import org.sonatype.cs.metrics.util.SqlStatementPreviousPeriod;
+import org.sonatype.cs.metrics.util.UtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +22,9 @@ public class FileService {
 	@Autowired
 	private DataService dataService;
 
+	@Autowired
+	private UtilService utilService;
+	
 	public boolean loadMetricsFile(String fileName, String header, String stmt) throws IOException {
 		boolean status = false;
 
@@ -29,11 +36,23 @@ public class FileService {
 	}
 
 	private boolean loadFile(String fileName, String stmt) throws IOException {
-		log.info("Reading file: " + fileName);
 		String sqlStmt = stmt + " ('" + fileName + "')";	
+		
 		dataService.runSqlLoad(sqlStmt);
-		log.info("Data loaded.");
+		
+		log.info("Loaded file: " + fileName);
+		
 		return true;
+	}
+	
+	public void loadPreviousPeriodData() throws ParseException {
+		String previousPeriod = utilService.getPreviousPeriod();
+		 
+		String sqlStmt = "DROP TABLE IF EXISTS METRIC_PP; CREATE TABLE METRIC_PP AS SELECT * FROM METRIC WHERE TIME_PERIOD_START <= '" + previousPeriod + "'";
+ 
+		dataService.runSqlLoad(sqlStmt);
+		
+		return;
 	}
 	
 	// public boolean isAvailable(String metricsFile){

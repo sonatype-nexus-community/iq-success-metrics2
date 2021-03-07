@@ -25,7 +25,7 @@ public class UnsignedController {
     private DataService dataService;
 
     @Autowired
-    private UtilService timePeriodService;
+    private UtilService utilService;
 
     @GetMapping({ "/unsigned" })
     public String applications(Model model) throws ParseException {
@@ -34,11 +34,12 @@ public class UnsignedController {
         
         // Current Period
 
-        String latestTimePeriod = timePeriodService.latestPeriod();
-        String timePeriod = timePeriodService.getTimePeriod();
+        String latestTimePeriod = utilService.latestPeriod();
+        String timePeriod = utilService.getTimePeriod();
 		
         model.addAttribute("timePeriod", timePeriod);
-        
+        model.addAttribute("latestTimePeriod", latestTimePeriod);
+
         List<DbRow> applicationsOnboarded = dataService.runSql(SqlStatement.ApplicationsOnboarded);
         List<DbRow> numberOfScans = dataService.runSql(SqlStatement.NumberOfScans);
         List<DbRow> numberOfApplicationsScanned = dataService.runSql(SqlStatement.NumberOfApplicationsScanned);
@@ -124,11 +125,12 @@ public class UnsignedController {
 		
 		// Previous Period
 
-        String pplatestTimePeriod = timePeriodService.previousPeriod();
-        String pptimePeriod = timePeriodService.getTimePeriod();
-		
-        model.addAttribute("pptimePeriod", pptimePeriod);
+        String pplatestTimePeriod = utilService.getPreviousPeriod();
+        int ppPeriod = utilService.previousPeriodFrequency();
         
+        String ppPeriodStr = "(" + pplatestTimePeriod + "/" + ppPeriod + " " + timePeriod + "s)";		
+        model.addAttribute("ppPeriodStr", ppPeriodStr);
+
         List<DbRow> ppapplicationsOnboarded = dataService.runSql(SqlStatementPreviousPeriod.ApplicationsOnboarded);
         List<DbRow> ppnumberOfScans = dataService.runSql(SqlStatementPreviousPeriod.NumberOfScans);
         List<DbRow> ppnumberOfApplicationsScanned = dataService.runSql(SqlStatementPreviousPeriod.NumberOfApplicationsScanned);
