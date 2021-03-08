@@ -67,6 +67,7 @@ public class UtilService {
 	    String previousPeriod = df.format(previousPeriodMs);
 	    
 	    if (!previousPeriodInRange(previousPeriod)) {
+	    	log.info("calculation previous period");
 	    	previousPeriod = this.getMidPeriod();
 	    	previousPeriodRange = this.getDateDiff(currentPeriod, previousPeriod);
 	    }
@@ -90,12 +91,13 @@ public class UtilService {
     	long previousPeriodMs = convertDateStr(previousPeriod);
     	long diffMs = currentPeriodMs - previousPeriodMs;
     	long diffDays = diffMs/oneDayMs;
+    	log.info("diff days: " + diffDays);
     	
 		if (timePeriod == "week") {
 	    	diff  = (int) (diffDays/7);
 	    }
 	    else {
-	    	diff = (int) (diffDays/30);
+	    	diff = (int) (diffDays/28);
 	    }
 		
 		return diff;

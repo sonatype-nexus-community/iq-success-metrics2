@@ -8,10 +8,10 @@ plugins {
 }
 
 group = 'org.sonatype.cs'
-version = '55'
+version = '55.2'
 sourceCompatibility = '8'
 
-def bundledir = 'successmetrics/successmetrics'
+def bundledir = "successmetrics/successmetrics-${version}"
 
 repositories {
 	mavenCentral()
@@ -49,8 +49,12 @@ nexusIQScan {
 }
 
 clean.doFirst {
-	delete "${rootDir}/successmetrics.zip/"
+	delete "${bundledir}"
 	delete "${rootDir}/successmetrics"
+	
+	def zipfiles = fileTree("$rootDir")
+	zipfiles.include 'successmetrics-*.zip'
+	zipfiles.each { it.delete() }
 }
 
 build.doFirst {
@@ -67,21 +71,22 @@ task release (type: Copy) {
 	include '*.jar'
 	include '*.json'
 	include 'create*'
+	include 'reports2/'
 	into "${bundledir}"
 
 	doLast {
   	new File("${bundledir}", 'runapp.bat').text = """
 java -jar successmetrics-${version}.jar
 """
-		new File("${bundledir}", 'runapp-cli.bat').text = """
-java -Dspring.profiles.active=cli -jar successmetrics-${version}.jar
+		new File("${bundledir}", 'runapp-pdf.bat').text = """
+java -Dspring.profiles.active=pdf -jar successmetrics-${version}.jar
 """
     }
 }
 
 task bundle(type: Zip) {
 	from 'successmetrics'
-	archiveName 'successmetrics.zip'
+	archiveName "successmetrics-${version}.zip"
 	destinationDir(file(projectDir))
 }
 

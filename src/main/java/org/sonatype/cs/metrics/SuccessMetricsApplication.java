@@ -67,7 +67,7 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 		loadSuccessMetricsData();
 
 		if (runMode.contains("SERVLET")) {
-			additionalDataLoad();
+			reports2();
 			log.info("Ready for viewing at http://localhost:" + port);
 		} 
 		else {
@@ -92,16 +92,11 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 			fileService.loadPreviousPeriodData();
 		}
 	}
-
-	public void additionalDataLoad() throws IOException {
-		applicationEvaluationsFileLoaded = loadData(DataLoaderParams.aeFileHeader, DataLoaderParams.aeDatafile, SqlStatement.ApplicationEvaluationsTable);
-		policyViolationsDataLoaded = loadData(DataLoaderParams.pvFileHeader, DataLoaderParams.pvDatafile, SqlStatement.PolicyViolationsTables);
-		componentsQuarantineLoaded = loadData(DataLoaderParams.cqFileHeader, DataLoaderParams.cqDatafile,SqlStatement.ComponentsInQuarantineTable);
-		componentWaiversLoaded = loadData(DataLoaderParams.cwFileHeader, DataLoaderParams.cwDatafile, SqlStatement.ComponentWaiversTable);
-	}
-
-	private boolean loadData(String fileHeader, String dataFile, String sqlStmt) throws IOException {
-		return fileService.loadMetricsFile(dataFile, fileHeader, sqlStmt);
-	}
 	
+	public void reports2() throws IOException {
+		applicationEvaluationsFileLoaded = fileService.loadMetricsFile(DataLoaderParams.aeDatafile, DataLoaderParams.aeFileHeader, SqlStatement.ApplicationEvaluationsTable);
+		policyViolationsDataLoaded = fileService.loadMetricsFile(DataLoaderParams.pvDatafile, DataLoaderParams.pvFileHeader,  SqlStatement.PolicyViolationsTables);
+		componentsQuarantineLoaded = fileService.loadMetricsFile(DataLoaderParams.cqDatafile, DataLoaderParams.cqFileHeader, SqlStatement.ComponentsInQuarantineTable);
+		componentWaiversLoaded = fileService.loadMetricsFile(DataLoaderParams.cwDatafile, DataLoaderParams.cwFileHeader, SqlStatement.ComponentWaiversTable);
+	}
 }
