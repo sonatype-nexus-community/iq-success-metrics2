@@ -8,10 +8,10 @@ plugins {
 }
 
 group = 'org.sonatype.cs'
-version = '55.2'
+version = '56'
 sourceCompatibility = '8'
 
-def bundledir = "successmetrics/successmetrics-${version}"
+def bundledir = "successmetrics/successmetrics"
 
 repositories {
 	mavenCentral()
@@ -51,10 +51,7 @@ nexusIQScan {
 clean.doFirst {
 	delete "${bundledir}"
 	delete "${rootDir}/successmetrics"
-	
-	def zipfiles = fileTree("$rootDir")
-	zipfiles.include 'successmetrics-*.zip'
-	zipfiles.each { it.delete() }
+	delete "${rootDir}/successmetrics.zip"
 }
 
 build.doFirst {
@@ -86,7 +83,7 @@ java -Dspring.profiles.active=pdf -jar successmetrics-${version}.jar
 
 task bundle(type: Zip) {
 	from 'successmetrics'
-	archiveName "successmetrics-${version}.zip"
+	archiveName "successmetrics.zip"
 	destinationDir(file(projectDir))
 }
 

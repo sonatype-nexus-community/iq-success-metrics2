@@ -89,7 +89,13 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 			System.exit(-1);
 		}
 		else {
-			fileService.loadPreviousPeriodData();
+			boolean hasPreviousData = fileService.loadPreviousPeriodData();
+			
+			if (!hasPreviousData) {
+				log.error("No previous data");
+				System.exit(1);
+
+			}
 		}
 	}
 	

@@ -67,9 +67,8 @@ public class UtilService {
 	    String previousPeriod = df.format(previousPeriodMs);
 	    
 	    if (!previousPeriodInRange(previousPeriod)) {
-	    	log.info("calculation previous period");
 	    	previousPeriod = this.getMidPeriod();
-	    	previousPeriodRange = this.getDateDiff(currentPeriod, previousPeriod);
+	    	//previousPeriodRange = this.getDateDiff(currentPeriod, previousPeriod);
 	    }
 	    
 		return previousPeriod;
@@ -91,7 +90,6 @@ public class UtilService {
     	long previousPeriodMs = convertDateStr(previousPeriod);
     	long diffMs = currentPeriodMs - previousPeriodMs;
     	long diffDays = diffMs/oneDayMs;
-    	log.info("diff days: " + diffDays);
     	
 		if (timePeriod == "week") {
 	    	diff  = (int) (diffDays/7);
@@ -106,7 +104,18 @@ public class UtilService {
 	private String getMidPeriod() {
 		List<DbRow> timePeriods = dataService.runSql(SqlStatement.TimePeriods);
 		int numberOfPeriods = timePeriods.size();
-		return timePeriods.get(numberOfPeriods/2).getLabel();
+		
+		int periodNumber = 0;
+		int minPeriods = 3;
+		
+		String midPeriod = "none";
+		
+		if (numberOfPeriods >= minPeriods) {
+			periodNumber = numberOfPeriods/2;
+			midPeriod = timePeriods.get(periodNumber).getLabel();
+		}
+		
+		return midPeriod;
 	}
 
 	private boolean previousPeriodInRange(String previousPeriod) {

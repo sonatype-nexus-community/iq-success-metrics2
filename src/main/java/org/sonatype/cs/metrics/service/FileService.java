@@ -45,14 +45,18 @@ public class FileService {
 		return true;
 	}
 	
-	public void loadPreviousPeriodData() throws ParseException {
+	public boolean loadPreviousPeriodData() throws ParseException {
 		String previousPeriod = utilService.getPreviousPeriod();
-		 
-		String sqlStmt = "DROP TABLE IF EXISTS METRIC_PP; CREATE TABLE METRIC_PP AS SELECT * FROM METRIC WHERE TIME_PERIOD_START <= '" + previousPeriod + "'";
- 
-		dataService.runSqlLoad(sqlStmt);
 		
-		return;
+		boolean hasPreviousData = false;
+				
+		if (!previousPeriod.equalsIgnoreCase("none")){
+			 String sqlStmt = "DROP TABLE IF EXISTS METRIC_PP; CREATE TABLE METRIC_PP AS SELECT * FROM METRIC WHERE TIME_PERIOD_START <= '" + previousPeriod + "'";
+			 dataService.runSqlLoad(sqlStmt);
+			 hasPreviousData = true;
+		}
+		
+		return hasPreviousData;
 	}
 	
 	// public boolean isAvailable(String metricsFile){
