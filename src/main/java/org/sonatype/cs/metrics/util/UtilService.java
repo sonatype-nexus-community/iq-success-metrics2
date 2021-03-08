@@ -3,6 +3,8 @@ package org.sonatype.cs.metrics.util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +25,7 @@ public class UtilService {
 	
     private static final Logger log = LoggerFactory.getLogger(UtilService.class);
 
+    private static int oneDayMs = 86400000;
     private static long oneWeekMs = 604800000;
     private static long oneMonthMs = 2629800000L;
     
@@ -42,13 +45,11 @@ public class UtilService {
     
     public String getPreviousPeriod() throws ParseException {
 	    String currentPeriod = this.latestPeriod();
-	    log.info("Current Period: " + currentPeriod);
-	    	    
+ 	    	    
 	    long currentPeriodMs = this.convertDateStr(currentPeriod);
-	    //log.info("Current Period (ms): " + Long.toString(currentPeriodMs));
 	    
 	    String timePeriod = this.getTimePeriod();
-	    
+ 	    
 	    long previousPeriodCalc;
 	    long previousPeriodMs;
 	    
@@ -59,20 +60,71 @@ public class UtilService {
 	    	previousPeriodCalc = oneMonthMs;
  	    }
 	    
-	    int dataPreviousPeriod = previousPeriodFrequency();
-	    previousPeriodMs = currentPeriodMs - (previousPeriodCalc * dataPreviousPeriod);
-	    //log.info("Previous Period (ms): " + previousPeriodMs);
+	    int previousPeriodRange = calcPreviousPeriodRange();
+	    previousPeriodMs = currentPeriodMs - (previousPeriodCalc * previousPeriodRange);
 	  
 	    DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	    String previousPeriod = df.format(previousPeriodMs);
-	    log.info("Previous Period: " + df.format(previousPeriodMs) + " (" + dataPreviousPeriod + " " + timePeriod + "s)");
-
-	    log.info("Period Frequency: " + timePeriod);
-
+	    
+	    if (!previousPeriodInRange(previousPeriod)) {
+	    	previousPeriod = this.getMidPeriod();
+	    	previousPeriodRange = this.getDateDiff(currentPeriod, previousPeriod);
+	    }
+	    
 		return previousPeriod;
 	}
     
-    public int previousPeriodFrequency() throws ParseException {
+    public int getPreviousPeriodRange() throws ParseException {
+    	String currentPeriod = this.latestPeriod();
+    	String previousPeriod = this.getPreviousPeriod();
+    	int previousPeriodRange = this.getDateDiff(currentPeriod, previousPeriod);
+    	return previousPeriodRange;
+    }
+    
+    private int getDateDiff(String currentPeriod, String previousPeriod) throws ParseException {
+    	int diff = 0;
+    	
+    	String timePeriod = this.getTimePeriod();
+    	
+    	long currentPeriodMs = convertDateStr(currentPeriod);
+    	long previousPeriodMs = convertDateStr(previousPeriod);
+    	long diffMs = currentPeriodMs - previousPeriodMs;
+    	long diffDays = diffMs/oneDayMs;
+    	
+		if (timePeriod == "week") {
+	    	diff  = (int) (diffDays/7);
+	    }
+	    else {
+	    	diff = (int) (diffDays/30);
+	    }
+		
+		return diff;
+	}
+
+	private String getMidPeriod() {
+		List<DbRow> timePeriods = dataService.runSql(SqlStatement.TimePeriods);
+		int numberOfPeriods = timePeriods.size();
+		return timePeriods.get(numberOfPeriods/2).getLabel();
+	}
+
+	private boolean previousPeriodInRange(String previousPeriod) {
+		List<DbRow> timePeriods = dataService.runSql(SqlStatement.TimePeriods);
+		
+		boolean status = false;
+		
+		for (DbRow t : timePeriods) {
+			String period = t.getLabel();
+			
+			if (period.equalsIgnoreCase(previousPeriod)) {
+				status = true;
+				break;
+			}
+		}
+		
+		return status;
+    }
+    
+    private int calcPreviousPeriodRange() throws ParseException {
     	
     	int dataPreviousPeriod = 0;
     	

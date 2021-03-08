@@ -126,7 +126,7 @@ public class UnsignedController {
 		// Previous Period
 
         String pplatestTimePeriod = utilService.getPreviousPeriod();
-        int ppPeriod = utilService.previousPeriodFrequency();
+        int ppPeriod = utilService.getPreviousPeriodRange();
         
         String ppPeriodStr = "(" + pplatestTimePeriod + "/" + ppPeriod + " " + timePeriod + "s)";		
         model.addAttribute("ppPeriodStr", ppPeriodStr);
