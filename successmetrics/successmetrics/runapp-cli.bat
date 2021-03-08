@@ -1,2 +1,2 @@
 
-java -Dspring.profiles.active=cli -jar successmetrics-54.4.jar
+java -Dspring.profiles.active=cli -jar successmetrics-55.jar
