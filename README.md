@@ -58,7 +58,7 @@ Example (Windows):  create-data2.bat http://localhost:8070 admin admin123
 
 These additional files include list of policy violations, applications scanned last date, list of components in quarantine (nxrm3) and list of waivers.
 
-All files are created in the current directory ie. reports2.
+The files are created in the reports2 directory
 
 (Make sure to return to the main directory ie. successmetrics).
 
