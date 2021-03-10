@@ -111,6 +111,15 @@
                 <td th:text="${waivedLicenseViolationsTotals.pointB}"></td>
                 <td th:text="${waivedLicenseViolationsTotals.pointC}"></td>
             </tr>
+            <tr>
+                <td style="background-color: aliceblue;"></td><td style="background-color: aliceblue;"></td>
+                <td style="background-color: aliceblue;"></td><td style="background-color: aliceblue;"></td><td style="background-color: aliceblue;"></td>
+            </tr>
+            	<td style="font-weight:bold" th:text="'Total Discovered Violations (Security and License)'"></td>
+                <td style="font-weight:bold" th:text="${discoveredSecurityViolationsTotals.pointA}+${discoveredSecurityViolationsTotals.pointB}+${discoveredSecurityViolationsTotals.pointC}+
+                			 ${discoveredLicenseViolationsTotals.pointA}+${discoveredLicenseViolationsTotals.pointB}+${discoveredLicenseViolationsTotals.pointC}">
+                		</td>
+            </tr>
         </tbody>
     </table>
 
@@ -185,6 +194,15 @@
                 <td th:text="${ppwaivedLicenseViolationsTotals.pointA}"></td>
                 <td th:text="${ppwaivedLicenseViolationsTotals.pointB}"></td>
                 <td th:text="${ppwaivedLicenseViolationsTotals.pointC}"></td>
+            </tr>
+            <tr>
+                <td style="background-color: aliceblue;"></td><td style="background-color: aliceblue;"></td>
+                <td style="background-color: aliceblue;"></td><td style="background-color: aliceblue;"></td><td style="background-color: aliceblue;"></td>
+            </tr>
+            	<td style="font-weight:bold" th:text="'Total Discovered Violations (Security and License)'"></td>
+                <td style="font-weight:bold" th:text="${ppdiscoveredSecurityViolationsTotals.pointA}+${ppdiscoveredSecurityViolationsTotals.pointB}+${ppdiscoveredSecurityViolationsTotals.pointC}+
+                			 ${ppdiscoveredLicenseViolationsTotals.pointA}+${ppdiscoveredLicenseViolationsTotals.pointB}+${ppdiscoveredLicenseViolationsTotals.pointC}">
+                </td>
             </tr>
         </tbody>
     </table>
