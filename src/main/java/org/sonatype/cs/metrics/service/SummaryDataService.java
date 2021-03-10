@@ -7,6 +7,7 @@ import java.util.List;
 import org.sonatype.cs.metrics.model.DbRow;
 import org.sonatype.cs.metrics.model.Mttr;
 import org.sonatype.cs.metrics.util.SqlStatement;
+import org.sonatype.cs.metrics.util.SqlStatementPreviousPeriod;
 import org.sonatype.cs.metrics.util.UtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,17 +21,18 @@ public class SummaryDataService {
   private DataService dataService;
 
   @Autowired
-  private UtilService timePeriodService;
+  private UtilService utilService;
 
   public Context setSummaryData() throws ParseException {
 
     Context model = new Context();
 
-    String latestTimePeriod = timePeriodService.latestPeriod();
-    String timePeriod = timePeriodService.getTimePeriod();
+    String latestTimePeriod = utilService.latestPeriod();
+    String timePeriod = utilService.getTimePeriod();
       
     model.setVariable("timePeriod", timePeriod);
-          
+    model.setVariable("latestTimePeriod", latestTimePeriod);
+
     List<DbRow> applicationsOnboarded = dataService.runSql(SqlStatement.ApplicationsOnboarded);
     List<DbRow> numberOfScans = dataService.runSql(SqlStatement.NumberOfScans);
     List<DbRow> numberOfApplicationsScanned = dataService.runSql(SqlStatement.NumberOfApplicationsScanned);
@@ -80,7 +82,7 @@ public class SummaryDataService {
 
         model.setVariable("fixRate", String.format("%.0f", fixRate));
 
-        model.setVariable("mttrAvg", this.MttrAvg());
+        model.setVariable("mttrAvg", this.MttrAvg("current"));
 
         String applicationOpenViolations = SqlStatement.ApplicationsOpenViolations + " where time_period_start = '" + latestTimePeriod + "' group by application_name" + " order by 2 desc, 3 desc";
         List<DbRow> aov = dataService.runSql(applicationOpenViolations);
@@ -113,6 +115,103 @@ public class SummaryDataService {
         model.setVariable("openLicenseViolations", openLicenseViolations);
 		model.setVariable("fixedLicenseViolations", fixedLicenseViolations);
 		model.setVariable("waivedLicenseViolations", waivedLicenseViolations);
+		
+		// Previous Period
+
+        String pplatestTimePeriod = utilService.getPreviousPeriod();
+        int ppPeriod = utilService.getPreviousPeriodRange();
+        
+        String endStr = "";
+        
+        if (ppPeriod > 1) {
+        	endStr = "s";
+        }
+        
+        String ppPeriodStr = pplatestTimePeriod + "/" + ppPeriod + " " + timePeriod + endStr;		
+        model.setVariable("ppPeriodStr", ppPeriodStr);
+
+        List<DbRow> ppapplicationsOnboarded = dataService.runSql(SqlStatementPreviousPeriod.ApplicationsOnboarded);
+        List<DbRow> ppnumberOfScans = dataService.runSql(SqlStatementPreviousPeriod.NumberOfScans);
+        List<DbRow> ppnumberOfApplicationsScanned = dataService.runSql(SqlStatementPreviousPeriod.NumberOfApplicationsScanned);
+        List<Mttr> ppmttr = dataService.runSqlMttr(SqlStatementPreviousPeriod.MTTR);
+
+		model.setVariable("ppapplicationsOnboarded", ppapplicationsOnboarded);
+		model.setVariable("ppnumberOfScans", ppnumberOfScans);
+		model.setVariable("ppnumberOfApplicationsScanned", ppnumberOfApplicationsScanned);
+        model.setVariable("ppmttr", ppmttr);
+
+        model.setVariable("ppapplicationsOnboardedAvg", sumAndAverageApplicationsOnboarded(ppapplicationsOnboarded));
+		model.setVariable("ppnumberOfScansAvg", sumAndAveragePointA(ppnumberOfScans));
+		model.setVariable("ppnumberOfApplicationsScannedAvg", sumAndAveragePointA(ppnumberOfApplicationsScanned));
+
+        DbRow ppdiscoveredSecurityViolationsTotals = dataService.runSql(SqlStatementPreviousPeriod.DiscoveredSecurityViolationsTotals).get(0);
+        DbRow ppopenSecurityViolationsTotals = dataService.runSql(SqlStatementPreviousPeriod.OpenSecurityViolationsTotals).get(0);
+        DbRow ppfixedSecurityViolationsTotals = dataService.runSql(SqlStatementPreviousPeriod.FixedSecurityViolationsTotals).get(0);
+        DbRow ppwaivedSecurityViolationsTotals = dataService.runSql(SqlStatementPreviousPeriod.WaivedSecurityViolationsTotals).get(0);
+
+        model.setVariable("ppdiscoveredSecurityViolationsTotals", ppdiscoveredSecurityViolationsTotals);
+        model.setVariable("ppopenSecurityViolationsTotals", ppopenSecurityViolationsTotals);
+        model.setVariable("ppfixedSecurityViolationsTotals", ppfixedSecurityViolationsTotals);
+        model.setVariable("ppwaivedSecurityViolationsTotals", ppwaivedSecurityViolationsTotals);
+
+        DbRow ppdiscoveredLicenseViolationsTotals = dataService.runSql(SqlStatementPreviousPeriod.DiscoveredLicenseViolationsTotals).get(0);
+        DbRow ppopenLicenseViolationsTotals = dataService.runSql(SqlStatementPreviousPeriod.OpenLicenseViolationsTotals).get(0);
+        DbRow ppfixedLicenseViolationsTotals = dataService.runSql(SqlStatementPreviousPeriod.FixedLicenseViolationsTotals).get(0);
+        DbRow ppwaivedLicenseViolationsTotals = dataService.runSql(SqlStatementPreviousPeriod.WaivedLicenseViolationsTotals).get(0);
+
+        model.setVariable("ppdiscoveredLicenseViolationsTotals", ppdiscoveredLicenseViolationsTotals);
+        model.setVariable("ppopenLicenseViolationsTotals", ppopenLicenseViolationsTotals);
+        model.setVariable("ppfixedLicenseViolationsTotals", ppfixedLicenseViolationsTotals);
+        model.setVariable("ppwaivedLicenseViolationsTotals", ppwaivedLicenseViolationsTotals);
+
+        int ppdiscoveredSecurityTotal = ppdiscoveredSecurityViolationsTotals.getPointA()+ppdiscoveredSecurityViolationsTotals.getPointB()+ppdiscoveredSecurityViolationsTotals.getPointC();
+        int ppfixedSecurityTotal = ppfixedSecurityViolationsTotals.getPointA()+ppfixedSecurityViolationsTotals.getPointB()+ppfixedSecurityViolationsTotals.getPointC();
+        int ppwaivedSecurityTotal = ppwaivedSecurityViolationsTotals.getPointA()+ppwaivedSecurityViolationsTotals.getPointB()+ppwaivedSecurityViolationsTotals.getPointC();
+
+        int ppdiscoveredLicenseTotal = ppdiscoveredLicenseViolationsTotals.getPointA()+ppdiscoveredLicenseViolationsTotals.getPointB()+ppdiscoveredLicenseViolationsTotals.getPointC();
+        int ppfixedLicenseTotal = ppfixedLicenseViolationsTotals.getPointA()+ppfixedLicenseViolationsTotals.getPointB()+ppfixedLicenseViolationsTotals.getPointC();
+        int ppwaivedLicenseTotal = ppwaivedLicenseViolationsTotals.getPointA()+ppwaivedLicenseViolationsTotals.getPointB()+ppwaivedLicenseViolationsTotals.getPointC();
+
+        int ppfixedWaived = ppfixedSecurityTotal+ppwaivedSecurityTotal+ppfixedLicenseTotal+ppwaivedLicenseTotal;
+        int ppdiscovered = ppdiscoveredSecurityTotal+ppdiscoveredLicenseTotal;
+
+        float ppfixRate = (((float)(ppfixedWaived)/ppdiscovered) * 100);
+
+        model.setVariable("ppfixRate", String.format("%.0f", ppfixRate));
+
+        model.setVariable("ppmttrAvg", this.MttrAvg("previous"));
+
+        String ppapplicationOpenViolations = SqlStatementPreviousPeriod.ApplicationsOpenViolations + " where time_period_start = '" + pplatestTimePeriod + "' group by application_name" + " order by 2 desc, 3 desc";
+        List<DbRow> ppaov = dataService.runSql(ppapplicationOpenViolations);
+
+        model.setVariable("ppmostCriticalApplicationCount", ppaov.get(0).getPointA());
+        model.setVariable("ppleastCriticalApplicationCount", ppaov.get(ppaov.size()-1).getPointA());
+
+        model.setVariable("ppopenCriticalViolationsAvg", this.sumAndAveragePointA(ppaov)[1]);
+
+        List<DbRow> ppsecurityViolations = dataService.runSql(SqlStatementPreviousPeriod.SecurityViolations);
+        List<DbRow> ppdiscoveredSecurityViolations = dataService.runSql(SqlStatementPreviousPeriod.DiscoveredSecurityViolations);
+        List<DbRow> ppopenSecurityViolations = dataService.runSql(SqlStatementPreviousPeriod.OpenSecurityViolations);
+        List<DbRow> ppfixedSecurityViolations = dataService.runSql(SqlStatementPreviousPeriod.FixedSecurityViolations);
+        List<DbRow> ppwaivedSecurityViolations = dataService.runSql(SqlStatementPreviousPeriod.WaivedSecurityViolations);
+
+        model.setVariable("ppsecurityViolations", ppsecurityViolations);
+        model.setVariable("ppdiscoveredSecurityViolations", ppdiscoveredSecurityViolations);
+        model.setVariable("ppopenSecurityViolations", ppopenSecurityViolations);
+		model.setVariable("ppfixedSecurityViolations", ppfixedSecurityViolations);
+        model.setVariable("ppwaivedSecurityViolations", ppwaivedSecurityViolations);
+        
+        List<DbRow> pplicenseViolations = dataService.runSql(SqlStatementPreviousPeriod.LicenseViolations);
+        List<DbRow> ppdiscoveredLicenseViolations = dataService.runSql(SqlStatementPreviousPeriod.DiscoveredLicenseViolations);
+        List<DbRow> ppopenLicenseViolations = dataService.runSql(SqlStatementPreviousPeriod.OpenLicenseViolations);
+        List<DbRow> ppfixedLicenseViolations = dataService.runSql(SqlStatementPreviousPeriod.FixedLicenseViolations);
+        List<DbRow> ppwaivedLicenseViolations = dataService.runSql(SqlStatementPreviousPeriod.WaivedLicenseViolations);
+
+        model.setVariable("ppLicenseViolations", pplicenseViolations);
+        model.setVariable("ppdiscoveredLicenseViolations", ppdiscoveredLicenseViolations);
+        model.setVariable("ppopenLicenseViolations", ppopenLicenseViolations);
+		model.setVariable("ppfixedLicenseViolations", ppfixedLicenseViolations);
+		model.setVariable("ppwaivedLicenseViolations", ppwaivedLicenseViolations);
 
         return model;
     }
@@ -151,12 +250,21 @@ public class SummaryDataService {
 		return values;
     }
 
-    private String[] MttrAvg(){
+    private String[] MttrAvg(String period){
         List<Float> pointA = new ArrayList<>();	
 	    List<Float> pointB = new ArrayList<>();	
-	    List<Float> pointC = new ArrayList<>();	
+	    List<Float> pointC = new ArrayList<>();
 	    
-	    List<Mttr> mttrPoints = this.getMttr();
+	    String sqlStmt;
+	    
+	    if (period == "current") {
+	    	sqlStmt = SqlStatement.MTTR2;
+	    }
+	    else {
+	    	sqlStmt = SqlStatementPreviousPeriod.MTTR2;
+	    }
+	    
+	    List<Mttr> mttrPoints = this.getMttr(sqlStmt);
 	    
 	    for (Mttr dp : mttrPoints) {
 	    	pointA.add(dp.getPointA());
@@ -172,11 +280,11 @@ public class SummaryDataService {
         return values;
     }
     
-    private List<Mttr> getMttr() {
+private List<Mttr> getMttr(String sqlStmt) {
 		
 		List<Mttr> mttr = new ArrayList<Mttr>();
 		
-	    List<Mttr> points = dataService.runSqlMttr(SqlStatement.MTTR2);
+	    List<Mttr> points = dataService.runSqlMttr(sqlStmt);
 	    
 	    for (Mttr dp : points) {
 	    	Mttr cp = new Mttr();

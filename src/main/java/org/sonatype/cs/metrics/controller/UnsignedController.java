@@ -128,16 +128,13 @@ public class UnsignedController {
         String pplatestTimePeriod = utilService.getPreviousPeriod();
         int ppPeriod = utilService.getPreviousPeriodRange();
         
-        String endStr;
+        String endStr = "";
         
-        if (ppPeriod < 2) {
-        	endStr = ")";
-        }
-        else {
-        	endStr = "s)";
+        if (ppPeriod > 1) {
+        	endStr = "s";
         }
         
-        String ppPeriodStr = "(" + pplatestTimePeriod + "/" + ppPeriod + " " + timePeriod + endStr;		
+        String ppPeriodStr = pplatestTimePeriod + "/" + ppPeriod + " " + timePeriod + endStr;		
         model.addAttribute("ppPeriodStr", ppPeriodStr);
 
         List<DbRow> ppapplicationsOnboarded = dataService.runSql(SqlStatementPreviousPeriod.ApplicationsOnboarded);
