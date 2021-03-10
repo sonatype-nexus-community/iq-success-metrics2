@@ -27,48 +27,52 @@ cd success-metrics
  * Open a command prompt and run 
 
 ```
-Windows: createfile-successmetrics.bat <iq-host-url> <iq-username> <iq-password> <period-file>
-Linux: createfile-successmetrics.sh <iq-host-url> <iq-username> <iq-password> <period-file>
+Windows: create-data.bat <iq-host-url> <iq-username> <iq-password> <period-file>
+Linux: create-data.sh <iq-host-url> <iq-username> <iq-password> <period-file>
 
 iq-host-url - your Nexus IQ Url, but with no backslash at the end
 iq-username - your Nexus IQ user name that has access to data set you'd like to report on
 iq-password - your Nexus IQ password
 period-file - weekly.json or monthly.json
 
-Example (Windows):  createfile-successmetrics.bat http://localhost:8070 admin admin123 monthly.json
+Example (Windows):  create-data.bat http://localhost:8070 admin admin123 monthly.json
 ```
 
 The script will create a file called *successmetrics.csv*. We suggest opening the file and check to ensure it contains metrics data.
 
-(Optional) The following script is optional and not required for the main success metrics report
+(Optional) 
 If you have python3 available, you can run the following script to produce additonal data files for reporting, all of which will be read by the app on startup.
-
+This script is optional and not required for the main success metrics report
 ```
-Windows: createfiles-metrics.bat <iq-host-url> <iq-username> <iq-password>
-Linux: createfiles-metrics.sh <iq-host-url> <iq-username> <iq-password>
+(change to the reports2 directory)
+Windows: create-data2.bat <iq-host-url> <iq-username> <iq-password>
+Linux: create-data2.sh <iq-host-url> <iq-username> <iq-password>
 
 iq-host-url - your Nexus IQ Url, but with no backslash at the end
 iq-username - your Nexus IQ user name that has access to data set you'd like to report on
 iq-password - your Nexus IQ password
 
-Example (Windows):  createfiles-metrics.bat http://localhost:8070 admin admin123
+Example (Windows):  create-data2.bat http://localhost:8070 admin admin123
 ```
 
 These additional files include list of policy violations, applications scanned last date, list of components in quarantine (nxrm3) and list of waivers.
 
-All files are created in the current directory.
+All files are created in the current directory ie. reports2.
+
+(Make sure to return to the main directory ie. successmetrics).
 
 
 **Start the reporting app**
    
    This app is a simple web app running by default on port 4040. 
    
-   By default, the app looks for the data to load in the the current directory
+   By default, the app looks for the data to load in the current directory
 
    You only need to keep the app running long enough to review the reports and print them to PDF
 
    Still within the command window, run
 ```
+(make sure you are in the main directoyr ie. successmetrics)
 Windows: runapp.bat 
 Linux: sh runapp.bat
 ```
