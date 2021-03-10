@@ -44,9 +44,10 @@ The script will create a file called *successmetrics.csv*. We suggest opening th
 If you have python3 available, you can run the following script to produce additonal data files for reporting, all of which will be read by the app on startup.
 This script is optional and not required for the main success metrics report
 ```
-(change to the reports2 directory)
+cd reports2
 Windows: create-data2.bat <iq-host-url> <iq-username> <iq-password>
 Linux: create-data2.sh <iq-host-url> <iq-username> <iq-password>
+cd ..
 
 iq-host-url - your Nexus IQ Url, but with no backslash at the end
 iq-username - your Nexus IQ user name that has access to data set you'd like to report on
