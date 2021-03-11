@@ -76,7 +76,7 @@ task release (type: Copy) {
 java -jar successmetrics-${version}.jar
 """
 		new File("${bundledir}", 'runapp-pdf.bat').text = """
-java -Dspring.profiles.active=pdf -jar successmetrics-${version}.jar
+java  -jar successmetrics-${version}.jar
 """
     }
 }
