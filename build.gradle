@@ -75,9 +75,6 @@ task release (type: Copy) {
   	new File("${bundledir}", 'runapp.bat').text = """
 java -jar successmetrics-${version}.jar
 """
-		new File("${bundledir}", 'runapp-pdf.bat').text = """
-java  -jar successmetrics-${version}.jar
-"""
     }
 }
 
