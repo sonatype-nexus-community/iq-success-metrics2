@@ -34,7 +34,7 @@ public class UnsignedController {
         
         // Current Period
 
-        String latestTimePeriod = utilService.latestPeriod();
+        String latestTimePeriod = utilService.getLatestPeriod();
         String timePeriod = utilService.getTimePeriod();
 		
         model.addAttribute("timePeriod", timePeriod);
@@ -122,6 +122,9 @@ public class UnsignedController {
         model.addAttribute("openLicenseViolations", openLicenseViolations);
 		model.addAttribute("fixedLicenseViolations", fixedLicenseViolations);
 		model.addAttribute("waivedLicenseViolations", waivedLicenseViolations);
+		
+		List<DbRow> riskRatio = dataService.runSql(SqlStatement.RiskRatio);
+		model.addAttribute("riskRatio", riskRatio);
 		
 		// Previous Period
 
@@ -219,7 +222,7 @@ public class UnsignedController {
         model.addAttribute("ppopenLicenseViolations", ppopenLicenseViolations);
 		model.addAttribute("ppfixedLicenseViolations", ppfixedLicenseViolations);
 		model.addAttribute("ppwaivedLicenseViolations", ppwaivedLicenseViolations);
-
+		
         return "reportUnsigned";
     }
 

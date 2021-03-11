@@ -113,6 +113,42 @@
         </script>
 
         <div style="page-break-before: always;"/> 	
+        
+        <div id="riskRatioChart"></div>
+        <script th:inline="javascript">
+            var points = /*[[${riskRatio}]]*/'noValue';
+	     	var pdata = [];
+	     	var labels = [];
+	     	
+	     	points.forEach(entry => {
+	            var label = entry.label;
+	            var point = entry.pointA;
+	            labels.push(label);
+	            pdata.push(point);
+	        }); 
+
+            var options = {
+                chart: barchart,
+                grid: grid,
+                dataLabels: barchartlabels,
+                fill: fillbar,
+                series: [{
+                    name: 'applications',
+                    data: pdata
+                }],
+                xaxis: {
+                    categories: labels,
+                },
+                title: {
+                    text: 'Risk Ratio (Critical Vulnerabilities)',
+                    align: 'left'
+                }
+            }
+
+            var chart = new ApexCharts(document.querySelector("#riskRatioChart"), options);
+
+            chart.render();
+        </script>
 
         <div id="mttrChart"></div>
         <script th:inline="javascript">
@@ -180,7 +216,9 @@
 
             chart.render();
         </script>
-
-    </div>
+    
+    	
+        
+     </div>   
 
 </div>

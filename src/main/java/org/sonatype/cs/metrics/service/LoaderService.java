@@ -15,9 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FileService {
+public class LoaderService {
 
-	private static final Logger log = LoggerFactory.getLogger(FileService.class);
+	private static final Logger log = LoggerFactory.getLogger(LoaderService.class);
 	
 	@Autowired
 	private DataService dataService;
@@ -127,6 +127,13 @@ public class FileService {
 
 		br.close();
 		return lineCount;
-}
+	}
+
+	public void filterOutLatestPeriod() {
+		String latestPeriod = utilService.getLatestPeriod();
+		String sqlStmt = "delete from metric where time_period_start = " + "'" + latestPeriod + "'";
+		dataService.runSqlLoad(sqlStmt);
+		return;
+	}
 	
 }

@@ -20,8 +20,8 @@
     <table class="table table-hover">
         <thead class="thead-dark">
             <tr>             
-                <th scope="col">Current Period <span style="color:white;font-size:10px" th:text="${latestTimePeriod}"/></th>
-                <th scope="col">Previous Period <span style="color:white;font-size:10px" th:text="${ppPeriodStr}"/></th>
+                <th scope="col">Current Period (<span style="color:white;font-size:10px" th:text="${latestTimePeriod}"/>)</th>
+                <th scope="col">Previous Period (<span style="color:white;font-size:10px" th:text="${ppPeriodStr}"/>)</th>
             </tr>
         </thead>
         <tbody>
@@ -51,29 +51,29 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td style="font-weight:bold" th:text="'Discovered Security Violations'"></td>
+            <tr style="font-weight:bold">
+                <td  th:text="'Discovered Security Violations'"></td>
                 <td th:text="${discoveredSecurityViolationsTotals.pointA}+${discoveredSecurityViolationsTotals.pointB}+${discoveredSecurityViolationsTotals.pointC}"></td>
                 <td th:text="${discoveredSecurityViolationsTotals.pointA}"></td>
                 <td th:text="${discoveredSecurityViolationsTotals.pointB}"></td>
                 <td th:text="${discoveredSecurityViolationsTotals.pointC}"></td>
             </tr>
             <tr>
-                <td style="font-weight:bold" th:text="'Open Security Violations'"></td>
+                <td th:text="'Open Security Violations'"></td>
                 <td th:text="${openSecurityViolationsTotals.pointA}+${openSecurityViolationsTotals.pointB}+${openSecurityViolationsTotals.pointC}"></td>
                 <td th:text="${openSecurityViolationsTotals.pointA}"></td>
                 <td th:text="${openSecurityViolationsTotals.pointB}"></td>
                 <td th:text="${openSecurityViolationsTotals.pointC}"></td>
             </tr>
             <tr>
-                <td style="font-weight:bold" th:text="'Fixed Security Violations'"></td>
+                <td th:text="'Fixed Security Violations'"></td>
                 <td th:text="${fixedSecurityViolationsTotals.pointA}+${fixedSecurityViolationsTotals.pointB}+${fixedSecurityViolationsTotals.pointC}"></td>
                 <td th:text="${fixedSecurityViolationsTotals.pointA}"></td>
                 <td th:text="${fixedSecurityViolationsTotals.pointB}"></td>
                 <td th:text="${fixedSecurityViolationsTotals.pointC}"></td>
             </tr>
             <tr>
-                <td style="font-weight:bold" th:text="'Waived Security Violations'"></td>
+                <td th:text="'Waived Security Violations'"></td>
                 <td th:text="${waivedSecurityViolationsTotals.pointA}+${waivedSecurityViolationsTotals.pointB}+${waivedSecurityViolationsTotals.pointC}"></td>
                 <td th:text="${waivedSecurityViolationsTotals.pointA}"></td>
                 <td th:text="${waivedSecurityViolationsTotals.pointB}"></td>
@@ -83,29 +83,29 @@
                 <td style="background-color: aliceblue;"></td><td style="background-color: aliceblue;"></td>
                 <td style="background-color: aliceblue;"></td><td style="background-color: aliceblue;"></td><td style="background-color: aliceblue;"></td>
             </tr>
-            <tr>
-                <td style="font-weight:bold" th:text="'Discovered License Violations'"></td>
+            <tr style="font-weight:bold">
+                <td th:text="'Discovered License Violations'"></td>
                 <td th:text="${discoveredLicenseViolationsTotals.pointA}+${discoveredLicenseViolationsTotals.pointB}+${discoveredLicenseViolationsTotals.pointC}"></td>
                 <td th:text="${discoveredLicenseViolationsTotals.pointA}"></td>
                 <td th:text="${discoveredLicenseViolationsTotals.pointB}"></td>
                 <td th:text="${discoveredLicenseViolationsTotals.pointC}"></td>
             </tr>
             <tr>
-                <td style="font-weight:bold" th:text="'Open License Violations'"></td>
+                <td th:text="'Open License Violations'"></td>
                 <td th:text="${openLicenseViolationsTotals.pointA}+${openLicenseViolationsTotals.pointB}+${openLicenseViolationsTotals.pointC}"></td>
                 <td th:text="${openLicenseViolationsTotals.pointA}"></td>
                 <td th:text="${openLicenseViolationsTotals.pointB}"></td>
                 <td th:text="${openLicenseViolationsTotals.pointC}"></td>
             </tr>
             <tr>
-                <td style="font-weight:bold" th:text="'Fixed License Violations'"></td>
+                <td th:text="'Fixed License Violations'"></td>
                 <td th:text="${fixedLicenseViolationsTotals.pointA}+${fixedLicenseViolationsTotals.pointB}+${fixedLicenseViolationsTotals.pointC}"></td>
                 <td th:text="${fixedLicenseViolationsTotals.pointA}"></td>
                 <td th:text="${fixedLicenseViolationsTotals.pointB}"></td>
                 <td th:text="${fixedLicenseViolationsTotals.pointC}"></td>
             </tr>
             <tr>
-                <td style="font-weight:bold" th:text="'Waived License Violations'"></td>
+                <td th:text="'Waived License Violations'"></td>
                 <td th:text="${waivedLicenseViolationsTotals.pointA}+${waivedLicenseViolationsTotals.pointB}+${waivedLicenseViolationsTotals.pointC}"></td>
                 <td th:text="${waivedLicenseViolationsTotals.pointA}"></td>
                 <td th:text="${waivedLicenseViolationsTotals.pointB}"></td>
@@ -115,10 +115,14 @@
                 <td style="background-color: aliceblue;"></td><td style="background-color: aliceblue;"></td>
                 <td style="background-color: aliceblue;"></td><td style="background-color: aliceblue;"></td><td style="background-color: aliceblue;"></td>
             </tr>
-            	<td style="font-weight:bold" th:text="'Total Discovered Violations (Security and License)'"></td>
-                <td style="font-weight:bold" th:text="${discoveredSecurityViolationsTotals.pointA}+${discoveredSecurityViolationsTotals.pointB}+${discoveredSecurityViolationsTotals.pointC}+
+            <tr style="font-weight:bold">
+            	<td th:text="'Totals'"></td>
+                <td th:text="${discoveredSecurityViolationsTotals.pointA}+${discoveredSecurityViolationsTotals.pointB}+${discoveredSecurityViolationsTotals.pointC}+
                 			 ${discoveredLicenseViolationsTotals.pointA}+${discoveredLicenseViolationsTotals.pointB}+${discoveredLicenseViolationsTotals.pointC}">
-                		</td>
+                </td>
+                <td th:text="${discoveredSecurityViolationsTotals.pointA}+${discoveredLicenseViolationsTotals.pointA}"></td>
+                <td th:text="${discoveredSecurityViolationsTotals.pointB}+${discoveredLicenseViolationsTotals.pointB}"></td>
+                <td th:text="${discoveredSecurityViolationsTotals.pointC}+${discoveredLicenseViolationsTotals.pointC}"></td>
             </tr>
         </tbody>
     </table>
@@ -135,29 +139,29 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td style="font-weight:bold" th:text="'Discovered Security Violations'"></td>
+            <tr style="font-weight:bold" >
+                <td th:text="'Discovered Security Violations'"></td>
                 <td th:text="${ppdiscoveredSecurityViolationsTotals.pointA}+${ppdiscoveredSecurityViolationsTotals.pointB}+${ppdiscoveredSecurityViolationsTotals.pointC}"></td>
                 <td th:text="${ppdiscoveredSecurityViolationsTotals.pointA}"></td>
                 <td th:text="${ppdiscoveredSecurityViolationsTotals.pointB}"></td>
                 <td th:text="${ppdiscoveredSecurityViolationsTotals.pointC}"></td>
             </tr>
             <tr>
-                <td style="font-weight:bold" th:text="'Open Security Violations'"></td>
+                <td th:text="'Open Security Violations'"></td>
                 <td th:text="${ppopenSecurityViolationsTotals.pointA}+${ppopenSecurityViolationsTotals.pointB}+${ppopenSecurityViolationsTotals.pointC}"></td>
                 <td th:text="${ppopenSecurityViolationsTotals.pointA}"></td>
                 <td th:text="${ppopenSecurityViolationsTotals.pointB}"></td>
                 <td th:text="${ppopenSecurityViolationsTotals.pointC}"></td>
             </tr>
             <tr>
-                <td style="font-weight:bold" th:text="'Fixed Security Violations'"></td>
+                <td th:text="'Fixed Security Violations'"></td>
                 <td th:text="${ppfixedSecurityViolationsTotals.pointA}+${ppfixedSecurityViolationsTotals.pointB}+${ppfixedSecurityViolationsTotals.pointC}"></td>
                 <td th:text="${ppfixedSecurityViolationsTotals.pointA}"></td>
                 <td th:text="${ppfixedSecurityViolationsTotals.pointB}"></td>
                 <td th:text="${ppfixedSecurityViolationsTotals.pointC}"></td>
             </tr>
             <tr>
-                <td style="font-weight:bold" th:text="'Waived Security Violations'"></td>
+                <td th:text="'Waived Security Violations'"></td>
                 <td th:text="${ppwaivedSecurityViolationsTotals.pointA}+${ppwaivedSecurityViolationsTotals.pointB}+${ppwaivedSecurityViolationsTotals.pointC}"></td>
                 <td th:text="${ppwaivedSecurityViolationsTotals.pointA}"></td>
                 <td th:text="${ppwaivedSecurityViolationsTotals.pointB}"></td>
@@ -167,29 +171,29 @@
                 <td style="background-color: aliceblue;"></td><td style="background-color: aliceblue;"></td>
                 <td style="background-color: aliceblue;"></td><td style="background-color: aliceblue;"></td><td style="background-color: aliceblue;"></td>
             </tr>
-            <tr>
-                <td style="font-weight:bold" th:text="'Discovered License Violations'"></td>
+            <tr style="font-weight:bold" >
+                <td th:text="'Discovered License Violations'"></td>
                 <td th:text="${ppdiscoveredLicenseViolationsTotals.pointA}+${ppdiscoveredLicenseViolationsTotals.pointB}+${ppdiscoveredLicenseViolationsTotals.pointC}"></td>
                 <td th:text="${ppdiscoveredLicenseViolationsTotals.pointA}"></td>
                 <td th:text="${ppdiscoveredLicenseViolationsTotals.pointB}"></td>
                 <td th:text="${ppdiscoveredLicenseViolationsTotals.pointC}"></td>
             </tr>
             <tr>
-                <td style="font-weight:bold" th:text="'Open License Violations'"></td>
+                <td th:text="'Open License Violations'"></td>
                 <td th:text="${ppopenLicenseViolationsTotals.pointA}+${ppopenLicenseViolationsTotals.pointB}+${ppopenLicenseViolationsTotals.pointC}"></td>
                 <td th:text="${ppopenLicenseViolationsTotals.pointA}"></td>
                 <td th:text="${ppopenLicenseViolationsTotals.pointB}"></td>
                 <td th:text="${ppopenLicenseViolationsTotals.pointC}"></td>
             </tr>
             <tr>
-                <td style="font-weight:bold" th:text="'Fixed License Violations'"></td>
+                <td th:text="'Fixed License Violations'"></td>
                 <td th:text="${ppfixedLicenseViolationsTotals.pointA}+${ppfixedLicenseViolationsTotals.pointB}+${ppfixedLicenseViolationsTotals.pointC}"></td>
                 <td th:text="${ppfixedLicenseViolationsTotals.pointA}"></td>
                 <td th:text="${ppfixedLicenseViolationsTotals.pointB}"></td>
                 <td th:text="${ppfixedLicenseViolationsTotals.pointC}"></td>
             </tr>
             <tr>
-                <td style="font-weight:bold" th:text="'Waived License Violations'"></td>
+                <td th:text="'Waived License Violations'"></td>
                 <td th:text="${ppwaivedLicenseViolationsTotals.pointA}+${ppwaivedLicenseViolationsTotals.pointB}+${ppwaivedLicenseViolationsTotals.pointC}"></td>
                 <td th:text="${ppwaivedLicenseViolationsTotals.pointA}"></td>
                 <td th:text="${ppwaivedLicenseViolationsTotals.pointB}"></td>
@@ -199,11 +203,16 @@
                 <td style="background-color: aliceblue;"></td><td style="background-color: aliceblue;"></td>
                 <td style="background-color: aliceblue;"></td><td style="background-color: aliceblue;"></td><td style="background-color: aliceblue;"></td>
             </tr>
-            	<td style="font-weight:bold" th:text="'Total Discovered Violations (Security and License)'"></td>
-                <td style="font-weight:bold" th:text="${ppdiscoveredSecurityViolationsTotals.pointA}+${ppdiscoveredSecurityViolationsTotals.pointB}+${ppdiscoveredSecurityViolationsTotals.pointC}+
+            <tr style="font-weight:bold" >
+            	<td th:text="'Total'"></td>
+                <td th:text="${ppdiscoveredSecurityViolationsTotals.pointA}+${ppdiscoveredSecurityViolationsTotals.pointB}+${ppdiscoveredSecurityViolationsTotals.pointC}+
                 			 ${ppdiscoveredLicenseViolationsTotals.pointA}+${ppdiscoveredLicenseViolationsTotals.pointB}+${ppdiscoveredLicenseViolationsTotals.pointC}">
                 </td>
+                <td th:text="${ppdiscoveredSecurityViolationsTotals.pointA}+${ppdiscoveredLicenseViolationsTotals.pointA}"></td>
+                <td th:text="${ppdiscoveredSecurityViolationsTotals.pointB}+${ppdiscoveredLicenseViolationsTotals.pointB}"></td>
+                <td th:text="${ppdiscoveredSecurityViolationsTotals.pointC}+${ppdiscoveredLicenseViolationsTotals.pointC}"></td>
             </tr>
+            
         </tbody>
     </table>
     

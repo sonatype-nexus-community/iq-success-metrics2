@@ -27,7 +27,7 @@ public class SummaryDataService {
 
     Context model = new Context();
 
-    String latestTimePeriod = utilService.latestPeriod();
+    String latestTimePeriod = utilService.getLatestPeriod();
     String timePeriod = utilService.getTimePeriod();
       
     model.setVariable("timePeriod", timePeriod);

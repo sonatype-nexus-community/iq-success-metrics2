@@ -11,6 +11,7 @@ public class DataLoaderParams {
 	public static final String cwDatafile = "reports2/componentwaivers.csv";
 	public static final String pvDatafile = "reports2/policyviolations.csv";
   
+	public static final String smHeader = "applicationId,applicationName,applicationPublicId,";
 	public static final String aeFileHeader = "ApplicationName,EvaluationDate,Stage";
 	public static final String cqFileHeader = "Repository,Format,PackageUrl,QuarantineTime,PolicyName,ThreatLevel";
 	public static final String pvFileHeader = "PolicyName,CVE,ApplicationName,OpenTime,Component,Stage";

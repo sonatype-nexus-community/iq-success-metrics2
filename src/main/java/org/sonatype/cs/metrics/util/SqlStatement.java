@@ -311,6 +311,11 @@ public class SqlStatement {
 			"  comment VARCHAR(250) DEFAULT NULL," +
 			"  createDate VARCHAR(250) DEFAULT NULL) " +
 			" AS SELECT applicationName, stage, packageUrl, policyName, threatLevel, comment, createDate FROM CSVREAD ";
-
+	
+	public static final String RiskRatio = "select time_period_start as label, " +
+											"sum(OPEN_COUNT_AT_TIME_PERIOD_END_SECURITY_CRITICAL)/count(time_period_start) as pointA " +
+											"from metric " +
+											"group by time_period_start " +
+											"order by 1";
 }
 

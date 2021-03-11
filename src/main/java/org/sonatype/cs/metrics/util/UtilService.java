@@ -29,53 +29,16 @@ public class UtilService {
     private static long oneWeekMs = 604800000;
     private static long oneMonthMs = 2629800000L;
     
-    @Value("${data.previous.weeks}")
-	private int dataPreviousWeeks;
-    
-    @Value("${data.previous.months}")
-	private int dataPreviousMonths;
-    
 	@Autowired
 	private DataService dataService;
 	
-    public String latestPeriod() {
+    public String getLatestPeriod() {
 	    String latestPeriod = dataService.runSql(SqlStatement.LatestTimePeriodStart).get(0).getLabel();
 		return latestPeriod;
 	}
     
-    public String getPreviousPeriod() throws ParseException {
-	    String currentPeriod = this.latestPeriod();
- 	    	    
-	    long currentPeriodMs = this.convertDateStr(currentPeriod);
-	    
-	    String timePeriod = this.getTimePeriod();
- 	    
-	    long previousPeriodCalc;
-	    long previousPeriodMs;
-	    
-	    if (timePeriod == "week") {
-	    	previousPeriodCalc = oneWeekMs;
- 	    }
-	    else {
-	    	previousPeriodCalc = oneMonthMs;
- 	    }
-	    
-	    int previousPeriodRange = calcPreviousPeriodRange();
-	    previousPeriodMs = currentPeriodMs - (previousPeriodCalc * previousPeriodRange);
-	  
-	    DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-	    String previousPeriod = df.format(previousPeriodMs);
-	    
-	    if (!previousPeriodInRange(previousPeriod)) {
-	    	previousPeriod = this.getMidPeriod();
-	    	//previousPeriodRange = this.getDateDiff(currentPeriod, previousPeriod);
-	    }
-	    
-		return previousPeriod;
-	}
-    
     public int getPreviousPeriodRange() throws ParseException {
-    	String currentPeriod = this.latestPeriod();
+    	String currentPeriod = this.getLatestPeriod();
     	String previousPeriod = this.getPreviousPeriod();
     	int previousPeriodRange = this.getDateDiff(currentPeriod, previousPeriod);
     	return previousPeriodRange;
@@ -101,55 +64,26 @@ public class UtilService {
 		return diff;
 	}
 
-	private String getMidPeriod() {
+	public String getPreviousPeriod() {
 		List<DbRow> timePeriods = dataService.runSql(SqlStatement.TimePeriods);
 		int numberOfPeriods = timePeriods.size();
 		
 		int periodNumber = 0;
-		int minPeriods = 3;
+		int minPeriods = 2;
 		
 		String midPeriod = "none";
 		
-		if (numberOfPeriods >= minPeriods) {
-			periodNumber = numberOfPeriods/2;
+		if (numberOfPeriods == minPeriods) {
+			midPeriod = timePeriods.get(0).getLabel();
+		}
+		
+		if (numberOfPeriods > minPeriods) {
+			periodNumber = numberOfPeriods/2; 
 			midPeriod = timePeriods.get(periodNumber).getLabel();
 		}
 		
 		return midPeriod;
 	}
-
-	private boolean previousPeriodInRange(String previousPeriod) {
-		List<DbRow> timePeriods = dataService.runSql(SqlStatement.TimePeriods);
-		
-		boolean status = false;
-		
-		for (DbRow t : timePeriods) {
-			String period = t.getLabel();
-			
-			if (period.equalsIgnoreCase(previousPeriod)) {
-				status = true;
-				break;
-			}
-		}
-		
-		return status;
-    }
-    
-    private int calcPreviousPeriodRange() throws ParseException {
-    	
-    	int dataPreviousPeriod = 0;
-    	
-	    String timePeriod = this.getTimePeriod();
-    	
-		if (timePeriod == "week") {
-	    	dataPreviousPeriod  = dataPreviousWeeks;
-	    }
-	    else {
-	    	dataPreviousPeriod = dataPreviousMonths;
-	    }
-		
-		return dataPreviousPeriod;
-    }
 	
 	public String getTimePeriod() throws ParseException {
 		List<DbRow> timePeriods = dataService.runSql(SqlStatement.TimePeriods);

@@ -30,7 +30,7 @@ public class ApplicationsController {
 
         log.info("In ApplicationsController");
 
-        String latestTimePeriod = timePeriodService.latestPeriod();
+        String latestTimePeriod = timePeriodService.getLatestPeriod();
 
         List<DbRow> applicationsOnboarded = dataService.runSql(SqlStatement.ApplicationsOnboarded);
         List<DbRow> numberOfScans = dataService.runSql(SqlStatement.NumberOfScans);
@@ -59,6 +59,9 @@ public class ApplicationsController {
 		model.addAttribute("mostCriticalOrganisationsData", oov);
 		model.addAttribute("mostCriticalApplicationsData", aov);
 		model.addAttribute("mostScannedApplicationsData", dataService.runSql(SqlStatement.MostScannedApplications));
+		
+		List<DbRow> riskRatio = dataService.runSql(SqlStatement.RiskRatio);
+		model.addAttribute("riskRatio", riskRatio);
 
         return "reportApplications";
     }

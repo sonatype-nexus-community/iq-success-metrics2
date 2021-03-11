@@ -12,7 +12,7 @@ import com.lowagie.text.DocumentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonatype.cs.metrics.service.PdfService;
-import org.sonatype.cs.metrics.service.FileService;
+import org.sonatype.cs.metrics.service.LoaderService;
 import org.sonatype.cs.metrics.util.DataLoaderParams;
 import org.sonatype.cs.metrics.util.SqlStatement;
 import org.sonatype.cs.metrics.util.UtilService;
@@ -44,9 +44,12 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 
 	@Value("${server.port}")
 	private String port;
+	
+	@Value("${data.includelatestperiod}")
+	private boolean includelatestperiod;
 
 	@Autowired
-	private FileService fileService;
+	private LoaderService loaderService;
 
 	@Autowired
 	private PdfService pdfService;
@@ -67,7 +70,8 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 		loadSuccessMetricsData();
 
 		if (runMode.contains("SERVLET")) {
-			reports2();
+			
+			this.reports2();
 			log.info("Ready for viewing at http://localhost:" + port);
 		} 
 		else {
@@ -79,17 +83,21 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 	}
 
 	private void loadSuccessMetricsData() throws IOException, ParseException {
-		String fileHeader = "applicationId,applicationName,applicationPublicId,";
 
 		String stmt = SqlStatement.MetricsTable;
-		boolean fileLoaded = fileService.loadMetricsFile(DataLoaderParams.smDatafile, fileHeader, stmt);
+		boolean fileLoaded = loaderService.loadMetricsFile(DataLoaderParams.smDatafile, DataLoaderParams.smHeader, stmt);
 
 		if (!fileLoaded) {
 			log.info(DataLoaderParams.smDatafile + " file not found");
 			System.exit(-1);
 		}
 		else {
-			boolean hasPreviousData = fileService.loadPreviousPeriodData();
+			
+			if (!includelatestperiod) {
+				loaderService.filterOutLatestPeriod(); // it is likely incomplete
+			}
+			
+			boolean hasPreviousData = loaderService.loadPreviousPeriodData();
 			
 			if (!hasPreviousData) {
 				log.error("No previous data");
@@ -98,11 +106,12 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 			}
 		}
 	}
-	
+
+
 	public void reports2() throws IOException {
-		applicationEvaluationsFileLoaded = fileService.loadMetricsFile(DataLoaderParams.aeDatafile, DataLoaderParams.aeFileHeader, SqlStatement.ApplicationEvaluationsTable);
-		policyViolationsDataLoaded = fileService.loadMetricsFile(DataLoaderParams.pvDatafile, DataLoaderParams.pvFileHeader,  SqlStatement.PolicyViolationsTables);
-		componentsQuarantineLoaded = fileService.loadMetricsFile(DataLoaderParams.cqDatafile, DataLoaderParams.cqFileHeader, SqlStatement.ComponentsInQuarantineTable);
-		componentWaiversLoaded = fileService.loadMetricsFile(DataLoaderParams.cwDatafile, DataLoaderParams.cwFileHeader, SqlStatement.ComponentWaiversTable);
+		applicationEvaluationsFileLoaded = loaderService.loadMetricsFile(DataLoaderParams.aeDatafile, DataLoaderParams.aeFileHeader, SqlStatement.ApplicationEvaluationsTable);
+		policyViolationsDataLoaded = loaderService.loadMetricsFile(DataLoaderParams.pvDatafile, DataLoaderParams.pvFileHeader,  SqlStatement.PolicyViolationsTables);
+		componentsQuarantineLoaded = loaderService.loadMetricsFile(DataLoaderParams.cqDatafile, DataLoaderParams.cqFileHeader, SqlStatement.ComponentsInQuarantineTable);
+		componentWaiversLoaded = loaderService.loadMetricsFile(DataLoaderParams.cwDatafile, DataLoaderParams.cwFileHeader, SqlStatement.ComponentWaiversTable);
 	}
 }

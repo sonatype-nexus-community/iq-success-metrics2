@@ -3,8 +3,11 @@
 
 **Prerequisites**
   * Java 8+
-  * (optional) python3
-  
+  * (optional) python3  
+
+&nbsp;
+&nbsp;
+
 **Download the java app for success metrics**
   * Click on the *success-metrics.zip* file, then download (there is a download button on the lower right)
   * Unzip the contents into a directory of your choice
@@ -14,11 +17,17 @@ unzip success-metrics.zip
 cd success-metrics
 ```
 
+&nbsp;
+&nbsp;
+
 **(Optional) Make Config Updates for Success Metrics**
 
  * Edit either the *weekly.json* or *monthly.json* file to adjust the firstTimePeriod (the week or month to start reporting from) 
  * You may also choose to add an end period (Additional information can be found here: https://help.sonatype.com/iqserver/automating/rest-apis/success-metrics-data-rest-api---v2).
  * For larger installations, we recommend limiting the data to extract to a smaller period (e.g. since the previous month or few weeks) or subset of organisations and/or applications. Information on how to adjust the request body (in the weekly.json or monthly.json files) can be found at the success metrics page above.
+
+&nbsp;
+&nbsp;
 
 **Create the csv files**
 
@@ -39,6 +48,8 @@ Example (Windows):  create-data.bat http://localhost:8070 admin admin123 monthly
 ```
 
 The script will create a file called *successmetrics.csv*. We suggest opening the file and check to ensure it contains metrics data.
+
+&nbsp;
 
 (Optional) 
 If you have python3 available, you can run the following script to produce additonal data files for reporting, all of which will be read by the app on startup.
@@ -62,6 +73,8 @@ The files are created in the reports2 directory
 
 (Make sure to return to the main directory ie. successmetrics).
 
+&nbsp;
+&nbsp;
 
 **Start the reporting app**
    
@@ -89,9 +102,52 @@ On completion, you should see output similar to below after which app is ready f
 
 Open a browser and go to http://localhost:4040
 
+&nbsp;
+&nbsp;
+
 **Save PDF files**
 
-The *Unsigned Report* is designed to be saved to pdf. It contains most of the other reports. The recommended way to do to this is by selecting the 'Save to PDF' option with the Print menu option of your web browser.
+The *Summary Report* is designed to be saved to pdf. It contains most of the other reports. The recommended way to do to this is by selecting the *Save to PDF* option with the Print menu option of your web browser.
+
+&nbsp;
+&nbsp;
+
+**Advanced Options**
+
+You can override the following defaults by setting following system properties when you run the command to run the application.
+
+  * To run on another port: (default: 4040) 
+
+    *-Dserver.port=<port-number>*
+
+  * Include the latest period: (default: false) 
+
+    The latest period is the period when you run the application. It is likely it has not ended, therefore data for the period will be incomplete.
+    By default, the application will exclude the period from the report. 
+    To include data for the latest period, set the following property:
+
+    *-Ddata.includelatestperiod=true*
+
+  * Save to PDF automatically: (default: web) 
+
+    The application runs in two modes. By default, it will start up and you access all the reports and charts via your web browser (web mode).
+    Alternatively, you may wish to just create a pdf file (pdf mode).  In the pdf mode, the file in created in a sub-directory called 
+    successmetrics-reports and is time-stamped file name. The application will then immediately exit. 
+    To run in pdf mode, set the following property:
+
+    *-Dspring.profiles.active=pdf*
+
+```
+Example: 
+
+To run the application on port 4455, just produce the pdf report and include the latest period
+(you can add the options to the runapp.bat file)
+
+java -jar -Dserver.port=4455 -Ddata.includelatestperiod=true -Dspring.profiles.active=pdf successmetrics-<version>.jar
+```
+
+&nbsp;
+&nbsp;
 
 **Development**
 
@@ -100,16 +156,21 @@ Should you wish to edit the source code:
   * Clone the repository
   * Make your changes
   * At the root directory of the repo
+
 ```
 To test:
-`./gradlew bootRun`
+./gradlew bootRun
 
 To build:
-`gradle clean build bundle`
+gradle clean build bundle
 
 To run:
-`java -jar success-metrics-<version>.jar`
+java -jar success-metrics-<version>.jar
 ```
+
+&nbsp;
+&nbsp;
+&nbsp;
 
 **The Fine Print**
 * We recommend running it for 4 weeks of data at a time and for sets of orgs instead of the full scope if you have a large dataset.

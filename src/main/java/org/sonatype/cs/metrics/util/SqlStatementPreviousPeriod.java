@@ -183,6 +183,12 @@ public class SqlStatementPreviousPeriod {
 													            "sum(FIXED_COUNT_LICENSE_CRITICAL) + sum(FIXED_COUNT_LICENSE_SEVERE) + sum(FIXED_COUNT_LICENSE_MODERATE) as pointB, " +
 													            "sum(WAIVED_COUNT_LICENSE_CRITICAL) + sum(WAIVED_COUNT_LICENSE_SEVERE) + sum(WAIVED_COUNT_LICENSE_MODERATE) as pointC " +
 													            "from metric_pp group by APPLICATION_NAME order by 2 desc";
+	
+	public static String RiskRatio = "select time_period_start as label, " +
+			"sum(OPEN_COUNT_AT_TIME_PERIOD_END_SECURITY_CRITICAL)/count(time_period_start) as pointA" +
+			"from metric_pp " +
+			"group by time_period_start " +
+			"order by 1";
 
 
 }
