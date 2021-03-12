@@ -85,8 +85,10 @@ The files are created in the reports2 directory
    You only need to keep the app running long enough to review the reports and print them to PDF
 
    Still within the command window, run
+   
 ```
-(make sure you are in the main directoyr ie. successmetrics)
+*(make sure you are in the main directoyr ie. successmetrics)*
+
 Windows: runapp.bat 
 Linux: sh runapp.bat
 ```
