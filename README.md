@@ -120,7 +120,7 @@ You can override the following defaults by setting following system properties w
 
   * To run on another port: (default: 4040) 
 
-    *-Dserver.port=nnn>*
+    *-Dserver.port=nnn*
 
   * Include the latest period: (default: false) 
 
