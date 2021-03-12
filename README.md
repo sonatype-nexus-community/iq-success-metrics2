@@ -60,8 +60,8 @@ Windows: create-data2.bat <iq-host-url> <iq-username> <iq-password>
 Linux: create-data2.sh <iq-host-url> <iq-username> <iq-password>
 cd ..
 
-iq-host-url - your Nexus IQ Url, but with no backslash at the end
-iq-username - your Nexus IQ user name that has access to data set you'd like to report on
+iq-host-url - your Nexus IQ Url, (with no backslash at the end - it will not work with a trailing forward slash)
+iq-username - your Nexus IQ user name (choose a user name that has access to data set you'd like to report on)
 iq-password - your Nexus IQ password
 
 Example (Windows):  create-data2.bat http://localhost:8070 admin admin123
