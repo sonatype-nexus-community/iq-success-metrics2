@@ -80,7 +80,7 @@ The files are created in the reports2 directory
    
    This app is a simple web app running by default on port 4040. 
    
-   By default, the app looks for the successmetrics.csv file in the current directory and in the reports2 directory for the optional data files
+   By default, the app looks for the *successmetrics.csv* file in the current directory and in the reports2 directory for the optional data files
 
    You only need to keep the app running long enough to review the reports and print them to PDF
 
