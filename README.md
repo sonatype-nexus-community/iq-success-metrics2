@@ -39,8 +39,8 @@ cd success-metrics
 Windows: create-data.bat <iq-host-url> <iq-username> <iq-password> <period-file>
 Linux: create-data.sh <iq-host-url> <iq-username> <iq-password> <period-file>
 
-iq-host-url - your Nexus IQ Url, but with no backslash at the end
-iq-username - your Nexus IQ user name that has access to data set you'd like to report on
+iq-host-url - your Nexus IQ Url, (with no backslash at the end - it will not work with a trailing forward slash)
+iq-username - your Nexus IQ user name (choos a user name that has access to data set you'd like to report on)
 iq-password - your Nexus IQ password
 period-file - weekly.json or monthly.json
 
