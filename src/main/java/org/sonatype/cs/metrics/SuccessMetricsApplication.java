@@ -37,7 +37,7 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 	private String runMode;
 
 	@Value("${pdf.htmltemplate}")
-	private String htmlTemplate;
+	private String pdfTemplate;
 
 	@Value("${data.successmetrics}")
 	private String successmetricsDatafile;
@@ -75,7 +75,7 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 			log.info("Ready for viewing at http://localhost:" + port);
 		} 
 		else {
-			String html = pdfService.parseThymeleafTemplate(htmlTemplate);
+			String html = pdfService.parsePdfTemplate(pdfTemplate);
 			pdfService.generatePdfFromHtml(html);
 
 			System.exit(0);

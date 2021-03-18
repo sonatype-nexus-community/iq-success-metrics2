@@ -38,9 +38,9 @@ public class PdfService {
   private String htmlTemplate;
   
   @Autowired
-  private SummaryDataService summaryDataService;
+  private PdfDataService summaryDataService;
 
-  public String parseThymeleafTemplate(String htmlTemplate) throws ParseException {
+  public String parsePdfTemplate(String htmlTemplate) throws ParseException {
 		ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
 		templateResolver.setSuffix(".html");
 		templateResolver.setTemplateMode(TemplateMode.HTML);
@@ -76,7 +76,7 @@ public class PdfService {
 
     outputStream.close();
 
-    log.info("created pdf report: " + outputFolder);
+    log.info("Created pdf report: " + outputFolder);
 	}
 	
 }

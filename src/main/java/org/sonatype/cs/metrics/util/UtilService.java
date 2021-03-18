@@ -12,7 +12,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonatype.cs.metrics.controller.UnsignedController;
+import org.sonatype.cs.metrics.controller.SummaryController;
 import org.sonatype.cs.metrics.model.DbRow;
 import org.sonatype.cs.metrics.model.DbRowStr;
 import org.sonatype.cs.metrics.service.DataService;
