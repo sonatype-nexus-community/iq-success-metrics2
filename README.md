@@ -39,8 +39,8 @@ cd success-metrics
 Windows: create-data.bat <iq-host-url> <iq-username> <iq-password> <period-file>
 Linux: create-data.sh <iq-host-url> <iq-username> <iq-password> <period-file>
 
-iq-host-url - your Nexus IQ Url, but with no backslash at the end
-iq-username - your Nexus IQ user name that has access to data set you'd like to report on
+iq-host-url - your Nexus IQ Url, (with no backslash at the end - it will not work with a trailing forward slash)
+iq-username - your Nexus IQ user name (choose a user name that has access to data set you'd like to report on)
 iq-password - your Nexus IQ password
 period-file - weekly.json or monthly.json
 
@@ -60,8 +60,8 @@ Windows: create-data2.bat <iq-host-url> <iq-username> <iq-password>
 Linux: create-data2.sh <iq-host-url> <iq-username> <iq-password>
 cd ..
 
-iq-host-url - your Nexus IQ Url, but with no backslash at the end
-iq-username - your Nexus IQ user name that has access to data set you'd like to report on
+iq-host-url - your Nexus IQ Url, (with no backslash at the end - it will not work with a trailing forward slash)
+iq-username - your Nexus IQ user name (choose a user name that has access to data set you'd like to report on)
 iq-password - your Nexus IQ password
 
 Example (Windows):  create-data2.bat http://localhost:8070 admin admin123
@@ -80,13 +80,15 @@ The files are created in the reports2 directory
    
    This app is a simple web app running by default on port 4040. 
    
-   By default, the app looks for the data to load in the current directory
+   By default, the app looks for the *successmetrics.csv* file in the current directory and in the reports2 directory for the optional data files
 
    You only need to keep the app running long enough to review the reports and print them to PDF
 
    Still within the command window, run
+   
 ```
 (make sure you are in the main directoyr ie. successmetrics)
+
 Windows: runapp.bat 
 Linux: sh runapp.bat
 ```
@@ -107,7 +109,7 @@ Open a browser and go to http://localhost:4040
 
 **Save PDF files**
 
-The *Summary Report* is designed to be saved to pdf. It contains most of the other reports. The recommended way to do to this is by selecting the *Save to PDF* option with the Print menu option of your web browser.
+The *Summary Report* is designed to be saved to pdf. It contains most of the other reports. The recommended way to do to this is by selecting the *Save to PDF* option within the Print menu option of your web browser.
 
 &nbsp;
 &nbsp;
@@ -118,7 +120,7 @@ You can override the following defaults by setting following system properties w
 
   * To run on another port: (default: 4040) 
 
-    *-Dserver.port=<port-number>*
+    *-Dserver.port=nnn*
 
   * Include the latest period: (default: false) 
 
