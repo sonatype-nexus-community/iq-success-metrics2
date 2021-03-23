@@ -20,8 +20,8 @@
     <table class="table table-hover">
         <thead class="thead-dark">
             <tr>             
-                <th scope="col">Current Period (<span style="color:white;font-size:10px" th:text="${latestTimePeriod}"/>)</th>
-                <th scope="col">Previous Period (<span style="color:white;font-size:10px" th:text="${ppPeriodStr}"/>)</th>
+                <th scope="col">Current Period <span style="color:white;font-size:13px" th:text="${currentPeriodDateRange}"/></th>
+                <th scope="col">Previous Period <span style="color:white;font-size:13px" th:text="${previousPeriodDateRange}"/></th>
             </tr>
         </thead>
         <tbody>
@@ -225,10 +225,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <!-- <tr>
             <td> Your fix rate is <span th:text="${fixRate}"/>%</td>
             <td> Your fix rate is <span th:text="${ppfixRate}"/>%</td>
-            </tr>
+            </tr> -->
             <tr>
             <td> It took an average of <span th:text="${mttrAvg[0]}"/> days to fix critical violations</td>
             <td> It took an average of <span th:text="${ppmttrAvg[0]}"/> days to fix critical violations</td>
@@ -245,10 +245,10 @@
             <td style="background-color: aliceblue;"></td>
             <td style="background-color: aliceblue;"></td>
             </tr>
-            <tr>
+            <!-- <tr>
             <td> On average, each application has <span th:text="${openCriticalViolationsAvg}"/> open critical violations</td>
             <td> On average, each application has <span th:text="${ppopenCriticalViolationsAvg}"/> open critical violations</td>
-            </tr>
+            </tr> -->
             <tr>
             <td> Most critical application has <span th:text="${mostCriticalApplicationCount}"/> critical violations</td>
             <td> Most critical application has <span th:text="${ppmostCriticalApplicationCount}"/> critical violations</td>

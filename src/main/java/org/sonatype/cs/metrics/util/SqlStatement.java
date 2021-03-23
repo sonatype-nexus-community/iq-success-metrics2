@@ -115,9 +115,7 @@ public class SqlStatement {
 													"from metric " +
 													"order by 1 desc limit 1";
 	
-	public static String TimePeriods = "select distinct time_period_start as label " +
-										"from metric " +
-										" order by 1";
+	public static String TimePeriods = "select distinct time_period_start as label from metric order by 1";
 
 	public static String ApplicationsOpenViolations = "select  distinct application_name as label, " + 
 										"sum(OPEN_COUNT_AT_TIME_PERIOD_END_SECURITY_CRITICAL) + sum(OPEN_COUNT_AT_TIME_PERIOD_END_LICENSE_CRITICAL) as pointA, " +

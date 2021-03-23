@@ -29,11 +29,15 @@ public class PdfDataService {
 
     String latestTimePeriod = utilService.getLatestPeriod();
     String timePeriod = utilService.getTimePeriod();
+    String[] currentPeriodDateRange = utilService.getDateRangeForPeriod("current");
       
     model.setVariable("timePeriod", timePeriod);
     model.setVariable("latestTimePeriod", latestTimePeriod);
+	model.setVariable("currentPeriodDateRange", "(" + currentPeriodDateRange[0] + " - " + currentPeriodDateRange[1] + ")");
 
     List<DbRow> applicationsOnboarded = dataService.runSql(SqlStatement.ApplicationsOnboarded);
+    int numberOfApplicationsStartPeriod = getNumberofApplicationsStartPeriod(currentPeriodDateRange[0]);
+
     List<DbRow> numberOfScans = dataService.runSql(SqlStatement.NumberOfScans);
     List<DbRow> numberOfApplicationsScanned = dataService.runSql(SqlStatement.NumberOfApplicationsScanned);
     List<Mttr> mttr = dataService.runSqlMttr(SqlStatement.MTTR);
@@ -43,7 +47,8 @@ public class PdfDataService {
     model.setVariable("numberOfApplicationsScanned", numberOfApplicationsScanned);
     model.setVariable("mttr", mttr);
 
-    model.setVariable("applicationsOnboardedAvg", sumAndAverageApplicationsOnboarded(applicationsOnboarded));
+    model.setVariable("applicationsOnboardedAvg", sumAndAverageApplicationsOnboarded(applicationsOnboarded, numberOfApplicationsStartPeriod));
+
 		model.setVariable("numberOfScansAvg", sumAndAveragePointA(numberOfScans));
 		model.setVariable("numberOfApplicationsScannedAvg", sumAndAveragePointA(numberOfApplicationsScanned));
 
@@ -120,6 +125,8 @@ public class PdfDataService {
 
         String pplatestTimePeriod = utilService.getPreviousPeriod();
         int ppPeriod = utilService.getPreviousPeriodRange();
+        String[] previousPeriodDateRange = utilService.getDateRangeForPeriod("previous");
+
         
         String endStr = "";
         
@@ -127,8 +134,9 @@ public class PdfDataService {
         	endStr = "s";
         }
         
-        String ppPeriodStr = pplatestTimePeriod + "/" + ppPeriod + " " + timePeriod + endStr;		
+        String ppPeriodStr = "/" + ppPeriod + " " + timePeriod + endStr;		
         model.setVariable("ppPeriodStr", ppPeriodStr);
+		model.setVariable("previousPeriodDateRange", "(" + previousPeriodDateRange[0] + " - " + previousPeriodDateRange[1] + ppPeriodStr + ")");
 
         List<DbRow> ppapplicationsOnboarded = dataService.runSql(SqlStatementPreviousPeriod.ApplicationsOnboarded);
         List<DbRow> ppnumberOfScans = dataService.runSql(SqlStatementPreviousPeriod.NumberOfScans);
@@ -140,7 +148,8 @@ public class PdfDataService {
 		model.setVariable("ppnumberOfApplicationsScanned", ppnumberOfApplicationsScanned);
         model.setVariable("ppmttr", ppmttr);
 
-        model.setVariable("ppapplicationsOnboardedAvg", sumAndAverageApplicationsOnboarded(ppapplicationsOnboarded));
+        model.setVariable("ppapplicationsOnboardedAvg", sumAndAverageApplicationsOnboarded(ppapplicationsOnboarded, numberOfApplicationsStartPeriod));
+
 		model.setVariable("ppnumberOfScansAvg", sumAndAveragePointA(ppnumberOfScans));
 		model.setVariable("ppnumberOfApplicationsScannedAvg", sumAndAveragePointA(ppnumberOfApplicationsScanned));
 
@@ -216,10 +225,31 @@ public class PdfDataService {
         return model;
     }
 
-    private int[] sumAndAverageApplicationsOnboarded(List<DbRow> dataList) {
+//    private int[] sumAndAverageApplicationsOnboarded(List<DbRow> dataList) {
+//		
+//		int countLabels = dataList.size();
+//		int numberOfApplications = (int) dataList.get(dataList.size() - 1).getPointA();
+//        int dataAverage = numberOfApplications/countLabels;
+//        
+//        int total = numberOfApplications;
+//        int avg = dataAverage;
+//
+//        int[] values = new int[]{total, avg};
+//		return values;
+//    }
+  
+  private int getNumberofApplicationsStartPeriod(String timePeriod) {
+		String sqlStmt = "select 'Number of Apps' as label, count(application_Id) as pointA from metric where time_period_start = '" + timePeriod +"'";
+		List<DbRow> rows = dataService.runSql(sqlStmt);
+		int numberOfApplications = rows.get(0).getPointA();
+		return numberOfApplications;
+	}
+    
+    private int[] sumAndAverageApplicationsOnboarded(List<DbRow> dataList, int numberOfApplicationsStartPeriod) {
 		
 		int countLabels = dataList.size();
 		int numberOfApplications = (int) dataList.get(dataList.size() - 1).getPointA();
+		numberOfApplications-=numberOfApplicationsStartPeriod;
         int dataAverage = numberOfApplications/countLabels;
         
         int total = numberOfApplications;
@@ -228,7 +258,7 @@ public class PdfDataService {
         int[] values = new int[]{total, avg};
 		return values;
     }
-    
+
     public int[] sumAndAveragePointA(List<DbRow> dataList) {
 		
 		int countLabels = 0;

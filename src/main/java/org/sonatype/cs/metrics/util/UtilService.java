@@ -31,6 +31,7 @@ public class UtilService {
     
 	@Autowired
 	private DataService dataService;
+
 	
     public String getLatestPeriod() {
 	    String latestPeriod = dataService.runSql(SqlStatement.LatestTimePeriodStart).get(0).getLabel();
@@ -141,5 +142,26 @@ public class UtilService {
 
         return map;
     }
+	
+	public String[] getDateRangeForPeriod(String period) {
+		
+		String sqlStmt = null; 
+		
+		if (period.equalsIgnoreCase("current")) {
+			sqlStmt = SqlStatement.TimePeriods;
+		}
+		else if (period.equalsIgnoreCase("previous")) {
+			sqlStmt = SqlStatementPreviousPeriod.TimePeriods;
+		}
+		
+		List<DbRow> rows = dataService.runSql(sqlStmt);
+				
+		String[] dr = new String[2];
+		
+		dr[0] = rows.get(0).getLabel(); // start period
+		dr[1] = rows.get(rows.size()-1).getLabel(); // end period
+
+		return dr;
+	}
     
 }

@@ -36,11 +36,15 @@ public class SummaryController {
 
         String latestTimePeriod = utilService.getLatestPeriod();
         String timePeriod = utilService.getTimePeriod();
-		
+        String[] currentPeriodDateRange = utilService.getDateRangeForPeriod("current");
+        
+		model.addAttribute("currentPeriodDateRange", "(" + currentPeriodDateRange[0] + " - " + currentPeriodDateRange[1] + ")");
         model.addAttribute("timePeriod", timePeriod);
         model.addAttribute("latestTimePeriod", latestTimePeriod);
 
         List<DbRow> applicationsOnboarded = dataService.runSql(SqlStatement.ApplicationsOnboarded);
+        int numberOfApplicationsStartPeriod = getNumberofApplicationsStartPeriod(currentPeriodDateRange[0]);
+        
         List<DbRow> numberOfScans = dataService.runSql(SqlStatement.NumberOfScans);
         List<DbRow> numberOfApplicationsScanned = dataService.runSql(SqlStatement.NumberOfApplicationsScanned);
         List<Mttr> mttr = dataService.runSqlMttr(SqlStatement.MTTR);
@@ -50,7 +54,7 @@ public class SummaryController {
 		model.addAttribute("numberOfApplicationsScanned", numberOfApplicationsScanned);
         model.addAttribute("mttr", mttr);
 
-        model.addAttribute("applicationsOnboardedAvg", sumAndAverageApplicationsOnboarded(applicationsOnboarded));
+        model.addAttribute("applicationsOnboardedAvg", sumAndAverageApplicationsOnboarded(applicationsOnboarded, numberOfApplicationsStartPeriod));
 		model.addAttribute("numberOfScansAvg", sumAndAveragePointA(numberOfScans));
 		model.addAttribute("numberOfApplicationsScannedAvg", sumAndAveragePointA(numberOfApplicationsScanned));
 
@@ -139,8 +143,11 @@ public class SummaryController {
         	endStr = "s";
         }
         
-        String ppPeriodStr = pplatestTimePeriod + "/" + ppPeriod + " " + timePeriod + endStr;		
-        model.addAttribute("ppPeriodStr", ppPeriodStr);
+        String ppPeriodStr = "/" + ppPeriod + " " + timePeriod + endStr;		
+        
+        String[] previousPeriodDateRange = utilService.getDateRangeForPeriod("previous");
+        
+		model.addAttribute("previousPeriodDateRange", "(" + previousPeriodDateRange[0] + " - " + previousPeriodDateRange[1] + ppPeriodStr + ")");
 
         List<DbRow> ppapplicationsOnboarded = dataService.runSql(SqlStatementPreviousPeriod.ApplicationsOnboarded);
         List<DbRow> ppnumberOfScans = dataService.runSql(SqlStatementPreviousPeriod.NumberOfScans);
@@ -152,7 +159,7 @@ public class SummaryController {
 		model.addAttribute("ppnumberOfApplicationsScanned", ppnumberOfApplicationsScanned);
         model.addAttribute("ppmttr", ppmttr);
 
-        model.addAttribute("ppapplicationsOnboardedAvg", sumAndAverageApplicationsOnboarded(ppapplicationsOnboarded));
+        model.addAttribute("ppapplicationsOnboardedAvg", sumAndAverageApplicationsOnboarded(ppapplicationsOnboarded, numberOfApplicationsStartPeriod));
 		model.addAttribute("ppnumberOfScansAvg", sumAndAveragePointA(ppnumberOfScans));
 		model.addAttribute("ppnumberOfApplicationsScannedAvg", sumAndAveragePointA(ppnumberOfApplicationsScanned));
 
@@ -228,10 +235,18 @@ public class SummaryController {
         return "reportSummary";
     }
 
-    private int[] sumAndAverageApplicationsOnboarded(List<DbRow> dataList) {
+    private int getNumberofApplicationsStartPeriod(String timePeriod) {
+		String sqlStmt = "select 'Number of Apps' as label, count(application_Id) as pointA from metric where time_period_start = '" + timePeriod +"'";
+		List<DbRow> rows = dataService.runSql(sqlStmt);
+		int numberOfApplications = rows.get(0).getPointA();
+		return numberOfApplications;
+	}
+
+	private int[] sumAndAverageApplicationsOnboarded(List<DbRow> dataList, int numberOfApplicationsStartPeriod) {
 		
 		int countLabels = dataList.size();
 		int numberOfApplications = (int) dataList.get(dataList.size() - 1).getPointA();
+		numberOfApplications-=numberOfApplicationsStartPeriod;
         int dataAverage = numberOfApplications/countLabels;
         
         int total = numberOfApplications;
