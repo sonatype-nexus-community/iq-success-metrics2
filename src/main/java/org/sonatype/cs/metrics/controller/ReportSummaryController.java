@@ -22,7 +22,7 @@ public class ReportSummaryController {
     @GetMapping({ "/reportsummary" })
     public String applications(Model model) throws ParseException {
 
-        log.info("In  ReportSummaryController");
+        log.info("In ReportSummaryController");
         
         
         Map<String, Object> periodData = summaryDataService.getPeriodData();

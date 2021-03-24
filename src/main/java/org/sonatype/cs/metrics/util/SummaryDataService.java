@@ -209,6 +209,24 @@ public class SummaryDataService {
 
 	private int[] sumAndAverageApplicationsOnboarded(List<DbRow> dataList, int numberOfApplicationsStartPeriod) {
 		
+		int numberOfPeriods = dataList.size();
+		int numberOfApplications = (int) dataList.get(dataList.size() - 1).getPointA();
+		numberOfApplications-=numberOfApplicationsStartPeriod;
+        int dataAverage = numberOfApplications/numberOfPeriods;
+        
+        int total = numberOfApplications;
+        int avg = dataAverage;
+        
+        if (avg < 1) {
+        	avg = 1;
+        }
+
+        int[] values = new int[]{total, avg};
+		return values;
+    }
+	
+private int[] sumAndAverageApplicationsOnboarded2(List<DbRow> dataList, int numberOfApplicationsStartPeriod) {
+		
 		int countLabels = dataList.size();
 		int numberOfApplications = (int) dataList.get(dataList.size() - 1).getPointA();
 		numberOfApplications-=numberOfApplicationsStartPeriod;
