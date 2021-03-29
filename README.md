@@ -166,6 +166,11 @@ To test:
 To build:
 gradle clean build examples bundle
 
+To scan with Nexus IQ:
+*first of all, edit the build.gradle file to configure Nexus IQ url/user as well as application name,
+ then add the task to the build command above, or run on its own as below*:
+gradle nexusIQScan
+
 To run:
 java -jar success-metrics-<version>.jar
 ```
