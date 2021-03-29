@@ -157,14 +157,14 @@ Should you wish to edit the source code:
 
   * Clone the repository
   * Make your changes
-  * At the root directory of the repo
+  * At the command line in the root directory of the repo
 
 ```
 To test:
 ./gradlew bootRun
 
 To build:
-gradle clean build bundle
+gradle clean build examples bundle
 
 To run:
 java -jar success-metrics-<version>.jar
