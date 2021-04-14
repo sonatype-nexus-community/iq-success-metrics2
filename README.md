@@ -87,7 +87,7 @@ The files are created in the reports2 directory
    
    By default, the app looks for the *successmetrics.csv* file in the current directory and for the optional data files in the reports2 directory 
 
-   To run in pdf mode:
+   * To run in pdf mode:
 
 ```
 (make sure you are in the main directory ie. successmetrics)
@@ -96,7 +96,7 @@ Windows: runapp-pdf.bat
 Linux: sh runapp-pdf.bat
 ```
 
-   To run in web mode:
+   * To run in web mode:
    
    You only need to keep the app running long enough to review the reports and optionally print them to PDF
 
