@@ -9,12 +9,12 @@
 &nbsp;
 
 **Download the java app for success metrics**
-  * Click on the *success-metrics.zip* file, then download (there is a download button on the lower right)
+  * Click on the *successmetrics.zip* file, then download (there is a download button on the lower right)
   * Unzip the contents into a directory of your choice
 
 ```
-unzip success-metrics.zip
-cd success-metrics
+unzip successmetrics.zip
+cd successmetrics
 ```
 
 &nbsp;
