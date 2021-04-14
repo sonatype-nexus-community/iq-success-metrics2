@@ -80,27 +80,17 @@ The files are created in the reports2 directory
    
    This app is a simple web app running by default on port 4040. 
    
-   It runs in two modes. By default, it will start up and you access all the reports and charts via your web browser (web mode).
+   By default, the app looks for the *successmetrics.csv* file in the current directory 
+
+   The app runs in two modes:
    
-   Alternatively, you may wish to just create a pdf file (pdf mode).  In this mode, the file in created in a sub-directory called 
-   *successmetrics-reports* with a time-stamped file name. The application will then immediately exit after creating the pdf file. 
-   
-   By default, the app looks for the *successmetrics.csv* file in the current directory and for the optional data files in the reports2 directory 
-
-   * To run in pdf mode:
-
-```
-(make sure you are in the main directory ie. successmetrics)
-
-Windows: runapp-pdf.bat 
-Linux: sh runapp-pdf.bat
-```
-
    * To run in web mode:
    
+   This is the default mode. The app will start up and you view all the reports and charts via your web browser.
+   
    You only need to keep the app running long enough to review the reports and optionally print them to PDF
-
-   Still within the command window, run
+   
+   This mode will also load the optional data files in the reports2 directory if available
    
 ```
 (make sure you are in the main directory ie. successmetrics)
@@ -119,6 +109,22 @@ On completion, you should see output similar to below after which app is ready f
 ```
 
 Open a browser and go to http://localhost:4040
+
+
+* To run in pdf mode:
+   
+Alternatively, you may wish to just create a pdf file containing the metrics report. 
+
+```
+(make sure you are in the main directory ie. successmetrics)
+
+Windows: runapp-pdf.bat 
+Linux: sh runapp-pdf.bat
+```
+
+A pdf report file is created in a sub-directory called *successmetrics-reports* with a time-stamped file name. 
+
+The application will then immediately exit after creating the pdf file. 
 
 &nbsp;
 &nbsp;
