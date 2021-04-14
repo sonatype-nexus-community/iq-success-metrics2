@@ -98,7 +98,7 @@ Linux: sh runapp-pdf.bat
 
    To run in web mode:
    
-   You only need to keep the app running long enough to review the reports and print them to PDF
+   You only need to keep the app running long enough to review the reports and optionally print them to PDF
 
    Still within the command window, run
    
