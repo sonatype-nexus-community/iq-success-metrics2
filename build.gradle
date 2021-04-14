@@ -59,31 +59,26 @@ build.doFirst {
 	mkdir "${bundledir}"
 }
 
+task releasejar (type: Copy) {
+  from 'build/libs'
+	include '*.jar'
+  into "${bundledir}"
+}
+
 task copydependencies(type: Copy) {
   from configurations.default
   into 'build/dependencies'
 }
 
-task examples (type: Copy) {
-	from 'releasefiles'
-	include 'examples/'
-	into "${bundledir}"
-	filter(ReplaceTokens, tokens: [APPVER: project.version])
-}
-
 task release (type: Copy) {
-	from 'build/libs', 'releasefiles'
-	include '*.jar'
+	from 'releasefiles'
 	include '*.json'
 	include 'create*'
 	include 'reports2/'
+	include 'runapp*'
+	include 'examples/'
 	into "${bundledir}"
-	
-	doLast {
-  	new File("${bundledir}", 'runapp.bat').text = """
-java -jar successmetrics-${version}.jar
-"""
-    }
+	filter(ReplaceTokens, tokens: [APPVER: project.version])
 }
 
 task bundle(type: Zip) {
@@ -92,7 +87,7 @@ task bundle(type: Zip) {
 	destinationDir(file(projectDir))
 }
 
-bundle.dependsOn release
+bundle.dependsOn releasejar, release
 
 /*
 gradle clean build examples bundle
