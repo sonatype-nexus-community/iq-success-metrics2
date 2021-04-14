@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<div th:insert="header :: headerFrag"></div>
+
+</head>
+
+<body>
+	<div class="jumbotron">
+	<h3>Insights Report</h3>
+    </div>
+
+    <div>
+    <div class="container">
+    <div class="row">
+    <div class="col-xl mx-auto bg-white rounded">
+    <div class="table-responsive table-wrapper-scroll-y">
+
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" th:text="'Measure'"></th>
+                <th scope="col" th:text="Before"></th>
+                <th scope="col" th:text="After"></th>
+                <th scope="col" th:text="Delta"></th>
+                <th scope="col" th:text="Change"></th>
+                <th scope="col" th:text="xTimes"></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="font-weight:bold">
+                <td th:text="'Total Onboarded'"></td>
+                <td th:text="1"></td>
+                <td th:text="2"></td>
+                <td th:text="3"></td>
+                <td th:text="4"></td>
+                <td th:text="5"></td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+    </div>
+  
+</body>

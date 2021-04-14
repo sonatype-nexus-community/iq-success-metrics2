@@ -10,9 +10,13 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sonatype.cs.metrics.util.SummaryDataService;
+import org.sonatype.cs.metrics.util.SummaryDataServicePreviousPeriod;
+import org.sonatype.cs.metrics.util.UtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -37,8 +41,18 @@ public class PdfService {
   @Value("${pdf.htmltemplate}")
   private String htmlTemplate;
   
+  // @Autowired
+  // private PdfDataService summaryDataService;
+
   @Autowired
-  private PdfDataService summaryDataService;
+  private SummaryDataService summaryDataService;
+
+  @Autowired
+  private SummaryDataServicePreviousPeriod summaryDataServicePeriod;
+
+  @Autowired
+  private UtilService utilService;
+  
 
   public String parsePdfTemplate(String htmlTemplate) throws ParseException {
 		ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
@@ -48,10 +62,57 @@ public class PdfService {
 		TemplateEngine templateEngine = new TemplateEngine();
 		templateEngine.setTemplateResolver(templateResolver);
 
-    Context context = summaryDataService.setSummaryData();
+    Map<String, Object> periodData = summaryDataService.getPeriodData();
+        
+    String startPeriod = (String) periodData.get("startPeriod");
+    String latestTimePeriod = (String) periodData.get("latestTimePeriod");
+    String pplatestTimePeriod = utilService.getPreviousPeriod();
+
+    Map<String, Object> applicationData = summaryDataService.getApplicationData(startPeriod);
+    Map<String, Object> securityViolationsTotals = summaryDataService.getSecurityViolationsTotals();
+    Map<String, Object> licenseViolationsTotals = summaryDataService.getLicenseViolationsTotals();
+    Map<String, Object> securityLicenseTotals = summaryDataService.getSecurityLicenseTotals();
+    Map<String, Object> violationsData = summaryDataService.getViolationsData(latestTimePeriod);
+
+    Map<String, Object> ppapplicationData = summaryDataServicePeriod.getApplicationData(startPeriod);
+    Map<String, Object> ppsecurityViolationsTotals = summaryDataServicePeriod.getSecurityViolationsTotals();
+    Map<String, Object> pplicenseViolationsTotals = summaryDataServicePeriod.getLicenseViolationsTotals();
+    Map<String, Object> ppsecurityLicenseTotals = summaryDataServicePeriod.getSecurityLicenseTotals();
+    Map<String, Object> ppviolationsData = summaryDataServicePeriod.getViolationsData(pplatestTimePeriod);
+
+    Context context = new Context();
+
+    context.setVariables(applicationData);
+    context.setVariables(securityViolationsTotals);
+    context.setVariables(licenseViolationsTotals);
+    context.setVariables(securityViolationsTotals);
+    context.setVariables(securityLicenseTotals);
+    context.setVariables(violationsData);
+
+    context.setVariables(ppapplicationData);
+    context.setVariables(ppsecurityViolationsTotals);
+    context.setVariables(pplicenseViolationsTotals);
+    context.setVariables(ppsecurityViolationsTotals);
+    context.setVariables(ppsecurityLicenseTotals);
+    context.setVariables(ppviolationsData);
 
 		return templateEngine.process(htmlTemplate, context);
 	}
+
+
+  // public String parsePdfTemplate2(String htmlTemplate) throws ParseException {
+	// 	ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+	// 	templateResolver.setSuffix(".html");
+	// 	templateResolver.setTemplateMode(TemplateMode.HTML);
+
+	// 	TemplateEngine templateEngine = new TemplateEngine();
+	// 	templateEngine.setTemplateResolver(templateResolver);
+
+  //   Context context = summaryDataService.setSummaryData();
+
+	// 	return templateEngine.process(htmlTemplate, context);
+	// }
+
 
 	public void generatePdfFromHtml(String html) throws DocumentException, IOException {
 
