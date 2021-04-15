@@ -9,12 +9,12 @@
 &nbsp;
 
 **Download the java app for success metrics**
-  * Click on the *success-metrics.zip* file, then download (there is a download button on the lower right)
+  * Click on the *successmetrics.zip* file, then download (there is a download button on the lower right)
   * Unzip the contents into a directory of your choice
 
 ```
-unzip success-metrics.zip
-cd success-metrics
+unzip successmetrics.zip
+cd successmetrics
 ```
 
 &nbsp;
@@ -56,15 +56,15 @@ If you have python3 available, you can run the following script to produce addit
 This script is optional and not required for the main success metrics report
 ```
 cd reports2
-Windows: create-data2.bat <iq-host-url> <iq-username> <iq-password>
-Linux: create-data2.sh <iq-host-url> <iq-username> <iq-password>
+Windows: create-data.bat <iq-host-url> <iq-username> <iq-password>
+Linux: create-data.sh <iq-host-url> <iq-username> <iq-password>
 cd ..
 
 iq-host-url - your Nexus IQ Url, (with no backslash at the end - it will not work with a trailing forward slash)
 iq-username - your Nexus IQ user name (choose a user name that has access to data set you'd like to report on)
 iq-password - your Nexus IQ password
 
-Example (Windows):  create-data2.bat http://localhost:8070 admin admin123
+Example (Windows):  create-data.bat http://localhost:8070 admin admin123
 ```
 
 These additional files include list of policy violations, applications scanned last date, list of components in quarantine (nxrm3) and list of waivers.
@@ -80,14 +80,20 @@ The files are created in the reports2 directory
    
    This app is a simple web app running by default on port 4040. 
    
-   By default, the app looks for the *successmetrics.csv* file in the current directory and in the reports2 directory for the optional data files
+   By default, the app looks for the *successmetrics.csv* file in the current directory 
 
-   You only need to keep the app running long enough to review the reports and print them to PDF
-
-   Still within the command window, run
+   The app runs in two modes:
+   
+   * To run in web mode:
+   
+   This is the default mode. The app will start up and you view all the reports and charts via your web browser.
+   
+   You only need to keep the app running long enough to review the reports and optionally print them to PDF
+   
+   This mode will also load the optional data files in the reports2 directory if available
    
 ```
-(make sure you are in the main directoyr ie. successmetrics)
+(make sure you are in the main directory ie. successmetrics)
 
 Windows: runapp.bat 
 Linux: sh runapp.bat
@@ -104,6 +110,22 @@ On completion, you should see output similar to below after which app is ready f
 
 Open a browser and go to http://localhost:4040
 
+
+* To run in pdf mode:
+   
+Alternatively, you may wish to just create a pdf file containing the metrics report. 
+
+```
+(make sure you are in the main directory ie. successmetrics)
+
+Windows: runapp-pdf.bat 
+Linux: sh runapp-pdf.bat
+```
+
+A pdf report file is created in a sub-directory called *successmetrics-reports* with a time-stamped file name. 
+
+The application will then immediately exit after creating the pdf file. 
+
 &nbsp;
 &nbsp;
 
@@ -117,6 +139,7 @@ The *Summary Report* is designed to be saved to pdf. It contains most of the oth
 **Advanced Options**
 
 You can override the following defaults by setting following system properties when you run the command to run the application.
+(Check the *examples* directory for example script using these oprions.
 
   * To run on another port: (default: 4040) 
 
@@ -132,9 +155,6 @@ You can override the following defaults by setting following system properties w
 
   * Save to PDF automatically: (default: web) 
 
-    The application runs in two modes. By default, it will start up and you access all the reports and charts via your web browser (web mode).
-    Alternatively, you may wish to just create a pdf file (pdf mode).  In the pdf mode, the file in created in a sub-directory called 
-    successmetrics-reports and is time-stamped file name. The application will then immediately exit. 
     To run in pdf mode, set the following property:
 
     *-Dspring.profiles.active=pdf*
