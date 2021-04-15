@@ -19,11 +19,10 @@ public class ReportSummaryController {
     @Autowired
     private SummaryDataService summaryDataService;
 
-    @GetMapping({ "/reportsummary" })
+    @GetMapping({ "/summary" })
     public String applications(Model model) throws ParseException {
 
         log.info("In ReportSummaryController");
-        
         
         Map<String, Object> periodData = summaryDataService.getPeriodData();
         

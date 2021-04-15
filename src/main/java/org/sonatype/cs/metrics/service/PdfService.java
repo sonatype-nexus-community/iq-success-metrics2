@@ -29,7 +29,6 @@ import org.xhtmlrenderer.pdf.ITextRenderer;
 import com.lowagie.text.DocumentException;
 
 
-
 @Service
 public class PdfService {
 
@@ -41,14 +40,11 @@ public class PdfService {
   @Value("${pdf.htmltemplate}")
   private String htmlTemplate;
   
-  // @Autowired
-  // private PdfDataService summaryDataService;
-
   @Autowired
   private SummaryDataService summaryDataService;
 
   @Autowired
-  private SummaryDataServicePreviousPeriod summaryDataServicePeriod;
+  private SummaryDataServicePreviousPeriod summaryDataServicePreviousPeriod;
 
   @Autowired
   private UtilService utilService;
@@ -74,14 +70,15 @@ public class PdfService {
     Map<String, Object> securityLicenseTotals = summaryDataService.getSecurityLicenseTotals();
     Map<String, Object> violationsData = summaryDataService.getViolationsData(latestTimePeriod);
 
-    Map<String, Object> ppapplicationData = summaryDataServicePeriod.getApplicationData(startPeriod);
-    Map<String, Object> ppsecurityViolationsTotals = summaryDataServicePeriod.getSecurityViolationsTotals();
-    Map<String, Object> pplicenseViolationsTotals = summaryDataServicePeriod.getLicenseViolationsTotals();
-    Map<String, Object> ppsecurityLicenseTotals = summaryDataServicePeriod.getSecurityLicenseTotals();
-    Map<String, Object> ppviolationsData = summaryDataServicePeriod.getViolationsData(pplatestTimePeriod);
+    Map<String, Object> ppapplicationData = summaryDataServicePreviousPeriod.getApplicationData(startPeriod);
+    Map<String, Object> ppsecurityViolationsTotals = summaryDataServicePreviousPeriod.getSecurityViolationsTotals();
+    Map<String, Object> pplicenseViolationsTotals = summaryDataServicePreviousPeriod.getLicenseViolationsTotals();
+    Map<String, Object> ppsecurityLicenseTotals = summaryDataServicePreviousPeriod.getSecurityLicenseTotals();
+    Map<String, Object> ppviolationsData = summaryDataServicePreviousPeriod.getViolationsData(pplatestTimePeriod);
 
     Context context = new Context();
 
+    context.setVariables(periodData);
     context.setVariables(applicationData);
     context.setVariables(securityViolationsTotals);
     context.setVariables(licenseViolationsTotals);
@@ -98,21 +95,6 @@ public class PdfService {
 
 		return templateEngine.process(htmlTemplate, context);
 	}
-
-
-  // public String parsePdfTemplate2(String htmlTemplate) throws ParseException {
-	// 	ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-	// 	templateResolver.setSuffix(".html");
-	// 	templateResolver.setTemplateMode(TemplateMode.HTML);
-
-	// 	TemplateEngine templateEngine = new TemplateEngine();
-	// 	templateEngine.setTemplateResolver(templateResolver);
-
-  //   Context context = summaryDataService.setSummaryData();
-
-	// 	return templateEngine.process(htmlTemplate, context);
-	// }
-
 
 	public void generatePdfFromHtml(String html) throws DocumentException, IOException {
 
