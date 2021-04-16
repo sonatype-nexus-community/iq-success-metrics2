@@ -49,6 +49,8 @@ public class PdfService {
   @Autowired
   private UtilService utilService;
   
+  @Autowired
+  private InsightsService insightsService;
 
   public String parsePdfTemplate(String htmlTemplate) throws ParseException {
 		ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
@@ -75,6 +77,8 @@ public class PdfService {
     Map<String, Object> pplicenseViolationsTotals = summaryDataServicePreviousPeriod.getLicenseViolationsTotals();
     Map<String, Object> ppsecurityLicenseTotals = summaryDataServicePreviousPeriod.getSecurityLicenseTotals();
     Map<String, Object> ppviolationsData = summaryDataServicePreviousPeriod.getViolationsData(pplatestTimePeriod);
+    Map<String, Object> insightsData = insightsService.insightsData();
+
 
     Context context = new Context();
 
@@ -92,6 +96,8 @@ public class PdfService {
     context.setVariables(ppsecurityViolationsTotals);
     context.setVariables(ppsecurityLicenseTotals);
     context.setVariables(ppviolationsData);
+
+    context.setVariables(insightsData);
 
 		return templateEngine.process(htmlTemplate, context);
 	}
