@@ -189,7 +189,9 @@ public class SqlStatementPreviousPeriod {
 			"from metric_pp " +
 			"group by time_period_start " +
 			"order by 1";
-
+			public static final String RiskRatioInsights =
+			"select application_name as label, (sum(OPEN_COUNT_AT_TIME_PERIOD_END_SECURITY_CRITICAL) + sum(OPEN_COUNT_AT_TIME_PERIOD_END_LICENSE_CRITICAL)) as pointA " +
+			"from metric_pp group by application_name order by 1";
 
 }
 

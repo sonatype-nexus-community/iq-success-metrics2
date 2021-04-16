@@ -103,6 +103,14 @@ public class SummaryDataServicePreviousPeriod {
 		model.put("ppfixedSecurityTotal", fixedSecurityTotal);
 		model.put("ppwaivedSecurityTotal", waivedSecurityTotal);
 
+		int discoveredSecurityCriticalTotal = discoveredSecurityViolationsTotals.getPointA();
+		int fixedSecurityCriticalTotal = fixedSecurityViolationsTotals.getPointA();
+		int waivededSecurityCriticalTotal = waivedSecurityViolationsTotals.getPointA();
+
+		model.put("ppdiscoveredSecurityCriticalTotal", discoveredSecurityCriticalTotal);
+		model.put("ppfixedSecurityCriticalTotal", fixedSecurityCriticalTotal);
+		model.put("ppwaivededSecurityCriticalTotal", waivededSecurityCriticalTotal);
+
 		return model;
 	}
 
@@ -130,6 +138,14 @@ public class SummaryDataServicePreviousPeriod {
 		model.put("ppfixedLicenseTotal", fixedLicenseTotal);
 		model.put("ppwaivedLicenseTotal", waivedLicenseTotal);
 
+		int discoveredLicenseCriticalTotal = discoveredLicenseViolationsTotals.getPointA();
+		int fixedLicenseCriticalTotal = fixedLicenseViolationsTotals.getPointA();
+		int waivededLicenseCriticalTotal = waivedLicenseViolationsTotals.getPointA();
+
+		model.put("ppdiscoveredLicenseCriticalTotal", discoveredLicenseCriticalTotal);
+		model.put("ppfixedLicenseCriticalTotal", fixedLicenseCriticalTotal);
+		model.put("ppwaivededLicenseCriticalTotal", waivededLicenseCriticalTotal);
+
 		return model;
 	}
 
@@ -154,6 +170,22 @@ public class SummaryDataServicePreviousPeriod {
 
 		model.put("ppfixRate", String.format("%.0f", fixRate));
 		model.put("ppmttrAvg", this.MttrAvg("current"));
+
+		float backlogReductionRate = (((float) (fixedWaived) / discovered));
+		model.put("ppbacklogReductionRate", String.format("%.0f", backlogReductionRate));
+
+		int dsct = (int) secModel.get("ppdiscoveredSecurityCriticalTotal");
+		int fsct = (int) secModel.get("ppfixedSecurityCriticalTotal");
+		int wsct = (int) secModel.get("ppwaivededSecurityCriticalTotal");
+
+		int dlct = (int) licModel.get("ppdiscoveredLicenseCriticalTotal");
+		int flct = (int) licModel.get("ppfixedLicenseCriticalTotal");
+		int wlct = (int) licModel.get("ppwaivededLicenseCriticalTotal");
+
+		int fixedWaivedCritical = fsct + wsct + flct + wlct;
+		int discoveredCritical = dsct + dlct;
+		float backlogReductionRateCritical = (((float) (fixedWaivedCritical) / discoveredCritical));
+		model.put("ppbacklogReductionRateCritical", String.format("%.0f", backlogReductionRateCritical));
 
 		return model;
 	}
@@ -197,6 +229,7 @@ public class SummaryDataServicePreviousPeriod {
 
 		List<DbRow> riskRatio = dataService.runSql(SqlStatementPreviousPeriod.RiskRatio);
 		model.put("ppriskRatio", riskRatio);
+		model.put("ppriskRatioInsightsCritical", this.calculateRiskRatioInsights("previous"));
 
 		return model;
 	}
@@ -291,6 +324,29 @@ public class SummaryDataServicePreviousPeriod {
 
 		String[] values = new String[] { mttrCriticalAvg, mttrSevereAvg, mttrModerateAvg };
 		return values;
+	}
+
+	private String calculateRiskRatioInsights(String period) {
+		List<Float> pointA = new ArrayList<>();
+
+		String sqlStmt;
+
+		if (period == "current") {
+			sqlStmt = SqlStatement.RiskRatioInsights;
+		} 
+		else {
+			sqlStmt = SqlStatementPreviousPeriod.RiskRatioInsights;
+		}
+
+		List<DbRow> riskRatioInsights = dataService.runSql(sqlStmt);
+
+		for (DbRow dp : riskRatioInsights) {
+			pointA.add((float)dp.getPointA());
+		}
+
+		String rr = String.format("%.2f", this.averagePoint(pointA));
+	
+		return rr;
 	}
 
 	private List<Mttr> getMttr(String sqlStmt) {

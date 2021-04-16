@@ -24,7 +24,7 @@
                 <th scope="col" th:text="Before"></th>
                 <th scope="col" th:text="After"></th>
                 <th scope="col" th:text="Delta"></th>
-                <th scope="col" th:text="Change"></th>
+                <th scope="col" th:text="'Change (%)'"></th>
                 <th scope="col" th:text="xTimes"></th>
 
             </tr>
@@ -35,8 +35,8 @@
                 <td th:text="${totalOnboardedBefore}"></td>
                 <td th:text="${totalOnboardedAfter}"></td>
                 <td th:text="${totalOnboardedAfter}-${totalOnboardedBefore}"></td>
-                <td th:text="4"></td>
-                <td th:text="5"></td>
+                <td th:text="${totalOnboarded}"></td>
+                <td th:text="${totalOnboardedIncrease}"></td>
             </tr>
 
             <tr style="font-weight:bold">
@@ -44,8 +44,8 @@
                 <td th:text="${onboardingRateBefore}"></td>
                 <td th:text="${onboardingRateAfter}"></td>
                 <td th:text="${onboardingRateAfter}-${onboardingRateBefore}"></td>
-                <td th:text="4"></td>
-                <td th:text="5"></td>
+                <td th:text="${onboardingRate}"></td>
+                <td th:text="${onboardingRateIncrease}"></td>
             </tr>
 
             <tr style="font-weight:bold">
@@ -53,8 +53,8 @@
                 <td th:text="${scanningCoverageBefore}"></td>
                 <td th:text="${scanningCoverageAfter}"></td>
                 <td th:text="${scanningCoverageAfter}-${scanningCoverageBefore}"></td>
-                <td th:text="4"></td>
-                <td th:text="5"></td>
+                <td th:text="${scanningCoverage}"></td>
+                <td th:text="${scanningCoverageIncrease}"></td>
             </tr>
 
             <tr style="font-weight:bold">
@@ -62,8 +62,8 @@
                 <td th:text="${scanningRateBefore}"></td>
                 <td th:text="${scanningRateAfter}"></td>
                 <td th:text="${scanningRateAfter}-${scanningRateBefore}"></td>
-                <td th:text="4"></td>
-                <td th:text="5"></td>
+                <td th:text="${scanningRate}"></td>
+                <td th:text="${scanningRateIncrease}"></td>
             </tr>
 
             <tr style="font-weight:bold">
@@ -71,8 +71,8 @@
                 <td th:text="${avgScansBefore}"></td>
                 <td th:text="${avgScansAfter}"></td>
                 <td th:text="${avgScansAfter}-${avgScansBefore}"></td>
-                <td th:text="4"></td>
-                <td th:text="5"></td>
+                <td th:text="${avgScans}"></td>
+                <td th:text="${avgScansIncrease}"></td>
             </tr>
 
             <tr style="font-weight:bold">
@@ -80,8 +80,8 @@
                 <td th:text="${discoveryRateCriticalsBefore}"></td>
                 <td th:text="${discoveryRateCriticalsAfter}"></td>
                 <td th:text="${discoveryRateCriticalsAfter}-${discoveryRateCriticalsBefore}"></td>
-                <td th:text="4"></td>
-                <td th:text="5"></td>
+                <td th:text="${discoveryRateCriticals}"></td>
+                <td th:text="${discoveryRateCriticalsIncrease}"></td>
             </tr>
 
             <tr style="font-weight:bold">
@@ -89,8 +89,8 @@
                 <td th:text="${fixingRateBefore}"></td>
                 <td th:text="${fixingRateAfter}"></td>
                 <td th:text="${fixingRateAfter}-${fixingRateBefore}"></td>
-                <td th:text="4"></td>
-                <td th:text="5"></td>
+                <td th:text="${fixingRate}"></td>
+                <td th:text="${fixingRateIncrease}"></td>
             </tr>
 
             <tr style="font-weight:bold">
@@ -98,8 +98,8 @@
                 <td th:text="${fixingRateCriticalsBefore}"></td>
                 <td th:text="${fixingRateCriticalsAfter}"></td>
                 <td th:text="${fixingRateCriticalsAfter}-${fixingRateCriticalsBefore}"></td>
-                <td th:text="4"></td>
-                <td th:text="5"></td>
+                <td th:text="${fixingRateCriticals}"></td>
+                <td th:text="${fixingRateCriticalsIncrease}"></td>
             </tr>
 
             <tr style="font-weight:bold">
@@ -107,8 +107,8 @@
                 <td th:text="${backlogReductionRateBefore}"></td>
                 <td th:text="${backlogReductionRateAfter}"></td>
                 <td th:text="${backlogReductionRateAfter}-${backlogReductionRateBefore}"></td>
-                <td th:text="4"></td>
-                <td th:text="5"></td>
+                <td th:text="${backlogReductionRate}"></td>
+                <td th:text="${backlogReductionRateIncrease}"></td>
             </tr>
 
             <tr style="font-weight:bold">
@@ -116,8 +116,8 @@
                 <td th:text="${backlogReductionCriticalsRateBefore}"></td>
                 <td th:text="${backlogReductionCriticalsRateAfter}"></td>
                 <td th:text="${backlogReductionCriticalsRateAfter}-${backlogReductionCriticalsRateBefore}"></td>
-                <td th:text="4"></td>
-                <td th:text="5"></td>
+                <td th:text="${backlogReductionCriticalsRate}"></td>
+                <td th:text="${backlogReductionCriticalsRateIncrease}"></td>
             </tr>
 
             <tr style="font-weight:bold">
@@ -125,8 +125,8 @@
                 <td th:text="${riskRatioBefore}"></td>
                 <td th:text="${riskRatioAfter}"></td>
                 <td th:text="${riskRatioAfter}-${riskRatioBefore}"></td>
-                <td th:text="4"></td>
-                <td th:text="5"></td>
+                <td th:text="${riskRatio}"></td>
+                <td th:text="${riskRatioIncrease}"></td>
             </tr>
 
             <tr style="font-weight:bold">
@@ -134,8 +134,8 @@
                 <td th:text="${mttrCriticalsBefore}"></td>
                 <td th:text="${mttrCriticalsAfter}"></td>
                 <td th:text="${mttrCriticalsAfter}-${mttrCriticalsBefore}"></td>
-                <td th:text="4"></td>
-                <td th:text="5"></td>
+                <td th:text="${mttrCriticals}"></td>
+                <td th:text="${mttrCriticalsIncrease}"></td>
             </tr>
             
         </tbody>
