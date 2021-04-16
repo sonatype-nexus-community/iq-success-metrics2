@@ -52,6 +52,9 @@ def writeToCsvFile(componentWaivers):
 							if "\n" in comment:
 								comment = comment.replace("\n", "-")
 
+							if "," in comment:
+								comment = comment.replace(",", "|")
+
 							line = applicationName + "," + stageId + "," + packageUrl + "," + policyName + "," + str(threatLevel) + "," + comment + "," + createDate + "\n"
 							fd.write(line)
 	

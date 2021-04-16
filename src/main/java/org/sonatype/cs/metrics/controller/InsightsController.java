@@ -150,29 +150,64 @@ public class InsightsController {
     }
 
     private String calculateChangeRate(int before, int after){
-      double rate = (((double) (after - before) / before) * 100);
-      return String.format("%.2f", rate);
+      String result;
+
+      if (after > 0 && before > 0){
+        double rate = (((double) (after - before) / before) * 100);
+        result = String.format("%.2f", rate);
+      }
+      else {
+        result = "0";
+      }
+
+      return result;
     }
 
     private String calculateMultipleIncrease(int before, int after){
-      double increase = (double) after / before;
-      return String.format("%.2f", increase); 
+      String result;
+
+      if (after > 0 && before > 0){
+        double increase = (double) after / before;
+        result = String.format("%.2f", increase); 
+      }
+      else {
+        result = "0";
+      }
+      
+      return result;
+
     }
 
     private String calculateChangePct(Object before, Object after){
       double b = Double.parseDouble((String) before);
       double a = Double.parseDouble((String) after);
+      String result;
+
+      if (a > 0 && b > 0){
+        double c = (((a - b) / b) * 100);
+        result = String.format("%.2f", c);
+      }
+      else {
+        result = "0";
+      }
       
-      double c = (((a - b) / b) * 100);
-      return String.format("%.2f", c);
+      return result;
     }
 
     private String calculateChangeMultiple(Object before, Object after){
       double b = Double.parseDouble((String) before);
       double a = Double.parseDouble((String) after);
+      String result;
 
-      double c = a / b;
-      return String.format("%.2f", c); 
+      if (a > 0 && b > 0){
+        double c = a / b;
+        result = String.format("%.2f", c); 
+      }
+      else {
+        result = "0";
+      }
+      
+      return result;
     }
 
 }

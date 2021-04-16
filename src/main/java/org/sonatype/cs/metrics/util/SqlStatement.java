@@ -306,7 +306,7 @@ public class SqlStatement {
 			"  packageUrl VARCHAR(250) NOT NULL," + 
 			"  policyName VARCHAR(250) DEFAULT NULL," +
 			"  threatLevel VARCHAR(250) DEFAULT NULL," +
-			"  comment VARCHAR(250) DEFAULT NULL," +
+			"  comment VARCHAR(1024) DEFAULT NULL," +
 			"  createDate VARCHAR(250) DEFAULT NULL) " +
 			" AS SELECT applicationName, stage, packageUrl, policyName, threatLevel, comment, createDate FROM CSVREAD ";
 	
