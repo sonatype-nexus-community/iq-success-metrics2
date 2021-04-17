@@ -15,9 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LoaderService {
+public class FileLoaderService {
 
-	private static final Logger log = LoggerFactory.getLogger(LoaderService.class);
+	private static final Logger log = LoggerFactory.getLogger(FileLoaderService.class);
 	
 	@Autowired
 	private DataService dataService;

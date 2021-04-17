@@ -1,27 +1,20 @@
 package org.sonatype.cs.metrics;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.text.ParseException;
-
-import com.lowagie.text.DocumentException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sonatype.cs.metrics.service.FileLoaderService;
 import org.sonatype.cs.metrics.service.PdfService;
-import org.sonatype.cs.metrics.service.LoaderService;
 import org.sonatype.cs.metrics.util.DataLoaderParams;
 import org.sonatype.cs.metrics.util.SqlStatement;
-import org.sonatype.cs.metrics.util.UtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.Banner;
 
 @SpringBootApplication
 public class SuccessMetricsApplication implements CommandLineRunner {
@@ -49,14 +42,13 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 	private boolean includelatestperiod;
 
 	@Autowired
-	private LoaderService loaderService;
+	private FileLoaderService loaderService;
 
 	@Autowired
 	private PdfService pdfService;
 	
 
 	public static void main(String[] args) {
-		// SpringApplication.run(SuccessMetricsApplication.class, args);
 
 		SpringApplication app = new SpringApplication(SuccessMetricsApplication.class);
 		app.setBannerMode(Banner.Mode.OFF);
@@ -109,6 +101,7 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 
 
 	public void reports2() throws IOException {
+		
 		applicationEvaluationsFileLoaded = loaderService.loadMetricsFile(DataLoaderParams.aeDatafile, DataLoaderParams.aeFileHeader, SqlStatement.ApplicationEvaluationsTable);
 		policyViolationsDataLoaded = loaderService.loadMetricsFile(DataLoaderParams.pvDatafile, DataLoaderParams.pvFileHeader,  SqlStatement.PolicyViolationsTables);
 		componentsQuarantineLoaded = loaderService.loadMetricsFile(DataLoaderParams.cqDatafile, DataLoaderParams.cqFileHeader, SqlStatement.ComponentsInQuarantineTable);

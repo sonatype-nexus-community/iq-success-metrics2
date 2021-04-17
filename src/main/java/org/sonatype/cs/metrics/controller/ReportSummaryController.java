@@ -5,6 +5,10 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sonatype.cs.metrics.service.ApplicationsDataService;
+import org.sonatype.cs.metrics.service.LicenseDataService;
+import org.sonatype.cs.metrics.service.PeriodsDataService;
+import org.sonatype.cs.metrics.service.SecurityDataService;
 import org.sonatype.cs.metrics.util.SummaryDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +22,18 @@ public class ReportSummaryController {
 
     @Autowired
     private SummaryDataService summaryDataService;
+    
+    @Autowired
+	private PeriodsDataService periodsDataService;
+    
+    @Autowired
+    private SecurityDataService securityDataService;
+    
+    @Autowired
+    private LicenseDataService licenseDataService;
+
+    @Autowired
+    private ApplicationsDataService applicationsDataService;
 
     @GetMapping({ "/summary" })
     public String applications(Model model) throws ParseException {
@@ -30,16 +46,23 @@ public class ReportSummaryController {
         String latestTimePeriod = (String) periodData.get("latestTimePeriod");
         //String pplatestPeriod = (String) periodData.get("pplatestPeriod");
 
-        Map<String, Object> applicationData = summaryDataService.getApplicationData(startPeriod);
-        Map<String, Object> securityViolationsTotals = summaryDataService.getSecurityViolationsTotals();
-        Map<String, Object> licenseViolationsTotals = summaryDataService.getLicenseViolationsTotals();
+//        Map<String, Object> applicationData = summaryDataService.getApplicationData(startPeriod);
+//        Map<String, Object> securityViolationsTotals = summaryDataService.getSecurityViolationsTotals();
+//        Map<String, Object> licenseViolationsTotals = summaryDataService.getLicenseViolationsTotals();
         Map<String, Object> securityLicenseTotals = summaryDataService.getSecurityLicenseTotals();
         Map<String, Object> violationsData = summaryDataService.getViolationsData(latestTimePeriod);
         
+        Map<String, Object> periodsData = periodsDataService.getPeriodData();
+        Map<String, Object> applicationData = applicationsDataService.getApplicationData();
+        Map<String, Object> securityViolationsData = securityDataService.getSecurityViolations();
+        Map<String, Object> licenseViolationsData = licenseDataService.getLicenseViolations();
+
+
+        
         model.mergeAttributes(periodData);
 		model.mergeAttributes(applicationData);
-		model.mergeAttributes(securityViolationsTotals);
-		model.mergeAttributes(licenseViolationsTotals);
+		model.mergeAttributes(securityViolationsData);
+		model.mergeAttributes(licenseViolationsData);
 		model.mergeAttributes(securityLicenseTotals);
 		model.mergeAttributes(violationsData);
 
