@@ -20,18 +20,18 @@
     <table class="table table-hover">
         <thead class="thead-dark">
             <tr>             
-                <th scope="col">Current Period <span style="color:white;font-size:13px" th:text="${currentPeriodDateRange}"/></th>
+                <th scope="col">Current Period <span style="color:white;font-size:13px" th:text="${endPeriodDateRangeStr}"/></th>
              </tr>
         </thead>
         <tbody>
             <tr>
-            <td>Onboarded <span th:text="${applicationsOnboarded}"/> applications at an average of <span th:text="${applicationsOnboardedAvg}"/> per <span th:text="${timePeriod}"/></td>
+            <td>Onboarded <span th:text="${applicationsOnboarded}"/> applications at an average of <span th:text="${applicationsOnboardedAvg}"/> per <span th:text="${timePeriodFrequency}"/></td>
              </tr>
             <tr>
-            <td>Scanned applications at an average of <span th:text="${numberOfApplicationsScanned}"/> per <span th:text="${timePeriod}"/></td>
+            <td>Scanned applications at an average of <span th:text="${numberOfApplicationsScannedAvg}"/> per <span th:text="${timePeriodFrequency}"/></td>
              </tr>
             <tr>
-            <td>Performed a total of <span th:text="${numberOfScans}"/> scans at an average of <span th:text="${numberOfScansAvg}"/> per <span th:text="${timePeriod}"/></td>
+            <td>Performed a total of <span th:text="${numberOfScans}"/> scans at an average of <span th:text="${numberOfScansAvg}"/> per <span th:text="${timePeriodFrequency}"/></td>
             </tr>
         </tbody>
     </table>

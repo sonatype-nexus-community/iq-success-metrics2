@@ -33,10 +33,15 @@ public class SqlStatements {
 				"sum(discovered_count_security_moderate) as pointC " +
 				"from metric";
 
-	public static final String OpenSecurityViolationsTotal = "select sum(open_count_at_time_period_end_security_critical) as pointA, "  +
-				"sum(open_count_at_time_period_end_security_severe) as pointB, " +
-				"sum(open_count_at_time_period_end_security_moderate) as pointC " +
-				"from metric";
+//	public static final String OpenSecurityViolationsTotal = "select sum(open_count_at_time_period_end_security_critical) as pointA, "  +
+//				"sum(open_count_at_time_period_end_security_severe) as pointB, " +
+//				"sum(open_count_at_time_period_end_security_moderate) as pointC " +
+//				"from metric";
+	
+	public static final String OpenSecurityViolationsTotal = "select time_period_start  as label, sum(open_count_at_time_period_end_security_critical) as pointA, "  +
+			"sum(open_count_at_time_period_end_security_severe) as pointB, " +
+			"sum(open_count_at_time_period_end_security_moderate) as pointC " +
+			"from metric group by time_period_start order by 1 desc";
 	
 	public static final String FixedSecurityViolationsTotal = "select sum(fixed_count_security_critical) as pointA, "  +
 				"sum(fixed_count_security_severe) as pointB, " +

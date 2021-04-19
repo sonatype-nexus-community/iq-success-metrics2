@@ -31,7 +31,7 @@ public class SummaryTotalsDataService {
 
 	
 	
-	public Map<String, Object> getSummaryTotals() {
+	public Map<String, Object> getSummaryData() {
 		Map<String, Object> model = new HashMap<>();
 		
 		Map<String, Object> secModel = securityViolationsDataService.getSecurityViolations();
@@ -51,12 +51,10 @@ public class SummaryTotalsDataService {
 
 		model.put("fixRate", String.format("%.0f", fixRate));
 		model.put("mttrAvg", this.MttrAvg());
-		
-		
 		model.put("riskRatioInsightsCritical", this.calculateRiskRatioInsights("current"));
 		
-		
 		float backlogReductionRate = (((float) (fixedWaived) / discovered));
+		
 		model.put("backlogReductionRate", String.format("%.0f", backlogReductionRate));
 
 		int dsct = (int) secModel.get("discoveredSecurityCriticalTotal");
@@ -70,8 +68,8 @@ public class SummaryTotalsDataService {
 		int fixedWaivedCritical = fsct + wsct + flct + wlct;
 		int discoveredCritical = dsct + dlct;
 		float backlogReductionRateCritical = (((float) (fixedWaivedCritical) / discoveredCritical));
-		model.put("backlogReductionRateCritical", String.format("%.0f", backlogReductionRateCritical));
 		
+		model.put("backlogReductionRateCritical", String.format("%.0f", backlogReductionRateCritical));
 		
 		return model;
 	}

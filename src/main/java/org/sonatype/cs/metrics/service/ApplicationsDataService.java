@@ -31,10 +31,12 @@ public class ApplicationsDataService {
 	public Map<String, Object> getApplicationData() {
 		Map<String, Object> model = new HashMap<>();
 		
-		String timePeriod = periodsDataService.getEndPeriod();
+		String startPeriod = periodsDataService.getStartPeriod();
+		String endPeriod = periodsDataService.getEndPeriod();
+
 
 		List<DbRow> applicationsOnboardedData = dbService.runSql(SqlStatements.ApplicationsOnboarded);
-		int numberOfApplicationsInPeriod = getNumberOfApplicationsForPeriod(timePeriod);
+		int numberOfApplicationsInPeriod = getNumberOfApplicationsForPeriod(startPeriod);
 		int[] applicationsOnboarded = this.getApplicationsOnboardedCountAndAvg(applicationsOnboardedData, numberOfApplicationsInPeriod);
 		model.put("applicationsOnboardedChart", applicationsOnboardedData);
 		model.put("applicationsOnboarded", applicationsOnboarded[0]);
@@ -56,10 +58,10 @@ public class ApplicationsDataService {
 		List<Mttr> mttr = dbService.runSqlMttr(SqlStatements.MTTR);
 		model.put("mttrChart", mttr);
 		
-		String applicationOpenViolations = SqlStatements.ApplicationsOpenViolations + " where time_period_start = '" + timePeriod + "' group by application_name" + " order by 2 desc, 3 desc";
+		String applicationOpenViolations = SqlStatements.ApplicationsOpenViolations + " where time_period_start = '" + endPeriod + "' group by application_name" + " order by 2 desc, 3 desc";
 		List<DbRow> aov = dbService.runSql(applicationOpenViolations);
 
-        String organisationOpenViolations = SqlStatements.OrganisationsOpenViolations + " where time_period_start = '" + timePeriod + "' group by organization_name" + " order by 2 desc, 3 desc";
+        String organisationOpenViolations = SqlStatements.OrganisationsOpenViolations + " where time_period_start = '" + endPeriod + "' group by organization_name" + " order by 2 desc, 3 desc";
         List<DbRow> oov = dbService.runSql(organisationOpenViolations);
 
 		model.put("mostCriticalApplicationCount", aov.get(0).getPointA());
