@@ -24,7 +24,7 @@ public class InsightsController {
   private PeriodsDataService periodsDataService;
 	     
 
-  @GetMapping({ "/insights" })
+  @GetMapping({ "/analysis" })
   public String insights(Model model) throws ParseException {
 	  log.info("In InsightsController");
 
@@ -32,6 +32,6 @@ public class InsightsController {
       Map<String, Object> insightsData = insightsService.insightsData(periodsData);
       model.mergeAttributes(insightsData);
 
-      return "insights";
+      return "analysis";
   }
 }
