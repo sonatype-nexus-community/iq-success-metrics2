@@ -18,14 +18,14 @@ public class SecurityDataService {
 	@Autowired
 	private DbService dbService;
 	
-	public Map<String, Object> getSecurityViolations() {
+	public Map<String, Object> getSecurityViolations(String tableName) {
 		Map<String, Object> model = new HashMap<>();
 		
-		List<DbRow> securityViolations = dbService.runSql(SqlStatements.SecurityViolations);
-		List<DbRow> discoveredSecurityViolations = dbService.runSql(SqlStatements.DiscoveredSecurityViolations);
-		List<DbRow> openSecurityViolations = dbService.runSql(SqlStatements.OpenSecurityViolations);
-		List<DbRow> fixedSecurityViolations = dbService.runSql(SqlStatements.FixedSecurityViolations);
-		List<DbRow> waivedSecurityViolations = dbService.runSql(SqlStatements.WaivedSecurityViolations);
+		List<DbRow> securityViolations = dbService.runSql(tableName, SqlStatements.SecurityViolations);
+		List<DbRow> discoveredSecurityViolations = dbService.runSql(tableName, SqlStatements.DiscoveredSecurityViolations);
+		List<DbRow> openSecurityViolations = dbService.runSql(tableName, SqlStatements.OpenSecurityViolations);
+		List<DbRow> fixedSecurityViolations = dbService.runSql(tableName, SqlStatements.FixedSecurityViolations);
+		List<DbRow> waivedSecurityViolations = dbService.runSql(tableName, SqlStatements.WaivedSecurityViolations);
 
 		model.put("securityViolationsChart", securityViolations);
 		model.put("discoveredSecurityViolationsChart", discoveredSecurityViolations);
@@ -33,10 +33,10 @@ public class SecurityDataService {
 		model.put("fixedSecurityViolationsChart", fixedSecurityViolations);
 		model.put("waivedSecurityViolationsChart", waivedSecurityViolations);
 		
-		DbRow discoveredSecurityViolationsTotal = dbService.runSql(SqlStatements.DiscoveredSecurityViolationsTotal).get(0);
-		DbRow openSecurityViolationsTotal = dbService.runSql(SqlStatements.OpenSecurityViolationsTotal).get(0);
-		DbRow fixedSecurityViolationsTotal = dbService.runSql(SqlStatements.FixedSecurityViolationsTotal).get(0);
-		DbRow waivedSecurityViolationsTotal = dbService.runSql(SqlStatements.WaivedSecurityViolationsTotal).get(0);
+		DbRow discoveredSecurityViolationsTotal = dbService.runSql(tableName, SqlStatements.DiscoveredSecurityViolationsTotal).get(0);
+		DbRow openSecurityViolationsTotal = dbService.runSql(tableName, SqlStatements.OpenSecurityViolationsTotal).get(0);
+		DbRow fixedSecurityViolationsTotal = dbService.runSql(tableName, SqlStatements.FixedSecurityViolationsTotal).get(0);
+		DbRow waivedSecurityViolationsTotal = dbService.runSql(tableName, SqlStatements.WaivedSecurityViolationsTotal).get(0);
 		
 		model.put("discoveredSecurityViolationsTotal", discoveredSecurityViolationsTotal);
 		model.put("openSecurityViolationsTotal", openSecurityViolationsTotal);

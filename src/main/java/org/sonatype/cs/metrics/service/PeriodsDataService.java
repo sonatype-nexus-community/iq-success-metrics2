@@ -10,13 +10,9 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonatype.cs.metrics.model.DbRow;
-import org.sonatype.cs.metrics.util.SqlStatement;
-import org.sonatype.cs.metrics.util.SqlStatementPreviousPeriod;
-import org.sonatype.cs.metrics.util.UtilService;
+import org.sonatype.cs.metrics.util.SqlStatements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import org.sonatype.cs.metrics.service.DbService;
 
 
 @Service
@@ -30,77 +26,131 @@ public class PeriodsDataService {
     private static long oneWeekMs = 604800000;
     private static long oneMonthMs = 2629800000L;
     
-	public Map<String, Object> getPeriodData() throws ParseException {
+    
+	public Map<String, Object> getPeriodData2(String tableName) throws ParseException {
 		Map<String, Object> model = new HashMap<>();
 		
-		String timePeriodFrequency = this.getTimePeriodFrequency();
-		String startPeriod = this.getStartPeriod();  
-		String midPeriod = this.getMidPeriod();
-		String endPeriod = this.getEndPeriod();
-	
-		int periodsRange = this.getMidToEndPeriodsRange();
+	    List<DbRow> timePeriods = dbService.runSql(tableName, SqlStatements.TimePeriods);
+		
+	    int tmSize = timePeriods.size();
+	    String startPeriod = timePeriods.get(0).getLabel();
+		String endPeriod = timePeriods.get(timePeriods.size()-1).getLabel();
+		
+	    String firstTimePeriod = timePeriods.get(0).getLabel().toString();
+		String secondTimePeriod = timePeriods.get(1).getLabel().toString();
+		String timePeriodFrequency = this.getTimePeriodFrequency(tmSize, firstTimePeriod, secondTimePeriod);
+		
+		model.put("timePeriodFrequency", timePeriodFrequency);
+		model.put("startPeriod", startPeriod);
+		model.put("endPeriod", endPeriod);
+		model.put("periodDateRangeStr", "(" + startPeriod + " - " + endPeriod + ")");
+
+		int midPeriodIndex = timePeriods.size()/2-1;
+		
+		String midPeriod1 = timePeriods.get(midPeriodIndex).getLabel();
+		String midPeriod2 = timePeriods.get(midPeriodIndex+1).getLabel();
+
+		String[] midPeriod = new String[] { midPeriod1, midPeriod2 };		
+
+		String midPeriodEnd = midPeriod[0];
+		String midPeriodStart = midPeriod[1];
+
+		int midPeriod1Range = this.getPeriodsDiff(timePeriodFrequency, startPeriod, midPeriodEnd);
+		int midPeriod2Range = this.getPeriodsDiff(timePeriodFrequency, midPeriodStart, endPeriod);
 
 		String endStr = "";
 
-		if (periodsRange > 1) {
-			endStr = "s";
-		}
+//		if (periodsRange > 1) {
+//			endStr = "s";
+//		}
+//
+//		String midPeriodStr = "/" + periodsRange + " " + timePeriodFrequency + endStr;
+//
+//
+//		model.put("midPeriodDateRangeStr", "(" + startPeriod + " - " + midPeriod + midPeriodStr + ")");
 
-		String midPeriodStr = "/" + periodsRange + " " + timePeriodFrequency + endStr;
+		model.put("midPeriodEnd", midPeriodEnd);
+		model.put("midPeriodStart", midPeriodStart);
+		model.put("midPeriodDate1RangeStr", "(" + startPeriod + " - " + midPeriodEnd + ")");
+		model.put("midPeriodDate2RangeStr", "(" + midPeriodStart + " - " + endPeriod + ")");
 
-
-		model.put("endPeriodDateRangeStr", "(" + startPeriod + " - " + endPeriod + ")");
-		model.put("midPeriodDateRangeStr", "(" + startPeriod + " - " + midPeriod + midPeriodStr + ")");
-
+		return model;
+	}
+	
+	public Map<String, Object> getPeriodData(String tableName) throws ParseException {
+		Map<String, Object> model = new HashMap<>();
+		
+	    List<DbRow> timePeriods = dbService.runSql(tableName, SqlStatements.TimePeriods);
+		
+	    int tmSize = timePeriods.size();
+	    String startPeriod = timePeriods.get(0).getLabel();
+		String endPeriod = timePeriods.get(timePeriods.size()-1).getLabel();
+		
+	    String firstTimePeriod = timePeriods.get(0).getLabel().toString();
+		String secondTimePeriod = timePeriods.get(1).getLabel().toString();
+		String timePeriodFrequency = this.getTimePeriodFrequency(tmSize, firstTimePeriod, secondTimePeriod);
+		
 		model.put("timePeriodFrequency", timePeriodFrequency);
+		model.put("startPeriod", startPeriod);
 		model.put("endPeriod", endPeriod);
+		model.put("periodDateRangeStr", "(" + startPeriod + " - " + endPeriod + ")");
+
+		int midPeriodIndex = timePeriods.size()/2-1;
+		
+		String midPeriod = timePeriods.get(midPeriodIndex).getLabel();
+		log.info(midPeriod);
+
+		int midPeriod1Range = this.getPeriodsDiff(timePeriodFrequency, startPeriod, midPeriod);
+		int midPeriod2Range = this.getPeriodsDiff(timePeriodFrequency, midPeriod, endPeriod);
+
+		String endStr = "";
+
+//		if (periodsRange > 1) {
+//			endStr = "s";
+//		}
+//
+//		String midPeriodStr = "/" + periodsRange + " " + timePeriodFrequency + endStr;
+//
+//
+//		model.put("midPeriodDateRangeStr", "(" + startPeriod + " - " + midPeriod + midPeriodStr + ")");
+
 		model.put("midPeriod", midPeriod);
+		model.put("midPeriodDate1RangeStr", "(" + startPeriod + " - " + midPeriod + ")");
+		model.put("midPeriodDate2RangeStr", "(" + midPeriod + " - " + endPeriod + ")");
 
 		return model;
 	}
 	
 	
-	public String getStartPeriod() {
-	    List<DbRow> timePeriods = dbService.runSql(SqlStatement.TimePeriods);
-
-		String startPeriod = timePeriods.get(0).getLabel();
-		return startPeriod;
-	}
+//	private String[] getMidPeriods(int midPeriodIndex) {
+//		String midPeriod1 = timePeriods.get(midPeriodIndex).getLabel();
+//		String midPeriod2 = timePeriods.get(midPeriodIndex+1).getLabel();
+//
+//		String[] midPeriod = new String[] { midPeriod1, midPeriod2 };
+//		
+//		return midPeriod;
+//	}
 	
-	public String getMidPeriod() {
-	    List<DbRow> timePeriods = dbService.runSql(SqlStatement.TimePeriods);
-
-		String midPeriod = timePeriods.get(timePeriods.size()/2).getLabel();
-		return midPeriod;
-	}
+//	private int getMidToEndPeriodsRange() throws ParseException {
+//    	String endPeriod = this.getEndPeriod();
+//    	String midPeriod = this.getMidPeriods()[0];
+//    	int periodRange = this.getPeriodsDiff(endPeriod, midPeriod);
+//    	return periodRange;
+//    }
 	
-	public String getEndPeriod() {
-	    List<DbRow> timePeriods = dbService.runSql(SqlStatement.TimePeriods);
+//	private int getPeriodsRange(String period1, String period2) throws ParseException {
+//    	int periodRange = this.getPeriodsDiff(period1, period2);
+//    	return periodRange;
+//    }
 
-		String endPeriod = timePeriods.get(timePeriods.size()-1).getLabel();
-		return endPeriod;
-	}
-	
-	public int getMidToEndPeriodsRange() throws ParseException {
-    	String endPeriod = this.getEndPeriod();
-    	String midPeriod = this.getMidPeriod();
-    	int periodRange = this.getPeriodsDiff(endPeriod, midPeriod);
-    	return periodRange;
-    }
-
-	private String getTimePeriodFrequency() throws ParseException {
-	    List<DbRow> timePeriods = dbService.runSql(SqlStatement.TimePeriods);
+	private String getTimePeriodFrequency(int tmSize, String firstTimePeriod, String secondTimePeriod) throws ParseException {
 		
 		long oneWeek = 604800000;
 		
 		String timePeriodLabel = "Week";
-		String firstTimePeriod;
-		String secondTimePeriod;
 		
-		if (timePeriods.size() > 1) {
-			firstTimePeriod = timePeriods.get(0).getLabel().toString();
-			secondTimePeriod = timePeriods.get(1).getLabel().toString();
-
+		if (tmSize > 1) {
+		
 			long fp = this.convertDateStr(firstTimePeriod);
 			long sp = this.convertDateStr(secondTimePeriod);
 			
@@ -128,11 +178,9 @@ public class PeriodsDataService {
 		return millis;
 	}
 	
-	private int getPeriodsDiff(String endPeriod, String midPeriod) throws ParseException {
+	private int getPeriodsDiff(String timePeriod, String endPeriod, String midPeriod) throws ParseException {
     	int diff = 0;
-    	
-    	String timePeriod = this.getTimePeriodFrequency();
-    	
+    	    	
     	long endPeriodMs = convertDateStr(endPeriod);
     	long midPeriodMs = convertDateStr(midPeriod);
     	long diffMs = endPeriodMs - midPeriodMs;

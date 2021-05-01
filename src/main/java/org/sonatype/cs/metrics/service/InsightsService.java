@@ -4,7 +4,11 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.sonatype.cs.metrics.controller.SecurityViolationsController;
 import org.sonatype.cs.metrics.model.DbRow;
+import org.sonatype.cs.metrics.util.SqlStatements;
 import org.sonatype.cs.metrics.util.SummaryDataService;
 import org.sonatype.cs.metrics.util.SummaryDataServicePreviousPeriod;
 import org.sonatype.cs.metrics.util.UtilService;
@@ -14,131 +18,113 @@ import org.springframework.ui.Model;
 
 @Service
 public class InsightsService {
+	private static final Logger log = LoggerFactory.getLogger(InsightsService.class);
+	
+	@Autowired
+	private MetricsService metricsService;
 
-  @Autowired
-  private SummaryDataService summaryDataService;
+	public Map<String, Object> insightsData(Map<String, Object> periodsData) throws ParseException{
+		Map<String, Object> model = new HashMap<>();
+	    
+	    Map<String, Object> p1metrics = metricsService.getMetrics(SqlStatements.METRICP1TABLENAME, periodsData);
+	    Map<String, Object> p2metrics = metricsService.getMetrics(SqlStatements.METRICP2TABLENAME, periodsData);
 
-  @Autowired
-  private SummaryDataServicePreviousPeriod summaryDataServicePreviousPeriod;
+	    int onboardedAfter = (int) p2metrics.get("applicationsOnboarded");
+	    int onboardedBefore = (int) p1metrics.get("applicationsOnboarded");
+	    
+	    int onboardedAfterAvg = (int) p2metrics.get("applicationsOnboardedAvg");
+	    int onboardedBeforeAvg = (int) p1metrics.get("applicationsOnboardedAvg");
 
-  @Autowired
-  private UtilService utilService;
+	    int scanningRateAfter = (int) p2metrics.get("numberOfScans");
+	    int scanningRateBefore = (int) p1metrics.get("numberOfScans");
+	    
+	    int scanningRateAfterAvg = (int) p2metrics.get("numberOfScansAvg");
+	    int scanningRateBeforeAvg = (int) p1metrics.get("numberOfScansAvg");
+
+	    int scanningCoverageAfter = (int) p2metrics.get("numberOfApplicationsScannedAvg"); 
+	    int scanningCoverageBefore = (int) p1metrics.get("numberOfApplicationsScannedAvg"); 
+
+	    DbRow discoveredSecurityTotalAfter = (DbRow) p2metrics.get("discoveredSecurityViolationsTotal");
+	    DbRow discoveredSecurityTotalBefore = (DbRow) p1metrics.get("discoveredSecurityViolationsTotal");
+	    
+	    int fixedSecurityTotalAfter = (int) p2metrics.get("fixedSecurityTotal");
+	    int fixedSecurityTotalBefore = (int) p1metrics.get("fixedSecurityTotal");
+
+	    DbRow fixedSecurityCriticalsTotalAfter = (DbRow) p2metrics.get("fixedSecurityViolationsTotal");
+	    DbRow fixedSecurityCriticalsTotalBefore = (DbRow) p1metrics.get("fixedSecurityViolationsTotal");
+
+	    model.put("totalOnboardedBefore", onboardedBefore);
+	    model.put("totalOnboardedAfter", onboardedAfter);
+	    model.put("totalOnboarded", this.calculateChangeRate(onboardedBefore, onboardedAfter));
+	    model.put("totalOnboardedIncrease", this.calculateMultipleIncrease(onboardedBefore, onboardedAfter));
+
+	    model.put("onboardingRateBefore", onboardedBeforeAvg);
+	    model.put("onboardingRateAfter", onboardedAfterAvg);
+	    model.put("onboardingRate", this.calculateChangeRate(onboardedBefore, onboardedAfter));
+	    model.put("onboardingRateIncrease", this.calculateMultipleIncrease(onboardedBefore, onboardedAfter));
+
+	    model.put("scanningCoverageBefore", scanningCoverageBefore);
+	    model.put("scanningCoverageAfter", scanningCoverageAfter);
+	    model.put("scanningCoverage", this.calculateChangeRate(scanningCoverageBefore, scanningCoverageAfter));
+	    model.put("scanningCoverageIncrease", this.calculateMultipleIncrease(scanningCoverageBefore, scanningCoverageAfter));
+
+	    model.put("scanningRateBefore", scanningRateBefore);
+	    model.put("scanningRateAfter", scanningRateAfter);
+	    model.put("scanningRate", this.calculateChangeRate(scanningRateBefore, scanningRateAfter));
+	    model.put("scanningRateIncrease", this.calculateMultipleIncrease(scanningRateBefore, scanningRateAfter));
+
+	    model.put("avgScansBefore", scanningRateBeforeAvg);
+	    model.put("avgScansAfter", scanningRateAfterAvg);
+	    model.put("avgScans", this.calculateChangeRate(scanningRateBefore, scanningRateAfter));
+	    model.put("avgScansIncrease", this.calculateMultipleIncrease(scanningRateBefore, scanningRateAfter));
+
+	    model.put("discoveryRateCriticalsBefore", discoveredSecurityTotalBefore.getPointA());
+	    model.put("discoveryRateCriticalsAfter", discoveredSecurityTotalAfter.getPointA());
+	    model.put("discoveryRateCriticals", this.calculateChangeRate(discoveredSecurityTotalBefore.getPointA(), discoveredSecurityTotalAfter.getPointA()));
+	    model.put("discoveryRateCriticalsIncrease", this.calculateMultipleIncrease(discoveredSecurityTotalBefore.getPointA(), discoveredSecurityTotalAfter.getPointA()));
+
+	    model.put("fixingRateBefore", fixedSecurityTotalBefore);
+	    model.put("fixingRateAfter", fixedSecurityTotalAfter);
+	    model.put("fixingRate", this.calculateChangeRate(fixedSecurityTotalBefore, fixedSecurityTotalAfter));
+	    model.put("fixingRateIncrease", this.calculateMultipleIncrease(fixedSecurityTotalBefore, fixedSecurityTotalAfter));
+
+	    model.put("fixingRateCriticalsBefore", fixedSecurityCriticalsTotalBefore.getPointA());
+	    model.put("fixingRateCriticalsAfter", fixedSecurityCriticalsTotalAfter.getPointA());
+	    model.put("fixingRateCriticals", this.calculateChangeRate(fixedSecurityCriticalsTotalBefore.getPointA(), fixedSecurityCriticalsTotalAfter.getPointA()));
+	    model.put("fixingRateCriticalsIncrease", this.calculateMultipleIncrease(fixedSecurityCriticalsTotalBefore.getPointA(), fixedSecurityCriticalsTotalAfter.getPointA()));
+
+	    int backlogReductionRateBefore = Integer.valueOf((String) p2metrics.get("backlogReductionRate"));
+	    int backlogReductionRateAfter = Integer.valueOf((String) p1metrics.get("backlogReductionRate"));
+	    model.put("backlogReductionRateBefore", backlogReductionRateBefore);
+	    model.put("backlogReductionRateAfter", backlogReductionRateAfter);
+	    model.put("backlogReductionRate", this.calculateChangeRate(backlogReductionRateBefore, backlogReductionRateAfter));
+	    model.put("backlogReductionRateIncrease", this.calculateMultipleIncrease(backlogReductionRateBefore, backlogReductionRateAfter));
+
+	    int backlogReductionRateCriticalsBefore = Integer.valueOf((String) p1metrics.get("backlogReductionRateCritical"));
+	    int backlogReductionRateCriticalsAfter = Integer.valueOf((String) p2metrics.get("backlogReductionRateCritical"));
+	    model.put("backlogReductionCriticalsRateBefore", backlogReductionRateCriticalsBefore);
+	    model.put("backlogReductionCriticalsRateAfter", backlogReductionRateCriticalsAfter);
+	    model.put("backlogReductionCriticalsRate", this.calculateChangeRate(backlogReductionRateCriticalsBefore, backlogReductionRateCriticalsAfter));
+	    model.put("backlogReductionCriticalsRateIncrease", this.calculateMultipleIncrease(backlogReductionRateCriticalsBefore, backlogReductionRateCriticalsAfter));
+
+	    Object riskRatioBefore = p1metrics.get("riskRatioInsightsCritical");
+	    Object riskRatioAfter = p2metrics.get("riskRatioInsightsCritical");
+	    model.put("riskRatioBefore", riskRatioBefore);
+	    model.put("riskRatioAfter", riskRatioAfter);
+	    model.put("riskRatio", this.calculateChangePct(riskRatioBefore, riskRatioAfter));
+	    model.put("riskRatioIncrease", this.calculateChangeMultiple(riskRatioBefore, riskRatioAfter));
+
+	    String[] mttrCriticalsBefore = (String[]) p1metrics.get("mttrAvg");
+	    String[] mttrCriticalsAfter = (String[]) p2metrics.get("mttrAvg");
+	    model.put("mttrCriticalsBefore", Integer.parseInt(mttrCriticalsBefore[0]));
+	    model.put("mttrCriticalsAfter", Integer.parseInt(mttrCriticalsAfter[0]));
+	    model.put("mttrCriticals", this.calculateChangeRate(Integer.parseInt(mttrCriticalsBefore[0]), Integer.parseInt(mttrCriticalsAfter[0])));
+	    model.put("mttrCriticalsIncrease", this.calculateMultipleIncrease(Integer.parseInt(mttrCriticalsBefore[0]), Integer.parseInt(mttrCriticalsAfter[0])));
+
+	    return model;
+	  }
 
   
-  public Map<String, Object> insightsData() throws ParseException{
-    
-		Map<String, Object> model = new HashMap<>();
-
-    Map<String, Object> periodData = summaryDataService.getPeriodData();
-        
-    String startPeriod = (String) periodData.get("startPeriod");
-    String latestTimePeriod = (String) periodData.get("latestTimePeriod");
-    String pplatestTimePeriod = utilService.getPreviousPeriod();
-
-    Map<String, Object> applicationData = summaryDataService.getApplicationData(startPeriod);
-    Map<String, Object> securityViolationsTotals = summaryDataService.getSecurityViolationsTotals();
-    Map<String, Object> licenseViolationsTotals = summaryDataService.getLicenseViolationsTotals();
-    Map<String, Object> securityLicenseTotals = summaryDataService.getSecurityLicenseTotals();
-    Map<String, Object> violationsData = summaryDataService.getViolationsData(latestTimePeriod);
-
-    Map<String, Object> ppapplicationData = summaryDataServicePreviousPeriod.getApplicationData(startPeriod);
-    Map<String, Object> ppsecurityViolationsTotals = summaryDataServicePreviousPeriod.getSecurityViolationsTotals();
-    Map<String, Object> pplicenseViolationsTotals = summaryDataServicePreviousPeriod.getLicenseViolationsTotals();
-    Map<String, Object> ppsecurityLicenseTotals = summaryDataServicePreviousPeriod.getSecurityLicenseTotals();
-    Map<String, Object> ppviolationsData = summaryDataServicePreviousPeriod.getViolationsData(pplatestTimePeriod);
-
-    int[] onboardedAfter = (int[]) applicationData.get("applicationsOnboardedAvg");
-    int[] onboardedBefore = (int[]) ppapplicationData.get("ppapplicationsOnboardedAvg");
-
-    int[] scanningRateAfter = (int[]) applicationData.get("numberOfScansAvg");
-    int[] scanningRateBefore = (int[]) ppapplicationData.get("ppnumberOfScansAvg");
-
-    int[] scanningCoverageAfter = (int[]) applicationData.get("numberOfApplicationsScannedAvg"); 
-    int[] scanningCoverageBefore = (int[]) ppapplicationData.get("ppnumberOfApplicationsScannedAvg"); 
-
-    int before = 50;
-    int after = 100;
-
-    DbRow discoveredSecurityTotalAfter = (DbRow) securityViolationsTotals.get("discoveredSecurityViolationsTotals");
-    DbRow discoveredSecurityTotalBefore = (DbRow) ppsecurityViolationsTotals.get("ppdiscoveredSecurityViolationsTotals");
-    
-    int fixedSecurityTotalAfter = (int) securityViolationsTotals.get("fixedSecurityTotal");
-    int fixedSecurityTotalBefore = (int) ppsecurityViolationsTotals.get("ppfixedSecurityTotal");
-
-    DbRow fixedSecurityCriticalsTotalAfter = (DbRow) securityViolationsTotals.get("fixedSecurityViolationsTotals");
-    DbRow fixedSecurityCriticalsTotalBefore = (DbRow) ppsecurityViolationsTotals.get("ppfixedSecurityViolationsTotals");
-
-    model.put("totalOnboardedBefore", onboardedBefore[0]);
-    model.put("totalOnboardedAfter", onboardedAfter[0]);
-    model.put("totalOnboarded", this.calculateChangeRate(onboardedBefore[0], onboardedAfter[0]));
-    model.put("totalOnboardedIncrease", this.calculateMultipleIncrease(onboardedBefore[0], onboardedAfter[0]));
-
-    model.put("onboardingRateBefore", onboardedBefore[1]);
-    model.put("onboardingRateAfter", onboardedAfter[1]);
-    model.put("onboardingRate", this.calculateChangeRate(onboardedBefore[1], onboardedAfter[1]));
-    model.put("onboardingRateIncrease", this.calculateMultipleIncrease(onboardedBefore[1], onboardedAfter[1]));
-
-    model.put("scanningCoverageBefore", scanningCoverageBefore[1]);
-    model.put("scanningCoverageAfter", scanningCoverageAfter[1]);
-    model.put("scanningCoverage", this.calculateChangeRate(scanningCoverageBefore[1], scanningCoverageAfter[1]));
-    model.put("scanningCoverageIncrease", this.calculateMultipleIncrease(scanningCoverageBefore[1], scanningCoverageAfter[1]));
-
-    model.put("scanningRateBefore", scanningRateBefore[0]);
-    model.put("scanningRateAfter", scanningRateAfter[0]);
-    model.put("scanningRate", this.calculateChangeRate(scanningRateBefore[0], scanningRateAfter[0]));
-    model.put("scanningRateIncrease", this.calculateMultipleIncrease(scanningRateBefore[0], scanningRateAfter[0]));
-
-    model.put("avgScansBefore", scanningRateBefore[1]);
-    model.put("avgScansAfter", scanningRateAfter[1]);
-    model.put("avgScans", this.calculateChangeRate(scanningRateBefore[1], scanningRateAfter[1]));
-    model.put("avgScansIncrease", this.calculateMultipleIncrease(scanningRateBefore[1], scanningRateAfter[1]));
-
-    model.put("discoveryRateCriticalsBefore", discoveredSecurityTotalBefore.getPointA());
-    model.put("discoveryRateCriticalsAfter", discoveredSecurityTotalAfter.getPointA());
-    model.put("discoveryRateCriticals", this.calculateChangeRate(discoveredSecurityTotalBefore.getPointA(), discoveredSecurityTotalAfter.getPointA()));
-    model.put("discoveryRateCriticalsIncrease", this.calculateMultipleIncrease(discoveredSecurityTotalBefore.getPointA(), discoveredSecurityTotalAfter.getPointA()));
-
-    model.put("fixingRateBefore", fixedSecurityTotalBefore);
-    model.put("fixingRateAfter", fixedSecurityTotalAfter);
-    model.put("fixingRate", this.calculateChangeRate(fixedSecurityTotalBefore, fixedSecurityTotalAfter));
-    model.put("fixingRateIncrease", this.calculateMultipleIncrease(fixedSecurityTotalBefore, fixedSecurityTotalAfter));
-
-    model.put("fixingRateCriticalsBefore", fixedSecurityCriticalsTotalBefore.getPointA());
-    model.put("fixingRateCriticalsAfter", fixedSecurityCriticalsTotalAfter.getPointA());
-    model.put("fixingRateCriticals", this.calculateChangeRate(fixedSecurityCriticalsTotalBefore.getPointA(), fixedSecurityCriticalsTotalAfter.getPointA()));
-    model.put("fixingRateCriticalsIncrease", this.calculateMultipleIncrease(fixedSecurityCriticalsTotalBefore.getPointA(), fixedSecurityCriticalsTotalAfter.getPointA()));
-
-    int backlogReductionRateBefore = Integer.valueOf((String) ppsecurityLicenseTotals.get("ppbacklogReductionRate"));
-    int backlogReductionRateAfter = Integer.valueOf((String) securityLicenseTotals.get("backlogReductionRate"));
-    model.put("backlogReductionRateBefore", backlogReductionRateBefore);
-    model.put("backlogReductionRateAfter", backlogReductionRateAfter);
-    model.put("backlogReductionRate", this.calculateChangeRate(backlogReductionRateBefore, backlogReductionRateAfter));
-    model.put("backlogReductionRateIncrease", this.calculateMultipleIncrease(backlogReductionRateBefore, backlogReductionRateAfter));
-
-    int backlogReductionRateCriticalsBefore = Integer.valueOf((String) ppsecurityLicenseTotals.get("ppbacklogReductionRateCritical"));
-    int backlogReductionRateCriticalsAfter = Integer.valueOf((String) securityLicenseTotals.get("backlogReductionRateCritical"));
-    model.put("backlogReductionCriticalsRateBefore", backlogReductionRateCriticalsBefore);
-    model.put("backlogReductionCriticalsRateAfter", backlogReductionRateCriticalsAfter);
-    model.put("backlogReductionCriticalsRate", this.calculateChangeRate(backlogReductionRateCriticalsBefore, backlogReductionRateCriticalsAfter));
-    model.put("backlogReductionCriticalsRateIncrease", this.calculateMultipleIncrease(backlogReductionRateCriticalsBefore, backlogReductionRateCriticalsAfter));
-
-    Object riskRatioBefore = ppviolationsData.get("ppriskRatioInsightsCritical");
-    Object riskRatioAfter = violationsData.get("riskRatioInsightsCritical");
-    model.put("riskRatioBefore", riskRatioBefore);
-    model.put("riskRatioAfter", riskRatioAfter);
-    model.put("riskRatio", this.calculateChangePct(riskRatioBefore, riskRatioAfter));
-    model.put("riskRatioIncrease", this.calculateChangeMultiple(riskRatioBefore, riskRatioAfter));
-
-    String[] mttrCriticalsBefore = (String[]) ppsecurityLicenseTotals.get("ppmttrAvg");
-    String[] mttrCriticalsAfter = (String[]) securityLicenseTotals.get("mttrAvg");
-    model.put("mttrCriticalsBefore", Integer.parseInt(mttrCriticalsBefore[0]));
-    model.put("mttrCriticalsAfter", Integer.parseInt(mttrCriticalsAfter[0]));
-    model.put("mttrCriticals", this.calculateChangeRate(Integer.parseInt(mttrCriticalsBefore[0]), Integer.parseInt(mttrCriticalsAfter[0])));
-    model.put("mttrCriticalsIncrease", this.calculateMultipleIncrease(Integer.parseInt(mttrCriticalsBefore[0]), Integer.parseInt(mttrCriticalsAfter[0])));
-
-    return model;
-  }
-
   private String calculateChangeRate(int before, int after){
     String result;
 

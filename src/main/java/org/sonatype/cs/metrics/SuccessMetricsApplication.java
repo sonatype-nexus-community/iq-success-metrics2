@@ -2,13 +2,16 @@ package org.sonatype.cs.metrics;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonatype.cs.metrics.service.FileLoaderService;
 import org.sonatype.cs.metrics.service.PdfService;
+import org.sonatype.cs.metrics.service.PeriodsDataService;
 import org.sonatype.cs.metrics.util.DataLoaderParams;
 import org.sonatype.cs.metrics.util.SqlStatement;
+import org.sonatype.cs.metrics.util.SqlStatements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.Banner;
@@ -25,6 +28,7 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 	public static boolean policyViolationsDataLoaded = false;
 	public static boolean componentsQuarantineLoaded = false;
 	public static boolean componentWaiversLoaded = false;
+	
 
 	@Value("${spring.main.web-application-type}")
 	private String runMode;
@@ -40,12 +44,19 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 	
 	@Value("${data.includelatestperiod}")
 	private boolean includelatestperiod;
+	
+	@Value("${data.loadInsightsMetrics}")
+	private boolean loadInsightsMetrics;
+	
 
 	@Autowired
 	private FileLoaderService loaderService;
 
 	@Autowired
 	private PdfService pdfService;
+	
+	@Autowired
+	private PeriodsDataService periodsDataService;
 	
 
 	public static void main(String[] args) {
@@ -78,6 +89,9 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 
 		String stmt = SqlStatement.MetricsTable;
 		boolean fileLoaded = loaderService.loadMetricsFile(DataLoaderParams.smDatafile, DataLoaderParams.smHeader, stmt);
+		
+		Map<String, Object> periods = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
+		String endPeriod = periods.get("endPeriod").toString();
 
 		if (!fileLoaded) {
 			log.info(DataLoaderParams.smDatafile + " file not found");
@@ -86,16 +100,20 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 		else {
 			
 			if (!includelatestperiod) {
-				loaderService.filterOutLatestPeriod(); // it is likely incomplete
+				loaderService.filterOutLatestPeriod(endPeriod); // it is likely incomplete
 			}
 			
-			boolean hasPreviousData = loaderService.loadPreviousPeriodData();
-			
-			if (!hasPreviousData) {
-				log.error("No previous data");
-				System.exit(1);
-
+			if (loadInsightsMetrics) {
+				loaderService.loadInsightsData(periods);
 			}
+			
+//			boolean hasPreviousData = loaderService.loadPreviousPeriodData();
+//			
+//			if (!hasPreviousData) {
+//				log.error("No previous data");
+//				System.exit(1);
+//
+//			}
 		}
 	}
 

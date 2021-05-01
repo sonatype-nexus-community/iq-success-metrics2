@@ -1,5 +1,6 @@
 package org.sonatype.cs.metrics.service;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,47 +23,65 @@ public class ApplicationsDataService {
 	private DbService dbService;
 	
 	@Autowired
-	private PeriodsDataService periodsDataService;
-	
-	@Autowired
 	private HelperService helperService;
 	
 	
-	public Map<String, Object> getApplicationData() {
+	public Map<String, Object> getApplicationData(String tableName, Map<String, Object> periodsData) throws ParseException {
 		Map<String, Object> model = new HashMap<>();
 		
-		String startPeriod = periodsDataService.getStartPeriod();
-		String endPeriod = periodsDataService.getEndPeriod();
-
-
-		List<DbRow> applicationsOnboardedData = dbService.runSql(SqlStatements.ApplicationsOnboarded);
-		int numberOfApplicationsInPeriod = getNumberOfApplicationsForPeriod(startPeriod);
-		int[] applicationsOnboarded = this.getApplicationsOnboardedCountAndAvg(applicationsOnboardedData, numberOfApplicationsInPeriod);
-		model.put("applicationsOnboardedChart", applicationsOnboardedData);
-		model.put("applicationsOnboarded", applicationsOnboarded[0]);
-		model.put("applicationsOnboardedAvg", applicationsOnboarded[1]);
+		List<DbRow> applicationsOnboardedData = dbService.runSql(tableName, SqlStatements.ApplicationsOnboarded);
 		
-
-		List<DbRow> numberOfScansData = dbService.runSql(SqlStatements.NumberOfScans);
+		String startPeriod = null;
+		String endPeriod = null;
+		
+		switch(tableName) {
+			case SqlStatements.METRICTABLENAME: 
+				startPeriod = periodsData.get("startPeriod").toString();
+				endPeriod = periodsData.get("endPeriod").toString();
+				break;
+				
+			case SqlStatements.METRICP1TABLENAME: 
+				startPeriod = periodsData.get("startPeriod").toString();
+				endPeriod = periodsData.get("midPeriod").toString();
+				break;
+				
+			case SqlStatements.METRICP2TABLENAME: 
+				startPeriod = periodsData.get("midPeriod").toString();
+				endPeriod = periodsData.get("endPeriod").toString();
+				break;
+			default:
+		}
+		
+		int rows = applicationsOnboardedData.size();
+		int startPeriodCount = applicationsOnboardedData.get(0).getPointA();
+		int endPeriodCount = applicationsOnboardedData.get(rows-1).getPointA();
+		int applicationsOnboardedInPeriod = endPeriodCount - startPeriodCount;
+		int applicationsOnboardedInPeriodAvg = applicationsOnboardedInPeriod/rows;
+		
+		model.put("applicationsOnboardedChart", applicationsOnboardedData);
+		model.put("applicationsOnboarded", applicationsOnboardedInPeriod);
+		model.put("applicationsOnboardedAvg", applicationsOnboardedInPeriodAvg);
+	
+		List<DbRow> numberOfScansData = dbService.runSql(tableName, SqlStatements.NumberOfScans);
 		int[] numberOfScans = helperService.getPointsSumAndAverage(numberOfScansData);
 		model.put("numberOfScansChart", numberOfScansData);
 		model.put("numberOfScans", numberOfScans[0]);
 		model.put("numberOfScansAvg", numberOfScans[1]);
 
-		List<DbRow> numberOfScannedApplicationsData = dbService.runSql(SqlStatements.NumberOfScannedApplications);
+		List<DbRow> numberOfScannedApplicationsData = dbService.runSql(tableName, SqlStatements.NumberOfScannedApplications);
 		int[] numberOfScannedApplications = helperService.getPointsSumAndAverage(numberOfScannedApplicationsData);
 		model.put("numberOfApplicationsScannedChart", numberOfScannedApplicationsData);
 		model.put("numberOfApplicationsScanned", numberOfScannedApplications[0]);
 		model.put("numberOfApplicationsScannedAvg", numberOfScannedApplications[1]);
 
-		List<Mttr> mttr = dbService.runSqlMttr(SqlStatements.MTTR);
+		List<Mttr> mttr = dbService.runSqlMttr(tableName, SqlStatements.MTTR);
 		model.put("mttrChart", mttr);
 		
 		String applicationOpenViolations = SqlStatements.ApplicationsOpenViolations + " where time_period_start = '" + endPeriod + "' group by application_name" + " order by 2 desc, 3 desc";
-		List<DbRow> aov = dbService.runSql(applicationOpenViolations);
+		List<DbRow> aov = dbService.runSql(tableName, applicationOpenViolations);
 
         String organisationOpenViolations = SqlStatements.OrganisationsOpenViolations + " where time_period_start = '" + endPeriod + "' group by organization_name" + " order by 2 desc, 3 desc";
-        List<DbRow> oov = dbService.runSql(organisationOpenViolations);
+        List<DbRow> oov = dbService.runSql(tableName, organisationOpenViolations);
 
 		model.put("mostCriticalApplicationCount", aov.get(0).getPointA());
 		model.put("leastCriticalApplicationCount", aov.get(aov.size() - 1).getPointA());
@@ -75,43 +94,18 @@ public class ApplicationsDataService {
         model.put("leastCriticalApplicationName", aov.get(aov.size()-1).getLabel());
         model.put("leastCriticalApplicationCount", aov.get(aov.size()-1).getPointA());
         
-        model.put("applicationsSecurityRemediation", dbService.runSql(SqlStatement.ApplicationsSecurityRemediation));
-        model.put("applicationsLicenseRemediation", dbService.runSql(SqlStatement.ApplicationsLicenseRemediation));	
+        model.put("applicationsSecurityRemediation", dbService.runSql(tableName, SqlStatement.ApplicationsSecurityRemediation));
+        model.put("applicationsLicenseRemediation", dbService.runSql(tableName, SqlStatement.ApplicationsLicenseRemediation));	
         
 		model.put("mostCriticalOrganisationsData", oov);
 		model.put("mostCriticalApplicationsData", aov);
 		
-		model.put("mostScannedApplicationsData", dbService.runSql(SqlStatement.MostScannedApplications));
+		model.put("mostScannedApplicationsData", dbService.runSql(tableName, SqlStatement.MostScannedApplications));
 		
-		List<DbRow> riskRatio = dbService.runSql(SqlStatements.RiskRatio);
+		List<DbRow> riskRatio = dbService.runSql(tableName, SqlStatements.RiskRatio);
 		model.put("riskRatioChart", riskRatio);
 		
 		return model;
 	}
 	
-	private int getNumberOfApplicationsForPeriod(String timePeriod) {
-		String sqlStmt = "select 'Number of Apps' as label, count(application_Id) as pointA from metric where time_period_start = '" + timePeriod + "'";
-		List<DbRow> rows = dbService.runSql(sqlStmt);
-		int numberOfApplications = rows.get(0).getPointA();
-		return numberOfApplications;
-	}
-	
-	private int[] getApplicationsOnboardedCountAndAvg(List<DbRow> dataList, int numberOfApplicationsStartPeriod) {
-
-		int numberOfPeriods = dataList.size();
-		int numberOfApplications = (int) dataList.get(dataList.size() - 1).getPointA();
-		numberOfApplications -= numberOfApplicationsStartPeriod;
-		int dataAverage = numberOfApplications / numberOfPeriods;
-
-		int total = numberOfApplications;
-		int avg = dataAverage;
-
-		if (avg < 1) {
-			avg = 1;
-		}
-
-		int[] values = new int[] { total, avg };
-		return values;
-	}
-
 }

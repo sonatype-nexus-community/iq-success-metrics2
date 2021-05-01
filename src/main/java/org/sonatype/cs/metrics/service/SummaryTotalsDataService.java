@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class SummaryTotalsDataService {
 	
 	@Autowired
-	private DataService dataService;
+	private DbService dbService;
 	
 	@Autowired
 	private HelperService helperService;
@@ -31,11 +31,11 @@ public class SummaryTotalsDataService {
 
 	
 	
-	public Map<String, Object> getSummaryData() {
+	public Map<String, Object> getSummaryData(String tableName) {
 		Map<String, Object> model = new HashMap<>();
 		
-		Map<String, Object> secModel = securityViolationsDataService.getSecurityViolations();
-		Map<String, Object> licModel = licenseViolationsDataService.getLicenseViolations();
+		Map<String, Object> secModel = securityViolationsDataService.getSecurityViolations(tableName);
+		Map<String, Object> licModel = licenseViolationsDataService.getLicenseViolations(tableName);
 
 		int dst = (int) secModel.get("discoveredSecurityTotal");
 		int fst = (int) secModel.get("fixedSecurityTotal");
@@ -50,8 +50,8 @@ public class SummaryTotalsDataService {
 		float fixRate = (((float) (fixedWaived) / discovered) * 100);
 
 		model.put("fixRate", String.format("%.0f", fixRate));
-		model.put("mttrAvg", this.MttrAvg());
-		model.put("riskRatioInsightsCritical", this.calculateRiskRatioInsights("current"));
+		model.put("mttrAvg", this.MttrAvg(tableName));
+		model.put("riskRatioInsightsCritical", this.calculateRiskRatioInsights(tableName));
 		
 		float backlogReductionRate = (((float) (fixedWaived) / discovered));
 		
@@ -74,13 +74,13 @@ public class SummaryTotalsDataService {
 		return model;
 	}
 
-	private String[] MttrAvg() {
+	private String[] MttrAvg(String tableName) {
 		List<Float> pointA = new ArrayList<>();
 		List<Float> pointB = new ArrayList<>();
 		List<Float> pointC = new ArrayList<>();
 
 
-		List<Mttr> mttrPoints = this.getMttr();
+		List<Mttr> mttrPoints = this.getMttr(tableName);
 
 		for (Mttr dp : mttrPoints) {
 			pointA.add(dp.getPointA());
@@ -96,11 +96,11 @@ public class SummaryTotalsDataService {
 		return values;
 	}
 	
-	private List<Mttr> getMttr() {
+	private List<Mttr> getMttr(String tableName) {
 
 		List<Mttr> mttr = new ArrayList<Mttr>();
 
-		List<Mttr> points = dataService.runSqlMttr(SqlStatements.MTTR2);
+		List<Mttr> points = dbService.runSqlMttr(tableName, SqlStatements.MTTR2);
 
 		for (Mttr dp : points) {
 			Mttr cp = new Mttr();
@@ -115,10 +115,10 @@ public class SummaryTotalsDataService {
 		return mttr;
 	}
 	
-	private String calculateRiskRatioInsights(String period) {
+	private String calculateRiskRatioInsights(String tableName) {
 		List<Float> pointA = new ArrayList<>();
 
-		List<DbRow> riskRatioInsights = dataService.runSql(SqlStatement.RiskRatioInsights);
+		List<DbRow> riskRatioInsights = dbService.runSql(tableName, SqlStatements.RiskRatioInsights);
 
 		for (DbRow dp : riskRatioInsights) {
 			pointA.add((float)dp.getPointA());

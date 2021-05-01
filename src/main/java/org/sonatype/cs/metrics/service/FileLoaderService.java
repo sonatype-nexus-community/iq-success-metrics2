@@ -5,11 +5,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonatype.cs.metrics.util.SqlStatement;
 import org.sonatype.cs.metrics.util.SqlStatementPreviousPeriod;
+import org.sonatype.cs.metrics.util.SqlStatements;
 import org.sonatype.cs.metrics.util.UtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,10 +22,11 @@ public class FileLoaderService {
 	private static final Logger log = LoggerFactory.getLogger(FileLoaderService.class);
 	
 	@Autowired
-	private DataService dataService;
+	private DbService dbService;
+	
+	
 
-	@Autowired
-	private UtilService utilService;
+	
 	
 	public boolean loadMetricsFile(String fileName, String header, String stmt) throws IOException {
 		boolean status = false;
@@ -38,37 +41,13 @@ public class FileLoaderService {
 	private boolean loadFile(String fileName, String stmt) throws IOException {
 		String sqlStmt = stmt + " ('" + fileName + "')";	
 		
-		dataService.runSqlLoad(sqlStmt);
+		dbService.runSqlLoad(sqlStmt);
 		
 		log.info("Loaded file: " + fileName);
 		
 		return true;
 	}
 	
-	public boolean loadPreviousPeriodData() throws ParseException {
-		String previousPeriod = utilService.getPreviousPeriod();
-		
-		boolean hasPreviousData = false;
-				
-		if (!previousPeriod.equalsIgnoreCase("none")){
-			 String sqlStmt = "DROP TABLE IF EXISTS METRIC_PP; CREATE TABLE METRIC_PP AS SELECT * FROM METRIC WHERE TIME_PERIOD_START <= '" + previousPeriod + "'";
-			 dataService.runSqlLoad(sqlStmt);
-			 hasPreviousData = true;
-		}
-		
-		return hasPreviousData;
-	}
-	
-	// public boolean isAvailable(String metricsFile){
-	// 	File f = new File(metricsFile);
-	// 	if (f.exists() && f.length() > 0 && !f.isDirectory()){
-	// 		return true;
-	// 	}
-	// 	else {
-	// 		return false;
-	// 	}
-	// }
-
 	private boolean isHeaderValid(String filename, String header) throws IOException {
 
 		boolean isValid = false;
@@ -77,7 +56,7 @@ public class FileLoaderService {
 
 		File f = new File(metricsFile);
 
-      if (f.exists()){
+		if (f.exists()){
 				if (!f.isDirectory() && f.length() > 0) {
 					isValid = true;
 
@@ -101,7 +80,7 @@ public class FileLoaderService {
 					log.info("No data");
 					isValid = false;
 				}
-			}
+		}
 	
 		return isValid;
 	}
@@ -129,11 +108,22 @@ public class FileLoaderService {
 		return lineCount;
 	}
 
-	public void filterOutLatestPeriod() {
-		String latestPeriod = utilService.getLatestPeriod();
-		String sqlStmt = "delete from metric where time_period_start = " + "'" + latestPeriod + "'";
-		dataService.runSqlLoad(sqlStmt);
+	public void filterOutLatestPeriod(String endPeriod) throws ParseException {
+		String sqlStmt = "delete from metric where time_period_start = " + "'" + endPeriod + "'";
+		dbService.runSqlLoad(sqlStmt);
 		return;
+	}
+
+	public void loadInsightsData(Map<String, Object> periods) throws ParseException {
+		String midPeriod = periods.get("midPeriod").toString();
+		
+		String sqlStmtP1 = "DROP TABLE IF EXISTS METRIC_P1; CREATE TABLE METRIC_P1 AS SELECT * FROM METRIC WHERE TIME_PERIOD_START <= '" + midPeriod + "'";
+		dbService.runSqlLoad(sqlStmtP1);
+		
+		String sqlStmtP2 = "DROP TABLE IF EXISTS METRIC_P2; CREATE TABLE METRIC_P2 AS SELECT * FROM METRIC WHERE TIME_PERIOD_START >= '" + midPeriod + "'";
+		dbService.runSqlLoad(sqlStmtP2);
+			 
+		return;		
 	}
 	
 }

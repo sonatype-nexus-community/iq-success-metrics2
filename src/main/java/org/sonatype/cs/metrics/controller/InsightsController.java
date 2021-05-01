@@ -6,6 +6,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonatype.cs.metrics.service.InsightsService;
+import org.sonatype.cs.metrics.service.PeriodsDataService;
+import org.sonatype.cs.metrics.util.SqlStatements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,13 +19,17 @@ public class InsightsController {
 
   @Autowired
   private InsightsService insightsService;
+  
+  @Autowired
+  private PeriodsDataService periodsDataService;
+	     
 
   @GetMapping({ "/insights" })
   public String insights(Model model) throws ParseException {
+	  log.info("In InsightsController");
 
-      log.info("In InsightsController");
-
-      Map<String, Object> insightsData = insightsService.insightsData();
+  	  Map<String, Object> periodsData = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
+      Map<String, Object> insightsData = insightsService.insightsData(periodsData);
       model.mergeAttributes(insightsData);
 
       return "reportInsights";
