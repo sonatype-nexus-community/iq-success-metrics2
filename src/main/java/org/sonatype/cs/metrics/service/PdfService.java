@@ -14,9 +14,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonatype.cs.metrics.util.SummaryDataService;
-import org.sonatype.cs.metrics.util.SummaryDataServicePreviousPeriod;
-import org.sonatype.cs.metrics.util.UtilService;
+import org.sonatype.cs.metrics.util.SqlStatements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -41,13 +39,10 @@ public class PdfService {
   private String htmlTemplate;
   
   @Autowired
-  private SummaryDataService summaryDataService;
-
+  private PeriodsDataService periodsDataService;
+  
   @Autowired
-  private SummaryDataServicePreviousPeriod summaryDataServicePreviousPeriod;
-
-  @Autowired
-  private UtilService utilService;
+  private MetricsService metricsService;
   
   @Autowired
   private InsightsService insightsService;
@@ -59,45 +54,48 @@ public class PdfService {
 
 		TemplateEngine templateEngine = new TemplateEngine();
 		templateEngine.setTemplateResolver(templateResolver);
-
-    Map<String, Object> periodData = summaryDataService.getPeriodData();
-        
-    String startPeriod = (String) periodData.get("startPeriod");
-    String latestTimePeriod = (String) periodData.get("latestTimePeriod");
-    String pplatestTimePeriod = utilService.getPreviousPeriod();
-
-    Map<String, Object> applicationData = summaryDataService.getApplicationData(startPeriod);
-    Map<String, Object> securityViolationsTotals = summaryDataService.getSecurityViolationsTotals();
-    Map<String, Object> licenseViolationsTotals = summaryDataService.getLicenseViolationsTotals();
-    Map<String, Object> securityLicenseTotals = summaryDataService.getSecurityLicenseTotals();
-    Map<String, Object> violationsData = summaryDataService.getViolationsData(latestTimePeriod);
-
-    Map<String, Object> ppapplicationData = summaryDataServicePreviousPeriod.getApplicationData(startPeriod);
-    Map<String, Object> ppsecurityViolationsTotals = summaryDataServicePreviousPeriod.getSecurityViolationsTotals();
-    Map<String, Object> pplicenseViolationsTotals = summaryDataServicePreviousPeriod.getLicenseViolationsTotals();
-    Map<String, Object> ppsecurityLicenseTotals = summaryDataServicePreviousPeriod.getSecurityLicenseTotals();
-    Map<String, Object> ppviolationsData = summaryDataServicePreviousPeriod.getViolationsData(pplatestTimePeriod);
-    Map<String, Object> insightsData = insightsService.insightsData();
-
-
+				
+		Map<String, Object> periodsData = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
+	    Map<String, Object> p1metrics = metricsService.getMetrics(SqlStatements.METRICP1TABLENAME, periodsData);
+	    Map<String, Object> p2metrics = metricsService.getMetrics(SqlStatements.METRICP2TABLENAME, periodsData);
+		
+		        
+//    String startPeriod = (String) periodData.get("startPeriod");
+//    String latestTimePeriod = (String) periodData.get("latestTimePeriod");
+//    String pplatestTimePeriod = utilService.getPreviousPeriod();
+//
+//    Map<String, Object> applicationData = summaryDataService.getApplicationData(startPeriod);
+//    Map<String, Object> securityViolationsTotals = summaryDataService.getSecurityViolationsTotals();
+//    Map<String, Object> licenseViolationsTotals = summaryDataService.getLicenseViolationsTotals();
+//    Map<String, Object> securityLicenseTotals = summaryDataService.getSecurityLicenseTotals();
+//    Map<String, Object> violationsData = summaryDataService.getViolationsData(latestTimePeriod);
+//
+//    Map<String, Object> ppapplicationData = summaryDataServicePreviousPeriod.getApplicationData(startPeriod);
+//    Map<String, Object> ppsecurityViolationsTotals = summaryDataServicePreviousPeriod.getSecurityViolationsTotals();
+//    Map<String, Object> pplicenseViolationsTotals = summaryDataServicePreviousPeriod.getLicenseViolationsTotals();
+//    Map<String, Object> ppsecurityLicenseTotals = summaryDataServicePreviousPeriod.getSecurityLicenseTotals();
+//    Map<String, Object> ppviolationsData = summaryDataServicePreviousPeriod.getViolationsData(pplatestTimePeriod);
+//    Map<String, Object> insightsData = insightsService.insightsData();
+//
+//
     Context context = new Context();
-
-    context.setVariables(periodData);
-    context.setVariables(applicationData);
-    context.setVariables(securityViolationsTotals);
-    context.setVariables(licenseViolationsTotals);
-    context.setVariables(securityViolationsTotals);
-    context.setVariables(securityLicenseTotals);
-    context.setVariables(violationsData);
-
-    context.setVariables(ppapplicationData);
-    context.setVariables(ppsecurityViolationsTotals);
-    context.setVariables(pplicenseViolationsTotals);
-    context.setVariables(ppsecurityViolationsTotals);
-    context.setVariables(ppsecurityLicenseTotals);
-    context.setVariables(ppviolationsData);
-
-    context.setVariables(insightsData);
+//
+//    context.setVariables(periodData);
+//    context.setVariables(applicationData);
+//    context.setVariables(securityViolationsTotals);
+//    context.setVariables(licenseViolationsTotals);
+//    context.setVariables(securityViolationsTotals);
+//    context.setVariables(securityLicenseTotals);
+//    context.setVariables(violationsData);
+//
+//    context.setVariables(ppapplicationData);
+//    context.setVariables(ppsecurityViolationsTotals);
+//    context.setVariables(pplicenseViolationsTotals);
+//    context.setVariables(ppsecurityViolationsTotals);
+//    context.setVariables(ppsecurityLicenseTotals);
+//    context.setVariables(ppviolationsData);
+//
+//    context.setVariables(insightsData);
 
 		return templateEngine.process(htmlTemplate, context);
 	}

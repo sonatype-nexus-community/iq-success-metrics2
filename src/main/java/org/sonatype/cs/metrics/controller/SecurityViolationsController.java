@@ -26,7 +26,7 @@ public class SecurityViolationsController {
         Map<String, Object> securityViolationsData = securityDataService.getSecurityViolations(SqlStatements.METRICTABLENAME);
         model.mergeAttributes(securityViolationsData);
 		
-        return "reportSecurityViolations";
+        return "securityViolations";
     }
     
 }

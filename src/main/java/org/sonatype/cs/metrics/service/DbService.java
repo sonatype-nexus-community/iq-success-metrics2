@@ -26,9 +26,9 @@ public class DbService {
         return jtm.query(stmt, new BeanPropertyRowMapper<>(DbRow.class));  
     }
     
-//    public List<DbRowStr> runSqlStr(String stmt) {
-//        return jtm.query(stmt, new BeanPropertyRowMapper<>(DbRowStr.class));  
-//    }
+    public List<DbRowStr> runSqlStr(String stmt) {
+        return jtm.query(stmt, new BeanPropertyRowMapper<>(DbRowStr.class));  
+    }
 
     public List<Mttr> runSqlMttr(String tableName, String stmt) {
     	stmt = stmt.replace("<?>", tableName);

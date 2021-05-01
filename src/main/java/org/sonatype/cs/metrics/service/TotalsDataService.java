@@ -8,14 +8,12 @@ import java.util.Map;
 import org.sonatype.cs.metrics.model.DbRow;
 import org.sonatype.cs.metrics.model.Mttr;
 import org.sonatype.cs.metrics.util.HelperService;
-import org.sonatype.cs.metrics.util.SqlStatement;
-import org.sonatype.cs.metrics.util.SqlStatementPreviousPeriod;
 import org.sonatype.cs.metrics.util.SqlStatements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SummaryTotalsDataService {
+public class TotalsDataService {
 	
 	@Autowired
 	private DbService dbService;

@@ -34,6 +34,6 @@ public class ApplicationsController {
         Map<String, Object> applicationData = applicationsDataService.getApplicationData(SqlStatements.METRICTABLENAME, periodsData);
 		model.mergeAttributes(applicationData);
 
-        return "reportApplications";
+        return "applications";
     }
 }

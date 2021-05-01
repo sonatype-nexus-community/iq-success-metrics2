@@ -32,6 +32,6 @@ public class InsightsController {
       Map<String, Object> insightsData = insightsService.insightsData(periodsData);
       model.mergeAttributes(insightsData);
 
-      return "reportInsights";
+      return "insights";
   }
 }

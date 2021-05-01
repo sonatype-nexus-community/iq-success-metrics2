@@ -10,7 +10,6 @@ import org.sonatype.cs.metrics.service.FileLoaderService;
 import org.sonatype.cs.metrics.service.PdfService;
 import org.sonatype.cs.metrics.service.PeriodsDataService;
 import org.sonatype.cs.metrics.util.DataLoaderParams;
-import org.sonatype.cs.metrics.util.SqlStatement;
 import org.sonatype.cs.metrics.util.SqlStatements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -87,7 +86,7 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 
 	private void loadSuccessMetricsData() throws IOException, ParseException {
 
-		String stmt = SqlStatement.MetricsTable;
+		String stmt = SqlStatements.MetricsTable;
 		boolean fileLoaded = loaderService.loadMetricsFile(DataLoaderParams.smDatafile, DataLoaderParams.smHeader, stmt);
 		
 		Map<String, Object> periods = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
@@ -120,9 +119,9 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 
 	public void reports2() throws IOException {
 		
-		applicationEvaluationsFileLoaded = loaderService.loadMetricsFile(DataLoaderParams.aeDatafile, DataLoaderParams.aeFileHeader, SqlStatement.ApplicationEvaluationsTable);
-		policyViolationsDataLoaded = loaderService.loadMetricsFile(DataLoaderParams.pvDatafile, DataLoaderParams.pvFileHeader,  SqlStatement.PolicyViolationsTables);
-		componentsQuarantineLoaded = loaderService.loadMetricsFile(DataLoaderParams.cqDatafile, DataLoaderParams.cqFileHeader, SqlStatement.ComponentsInQuarantineTable);
-		componentWaiversLoaded = loaderService.loadMetricsFile(DataLoaderParams.cwDatafile, DataLoaderParams.cwFileHeader, SqlStatement.ComponentWaiversTable);
+		applicationEvaluationsFileLoaded = loaderService.loadMetricsFile(DataLoaderParams.aeDatafile, DataLoaderParams.aeFileHeader, SqlStatements.ApplicationEvaluationsTable);
+		policyViolationsDataLoaded = loaderService.loadMetricsFile(DataLoaderParams.pvDatafile, DataLoaderParams.pvFileHeader,  SqlStatements.PolicyViolationsTables);
+		componentsQuarantineLoaded = loaderService.loadMetricsFile(DataLoaderParams.cqDatafile, DataLoaderParams.cqFileHeader, SqlStatements.ComponentsInQuarantineTable);
+		componentWaiversLoaded = loaderService.loadMetricsFile(DataLoaderParams.cwDatafile, DataLoaderParams.cwFileHeader, SqlStatements.ComponentWaiversTable);
 	}
 }

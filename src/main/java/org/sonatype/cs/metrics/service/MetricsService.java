@@ -23,7 +23,7 @@ public class MetricsService {
 	private ApplicationsDataService applicationsDataService;
 	     
 	@Autowired
-	private SummaryTotalsDataService summaryTotalsDataService;
+	private TotalsDataService summaryTotalsDataService;
 	
 	
 	public Map<String, Object> getMetrics(String tableName, Map<String, Object> periodsData) throws ParseException{

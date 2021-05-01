@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.sonatype.cs.metrics.model.DbRow;
 import org.sonatype.cs.metrics.model.Mttr;
 import org.sonatype.cs.metrics.util.HelperService;
-import org.sonatype.cs.metrics.util.SqlStatement;
 import org.sonatype.cs.metrics.util.SqlStatements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -94,13 +93,13 @@ public class ApplicationsDataService {
         model.put("leastCriticalApplicationName", aov.get(aov.size()-1).getLabel());
         model.put("leastCriticalApplicationCount", aov.get(aov.size()-1).getPointA());
         
-        model.put("applicationsSecurityRemediation", dbService.runSql(tableName, SqlStatement.ApplicationsSecurityRemediation));
-        model.put("applicationsLicenseRemediation", dbService.runSql(tableName, SqlStatement.ApplicationsLicenseRemediation));	
+        model.put("applicationsSecurityRemediation", dbService.runSql(tableName, SqlStatements.ApplicationsSecurityRemediation));
+        model.put("applicationsLicenseRemediation", dbService.runSql(tableName, SqlStatements.ApplicationsLicenseRemediation));	
         
 		model.put("mostCriticalOrganisationsData", oov);
 		model.put("mostCriticalApplicationsData", aov);
 		
-		model.put("mostScannedApplicationsData", dbService.runSql(tableName, SqlStatement.MostScannedApplications));
+		model.put("mostScannedApplicationsData", dbService.runSql(tableName, SqlStatements.MostScannedApplications));
 		
 		List<DbRow> riskRatio = dbService.runSql(tableName, SqlStatements.RiskRatio);
 		model.put("riskRatioChart", riskRatio);

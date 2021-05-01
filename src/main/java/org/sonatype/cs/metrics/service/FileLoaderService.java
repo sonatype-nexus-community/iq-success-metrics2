@@ -9,10 +9,6 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonatype.cs.metrics.util.SqlStatement;
-import org.sonatype.cs.metrics.util.SqlStatementPreviousPeriod;
-import org.sonatype.cs.metrics.util.SqlStatements;
-import org.sonatype.cs.metrics.util.UtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +19,6 @@ public class FileLoaderService {
 	
 	@Autowired
 	private DbService dbService;
-	
-	
-
 	
 	
 	public boolean loadMetricsFile(String fileName, String header, String stmt) throws IOException {

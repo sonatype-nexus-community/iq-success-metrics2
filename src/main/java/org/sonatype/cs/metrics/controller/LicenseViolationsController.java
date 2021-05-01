@@ -26,7 +26,7 @@ public class LicenseViolationsController {
         Map<String, Object> licenseViolationsData = licenseDataService.getLicenseViolations(SqlStatements.METRICTABLENAME);
         model.mergeAttributes(licenseViolationsData);
 
-        return "reportLicenseViolations";
+        return "licenseViolations";
     }
     
 }

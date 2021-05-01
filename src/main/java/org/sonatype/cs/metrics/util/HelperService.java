@@ -1,8 +1,11 @@
 package org.sonatype.cs.metrics.util;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.sonatype.cs.metrics.model.DbRow;
+import org.sonatype.cs.metrics.model.DbRowStr;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -43,6 +46,23 @@ public class HelperService {
 		}
 
 		return sumData / countPoints;
+	}
+	
+	public Map<String, Object> dataMap(String key, List<DbRowStr> data) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		if (data.size() > 0){
+			map.put(key + "Data", data);
+			map.put(key + "Number", data.size());
+			map.put(key, true);
+		}
+		else {
+			map.put(key + "Number", 0);
+			map.put(key, false);
+		}
+		
+		return map;
 	}
 
 }
