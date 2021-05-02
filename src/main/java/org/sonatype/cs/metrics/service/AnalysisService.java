@@ -12,13 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class InsightsService {
-	private static final Logger log = LoggerFactory.getLogger(InsightsService.class);
+public class AnalysisService {
+	private static final Logger log = LoggerFactory.getLogger(AnalysisService.class);
 	
 	@Autowired
 	private MetricsService metricsService;
 
-	public Map<String, Object> insightsData(Map<String, Object> periodsData) throws ParseException{
+	public Map<String, Object> getAnalysisData(Map<String, Object> periodsData) throws ParseException{
 		Map<String, Object> model = new HashMap<>();
 	    
 	    Map<String, Object> p1metrics = metricsService.getMetrics(SqlStatements.METRICP1TABLENAME, periodsData);

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonatype.cs.metrics.service.InsightsService;
+import org.sonatype.cs.metrics.service.AnalysisService;
 import org.sonatype.cs.metrics.service.PeriodsDataService;
 import org.sonatype.cs.metrics.util.SqlStatements;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +14,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class InsightsController {
-  private static final Logger log = LoggerFactory.getLogger(InsightsController.class);
+public class AnalysisController {
+  private static final Logger log = LoggerFactory.getLogger(AnalysisController.class);
 
   @Autowired
-  private InsightsService insightsService;
+  private AnalysisService analysisService;
   
   @Autowired
   private PeriodsDataService periodsDataService;
@@ -26,11 +26,11 @@ public class InsightsController {
 
   @GetMapping({ "/analysis" })
   public String insights(Model model) throws ParseException {
-	  log.info("In InsightsController");
+	  log.info("In AnalysisController");
 
   	  Map<String, Object> periodsData = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
-      Map<String, Object> insightsData = insightsService.insightsData(periodsData);
-      model.mergeAttributes(insightsData);
+      Map<String, Object> analysisData = analysisService.getAnalysisData(periodsData);
+      model.mergeAttributes(analysisData);
 
       return "analysis";
   }

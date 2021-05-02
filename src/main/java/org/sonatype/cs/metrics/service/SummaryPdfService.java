@@ -28,9 +28,9 @@ import com.lowagie.text.DocumentException;
 
 
 @Service
-public class PdfService {
+public class SummaryPdfService {
 
-	private static final Logger log = LoggerFactory.getLogger(PdfService.class);
+	private static final Logger log = LoggerFactory.getLogger(SummaryPdfService.class);
 
 	@Value("${pdf.outputdir}")
 	private String outputdir;
@@ -45,7 +45,7 @@ public class PdfService {
 	private MetricsService metricsService;
 	  
 	@Autowired
-	private InsightsService insightsService;
+	private AnalysisService analysisService;
 	
 	
 	public String parsePdfTemplate(String htmlTemplate) throws ParseException {
@@ -60,7 +60,7 @@ public class PdfService {
         Map<String, Object> metrics = metricsService.getMetrics(SqlStatements.METRICTABLENAME, periodsData);
 	    Map<String, Object> p1metrics = metricsService.getMetrics(SqlStatements.METRICP1TABLENAME, periodsData);
 	    Map<String, Object> p2metrics = metricsService.getMetrics(SqlStatements.METRICP2TABLENAME, periodsData);
-	    Map<String, Object> analysisData = insightsService.insightsData(periodsData);
+	    Map<String, Object> analysisData = analysisService.getAnalysisData(periodsData);
 
 	    Context context = new Context();
 	    context.setVariables(periodsData);

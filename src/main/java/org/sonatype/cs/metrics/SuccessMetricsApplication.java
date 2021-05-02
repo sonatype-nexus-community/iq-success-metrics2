@@ -7,7 +7,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonatype.cs.metrics.service.FileLoaderService;
-import org.sonatype.cs.metrics.service.PdfService;
+import org.sonatype.cs.metrics.service.SummaryPdfService;
 import org.sonatype.cs.metrics.service.PeriodsDataService;
 import org.sonatype.cs.metrics.util.DataLoaderParams;
 import org.sonatype.cs.metrics.util.SqlStatements;
@@ -52,7 +52,7 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 	private FileLoaderService loaderService;
 
 	@Autowired
-	private PdfService pdfService;
+	private SummaryPdfService pdfService;
 	
 	@Autowired
 	private PeriodsDataService periodsDataService;
