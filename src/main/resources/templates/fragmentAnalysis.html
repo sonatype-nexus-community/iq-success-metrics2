@@ -97,7 +97,7 @@
                 <td th:text="'Backlog Reduction Rate (# of (fixed + waived) / # of discovered)'"></td>
                 <td th:text="${backlogReductionRateBefore}"></td>
                 <td th:text="${backlogReductionRateAfter}"></td>
-                <td th:text="${backlogReductionRateAfter}-${backlogReductionRateBefore}"></td>
+                <td th:text="${backlogReductionRateDelta}"></td>
                 <td th:text="${backlogReductionRate}"></td>
                 <td th:text="${backlogReductionRateIncrease}"></td>
             </tr>
@@ -106,7 +106,7 @@
                 <td th:text="'Backlog Reduction Rate Criticals (# of (fixed + waived) / # of discovered) for Criticals'"></td>
                 <td th:text="${backlogReductionCriticalsRateBefore}"></td>
                 <td th:text="${backlogReductionCriticalsRateAfter}"></td>
-                <td th:text="${backlogReductionCriticalsRateAfter}-${backlogReductionCriticalsRateBefore}"></td>
+                <td th:text="${backlogReductionCriticalsRateDelta}"></td>
                 <td th:text="${backlogReductionCriticalsRate}"></td>
                 <td th:text="${backlogReductionCriticalsRateIncrease}"></td>
             </tr>
@@ -115,7 +115,7 @@
                 <td th:text="'Risk Ratio (# of Critical violations / # of apps)'"></td>
                 <td th:text="${riskRatioBefore}"></td>
                 <td th:text="${riskRatioAfter}"></td>
-                <td th:text="${riskRatioAfter}-${riskRatioBefore}"></td>
+                <td th:text="${riskRatioDelta}"></td>
                 <td th:text="${riskRatio}"></td>
                 <td th:text="${riskRatioIncrease}"></td>
             </tr>
@@ -124,7 +124,7 @@
                 <td th:text="'MTTR Criticals (average # of days to fix Critical violations)'"></td>
                 <td th:text="${mttrCriticalsBefore}"></td>
                 <td th:text="${mttrCriticalsAfter}"></td>
-                <td th:text="${mttrCriticalsAfter}-${mttrCriticalsBefore}"></td>
+                <td th:text="${mttrCriticalsDelta}"></td>
                 <td th:text="${mttrCriticals}"></td>
                 <td th:text="${mttrCriticalsIncrease}"></td>
             </tr>

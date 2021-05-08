@@ -23,7 +23,7 @@ public class AnalysisService {
 	    
 	    Map<String, Object> p1metrics = metricsService.getMetrics(SqlStatements.METRICP1TABLENAME, periodsData);
 	    Map<String, Object> p2metrics = metricsService.getMetrics(SqlStatements.METRICP2TABLENAME, periodsData);
-
+	    
 	    int onboardedAfter = (int) p2metrics.get("applicationsOnboarded");
 	    int onboardedBefore = (int) p1metrics.get("applicationsOnboarded");
 	    
@@ -88,24 +88,27 @@ public class AnalysisService {
 	    model.put("fixingRateCriticals", this.calculateChangeRate(fixedSecurityCriticalsTotalBefore.getPointA(), fixedSecurityCriticalsTotalAfter.getPointA()));
 	    model.put("fixingRateCriticalsIncrease", this.calculateMultipleIncrease(fixedSecurityCriticalsTotalBefore.getPointA(), fixedSecurityCriticalsTotalAfter.getPointA()));
 
-	    int backlogReductionRateBefore = Integer.valueOf((String) p2metrics.get("backlogReductionRate"));
-	    int backlogReductionRateAfter = Integer.valueOf((String) p1metrics.get("backlogReductionRate"));
+	    float backlogReductionRateBefore = Float.parseFloat((String) p1metrics.get("backlogReductionRate"));
+	    float backlogReductionRateAfter = Float.parseFloat((String) p2metrics.get("backlogReductionRate"));
 	    model.put("backlogReductionRateBefore", backlogReductionRateBefore);
 	    model.put("backlogReductionRateAfter", backlogReductionRateAfter);
+	    model.put("backlogReductionRateDelta", String.format("%.2f", backlogReductionRateAfter - backlogReductionRateBefore));
 	    model.put("backlogReductionRate", this.calculateChangeRate(backlogReductionRateBefore, backlogReductionRateAfter));
 	    model.put("backlogReductionRateIncrease", this.calculateMultipleIncrease(backlogReductionRateBefore, backlogReductionRateAfter));
 
-	    int backlogReductionRateCriticalsBefore = Integer.valueOf((String) p1metrics.get("backlogReductionRateCritical"));
-	    int backlogReductionRateCriticalsAfter = Integer.valueOf((String) p2metrics.get("backlogReductionRateCritical"));
+	    float backlogReductionRateCriticalsBefore = Float.parseFloat((String) p1metrics.get("backlogReductionRateCritical"));
+	    float backlogReductionRateCriticalsAfter = Float.parseFloat((String) p2metrics.get("backlogReductionRateCritical"));
 	    model.put("backlogReductionCriticalsRateBefore", backlogReductionRateCriticalsBefore);
 	    model.put("backlogReductionCriticalsRateAfter", backlogReductionRateCriticalsAfter);
+	    model.put("backlogReductionCriticalsRateDelta", String.format("%.2f", backlogReductionRateCriticalsAfter - backlogReductionRateCriticalsBefore));
 	    model.put("backlogReductionCriticalsRate", this.calculateChangeRate(backlogReductionRateCriticalsBefore, backlogReductionRateCriticalsAfter));
 	    model.put("backlogReductionCriticalsRateIncrease", this.calculateMultipleIncrease(backlogReductionRateCriticalsBefore, backlogReductionRateCriticalsAfter));
 
-	    Object riskRatioBefore = p1metrics.get("riskRatioInsightsCritical");
-	    Object riskRatioAfter = p2metrics.get("riskRatioInsightsCritical");
+	    float riskRatioBefore = Float.parseFloat((String) p1metrics.get("riskRatioInsightsCritical"));
+	    float riskRatioAfter = Float.parseFloat((String) p2metrics.get("riskRatioInsightsCritical"));
 	    model.put("riskRatioBefore", riskRatioBefore);
 	    model.put("riskRatioAfter", riskRatioAfter);
+	    model.put("riskRatioDelta", String.format("%.2f", riskRatioAfter - riskRatioBefore));
 	    model.put("riskRatio", this.calculateChangePct(riskRatioBefore, riskRatioAfter));
 	    model.put("riskRatioIncrease", this.calculateChangeMultiple(riskRatioBefore, riskRatioAfter));
 
@@ -113,14 +116,15 @@ public class AnalysisService {
 	    String[] mttrCriticalsAfter = (String[]) p2metrics.get("mttrAvg");
 	    model.put("mttrCriticalsBefore", Integer.parseInt(mttrCriticalsBefore[0]));
 	    model.put("mttrCriticalsAfter", Integer.parseInt(mttrCriticalsAfter[0]));
-	    model.put("mttrCriticals", this.calculateChangeRate(Integer.parseInt(mttrCriticalsBefore[0]), Integer.parseInt(mttrCriticalsAfter[0])));
-	    model.put("mttrCriticalsIncrease", this.calculateMultipleIncrease(Integer.parseInt(mttrCriticalsBefore[0]), Integer.parseInt(mttrCriticalsAfter[0])));
+	    model.put("mttrCriticalsDelta", Integer.parseInt(mttrCriticalsBefore[0]) - Integer.parseInt(mttrCriticalsAfter[0]));
+	    model.put("mttrCriticals", this.calculateChangeRate(Integer.parseInt(mttrCriticalsAfter[0]), Integer.parseInt(mttrCriticalsBefore[0])));
+	    model.put("mttrCriticalsIncrease", this.calculateMultipleIncrease(Integer.parseInt(mttrCriticalsAfter[0]), Integer.parseInt(mttrCriticalsBefore[0])));
 
 	    return model;
 	  }
 
   
-  private String calculateChangeRate(int before, int after){
+  private String calculateChangeRate(float before, float after){
     String result;
 
     if (after > 0 && before > 0){
@@ -134,7 +138,7 @@ public class AnalysisService {
     return result;
   }
 
-  private String calculateMultipleIncrease(int before, int after){
+  private String calculateMultipleIncrease(float before, float after){
     String result;
 
     if (after > 0 && before > 0){
@@ -149,9 +153,9 @@ public class AnalysisService {
 
   }
 
-  private String calculateChangePct(Object before, Object after){
-    double b = Double.parseDouble((String) before);
-    double a = Double.parseDouble((String) after);
+  private String calculateChangePct(float b, float a){
+//    double b = Double.parseDouble((String) before);
+//    double a = Double.parseDouble((String) after);
     String result;
 
     if (a > 0 && b > 0){
@@ -165,9 +169,9 @@ public class AnalysisService {
     return result;
   }
 
-  private String calculateChangeMultiple(Object before, Object after){
-    double b = Double.parseDouble((String) before);
-    double a = Double.parseDouble((String) after);
+  private String calculateChangeMultiple(float b, float a){
+//    double b = Double.parseDouble((String) before);
+//    double a = Double.parseDouble((String) after);
     String result;
 
     if (a > 0 && b > 0){

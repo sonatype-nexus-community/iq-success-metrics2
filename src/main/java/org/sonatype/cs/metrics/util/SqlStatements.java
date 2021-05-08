@@ -196,7 +196,7 @@ public class SqlStatements {
 													"from COMPONENT_QUARANTINE order by 1 asc";
 
 	public static String ComponentWaivers = "select application_name as pointA, stage as pointB, packageUrl as pointC, " +
-													"policyName as pointD, threatLevel as pointE, comment as pointF, createDate as pointG " +
+													"policyName as pointD, threatLevel as pointE, comment as pointF, createDate as pointG, expiryTime as pointH " +
 													"from COMPONENT_WAIVER order by 1 asc";
 
     
@@ -308,8 +308,9 @@ public class SqlStatements {
 			"  policyName VARCHAR(250) DEFAULT NULL," +
 			"  threatLevel VARCHAR(250) DEFAULT NULL," +
 			"  comment VARCHAR(1024) DEFAULT NULL," +
-			"  createDate VARCHAR(250) DEFAULT NULL) " +
-			" AS SELECT applicationName, stage, packageUrl, policyName, threatLevel, comment, createDate FROM CSVREAD ";
+			"  createDate VARCHAR(250) DEFAULT NULL," +
+			"  expiryTime VARCHAR(250) DEFAULT NULL) " +
+			" AS SELECT applicationName, stage, packageUrl, policyName, threatLevel, comment, createDate, expiryTime FROM CSVREAD ";
 	
 	public static String RiskRatio = 
 		"select time_period_start as label, (sum(OPEN_COUNT_AT_TIME_PERIOD_END_SECURITY_CRITICAL) + sum(OPEN_COUNT_AT_TIME_PERIOD_END_LICENSE_CRITICAL))/count(time_period_start) as pointA " +

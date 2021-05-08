@@ -53,7 +53,7 @@ public class TotalsDataService {
 		
 		float backlogReductionRate = (((float) (fixedWaived) / discovered));
 		
-		model.put("backlogReductionRate", String.format("%.0f", backlogReductionRate));
+		model.put("backlogReductionRate", String.format("%.2f", backlogReductionRate));
 
 		int dsct = (int) secModel.get("discoveredSecurityCriticalTotal");
 		int fsct = (int) secModel.get("fixedSecurityCriticalTotal");
@@ -67,7 +67,7 @@ public class TotalsDataService {
 		int discoveredCritical = dsct + dlct;
 		float backlogReductionRateCritical = (((float) (fixedWaivedCritical) / discoveredCritical));
 		
-		model.put("backlogReductionRateCritical", String.format("%.0f", backlogReductionRateCritical));
+		model.put("backlogReductionRateCritical", String.format("%.2f", backlogReductionRateCritical));
 		
 		return model;
 	}

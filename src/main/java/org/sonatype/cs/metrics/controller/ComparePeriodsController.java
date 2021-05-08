@@ -30,7 +30,7 @@ public class ComparePeriodsController {
 	Map<String, Object> periodsData = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
     Map<String, Object> p1metrics = metricsService.getMetrics(SqlStatements.METRICP1TABLENAME, periodsData);
     Map<String, Object> p2metrics = metricsService.getMetrics(SqlStatements.METRICP2TABLENAME, periodsData);
-
+  
     model.mergeAttributes(periodsData);
     model.addAttribute("p1", p1metrics);
     model.addAttribute("p2", p2metrics);

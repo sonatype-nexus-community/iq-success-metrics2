@@ -29,9 +29,14 @@ public class ApplicationsDataService {
 		Map<String, Object> model = new HashMap<>();
 		
 		List<DbRow> applicationsOnboardedData = dbService.runSql(tableName, SqlStatements.ApplicationsOnboarded);
-		
+		int rows = applicationsOnboardedData.size();
+
 		String startPeriod = null;
 		String endPeriod = null;
+		
+		int startPeriodCount = applicationsOnboardedData.get(0).getPointA();
+		int endPeriodCount = applicationsOnboardedData.get(rows-1).getPointA();
+		int applicationsOnboardedInPeriod = endPeriodCount - startPeriodCount;
 		
 		switch(tableName) {
 			case SqlStatements.METRICTABLENAME: 
@@ -47,16 +52,23 @@ public class ApplicationsDataService {
 			case SqlStatements.METRICP2TABLENAME: 
 				startPeriod = periodsData.get("midPeriod").toString();
 				endPeriod = periodsData.get("endPeriod").toString();
+				
+				List<DbRow> p1applicationsOnboardedData = dbService.runSql(SqlStatements.METRICP1TABLENAME, SqlStatements.ApplicationsOnboarded);
+				int p1rows = p1applicationsOnboardedData.size();
+				int p1endPeriodCount = p1applicationsOnboardedData.get(p1rows-1).getPointA();
+				int applicationsOnboardedMidPeriod = startPeriodCount - p1endPeriodCount;
+				applicationsOnboardedInPeriod = applicationsOnboardedInPeriod + applicationsOnboardedMidPeriod;
+				rows++;
+
 				break;
 			default:
 		}
 		
-		int rows = applicationsOnboardedData.size();
-		int startPeriodCount = applicationsOnboardedData.get(0).getPointA();
-		int endPeriodCount = applicationsOnboardedData.get(rows-1).getPointA();
-		int applicationsOnboardedInPeriod = endPeriodCount - startPeriodCount;
 		int applicationsOnboardedInPeriodAvg = applicationsOnboardedInPeriod/rows;
-		
+
+		model.put("startPeriodCount", startPeriodCount);
+		model.put("endPeriodCount", endPeriodCount);
+		model.put("numberOfPeriods", rows);
 		model.put("applicationsOnboardedChart", applicationsOnboardedData);
 		model.put("applicationsOnboarded", applicationsOnboardedInPeriod);
 		model.put("applicationsOnboardedAvg", applicationsOnboardedInPeriodAvg);
