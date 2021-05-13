@@ -24,88 +24,91 @@ public class AnalysisService {
 	    Map<String, Object> p1metrics = metricsService.getMetrics(SqlStatements.METRICP1TABLENAME, periodsData);
 	    Map<String, Object> p2metrics = metricsService.getMetrics(SqlStatements.METRICP2TABLENAME, periodsData);
 	    
+	    int appsInFirstPeriod = (int) p1metrics.get("startPeriodCount");
+	    int p1numberOfPeriods = (int) p1metrics.get("numberOfPeriods");
+	    int p2numberOfPeriods = (int) p2metrics.get("numberOfPeriods");
+
 	    int onboardedAfter = (int) p2metrics.get("applicationsOnboarded");
 	    int onboardedBefore = (int) p1metrics.get("applicationsOnboarded");
 	    
-	    int onboardedAfterAvg = (int) p2metrics.get("applicationsOnboardedAvg");
-	    int onboardedBeforeAvg = (int) p1metrics.get("applicationsOnboardedAvg");
+//	    int onboardedAfterAvg = (int) p2metrics.get("applicationsOnboardedAvg");
+//	    int onboardedBeforeAvg = (int) p1metrics.get("applicationsOnboardedAvg");
 
-	    int scanningRateAfter = (int) p2metrics.get("numberOfScans");
-	    int scanningRateBefore = (int) p1metrics.get("numberOfScans");
+	    float scanningRateAfter = (int) p2metrics.get("numberOfScans")/p2numberOfPeriods;
+	    float scanningRateBefore = (int) p1metrics.get("numberOfScans")/p1numberOfPeriods;
 	    
-	    int scanningRateAfterAvg = (int) p2metrics.get("numberOfScansAvg");
-	    int scanningRateBeforeAvg = (int) p1metrics.get("numberOfScansAvg");
+	    float scanningRateAfterAvg = scanningRateAfter/onboardedAfter;
+	    float scanningRateBeforeAvg = scanningRateBefore/onboardedBefore;
 
-	    int scanningCoverageAfter = (int) p2metrics.get("numberOfApplicationsScannedAvg"); 
-	    int scanningCoverageBefore = (int) p1metrics.get("numberOfApplicationsScannedAvg"); 
+	    float scanningCoverageAfter = this.calculatePct((int)p2metrics.get("numberOfApplicationsScannedAvg"), onboardedAfter);
+	    float scanningCoverageBefore = this.calculatePct((int)p1metrics.get("numberOfApplicationsScannedAvg"), onboardedBefore);
 
+	    
 	    DbRow discoveredSecurityTotalAfter = (DbRow) p2metrics.get("discoveredSecurityViolationsTotal");
 	    DbRow discoveredSecurityTotalBefore = (DbRow) p1metrics.get("discoveredSecurityViolationsTotal");
 	    
-	    int fixedSecurityTotalAfter = (int) p2metrics.get("fixedSecurityTotal");
-	    int fixedSecurityTotalBefore = (int) p1metrics.get("fixedSecurityTotal");
-
+	    float discoveryRateCriticalsBefore = (discoveredSecurityTotalBefore.getPointA()/p1numberOfPeriods)/onboardedBefore;
+	    float discoveryRateCriticalsAfter = (discoveredSecurityTotalAfter.getPointA()/p2numberOfPeriods)/onboardedAfter;
+	    
+	    
+	    
 	    DbRow fixedSecurityCriticalsTotalAfter = (DbRow) p2metrics.get("fixedSecurityViolationsTotal");
 	    DbRow fixedSecurityCriticalsTotalBefore = (DbRow) p1metrics.get("fixedSecurityViolationsTotal");
 
+	    float fixedRateCriticalsBefore = (fixedSecurityCriticalsTotalBefore.getPointA()/p1numberOfPeriods)/onboardedBefore;
+	    float fixedRateCriticalsAfter = (fixedSecurityCriticalsTotalAfter.getPointA()/p2numberOfPeriods)/onboardedAfter;
+	    
+	    float backlogReductionCriticalsRateBefore = (float) p1metrics.get("backlogReductionRateCritical");
+	    float backlogReductionCriticalsRateAfter = (float) p2metrics.get("backlogReductionRateCritical");
+
+	    
+	    
 	    model.put("totalOnboardedBefore", onboardedBefore);
 	    model.put("totalOnboardedAfter", onboardedAfter);
 	    model.put("totalOnboarded", this.calculateChangeRate(onboardedBefore, onboardedAfter));
 	    model.put("totalOnboardedIncrease", this.calculateMultipleIncrease(onboardedBefore, onboardedAfter));
 
-	    model.put("onboardingRateBefore", onboardedBeforeAvg);
-	    model.put("onboardingRateAfter", onboardedAfterAvg);
+	    model.put("onboardingRateBefore", (onboardedBefore - appsInFirstPeriod)/p1numberOfPeriods);
+	    model.put("onboardingRateAfter", (onboardedAfter - onboardedBefore)/p2numberOfPeriods);
 	    model.put("onboardingRate", this.calculateChangeRate(onboardedBefore, onboardedAfter));
 	    model.put("onboardingRateIncrease", this.calculateMultipleIncrease(onboardedBefore, onboardedAfter));
 
-	    model.put("scanningCoverageBefore", scanningCoverageBefore);
-	    model.put("scanningCoverageAfter", scanningCoverageAfter);
-	    model.put("scanningCoverage", this.calculateChangeRate(scanningCoverageBefore, scanningCoverageAfter));
+	    model.put("scanningCoverageBefore", this.formatFloat(scanningCoverageBefore));
+	    model.put("scanningCoverageAfter", this.formatFloat(scanningCoverageAfter));
+	    model.put("scanningCoverage", this.formatFloat(scanningCoverageAfter - scanningCoverageBefore));
 	    model.put("scanningCoverageIncrease", this.calculateMultipleIncrease(scanningCoverageBefore, scanningCoverageAfter));
 
-	    model.put("scanningRateBefore", scanningRateBefore);
-	    model.put("scanningRateAfter", scanningRateAfter);
+	    model.put("scanningRateBefore", this.formatFloat(scanningRateBefore));
+	    model.put("scanningRateAfter", this.formatFloat(scanningRateAfter));
 	    model.put("scanningRate", this.calculateChangeRate(scanningRateBefore, scanningRateAfter));
 	    model.put("scanningRateIncrease", this.calculateMultipleIncrease(scanningRateBefore, scanningRateAfter));
 
-	    model.put("avgScansBefore", scanningRateBeforeAvg);
-	    model.put("avgScansAfter", scanningRateAfterAvg);
+	    model.put("avgScansBefore", this.formatFloat(scanningRateBeforeAvg));
+	    model.put("avgScansAfter", this.formatFloat(scanningRateAfterAvg));
 	    model.put("avgScans", this.calculateChangeRate(scanningRateBefore, scanningRateAfter));
 	    model.put("avgScansIncrease", this.calculateMultipleIncrease(scanningRateBefore, scanningRateAfter));
 
-	    model.put("discoveryRateCriticalsBefore", discoveredSecurityTotalBefore.getPointA());
-	    model.put("discoveryRateCriticalsAfter", discoveredSecurityTotalAfter.getPointA());
-	    model.put("discoveryRateCriticals", this.calculateChangeRate(discoveredSecurityTotalBefore.getPointA(), discoveredSecurityTotalAfter.getPointA()));
-	    model.put("discoveryRateCriticalsIncrease", this.calculateMultipleIncrease(discoveredSecurityTotalBefore.getPointA(), discoveredSecurityTotalAfter.getPointA()));
+	    model.put("discoveryRateCriticalsBefore", this.formatFloat(discoveryRateCriticalsBefore));
+	    model.put("discoveryRateCriticalsAfter", this.formatFloat(discoveryRateCriticalsAfter));
+	    model.put("discoveryRateCriticals", this.calculateChangeRate(discoveryRateCriticalsBefore, discoveryRateCriticalsAfter));
+	    model.put("discoveryRateCriticalsIncrease", this.calculateMultipleIncrease(discoveryRateCriticalsBefore, discoveryRateCriticalsAfter));
 
-	    model.put("fixingRateBefore", fixedSecurityTotalBefore);
-	    model.put("fixingRateAfter", fixedSecurityTotalAfter);
-	    model.put("fixingRate", this.calculateChangeRate(fixedSecurityTotalBefore, fixedSecurityTotalAfter));
-	    model.put("fixingRateIncrease", this.calculateMultipleIncrease(fixedSecurityTotalBefore, fixedSecurityTotalAfter));
+	    model.put("fixingRateCriticalsBefore", this.formatFloat(fixedRateCriticalsBefore));
+	    model.put("fixingRateCriticalsAfter", this.formatFloat(fixedRateCriticalsAfter));
+	    model.put("fixingRateCriticals", this.calculateChangeRate(fixedRateCriticalsBefore, fixedRateCriticalsAfter));
+	    model.put("fixingRateCriticalsIncrease", this.calculateMultipleIncrease(fixedRateCriticalsBefore, fixedRateCriticalsAfter));
 
-	    model.put("fixingRateCriticalsBefore", fixedSecurityCriticalsTotalBefore.getPointA());
-	    model.put("fixingRateCriticalsAfter", fixedSecurityCriticalsTotalAfter.getPointA());
-	    model.put("fixingRateCriticals", this.calculateChangeRate(fixedSecurityCriticalsTotalBefore.getPointA(), fixedSecurityCriticalsTotalAfter.getPointA()));
-	    model.put("fixingRateCriticalsIncrease", this.calculateMultipleIncrease(fixedSecurityCriticalsTotalBefore.getPointA(), fixedSecurityCriticalsTotalAfter.getPointA()));
+	    model.put("backlogReductionCriticalsRateBefore", this.formatFloatPct(backlogReductionCriticalsRateBefore));
+	    model.put("backlogReductionCriticalsRateAfter", this.formatFloatPct(backlogReductionCriticalsRateAfter));
+	    model.put("backlogReductionCriticalsRateDelta", this.formatFloatPct(backlogReductionCriticalsRateAfter - backlogReductionCriticalsRateBefore));
+	    model.put("backlogReductionCriticalsRate", this.calculateChangeRate(backlogReductionCriticalsRateBefore, backlogReductionCriticalsRateAfter));
+	    model.put("backlogReductionCriticalsRateIncrease", this.calculateMultipleIncrease(backlogReductionCriticalsRateBefore, backlogReductionCriticalsRateAfter));
 
-	    float backlogReductionRateBefore = Float.parseFloat((String) p1metrics.get("backlogReductionRate"));
-	    float backlogReductionRateAfter = Float.parseFloat((String) p2metrics.get("backlogReductionRate"));
-	    model.put("backlogReductionRateBefore", backlogReductionRateBefore);
-	    model.put("backlogReductionRateAfter", backlogReductionRateAfter);
-	    model.put("backlogReductionRateDelta", String.format("%.2f", backlogReductionRateAfter - backlogReductionRateBefore));
-	    model.put("backlogReductionRate", this.calculateChangeRate(backlogReductionRateBefore, backlogReductionRateAfter));
-	    model.put("backlogReductionRateIncrease", this.calculateMultipleIncrease(backlogReductionRateBefore, backlogReductionRateAfter));
+	    int discoveredCriticalBefore = (int) p1metrics.get("discoveredCritical");
+	    int discoveredCriticalAfter = (int) p2metrics.get("discoveredCritical");
+	    float riskRatioBefore = discoveredCriticalBefore/onboardedBefore;
+	    float riskRatioAfter = discoveredCriticalAfter/onboardedAfter;
 
-	    float backlogReductionRateCriticalsBefore = Float.parseFloat((String) p1metrics.get("backlogReductionRateCritical"));
-	    float backlogReductionRateCriticalsAfter = Float.parseFloat((String) p2metrics.get("backlogReductionRateCritical"));
-	    model.put("backlogReductionCriticalsRateBefore", backlogReductionRateCriticalsBefore);
-	    model.put("backlogReductionCriticalsRateAfter", backlogReductionRateCriticalsAfter);
-	    model.put("backlogReductionCriticalsRateDelta", String.format("%.2f", backlogReductionRateCriticalsAfter - backlogReductionRateCriticalsBefore));
-	    model.put("backlogReductionCriticalsRate", this.calculateChangeRate(backlogReductionRateCriticalsBefore, backlogReductionRateCriticalsAfter));
-	    model.put("backlogReductionCriticalsRateIncrease", this.calculateMultipleIncrease(backlogReductionRateCriticalsBefore, backlogReductionRateCriticalsAfter));
-
-	    float riskRatioBefore = Float.parseFloat((String) p1metrics.get("riskRatioInsightsCritical"));
-	    float riskRatioAfter = Float.parseFloat((String) p2metrics.get("riskRatioInsightsCritical"));
 	    model.put("riskRatioBefore", riskRatioBefore);
 	    model.put("riskRatioAfter", riskRatioAfter);
 	    model.put("riskRatioDelta", String.format("%.2f", riskRatioAfter - riskRatioBefore));
@@ -123,6 +126,13 @@ public class AnalysisService {
 	    return model;
 	  }
 
+  private String formatFloat(float f) {
+	  return String.format("%.2f", f);
+  }
+  
+  private String formatFloatPct(float f) {
+	  return String.format("%.2f", f) + "%";
+  }
   
   private String calculateChangeRate(float before, float after){
     String result;
@@ -151,6 +161,15 @@ public class AnalysisService {
     
     return result;
 
+  }
+  
+  private float calculatePct(float a, float b){
+	float result = 0;
+
+    if (a > 0 && b > 0){
+    	result = ((a / b) * 100);
+    }
+    return result;
   }
 
   private String calculateChangePct(float b, float a){

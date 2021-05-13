@@ -316,7 +316,7 @@ public class SqlStatements {
 		"select time_period_start as label, (sum(OPEN_COUNT_AT_TIME_PERIOD_END_SECURITY_CRITICAL) + sum(OPEN_COUNT_AT_TIME_PERIOD_END_LICENSE_CRITICAL))/count(time_period_start) as pointA " +
 			"from <?> group by time_period_start order by 1";
 
-	public static String RiskRatioInsights =
+	public static String RiskRatioAnalysis =
 			"select application_name as label, (sum(OPEN_COUNT_AT_TIME_PERIOD_END_SECURITY_CRITICAL) + sum(OPEN_COUNT_AT_TIME_PERIOD_END_LICENSE_CRITICAL)) as pointA " +
 			"from <?> group by application_name order by 1";
 }

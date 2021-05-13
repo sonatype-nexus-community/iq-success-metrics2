@@ -64,5 +64,19 @@ public class HelperService {
 		
 		return map;
 	}
+	
+	public String calculateDivision(float a, float b){
+	    String result;
 
+	    if (a > 0 && b > 0){
+	      double increase = (double) a / b;
+	      result = String.format("%.2f", increase); 
+	    }
+	    else {
+	      result = "0";
+	    }
+	    
+	    return result;
+
+	  }
 }

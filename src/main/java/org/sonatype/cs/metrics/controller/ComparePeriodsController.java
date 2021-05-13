@@ -25,7 +25,7 @@ public class ComparePeriodsController {
 
   @GetMapping({ "/compare" })
   public String applications(Model model) throws ParseException {
-    log.info("In ConparePeriodsController");
+    log.info("In ComparePeriodsController");
    
 	Map<String, Object> periodsData = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
     Map<String, Object> p1metrics = metricsService.getMetrics(SqlStatements.METRICP1TABLENAME, periodsData);

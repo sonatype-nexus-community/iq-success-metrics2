@@ -36,8 +36,10 @@ public class ApplicationsDataService {
 		
 		int startPeriodCount = applicationsOnboardedData.get(0).getPointA();
 		int endPeriodCount = applicationsOnboardedData.get(rows-1).getPointA();
-		int applicationsOnboardedInPeriod = endPeriodCount - startPeriodCount;
-		
+		//int applicationsOnboardedInPeriod = endPeriodCount - startPeriodCount;
+
+		int applicationsOnboardedInPeriod = applicationsOnboardedData.get(rows-1).getPointA();
+
 		switch(tableName) {
 			case SqlStatements.METRICTABLENAME: 
 				startPeriod = periodsData.get("startPeriod").toString();
@@ -53,12 +55,12 @@ public class ApplicationsDataService {
 				startPeriod = periodsData.get("midPeriod").toString();
 				endPeriod = periodsData.get("endPeriod").toString();
 				
-				List<DbRow> p1applicationsOnboardedData = dbService.runSql(SqlStatements.METRICP1TABLENAME, SqlStatements.ApplicationsOnboarded);
-				int p1rows = p1applicationsOnboardedData.size();
-				int p1endPeriodCount = p1applicationsOnboardedData.get(p1rows-1).getPointA();
-				int applicationsOnboardedMidPeriod = startPeriodCount - p1endPeriodCount;
-				applicationsOnboardedInPeriod = applicationsOnboardedInPeriod + applicationsOnboardedMidPeriod;
-				rows++;
+//				List<DbRow> p1applicationsOnboardedData = dbService.runSql(SqlStatements.METRICP1TABLENAME, SqlStatements.ApplicationsOnboarded);
+//				int p1rows = p1applicationsOnboardedData.size();
+//				int p1endPeriodCount = p1applicationsOnboardedData.get(p1rows-1).getPointA();
+//				int applicationsOnboardedMidPeriod = startPeriodCount - p1endPeriodCount;
+//				applicationsOnboardedInPeriod = applicationsOnboardedInPeriod + applicationsOnboardedMidPeriod;
+//				rows++;
 
 				break;
 			default:

@@ -25,7 +25,7 @@ public class AnalysisController {
 	     
 
   @GetMapping({ "/analysis" })
-  public String insights(Model model) throws ParseException {
+  public String analysis(Model model) throws ParseException {
 	  log.info("In AnalysisController");
 
   	  Map<String, Object> periodsData = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);

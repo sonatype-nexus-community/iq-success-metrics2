@@ -35,25 +35,24 @@ public class TotalsDataService {
 		Map<String, Object> secModel = securityViolationsDataService.getSecurityViolations(tableName);
 		Map<String, Object> licModel = licenseViolationsDataService.getLicenseViolations(tableName);
 
-		int dst = (int) secModel.get("discoveredSecurityTotal");
-		int fst = (int) secModel.get("fixedSecurityTotal");
-		int wst = (int) secModel.get("waivedSecurityTotal");
-
-		int dlt = (int) licModel.get("discoveredLicenseTotal");
-		int flt = (int) licModel.get("fixedLicenseTotal");
-		int wlt = (int) licModel.get("waivedLicenseTotal");
+//		int dst = (int) secModel.get("discoveredSecurityTotal");
+//		int fst = (int) secModel.get("fixedSecurityTotal");
+//		int wst = (int) secModel.get("waivedSecurityTotal");
+//
+//		int dlt = (int) licModel.get("discoveredLicenseTotal");
+//		int flt = (int) licModel.get("fixedLicenseTotal");
+//		int wlt = (int) licModel.get("waivedLicenseTotal");
+//		
+//		int fixedWaived = fst + wst + flt + wlt;
+//		int discovered = dst + dlt;
+//		float fixRate = (((float) (fixedWaived) / discovered) * 100);
+//
+//		model.put("fixRate", String.format("%.0f", fixRate));
 		
-		int fixedWaived = fst + wst + flt + wlt;
-		int discovered = dst + dlt;
-		float fixRate = (((float) (fixedWaived) / discovered) * 100);
-
-		model.put("fixRate", String.format("%.0f", fixRate));
-		model.put("mttrAvg", this.MttrAvg(tableName));
-		model.put("riskRatioInsightsCritical", this.calculateRiskRatioInsights(tableName));
 		
-		float backlogReductionRate = (((float) (fixedWaived) / discovered));
+//		float backlogReductionRate = (((float) (fixedWaived) / discovered));
 		
-		model.put("backlogReductionRate", String.format("%.2f", backlogReductionRate));
+//		model.put("backlogReductionRate", String.format("%.2f", backlogReductionRate));
 
 		int dsct = (int) secModel.get("discoveredSecurityCriticalTotal");
 		int fsct = (int) secModel.get("fixedSecurityCriticalTotal");
@@ -65,10 +64,14 @@ public class TotalsDataService {
 
 		int fixedWaivedCritical = fsct + wsct + flct + wlct;
 		int discoveredCritical = dsct + dlct;
-		float backlogReductionRateCritical = (((float) (fixedWaivedCritical) / discoveredCritical));
-		
-		model.put("backlogReductionRateCritical", String.format("%.2f", backlogReductionRateCritical));
-		
+		int fixedCritical = fsct + flct;
+
+		float backlogReductionRateCritical = (((float) (fixedCritical) / discoveredCritical) * 100);
+		 
+		model.put("backlogReductionRateCritical", backlogReductionRateCritical);
+		model.put("discoveredCritical", discoveredCritical);
+		model.put("mttrAvg", this.MttrAvg(tableName));
+
 		return model;
 	}
 
@@ -113,12 +116,12 @@ public class TotalsDataService {
 		return mttr;
 	}
 	
-	private String calculateRiskRatioInsights(String tableName) {
+	private String calculateRiskRatioAnalysis(String tableName) {
 		List<Float> pointA = new ArrayList<>();
 
-		List<DbRow> riskRatioInsights = dbService.runSql(tableName, SqlStatements.RiskRatioInsights);
+		List<DbRow> riskRatioAnalysis = dbService.runSql(tableName, SqlStatements.RiskRatioAnalysis);
 
-		for (DbRow dp : riskRatioInsights) {
+		for (DbRow dp : riskRatioAnalysis) {
 			pointA.add((float)dp.getPointA());
 		}
 

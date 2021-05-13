@@ -75,14 +75,14 @@
                 <td th:text="${discoveryRateCriticalsIncrease}"></td>
             </tr>
 
-            <tr style="font-weight:bold">
+            <!-- <tr style="font-weight:bold">
                 <td th:text="'Fixing Rate (# of fixed violations/period & app)'"></td>
                 <td th:text="${fixingRateBefore}"></td>
                 <td th:text="${fixingRateAfter}"></td>
                 <td th:text="${fixingRateAfter}-${fixingRateBefore}"></td>
                 <td th:text="${fixingRate}"></td>
                 <td th:text="${fixingRateIncrease}"></td>
-            </tr>
+            </tr> -->
 
             <tr style="font-weight:bold">
                 <td th:text="'Fixing Rate Criticals (# of fixed Critical violations/period & app)'"></td>
@@ -93,17 +93,17 @@
                 <td th:text="${fixingRateCriticalsIncrease}"></td>
             </tr>
 
-            <tr style="font-weight:bold">
+            <!-- <tr style="font-weight:bold">
                 <td th:text="'Backlog Reduction Rate (# of (fixed + waived) / # of discovered)'"></td>
                 <td th:text="${backlogReductionRateBefore}"></td>
                 <td th:text="${backlogReductionRateAfter}"></td>
                 <td th:text="${backlogReductionRateDelta}"></td>
                 <td th:text="${backlogReductionRate}"></td>
                 <td th:text="${backlogReductionRateIncrease}"></td>
-            </tr>
+            </tr> -->
 
             <tr style="font-weight:bold">
-                <td th:text="'Backlog Reduction Rate Criticals (# of (fixed + waived) / # of discovered) for Criticals'"></td>
+                <td th:text="'Backlog Reduction Rate Criticals (# of fixed / # of discovered) for Criticals'"></td>
                 <td th:text="${backlogReductionCriticalsRateBefore}"></td>
                 <td th:text="${backlogReductionCriticalsRateAfter}"></td>
                 <td th:text="${backlogReductionCriticalsRateDelta}"></td>
