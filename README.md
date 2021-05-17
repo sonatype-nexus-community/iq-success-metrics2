@@ -52,6 +52,7 @@ The script will create a file called *successmetrics.csv*. We suggest opening th
 &nbsp;
 
 **(Optional) Additional Reports**
+
 If you have python3 available, you can run the following script to produce additonal data files for reporting, all of which will be read by the app on startup.
 This script is optional and not required for the main success metrics report
 ```
