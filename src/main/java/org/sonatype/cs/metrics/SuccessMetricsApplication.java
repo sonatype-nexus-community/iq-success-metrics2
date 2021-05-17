@@ -23,6 +23,7 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 
 	private static final Logger log = LoggerFactory.getLogger(SuccessMetricsApplication.class);
 	
+	public static boolean successMetricsFileLoaded = false;
 	public static boolean applicationEvaluationsFileLoaded = false;
 	public static boolean policyViolationsDataLoaded = false;
 	public static boolean componentsQuarantineLoaded = false;
@@ -69,12 +70,12 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		log.info("Run mode: " + runMode);
 		
-		loadSuccessMetricsData();
+		successMetricsFileLoaded = loadSuccessMetricsData();
 
 		if (runMode.contains("SERVLET")) {
 			
 			this.reports2();
-			log.info("Ready for viewing at http://localhost:" + port);
+			this.startUp();
 		} 
 		else {
 			String html = pdfService.parsePdfTemplate(pdfTemplate);
@@ -83,20 +84,15 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 			System.exit(0);
 		}
 	}
-
-	private void loadSuccessMetricsData() throws IOException, ParseException {
+	
+	private boolean loadSuccessMetricsData() throws IOException, ParseException {
 
 		String stmt = SqlStatements.MetricsTable;
 		boolean fileLoaded = loaderService.loadMetricsFile(DataLoaderParams.smDatafile, DataLoaderParams.smHeader, stmt);
 		
-		Map<String, Object> periods = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
-		String endPeriod = periods.get("endPeriod").toString();
-
-		if (!fileLoaded) {
-			log.info(DataLoaderParams.smDatafile + " file not found");
-			System.exit(-1);
-		}
-		else {
+		if (fileLoaded) {
+			Map<String, Object> periods = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
+			String endPeriod = periods.get("endPeriod").toString();
 			
 			if (!includelatestperiod) {
 				loaderService.filterOutLatestPeriod(endPeriod); // it is likely incomplete
@@ -105,23 +101,27 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 			if (loadInsightsMetrics) {
 				loaderService.loadInsightsData(periods);
 			}
-			
-//			boolean hasPreviousData = loaderService.loadPreviousPeriodData();
-//			
-//			if (!hasPreviousData) {
-//				log.error("No previous data");
-//				System.exit(1);
-//
-//			}
 		}
+		
+		return fileLoaded;
 	}
 
-
-	public void reports2() throws IOException {
+	private void reports2() throws IOException {
 		
 		applicationEvaluationsFileLoaded = loaderService.loadMetricsFile(DataLoaderParams.aeDatafile, DataLoaderParams.aeFileHeader, SqlStatements.ApplicationEvaluationsTable);
 		policyViolationsDataLoaded = loaderService.loadMetricsFile(DataLoaderParams.pvDatafile, DataLoaderParams.pvFileHeader,  SqlStatements.PolicyViolationsTables);
 		componentsQuarantineLoaded = loaderService.loadMetricsFile(DataLoaderParams.cqDatafile, DataLoaderParams.cqFileHeader, SqlStatements.ComponentsInQuarantineTable);
 		componentWaiversLoaded = loaderService.loadMetricsFile(DataLoaderParams.cwDatafile, DataLoaderParams.cwFileHeader, SqlStatements.ComponentWaiversTable);
 	}
+	
+	private void startUp() {
+		if (successMetricsFileLoaded || applicationEvaluationsFileLoaded){
+			log.info("Ready for viewing at http://localhost:" + port);
+		}
+		else {
+			log.error("No data files found");
+			System.exit(-1);
+		}
+	}
+	
 }
