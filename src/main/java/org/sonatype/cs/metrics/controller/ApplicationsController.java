@@ -1,68 +1,39 @@
 package org.sonatype.cs.metrics.controller;
 
+import java.text.ParseException;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.sonatype.cs.metrics.service.ApplicationsDataService;
+import org.sonatype.cs.metrics.service.PeriodsDataService;
+import org.sonatype.cs.metrics.util.SqlStatements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.sonatype.cs.metrics.model.DbRow;
-import org.sonatype.cs.metrics.model.Mttr;
-import org.sonatype.cs.metrics.service.DataService;
-import org.sonatype.cs.metrics.util.SqlStatement;
-import org.sonatype.cs.metrics.util.UtilService;
-
 @Controller
 public class ApplicationsController {
-
     private static final Logger log = LoggerFactory.getLogger(ApplicationsController.class);
-
+    
     @Autowired
-    private DataService dataService;
-
+	private PeriodsDataService periodsDataService;
+    
     @Autowired
-    private UtilService timePeriodService;
+    private ApplicationsDataService applicationsDataService;
+    
+    
 
     @GetMapping({ "/applications" })
-    public String applications(Model model) {
+    public String applications(Model model) throws ParseException {
 
         log.info("In ApplicationsController");
+    	
+		Map<String, Object> periodsData = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
+        Map<String, Object> applicationData = applicationsDataService.getApplicationData(SqlStatements.METRICTABLENAME, periodsData);
+		model.mergeAttributes(applicationData);
 
-        String latestTimePeriod = timePeriodService.getLatestPeriod();
-
-        List<DbRow> applicationsOnboarded = dataService.runSql(SqlStatement.ApplicationsOnboarded);
-        List<DbRow> numberOfScans = dataService.runSql(SqlStatement.NumberOfScans);
-        List<DbRow> numberOfApplicationsScanned = dataService.runSql(SqlStatement.NumberOfApplicationsScanned);
-        List<Mttr> mttr = dataService.runSqlMttr(SqlStatement.MTTR);
-
-		model.addAttribute("applicationsOnboarded", applicationsOnboarded);
-		model.addAttribute("numberOfScans", numberOfScans);
-		model.addAttribute("numberOfApplicationsScanned", numberOfApplicationsScanned);
-        model.addAttribute("mttr", mttr);
-
-        String applicationOpenViolations = SqlStatement.ApplicationsOpenViolations + " where time_period_start = '" + latestTimePeriod + "' group by application_name" + " order by 2 desc, 3 desc";
-        List<DbRow> aov = dataService.runSql(applicationOpenViolations);
-
-        String organisationOpenViolations = SqlStatement.OrganisationsOpenViolations + " where time_period_start = '" + latestTimePeriod + "' group by organization_name" + " order by 2 desc, 3 desc";
-        List<DbRow> oov = dataService.runSql(organisationOpenViolations);
-
-        model.addAttribute("mostCriticalApplicationName", aov.get(0).getLabel());
-        model.addAttribute("mostCriticalApplicationCount", aov.get(0).getPointA());
-        model.addAttribute("leastCriticalApplicationName", aov.get(aov.size()-1).getLabel());
-        model.addAttribute("leastCriticalApplicationCount", aov.get(aov.size()-1).getPointA());
-
-        model.addAttribute("applicationsSecurityRemediation", dataService.runSql(SqlStatement.ApplicationsSecurityRemediation));
-        model.addAttribute("applicationsLicenseRemediation", dataService.runSql(SqlStatement.ApplicationsLicenseRemediation));	
-				
-		model.addAttribute("mostCriticalOrganisationsData", oov);
-		model.addAttribute("mostCriticalApplicationsData", aov);
-		model.addAttribute("mostScannedApplicationsData", dataService.runSql(SqlStatement.MostScannedApplications));
-		
-		List<DbRow> riskRatio = dataService.runSql(SqlStatement.RiskRatio);
-		model.addAttribute("riskRatio", riskRatio);
-
-        return "reportApplications";
+        return "applications";
     }
 }
