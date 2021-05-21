@@ -24,7 +24,7 @@ public class PolicyViolationsAgeController {
     @Autowired
     private HelperService helperService;
 
-    @GetMapping({ "/policyViolationsAge" })
+    @GetMapping({ "/violationsage" })
     public String policyViolationsAge(Model model) {
 
         log.info("In PolicyViolationsAgeController");

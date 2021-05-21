@@ -34,6 +34,7 @@ public class SummaryController {
         
         model.mergeAttributes(periodsData);
         model.mergeAttributes(metrics);
+        model.addAttribute("globalsummary", true);
 
 		return "summary";
     }

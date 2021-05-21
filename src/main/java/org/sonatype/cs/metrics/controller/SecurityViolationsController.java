@@ -18,7 +18,7 @@ public class SecurityViolationsController {
     @Autowired
     private SecurityDataService securityDataService;
 
-    @GetMapping({ "/securityViolations" })
+    @GetMapping({ "/securityviolations" })
     public String securityViolations(Model model) {
 
         log.info("In SecurityViolationsController");

@@ -19,7 +19,7 @@ public class ComponentsInQuarantineController {
     @Autowired
     private DbService dbService;
 
-    @GetMapping({"/componentsq"})
+    @GetMapping({"/quarantine"})
 	public String componentsq(Model model) {
         log.info("In ComponentsInQuarantineController");
 

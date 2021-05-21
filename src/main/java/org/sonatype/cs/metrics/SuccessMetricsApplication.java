@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonatype.cs.metrics.service.FileLoaderService;
+import org.sonatype.cs.metrics.service.LoaderService;
 import org.sonatype.cs.metrics.service.SummaryPdfService;
 import org.sonatype.cs.metrics.service.PeriodsDataService;
 import org.sonatype.cs.metrics.util.DataLoaderParams;
@@ -50,7 +50,7 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 	
 
 	@Autowired
-	private FileLoaderService loaderService;
+	private LoaderService loaderService;
 
 	@Autowired
 	private SummaryPdfService pdfService;
@@ -115,7 +115,7 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 	}
 	
 	private void startUp() {
-		if (successMetricsFileLoaded || applicationEvaluationsFileLoaded){
+		if (successMetricsFileLoaded || applicationEvaluationsFileLoaded || policyViolationsDataLoaded || componentsQuarantineLoaded || componentWaiversLoaded){
 			log.info("Ready for viewing at http://localhost:" + port);
 		}
 		else {

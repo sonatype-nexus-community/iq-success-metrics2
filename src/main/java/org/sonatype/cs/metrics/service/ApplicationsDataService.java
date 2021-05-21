@@ -1,6 +1,7 @@
 package org.sonatype.cs.metrics.service;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -96,29 +97,44 @@ public class ApplicationsDataService {
         String organisationOpenViolations = SqlStatements.OrganisationsOpenViolations + " where time_period_start = '" + endPeriod + "' group by organization_name" + " order by 2 desc, 3 desc";
         List<DbRow> oov = dbService.runSql(tableName, organisationOpenViolations);
 
-		model.put("mostCriticalApplicationCount", aov.get(0).getPointA());
-		model.put("leastCriticalApplicationCount", aov.get(aov.size() - 1).getPointA());
-		
-		model.put("openCriticalViolationsAvg", helperService.getPointsSumAndAverage(aov)[1]);
-		
-        model.put("mostCriticalApplicationName", aov.get(0).getLabel());
-        model.put("mostCriticalApplicationCount", aov.get(0).getPointA());
+        if (aov.size() > 0) {
+			model.put("mostCriticalApplicationCount", aov.get(0).getPointA());
+			model.put("leastCriticalApplicationCount", aov.get(aov.size() - 1).getPointA());
+			
+			model.put("openCriticalViolationsAvg", helperService.getPointsSumAndAverage(aov)[1]);
+			
+	        model.put("mostCriticalApplicationName", aov.get(0).getLabel());
+	        model.put("mostCriticalApplicationCount", aov.get(0).getPointA());
+	        
+	        model.put("leastCriticalApplicationName", aov.get(aov.size()-1).getLabel());
+	        model.put("leastCriticalApplicationCount", aov.get(aov.size()-1).getPointA());
+	        
+	        model.put("applicationsSecurityRemediation", dbService.runSql(tableName, SqlStatements.ApplicationsSecurityRemediation));
+	        model.put("applicationsLicenseRemediation", dbService.runSql(tableName, SqlStatements.ApplicationsLicenseRemediation));	
+	        
+			model.put("mostCriticalOrganisationsData", oov);
+			model.put("mostCriticalApplicationsData", aov);
+			
+			model.put("mostScannedApplicationsData", dbService.runSql(tableName, SqlStatements.MostScannedApplications));
+        }
         
-        model.put("leastCriticalApplicationName", aov.get(aov.size()-1).getLabel());
-        model.put("leastCriticalApplicationCount", aov.get(aov.size()-1).getPointA());
-        
-        model.put("applicationsSecurityRemediation", dbService.runSql(tableName, SqlStatements.ApplicationsSecurityRemediation));
-        model.put("applicationsLicenseRemediation", dbService.runSql(tableName, SqlStatements.ApplicationsLicenseRemediation));	
-        
-		model.put("mostCriticalOrganisationsData", oov);
-		model.put("mostCriticalApplicationsData", aov);
-		
-		model.put("mostScannedApplicationsData", dbService.runSql(tableName, SqlStatements.MostScannedApplications));
-		
 		List<DbRow> riskRatio = dbService.runSql(tableName, SqlStatements.RiskRatio);
 		model.put("riskRatioChart", riskRatio);
 		
 		return model;
 	}
 	
+	public boolean applicationExists(String applicationName) {
+		List<DbRow> applications = dbService.runSql(SqlStatements.METRICTABLENAME, SqlStatements.ListOfApplications);
+		boolean status = false;
+		
+		for (DbRow r: applications) {
+			if (r.getLabel().equalsIgnoreCase(applicationName)) {
+				status = true;
+				break;
+			}
+		}
+		
+		return status;
+	}
 }

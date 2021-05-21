@@ -18,7 +18,7 @@ public class LicenseViolationsController {
     @Autowired
     private LicenseDataService licenseDataService;
 
-    @GetMapping({ "/licenseViolations" })
+    @GetMapping({ "/licenseviolations" })
     public String licenseViolations(Model model) {
 
         log.info("In LicenseViolationsController");

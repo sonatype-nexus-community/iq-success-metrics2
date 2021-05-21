@@ -69,6 +69,7 @@ public class SummaryPdfService {
 
 	    context.setVariable("p1", p1metrics);
 	    context.setVariable("p2", p2metrics);
+	    context.setVariable("globalsummary", true);
 
 	    return templateEngine.process(htmlTemplate, context);
 	}

@@ -17,7 +17,7 @@ public class SqlStatements {
 	
 	public static String NumberOfScannedApplications = "select time_period_start as label, count(application_id) as pointA from <?> where evaluation_count > 0 group by time_period_start";
 	
-	
+	public static String ListOfApplications = "select distinct application_name as label from <?>";
 	
 	public static String MTTR = "select time_period_start as label, " + 
 				"ifnull(avg(case when ifnull(mttr_critical_threat,0) <>0 then ifnull(mttr_critical_threat,0) else null end)/86400000,0) as pointA,  " + 

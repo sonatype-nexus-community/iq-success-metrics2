@@ -15,28 +15,28 @@
         <br><br>
         <a th:href="@{applications}">Applications Report</a>
         <br><br>
-        <a th:href="@{securityViolations}">Security Violations Report</a>
+        <a th:href="@{securityviolations}">Security Violations Report</a>
         <br><br>
-        <a th:href="@{licenseViolations}">License Violations Report</a>
+        <a th:href="@{licenseviolations}">License Violations Report</a>
         <br><br>
         
 	    <div th:if="${policyViolationsreport}">
-	    <a th:href="@{policyViolationsAge}">Policy Violations Report</a>
+	    <a th:href="@{violationsage}">Policy Violations Report</a>
 	    <br><br>
 	    </div>
 	        
 	    <div th:if="${applicationEvaluationsreport}">
-	    <a th:href="@{applicationEvaluations}">Application Evaluations Report</a>
+	    <a th:href="@{evaluations}">Application Evaluations Report</a>
 	    <br><br>
 		</div>
 
 		<div th:if="${componentsqreport}">
-		<a th:href="@{componentsq}">Components In Quarantine Report</a>
+		<a th:href="@{quarantine}">Components In Quarantine Report</a>
 		<br><br>
 		</div>
 		
 		<div th:if="${componentWaiversReport}">
-		<a th:href="@{componentWaivers}">Component Waivers Report</a>
+		<a th:href="@{waivers}">Component Waivers Report</a>
 		<br><br>
 		</div>
 	    

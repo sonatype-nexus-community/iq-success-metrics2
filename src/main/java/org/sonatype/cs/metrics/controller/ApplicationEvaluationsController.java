@@ -24,7 +24,7 @@ public class ApplicationEvaluationsController {
     @Autowired
     private HelperService helperService;
 
-    @GetMapping({ "/applicationEvaluations" })
+    @GetMapping({ "/evaluations" })
     public String applicationEvaluations(Model model) {
 
         log.info("In ApplicationEvaluationsController");

@@ -1,21 +1,28 @@
 <div th:fragment="summaryFrag">
 
-<table class="table table-hover" style="width:100%">
+	<table class="table table-hover" style="width:100%">
         <thead class="thead-dark">
             <tr>             
-                <th scope="col">Current Period <span style="color:white;font-size:13px" th:text="${periodDateRangeStr}"/></th>
+                <th scope="col">Current Period <span style="color:grey;font-size:11px" th:text="${periodDateRangeStr}"/></th>
              </tr>
         </thead>
         <tbody>
+        
+        	<div th:if="${globalsummary}">
+        	
             <tr>
             <td>Onboarded <span th:text="${applicationsOnboarded}"/> applications at an average of <span th:text="${applicationsOnboardedAvg}"/> per <span th:text="${timePeriodFrequency}"/></td>
              </tr>
             <tr>
             <td>Scanned applications at an average of <span th:text="${numberOfApplicationsScannedAvg}"/> per <span th:text="${timePeriodFrequency}"/></td>
-             </tr>
+            </tr>
+            
+            </div>
+            
             <tr>
             <td>Performed a total of <span th:text="${numberOfScans}"/> scans at an average of <span th:text="${numberOfScansAvg}"/> per <span th:text="${timePeriodFrequency}"/></td>
             </tr>
+            
         </tbody>
     </table>
 
@@ -109,14 +116,10 @@
     
     <table class="table table-hover" style="width:100%">
         <thead class="thead-dark">
-            <tr>
-                <th scope="col">Current Period</th>
-             </tr>
+            <tr><th scope="col">Current Period</th></tr>
         </thead>
         <tbody>
-            <!-- <tr>
-            <td> Your fix rate is <span th:text="${fixRate}"/>%</td>
-             </tr> -->
+        
             <tr>
             <td> It took an average of <span th:text="${mttrAvg[0]}"/> days to fix critical violations</td>
              </tr>
@@ -125,19 +128,21 @@
              </tr>
             <tr>
             <td> It took an average of <span th:text="${mttrAvg[2]}"/> days to fix moderate violations</td>
-             </tr>
+            </tr>
+            
+            <div th:if="${globalsummary}">
+            
             <tr>
             <td style="background-color: aliceblue;"></td>
             </tr>
-            <!-- <tr>
-            <td> On average, each application has <span th:text="${openCriticalViolationsAvg}"/> open critical violations</td>
-             </tr> -->
             <tr>
             <td> Most critical application has <span th:text="${mostCriticalApplicationCount}"/> critical violations</td>
              </tr>
             <tr>
             <td> Least critical application has <span th:text="${leastCriticalApplicationCount}"/> critical violations</td>
-             </tr>
+            </tr>
+            
+            </div>
 
         </tbody>
     </table>    

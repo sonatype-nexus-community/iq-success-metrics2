@@ -1,6 +1,6 @@
 <div th:fragment="applicationsFrag">
-
     <div class="chart-container">
+	<div th:if="${globalsummary}">
 
         <div id="applicationsOnboardedChart"></div>
         <script th:inline="javascript">
@@ -75,7 +75,8 @@
 
             chart.render();
         </script>
-
+		</div>
+		
         <div id="numberOfScansChart"></div>
         <script th:inline="javascript">
             var points = /*[[${numberOfScansChart}]]*/'noValue';
