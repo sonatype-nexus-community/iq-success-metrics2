@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sonatype.cs.metrics.util.SqlStatements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,8 @@ public class LoaderService {
 	@Autowired
 	private DbService dbService;
 	
+	@Autowired
+	private PeriodsDataService periodsDataService;
 	
 	public boolean loadMetricsFile(String fileName, String header, String stmt) throws IOException {
 		boolean status = false;
@@ -107,8 +110,12 @@ public class LoaderService {
 		return;
 	}
 
-	public void loadInsightsData(Map<String, Object> periods) throws ParseException {
+	public void loadInsightsData() throws ParseException {
+		Map<String, Object> periods = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
+
 		String midPeriod = periods.get("midPeriod").toString();
+		
+		log.info("mid period: " + midPeriod);
 		
 		String sqlStmtP1 = "DROP TABLE IF EXISTS METRIC_P1; CREATE TABLE METRIC_P1 AS SELECT * FROM METRIC WHERE TIME_PERIOD_START <= '" + midPeriod + "'";
 		dbService.runSqlLoad(sqlStmtP1);

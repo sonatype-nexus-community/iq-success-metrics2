@@ -99,7 +99,7 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 			}
 			
 			if (loadInsightsMetrics) {
-				loaderService.loadInsightsData(periods);
+				loaderService.loadInsightsData();
 			}
 		}
 		

@@ -99,10 +99,14 @@ public class AnalysisService {
 	    model.put("backlogReductionCriticalsRate", this.calculateChangePctg(backlogReductionCriticalsRateBefore, backlogReductionCriticalsRateAfter));
 	    model.put("backlogReductionCriticalsRateIncrease", this.calculateChangeMultiple(backlogReductionCriticalsRateBefore, backlogReductionCriticalsRateAfter));
 
-	    int discoveredCriticalBefore = (int) p1metrics.get("discoveredCritical");
-	    int discoveredCriticalAfter = (int) p2metrics.get("discoveredCritical");
-	    float riskRatioBefore = discoveredCriticalBefore/onboardedBefore;
-	    float riskRatioAfter = discoveredCriticalAfter/onboardedAfter;
+//	    int discoveredCriticalBefore = (int) p1metrics.get("discoveredCritical");
+//	    int discoveredCriticalAfter = (int) p2metrics.get("discoveredCritical");
+//	    float riskRatioBefore = discoveredCriticalBefore/onboardedBefore;
+//	    float riskRatioAfter = discoveredCriticalAfter/onboardedAfter;
+	    
+	    float riskRatioBefore = (int) p1metrics.get("riskRatioAtEndPeriod");
+	    float riskRatioAfter = (int) p2metrics.get("riskRatioAtEndPeriod");
+	    
 
 	    model.put("riskRatioBefore", riskRatioBefore);
 	    model.put("riskRatioAfter", riskRatioAfter);

@@ -120,7 +120,8 @@ public class ApplicationsDataService {
         
 		List<DbRow> riskRatio = dbService.runSql(tableName, SqlStatements.RiskRatio);
 		model.put("riskRatioChart", riskRatio);
-		
+		model.put("riskRatioAtEndPeriod", riskRatio.get(riskRatio.size() - 1).getPointA());
+
 		return model;
 	}
 	

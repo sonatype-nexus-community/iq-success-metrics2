@@ -31,6 +31,7 @@ public class AnalysisController {
   	  Map<String, Object> periodsData = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
       Map<String, Object> analysisData = analysisService.getAnalysisData(periodsData);
       model.mergeAttributes(analysisData);
+      model.mergeAttributes(periodsData);
 
       return "analysis";
   }

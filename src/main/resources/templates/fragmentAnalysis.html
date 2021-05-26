@@ -10,10 +10,10 @@
        <col span="1" style="width: 12%;"/>
     </colgroup>
         <thead class="thead-dark">
-            <tr>
+            <tr valign="top">
                 <th scope="col" th:text="'Measure'"></th>
-                <th scope="col" th:text="Before"></th>
-                <th scope="col" th:text="After"></th>
+                <th scope="col">Before <span style="color:grey;font-size:9px" th:text="${midPeriodDate1RangeStr}"/></th>
+                <th scope="col">After <span style="color:grey;font-size:9px" th:text="${midPeriodDate2RangeStr}"/></th>
                 <th scope="col" th:text="Delta"></th>
                 <th scope="col" th:text="'Change (%)'"></th>
                 <th scope="col" th:text="xTimes"></th>
