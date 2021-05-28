@@ -38,6 +38,15 @@
                 <td th:text="${onboardingRate}"></td>
                 <td th:text="${onboardingRateIncrease}"></td>
             </tr>
+            
+             <tr style="font-weight:bold">
+                <td th:text="'Total Scans'"></td>
+                <td th:text="${totalScansBefore}"></td>
+                <td th:text="${totalScansAfter}"></td>
+                <td th:text="${totalScansAfter}-${totalScansBefore}"></td>
+                <td th:text="${totalScans}"></td>
+                <td th:text="${totalScansIncrease}"></td> 
+            </tr>
 
             <tr style="font-weight:bold">
                 <td th:text="'Scanning Coverage %(apps scanned at least once/period)'"></td>

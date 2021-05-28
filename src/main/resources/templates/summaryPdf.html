@@ -40,7 +40,9 @@ p {
   	</div>
 
     <div th:insert="templates/fragmentSummary :: summaryFrag"></div>
-
+    
+    <div th:if="${doAnalysis}">
+    
 	<div style="page-break-before: always;"/> 	
 
 	<div>
@@ -57,6 +59,7 @@ p {
 	
     <div th:insert="templates/fragmentAnalysis :: analysisFrag"></div>
     
+    </div>
  
 </body>
 </html>

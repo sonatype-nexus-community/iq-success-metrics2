@@ -48,7 +48,7 @@ public class SummaryPdfService {
 	private AnalysisService analysisService;
 	
 	
-	public String parsePdfTemplate(String htmlTemplate) throws ParseException {
+	public String parsePdfTemplate(String htmlTemplate, boolean doAnalysis) throws ParseException {
 	    ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
 	    templateResolver.setSuffix(".html");
 	    templateResolver.setTemplateMode(TemplateMode.HTML);
@@ -58,19 +58,23 @@ public class SummaryPdfService {
 	    
 	    Map<String, Object> periodsData = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
         Map<String, Object> metrics = metricsService.getMetrics(SqlStatements.METRICTABLENAME, periodsData);
-	    Map<String, Object> p1metrics = metricsService.getMetrics(SqlStatements.METRICP1TABLENAME, periodsData);
-	    Map<String, Object> p2metrics = metricsService.getMetrics(SqlStatements.METRICP2TABLENAME, periodsData);
-	    Map<String, Object> analysisData = analysisService.getAnalysisData(periodsData);
-
-	    Context context = new Context();
+        
+        Context context = new Context();
 	    context.setVariables(periodsData);
 	    context.setVariables(metrics);
-	    context.setVariables(analysisData);
-
-	    context.setVariable("p1", p1metrics);
-	    context.setVariable("p2", p2metrics);
 	    context.setVariable("globalsummary", true);
+	    context.setVariable("doAnalysis", doAnalysis);
 
+        if (doAnalysis) {
+		    Map<String, Object> p1metrics = metricsService.getMetrics(SqlStatements.METRICP1TABLENAME, periodsData);
+		    Map<String, Object> p2metrics = metricsService.getMetrics(SqlStatements.METRICP2TABLENAME, periodsData);
+		    Map<String, Object> analysisData = analysisService.getAnalysisData(periodsData);
+		    
+		    context.setVariables(analysisData);
+		    context.setVariable("p1", p1metrics);
+		    context.setVariable("p2", p2metrics);
+        }
+        
 	    return templateEngine.process(htmlTemplate, context);
 	}
 	

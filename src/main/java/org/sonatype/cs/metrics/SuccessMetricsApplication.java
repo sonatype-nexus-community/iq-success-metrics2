@@ -57,6 +57,8 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 	
 	@Autowired
 	private PeriodsDataService periodsDataService;
+
+	private boolean doAnalysis = false;
 	
 
 	public static void main(String[] args) {
@@ -78,9 +80,14 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 			this.startUp();
 		} 
 		else {
-			String html = pdfService.parsePdfTemplate(pdfTemplate);
-			pdfService.generatePdfFromHtml(html);
-
+			if (successMetricsFileLoaded) {
+				String html = pdfService.parsePdfTemplate(pdfTemplate, doAnalysis);
+				pdfService.generatePdfFromHtml(html);
+			}
+			else {
+				log.error("No data file found");
+			}
+			
 			System.exit(0);
 		}
 	}
@@ -93,13 +100,16 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 		if (fileLoaded) {
 			Map<String, Object> periods = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
 			String endPeriod = periods.get("endPeriod").toString();
+			doAnalysis  = (boolean) periods.get("doAnalysis");
 			
-			if (!includelatestperiod) {
-				loaderService.filterOutLatestPeriod(endPeriod); // it is likely incomplete
-			}
-			
-			if (loadInsightsMetrics) {
-				loaderService.loadInsightsData();
+			if (doAnalysis) {
+				if (!includelatestperiod) {
+					loaderService.filterOutLatestPeriod(endPeriod); // it is likely incomplete and only where we know multiple periods available
+				}
+
+				if (doAnalysis && loadInsightsMetrics) {
+					loaderService.loadInsightsData();
+				}
 			}
 		}
 		

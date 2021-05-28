@@ -68,6 +68,9 @@ public class ApplicationsDataService {
 		}
 		
 		int applicationsOnboardedInPeriodAvg = applicationsOnboardedInPeriod/rows;
+		if (applicationsOnboardedInPeriodAvg == 0) {
+			applicationsOnboardedInPeriodAvg = 1;
+		}
 
 		model.put("startPeriodCount", startPeriodCount);
 		model.put("endPeriodCount", endPeriodCount);

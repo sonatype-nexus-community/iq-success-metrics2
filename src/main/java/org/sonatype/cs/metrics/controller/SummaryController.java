@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sonatype.cs.metrics.SuccessMetricsApplication;
 import org.sonatype.cs.metrics.service.MetricsService;
 import org.sonatype.cs.metrics.service.PeriodsDataService;
 import org.sonatype.cs.metrics.util.SqlStatements;
@@ -29,12 +30,15 @@ public class SummaryController {
 
         log.info("In ReportSummaryController");
         
-		Map<String, Object> periodsData = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
-        Map<String, Object> metrics = metricsService.getMetrics(SqlStatements.METRICTABLENAME, periodsData);
-        
-        model.mergeAttributes(periodsData);
-        model.mergeAttributes(metrics);
-        model.addAttribute("globalsummary", true);
+        if (SuccessMetricsApplication.successMetricsFileLoaded) {
+			Map<String, Object> periodsData = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
+	        Map<String, Object> metrics = metricsService.getMetrics(SqlStatements.METRICTABLENAME, periodsData);
+	        
+	        model.mergeAttributes(periodsData);
+	        model.mergeAttributes(metrics);
+	        model.addAttribute("globalsummary", true);
+	        model.addAttribute("smloaded", SuccessMetricsApplication.successMetricsFileLoaded);
+        }
 
 		return "summary";
     }

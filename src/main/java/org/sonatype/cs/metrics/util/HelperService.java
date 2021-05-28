@@ -45,7 +45,13 @@ public class HelperService {
 			}
 		}
 
-		return sumData / countPoints;
+		float a = sumData / countPoints;
+		
+		if (Float.isNaN(a)) {
+			a = 0;
+		}
+		
+		return a;
 	}
 	
 	public Map<String, Object> dataMap(String key, List<DbRowStr> data) {

@@ -22,6 +22,7 @@ public class HomeController {
 		log.info("In HomeController");
 		
 		model.addAttribute("smdata", smdata);
+		model.addAttribute("successmetricsreport", SuccessMetricsApplication.successMetricsFileLoaded);
 		model.addAttribute("policyViolationsreport", SuccessMetricsApplication.policyViolationsDataLoaded);
 		model.addAttribute(("applicationEvaluationsreport"), SuccessMetricsApplication.applicationEvaluationsFileLoaded);
 		model.addAttribute(("componentsqreport"), SuccessMetricsApplication.componentsQuarantineLoaded);

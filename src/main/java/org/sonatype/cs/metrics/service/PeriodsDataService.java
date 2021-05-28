@@ -22,36 +22,53 @@ public class PeriodsDataService {
 	
 	public Map<String, Object> getPeriodData(String tableName) throws ParseException {
 		Map<String, Object> model = new HashMap<>();
-		
+		model.put("doAnalysis", false);
+
 	    List<DbRow> timePeriods = dbService.runSql(tableName, SqlStatements.TimePeriods);
 		
 	    int numberOfPeriods = timePeriods.size();
+	    
 	    String startPeriod = timePeriods.get(0).getLabel();
-		String endPeriod = timePeriods.get(timePeriods.size()-1).getLabel();
+	    String firstTimePeriod = startPeriod.toString();
+	    
+		String endPeriod = null;
 		
-	    String firstTimePeriod = timePeriods.get(0).getLabel().toString();
-		String secondTimePeriod = timePeriods.get(1).getLabel().toString();
+	    String secondTimePeriod = null;
+	    
+	    if (numberOfPeriods == 1) {
+	    	endPeriod = timePeriods.get(0).getLabel();
+	    }
+	    else {
+	    	endPeriod = timePeriods.get(timePeriods.size()-1).getLabel();
+	    }
+	    
+    	secondTimePeriod = endPeriod.toString();
+
 		String timePeriodFrequency = this.getTimePeriodFrequency(numberOfPeriods, firstTimePeriod, secondTimePeriod);
 		
 		model.put("timePeriodFrequency", timePeriodFrequency);
 		model.put("startPeriod", startPeriod);
 		model.put("endPeriod", endPeriod);
 		model.put("periodDateRangeStr", "(" + startPeriod + " - " + endPeriod + ")");
-
-		int midPeriodIndex = numberOfPeriods/2;
-		if (midPeriodIndex % 2 == 0) {
-			midPeriodIndex--;
+		
+		if (numberOfPeriods > 2) {
+			int midPeriodIndex = numberOfPeriods/2;
+			
+			if (midPeriodIndex % 2 == 0) {
+				midPeriodIndex--;
+			}
+			
+			String midPeriod = timePeriods.get(midPeriodIndex).getLabel();
+			
+			String midPeriodEnd = midPeriod;
+			String midPeriodStart = timePeriods.get(midPeriodIndex+1).getLabel();
+	
+			model.put("midPeriod", midPeriod);
+			model.put("midPeriodDate1RangeStr", "(" + startPeriod + " - " + midPeriodEnd + ")");
+			model.put("midPeriodDate2RangeStr", "(" + midPeriodStart + " - " + endPeriod + ")");
+			model.put("doAnalysis", true);
 		}
 		
-		String midPeriod = timePeriods.get(midPeriodIndex).getLabel();
-		
-		String midPeriodEnd = midPeriod;
-		String midPeriodStart = timePeriods.get(midPeriodIndex+1).getLabel();
-
-		model.put("midPeriod", midPeriod);
-		model.put("midPeriodDate1RangeStr", "(" + startPeriod + " - " + midPeriodEnd + ")");
-		model.put("midPeriodDate2RangeStr", "(" + midPeriodStart + " - " + endPeriod + ")");
-
 		return model;
 	}
 	

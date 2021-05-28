@@ -34,6 +34,9 @@ public class AnalysisService {
 	    float scanningCoverageAfter = this.calculatePct((int)p2metrics.get("numberOfApplicationsScannedAvg"), onboardedAfter);
 	    float scanningCoverageBefore = this.calculatePct((int)p1metrics.get("numberOfApplicationsScannedAvg"), onboardedBefore);
 	    
+	    float totalScansAfter = (int) p2metrics.get("numberOfScans");
+	    float totalScansBefore = (int) p1metrics.get("numberOfScans");
+	    
 	    float scanningRateAfter = (int) p2metrics.get("numberOfScans")/p2numberOfPeriods;
 	    float scanningRateBefore = (int) p1metrics.get("numberOfScans")/p1numberOfPeriods;
 	    
@@ -121,6 +124,11 @@ public class AnalysisService {
 	    model.put("mttrCriticals", this.calculateChangePctg(Integer.parseInt(mttrCriticalsBefore[0]), Integer.parseInt(mttrCriticalsAfter[0])));
 	    model.put("mttrCriticalsIncrease", this.calculateChangeMultiple(Integer.parseInt(mttrCriticalsBefore[0]), Integer.parseInt(mttrCriticalsAfter[0])));
 
+	    model.put("totalScansBefore", totalScansBefore);
+	    model.put("totalScansAfter", totalScansAfter);
+	    model.put("totalScans", this.calculateChangePctg(totalScansBefore, totalScansAfter));
+	    model.put("totalScansIncrease", this.calculateChangeMultiple(totalScansBefore, totalScansAfter));
+	    
 	    return model;
 	  }
 

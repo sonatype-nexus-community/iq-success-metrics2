@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sonatype.cs.metrics.SuccessMetricsApplication;
 import org.sonatype.cs.metrics.service.MetricsService;
 import org.sonatype.cs.metrics.service.PeriodsDataService;
 import org.sonatype.cs.metrics.util.SqlStatements;
@@ -27,14 +28,24 @@ public class ComparePeriodsController {
   public String applications(Model model) throws ParseException {
     log.info("In ComparePeriodsController");
    
-	Map<String, Object> periodsData = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
-    Map<String, Object> p1metrics = metricsService.getMetrics(SqlStatements.METRICP1TABLENAME, periodsData);
-    Map<String, Object> p2metrics = metricsService.getMetrics(SqlStatements.METRICP2TABLENAME, periodsData);
-  
-    model.mergeAttributes(periodsData);
-    model.addAttribute("p1", p1metrics);
-    model.addAttribute("p2", p2metrics);
+    boolean doAnalysis = false;
+    
+    if (SuccessMetricsApplication.successMetricsFileLoaded) {
 
+		Map<String, Object> periodsData = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
+		doAnalysis  = (boolean) periodsData.get("doAnalysis");
+	
+	    model.mergeAttributes(periodsData);
+	
+		if (doAnalysis) {
+			Map<String, Object> p1metrics = metricsService.getMetrics(SqlStatements.METRICP1TABLENAME, periodsData);
+			Map<String, Object> p2metrics = metricsService.getMetrics(SqlStatements.METRICP2TABLENAME, periodsData);
+			model.addAttribute("p1", p1metrics);
+			model.addAttribute("p2", p2metrics);
+		}
+    }
+   
     return "comparePeriods";
   }
 }
+

@@ -66,9 +66,12 @@ public class TotalsDataService {
 		int discoveredCritical = dsct + dlct;
 		int fixedCritical = fsct + flct;
 
-		float backlogReductionRateCritical = (((float) (fixedCritical) / discoveredCritical) * 100);
-		 
-		model.put("backlogReductionRateCritical", backlogReductionRateCritical);
+		float backlogReductionRateCritical = 0;
+		
+		if (fixedCritical > 0 && discoveredCritical > 0) {
+			backlogReductionRateCritical = (((float) (fixedCritical) / discoveredCritical) * 100);
+		}
+				model.put("backlogReductionRateCritical", backlogReductionRateCritical);
 		model.put("discoveredCritical", discoveredCritical);
 		model.put("mttrAvg", this.MttrAvg(tableName));
 

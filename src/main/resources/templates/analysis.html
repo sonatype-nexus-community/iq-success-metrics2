@@ -17,8 +17,10 @@
     <div class="col-xl mx-auto bg-white rounded">
     <div class="table-responsive table-wrapper-scroll-y">
 
+    <div th:if="${doAnalysis}">
     <div th:insert="fragmentAnalysis :: analysisFrag"></div>
-
+	</div>
+	
     </div>
   
 </body>

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sonatype.cs.metrics.SuccessMetricsApplication;
 import org.sonatype.cs.metrics.service.AnalysisService;
 import org.sonatype.cs.metrics.service.PeriodsDataService;
 import org.sonatype.cs.metrics.util.SqlStatements;
@@ -22,17 +23,30 @@ public class AnalysisController {
   
   @Autowired
   private PeriodsDataService periodsDataService;
+
 	     
 
   @GetMapping({ "/analysis" })
   public String analysis(Model model) throws ParseException {
 	  log.info("In AnalysisController");
 
-  	  Map<String, Object> periodsData = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
-      Map<String, Object> analysisData = analysisService.getAnalysisData(periodsData);
-      model.mergeAttributes(analysisData);
-      model.mergeAttributes(periodsData);
+	  boolean doAnalysis = false;
 
+  	  if (SuccessMetricsApplication.successMetricsFileLoaded) {
+
+	  	  Map<String, Object> periodsData = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
+		  doAnalysis  = (boolean) periodsData.get("doAnalysis");
+	
+	      model.mergeAttributes(periodsData);
+	      
+	      if (doAnalysis) {
+		      Map<String, Object> analysisData = analysisService.getAnalysisData(periodsData);
+		      model.mergeAttributes(analysisData);
+	      }
+  	  }
+  		
       return "analysis";
   }
 }
+
+
