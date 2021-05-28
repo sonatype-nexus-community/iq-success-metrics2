@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.sonatype.cs.metrics.controller.AnalysisController;
 import org.sonatype.cs.metrics.model.DbRow;
 import org.sonatype.cs.metrics.util.SqlStatements;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +18,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PeriodsDataService {
-	
+	private static final Logger log = LoggerFactory.getLogger(PeriodsDataService.class);
+
 	@Autowired
 	private DbService dbService;
+	
+	private static int oneDayMs = 86400000;
+    private static long oneWeekMs = 604800000;
+    private static long oneMonthMs = 2629800000L;
 
 	
 	public Map<String, Object> getPeriodData(String tableName) throws ParseException {
@@ -36,14 +44,14 @@ public class PeriodsDataService {
 	    String secondTimePeriod = null;
 	    
 	    if (numberOfPeriods == 1) {
-	    	endPeriod = timePeriods.get(0).getLabel();
+	    	endPeriod = startPeriod;
+	    	secondTimePeriod = startPeriod.toString();
 	    }
 	    else {
 	    	endPeriod = timePeriods.get(timePeriods.size()-1).getLabel();
+	    	secondTimePeriod = timePeriods.get(1).getLabel().toString();
 	    }
 	    
-    	secondTimePeriod = endPeriod.toString();
-
 		String timePeriodFrequency = this.getTimePeriodFrequency(numberOfPeriods, firstTimePeriod, secondTimePeriod);
 		
 		model.put("timePeriodFrequency", timePeriodFrequency);
@@ -73,7 +81,7 @@ public class PeriodsDataService {
 	}
 	
 	private String getTimePeriodFrequency(int tmSize, String firstTimePeriod, String secondTimePeriod) throws ParseException {
-		
+
 		long oneWeek = 604800000;
 		
 		String timePeriodLabel = "Week";
@@ -85,7 +93,7 @@ public class PeriodsDataService {
 			
 			long diff = sp - fp;
 
-			if (diff <= oneWeek) {
+			if (diff < oneMonthMs) {
 				timePeriodLabel = "week";
 			}
 			else {

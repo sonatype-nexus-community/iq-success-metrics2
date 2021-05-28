@@ -84,8 +84,8 @@ public class AnalysisService {
 
 	    model.put("avgScansBefore", this.formatFloat(scanningRateBeforeAvg));
 	    model.put("avgScansAfter", this.formatFloat(scanningRateAfterAvg));
-	    model.put("avgScans", this.calculateChangePctg(scanningRateBefore, scanningRateAfter));
-	    model.put("avgScansIncrease", this.calculateChangeMultiple(scanningRateBefore, scanningRateAfter));
+	    model.put("avgScans", this.calculateChangePctg(scanningRateBeforeAvg, scanningRateAfterAvg));
+	    model.put("avgScansIncrease", this.calculateChangeMultiple(scanningRateBeforeAvg, scanningRateAfterAvg));
 
 	    model.put("discoveryRateCriticalsBefore", this.formatFloat(discoveryRateCriticalsBefore));
 	    model.put("discoveryRateCriticalsAfter", this.formatFloat(discoveryRateCriticalsAfter));

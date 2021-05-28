@@ -115,7 +115,7 @@ public class LoaderService {
 
 		String midPeriod = periods.get("midPeriod").toString();
 		
-		log.info("mid period: " + midPeriod);
+		log.info("Mid period: " + midPeriod);
 		
 		String sqlStmtP1 = "DROP TABLE IF EXISTS METRIC_P1; CREATE TABLE METRIC_P1 AS SELECT * FROM METRIC WHERE TIME_PERIOD_START <= '" + midPeriod + "'";
 		dbService.runSqlLoad(sqlStmtP1);
