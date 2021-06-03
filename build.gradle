@@ -90,6 +90,6 @@ task bundle(type: Zip) {
 bundle.dependsOn releasejar, release
 
 /*
-gradle clean build examples bundle
+gradle clean build bundle
 */
 
