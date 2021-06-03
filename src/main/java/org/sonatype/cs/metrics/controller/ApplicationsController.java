@@ -24,7 +24,6 @@ public class ApplicationsController {
     private ApplicationsDataService applicationsDataService;
     
     
-
     @GetMapping({ "/applications" })
     public String applications(Model model) throws ParseException {
 
@@ -33,6 +32,7 @@ public class ApplicationsController {
 		Map<String, Object> periodsData = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
         Map<String, Object> applicationData = applicationsDataService.getApplicationData(SqlStatements.METRICTABLENAME, periodsData);
 		model.mergeAttributes(applicationData);
+        model.addAttribute("globalsummary", true);
 
         return "applications";
     }
