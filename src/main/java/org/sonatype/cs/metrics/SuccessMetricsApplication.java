@@ -42,6 +42,9 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 	@Value("${server.port}")
 	private String port;
 	
+	@Value("${server.servlet.context-path:}")
+	private String contextPath;
+	
 	@Value("${data.includelatestperiod}")
 	private boolean includelatestperiod;
 	
@@ -126,7 +129,7 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 	
 	private void startUp() {
 		if (successMetricsFileLoaded || applicationEvaluationsFileLoaded || policyViolationsDataLoaded || componentsQuarantineLoaded || componentWaiversLoaded){
-			log.info("Ready for viewing at http://localhost:" + port);
+			log.info("Ready for viewing at http://localhost:{}{}", port, contextPath != null ? contextPath : "");
 		}
 		else {
 			log.error("No data files found");
