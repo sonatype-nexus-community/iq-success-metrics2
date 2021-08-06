@@ -47,14 +47,27 @@ def writeToCsvFile(componentWaivers):
 							policyName = waivedPolicyViolation['policyName']
 							threatLevel = waivedPolicyViolation['threatLevel']
 							comment = waivedPolicyViolation['policyWaiver']['comment']
-							createDate = waivedPolicyViolation['policyWaiver']['createTime']
-							expiryTime = ""
+							
+							if "createTime" in waivedPolicyViolation['policyWaiver'].keys():
+								createDate = waivedPolicyViolation['policyWaiver']['createTime']
+
+								if "expiryTime" in waivedPolicyViolation['policyWaiver'].keys():
+									expiryTime = waivedPolicyViolation['policyWaiver']['expiryTime']
+								else:
+									expiryTime = "non-expiring"
+
+							else:
+								createDate = "needs re-eval"
+								expiryTime = "needs re-eval"
 
 							if "\n" in comment:
 								comment = comment.replace("\n", "-")
 
 							if "," in comment:
 								comment = comment.replace(",", "|")
+
+							createDate =  formatDate(createDate)
+							expiryTime =  formatDate(expiryTime)
 
 							line = applicationName + "," + stageId + "," + packageUrl + "," + policyName + "," + str(threatLevel) + "," + comment + "," + createDate + "," + expiryTime + "\n"
 							fd.write(line)
@@ -78,16 +91,41 @@ def writeToCsvFile(componentWaivers):
 							policyName = waivedPolicyViolation['policyName']
 							threatLevel = waivedPolicyViolation['threatLevel']
 							comment = waivedPolicyViolation['policyWaiver']['comment']
-							createDate = waivedPolicyViolation['policyWaiver']['createTime']
 
-							line = name + "," + stageId + "," + packageUrl + "," + policyName + "," + str(threatLevel) + "," + comment + "," + createDate + ",\n"
+							if "createTime" in waivedPolicyViolation['policyWaiver'].keys():
+								createDate = waivedPolicyViolation['policyWaiver']['createTime']
+
+								if "expiryTime" in waivedPolicyViolation['policyWaiver'].keys():
+									expiryTime = waivedPolicyViolation['policyWaiver']['expiryTime']
+								else:
+									expiryTime = "non-expiring"
+									
+							else:
+								createDate = "needs re-eval"
+								expiryTime = "n/a"
+
+							createDate =  formatDate(createDate)
+							expiryTime =  formatDate(expiryTime)
+
+							line = name + "," + stageId + "," + packageUrl + "," + policyName + "," + str(threatLevel) + "," + comment + "," + createDate + "," + expiryTime + "\n"
 							fd.write(line)
             
 	return
 
+def formatDate(dt):
+  d = dt[0:10]
+  # d = d.replace("T", ".")
+  return d
+
+
+def readJsonFileInstead():
+	f = open('componentwaivers.json')
+	data = json.load(f)
+	return data
 
 def main():
     componentWaivers = get_metrics()
+    # componentWaivers = readJsonFileInstead()
 
     with open(jsonfile, 'w') as fd:
     		json.dump(componentWaivers, fd, indent=4)

@@ -9,7 +9,7 @@ plugins {
 }
 
 group = 'org.sonatype.cs'
-version = '71.3'
+version = '73'
 sourceCompatibility = '8'
 
 def bundledir = "successmetrics/successmetrics"
@@ -19,23 +19,31 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-
-	implementation ('org.springframework.boot:spring-boot-starter-data-jpa:2.5.3'){
-  	//exclude group: 'org.hibernate', module: 'hibernate-core'
-  }
-
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-
-	implementation ('org.springframework.boot:spring-boot-starter-web:2.4.5') {
-    exclude group: 'org.glassfish', module: 'jakarta.el'
-    // exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-core'
-  }
-
-	implementation 'org.webjars:jquery:3.5.1'
+  	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+  	implementation 'org.webjars:jquery:3.5.1'
 	implementation 'org.webjars:bootstrap:4.5.0'
 	implementation 'org.thymeleaf:thymeleaf:3.0.11.RELEASE'
-	implementation 'org.xhtmlrenderer:flying-saucer-pdf:9.1.20'
+	implementation 'org.xhtmlrenderer:flying-saucer-pdf-openpdf:9.1.20'
+	
+
+	implementation ('org.springframework.boot:spring-boot-starter-data-jpa:2.5.3'){
+  		exclude group: 'org.hibernate', module: 'hibernate-core'
+  	}
+
+  	implementation 'org.hibernate:hibernate-core:5.5.5.Final'
+
+	implementation ('org.springframework.boot:spring-boot-starter-web:2.4.5') {
+  		//exclude group: 'org.glassfish', module: 'jakarta.el'
+  		//exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-core'
+		//exclude group: 'org.springframework', module: 'spring-web'
+  	}
+		
+	//implementation 'org.springframework:spring-web:5.3.9'
+  	//implementation 'org.apache.tomcat.embed:tomcat-embed-core:9.0.50'
+  	
+	
 
 	compileOnly 'com.opencsv:opencsv:5.2'
 
