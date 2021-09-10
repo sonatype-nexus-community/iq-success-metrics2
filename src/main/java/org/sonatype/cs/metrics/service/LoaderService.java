@@ -9,8 +9,10 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sonatype.cs.metrics.util.DataLoaderParams;
 import org.sonatype.cs.metrics.util.SqlStatements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,6 +25,13 @@ public class LoaderService {
 	
 	@Autowired
 	private PeriodsDataService periodsDataService;
+
+	@Value("${data.includelatestperiod}")
+	private boolean includelatestperiod;
+
+	@Value("${data.loadInsightsMetrics}")
+	private boolean loadInsightsMetrics;
+	
 	
 	public boolean loadMetricsFile(String fileName, String header, String stmt) throws IOException {
 		boolean status = false;
@@ -108,6 +117,31 @@ public class LoaderService {
 		String sqlStmt = "delete from metric where time_period_start = " + "'" + endPeriod + "'";
 		dbService.runSqlLoad(sqlStmt);
 		return;
+	}
+
+	public boolean loadSuccessMetricsData() throws IOException, ParseException {
+
+		String stmt = SqlStatements.MetricsTable;
+		boolean fileLoaded = loadMetricsFile(DataLoaderParams.smDatafile, DataLoaderParams.smHeader, stmt);
+		boolean doAnalysis = false;
+
+		if (fileLoaded) {
+			Map<String, Object> periods = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
+			doAnalysis  = (boolean) periods.get("doAnalysis");
+			
+			if (doAnalysis) {
+				if (!includelatestperiod) {
+					String endPeriod = periods.get("endPeriod").toString();
+					filterOutLatestPeriod(endPeriod); // it is likely incomplete and only where we know multiple periods available
+				}
+
+				if (doAnalysis && loadInsightsMetrics) {
+					loadInsightsData();
+				}
+			}
+		}
+		
+		return fileLoaded;
 	}
 
 	public void loadInsightsData() throws ParseException {

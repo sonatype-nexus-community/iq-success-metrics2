@@ -9,7 +9,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonatype.cs.metrics.controller.AnalysisController;
+import org.sonatype.cs.metrics.controller.InsightsAnalysisController;
 import org.sonatype.cs.metrics.model.DbRow;
 import org.sonatype.cs.metrics.util.SqlStatements;
 import org.springframework.beans.factory.annotation.Autowired;

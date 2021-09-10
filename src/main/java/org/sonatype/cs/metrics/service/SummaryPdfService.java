@@ -45,7 +45,7 @@ public class SummaryPdfService {
 	private MetricsService metricsService;
 	  
 	@Autowired
-	private AnalysisService analysisService;
+	private InsightsAnalysisService analysisService;
 	
 	
 	public String parsePdfTemplate(String htmlTemplate, boolean doAnalysis) throws ParseException {
@@ -68,7 +68,7 @@ public class SummaryPdfService {
         if (doAnalysis) {
 		    Map<String, Object> p1metrics = metricsService.getMetrics(SqlStatements.METRICP1TABLENAME, periodsData);
 		    Map<String, Object> p2metrics = metricsService.getMetrics(SqlStatements.METRICP2TABLENAME, periodsData);
-		    Map<String, Object> analysisData = analysisService.getAnalysisData(periodsData);
+		    Map<String, Object> analysisData = analysisService.getInsightsAnalysisData(periodsData);
 		    
 		    context.setVariables(analysisData);
 		    context.setVariable("p1", p1metrics);
