@@ -1,10 +1,8 @@
 FROM  openjdk:8-jdk-alpine
 
-ARG JAR_FILE=build/lib/successmetrics-*.jar
+ARG JAR_FILE=build/libs/successmetrics-*.jar
 
-WORKDIR /var/tmp
+COPY ${JAR_FILE} /var/tmp/app.jar
 
-COPY ${JAR_FILE} app.jar
-
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "/var/tmp/app.jar"]
 

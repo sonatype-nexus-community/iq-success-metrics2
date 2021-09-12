@@ -32,12 +32,17 @@ public class LoaderService {
 	@Value("${data.loadInsightsMetrics}")
 	private boolean loadInsightsMetrics;
 	
+	@Value("${data.dir}")
+	private String dataDir;
 	
 	public boolean loadMetricsFile(String fileName, String header, String stmt) throws IOException {
 		boolean status = false;
+		
+		String filePath = dataDir + "/" + fileName;
+		log.info("Loading file: " + filePath);
 
-		if (isHeaderValid(fileName, header)){
-			status = loadFile(fileName, stmt);
+		if (isHeaderValid(filePath, header)){
+			status = loadFile(filePath, stmt);
 		}
 
 		return status;

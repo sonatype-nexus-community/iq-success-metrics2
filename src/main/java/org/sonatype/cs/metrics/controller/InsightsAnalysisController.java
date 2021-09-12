@@ -28,7 +28,7 @@ public class InsightsAnalysisController {
 
   @GetMapping({ "/analysis" })
   public String analysis(Model model) throws ParseException {
-	  log.info("In AnalysisController");
+	  log.info("In InsightsAnalysisController");
 
 	  boolean doAnalysis = false;
 
