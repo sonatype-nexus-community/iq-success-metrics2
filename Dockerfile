@@ -1,8 +1,15 @@
 FROM  openjdk:8-jdk-alpine
 
-ARG JAR_FILE=build/libs/successmetrics-*.jar
+ARG JAR_FILE=./build/libs/successmetrics-*.jar
 
-COPY ${JAR_FILE} /var/tmp/app.jar
+ENV APP_HOME=/usr/app
 
-ENTRYPOINT ["java", "-jar", "/var/tmp/app.jar"]
+RUN mkdir ${APP_HOME}
 
+VOLUME ["/usr/app"]
+
+WORKDIR ${APP_HOME}
+
+COPY ${JAR_FILE} app.jar
+
+ENTRYPOINT ["java", "-jar", "app.jar"]

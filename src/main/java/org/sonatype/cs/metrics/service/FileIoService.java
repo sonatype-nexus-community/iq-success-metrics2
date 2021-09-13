@@ -36,7 +36,7 @@ public class FileIoService {
 			writer.newLine();
 			
 			for (String[] array : csvData) {
-				log.info("- " + Arrays.toString(array));
+				//log.info("- " + Arrays.toString(array));
 				writer.write(String.join(",", Arrays.asList(array)));
 				writer.newLine();
 		    }	
