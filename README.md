@@ -96,7 +96,7 @@ The files are created in the reports2 directory
 
    The app runs in a number of modes:
    
-   * To run in web mode:
+### To run in web mode:
    
    This is the default mode. The app will start up and you view all the reports and charts via your web browser.
    
@@ -122,11 +122,11 @@ On completion, you should see output similar to below after which app is ready f
 
 Open a browser and go to http://localhost:4040
 
-### Save PDF files
+#### Save PDF files
 
 The *Summary Report* on the web app main page menu is designed to be saved to pdf. It contains most of the other reports. The recommended way to do to this is by selecting the *Save to PDF* option within the Print menu option of your web browser.
 
-## To run in pdf mode:
+### To run in pdf mode:
    
 You may wish to just create a pdf file containing the metrics report. 
 
@@ -141,7 +141,7 @@ A pdf report file is created in a sub-directory called *output* with a time-stam
 
 The application will then immediately exit after creating the pdf file. 
 
-## To run in insights mode:
+### To run in insights mode:
    
 In this mode, the application will simply create a CSV file containing the data required in order to create an Insights Analysis report 
 
