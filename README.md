@@ -1,14 +1,14 @@
 
 ## Getting Started
 
-**Prerequisites**
+### Prerequisites
   * Java 8+
   * (optional) python3  
 
 &nbsp;
 &nbsp;
 
-**Download the java app for success metrics**
+### Download the java app for success metrics
   * Click on the *successmetrics.zip* file, then download (there is a download button on the lower right)
   * Unzip the contents into a directory of your choice
 
@@ -20,16 +20,27 @@ cd successmetrics
 &nbsp;
 &nbsp;
 
-**(Optional) Make Config Updates for Success Metrics**
+#### (Optional) Make Config Updates for Success Metrics
 
- * Edit either the *weekly.json* or *monthly.json* file to adjust the firstTimePeriod (the week or month to start reporting from) 
- * You may also choose to add an end period (Additional information can be found here: https://help.sonatype.com/iqserver/automating/rest-apis/success-metrics-data-rest-api---v2).
+ * Edit either the *weekly.json* or *monthly.json* file to adjust the firstTimePeriod (the week or month to start reporting from) and optionally add an end period
+ ```
+ Example: the following request body will fetch data for all organisations and applications between Jan 2020 and Sept 2021 on a monthly basis:
+ {
+  "timePeriod": "MONTH",
+  "firstTimePeriod": "2020-01",
+  "lastTimePeriod": "2021-09",
+  "applicationIds": [],
+  "organizationIds": []
+ }
+ ```
+ * Additional information can be found here: https://help.sonatype.com/iqserver/automating/rest-apis/success-metrics-data-rest-api---v2.
+
  * For larger installations, we recommend limiting the data to extract to a smaller period (e.g. since the previous month or few weeks) or subset of organisations and/or applications. Information on how to adjust the request body (in the weekly.json or monthly.json files) can be found at the success metrics page above.
 
 &nbsp;
 &nbsp;
 
-**Create the csv files**
+### Create the csv files
 
 *There is a script available to help ease creation of the required CSV file(s).*
  
@@ -51,7 +62,7 @@ The script will create a file called *successmetrics.csv*. We suggest opening th
 
 &nbsp;
 
-**(Optional) Additional Reports**
+#### (Optional) Additional Reports
 
 If you have python3 available, you can run the following script to produce additonal data files for reporting, all of which will be read by the app on startup.
 This script is optional and not required for the main success metrics report
@@ -77,15 +88,15 @@ The files are created in the reports2 directory
 &nbsp;
 &nbsp;
 
-**Start the reporting app**
+## Start the reporting app
    
    This app is a simple web app running by default on port 4040. 
    
    By default, the app looks for the *successmetrics.csv* file in the current directory 
 
-   The app runs in two modes:
+   The app runs in a number of modes:
    
-   * To run in web mode:
+### To run in web mode:
    
    This is the default mode. The app will start up and you view all the reports and charts via your web browser.
    
@@ -111,10 +122,13 @@ On completion, you should see output similar to below after which app is ready f
 
 Open a browser and go to http://localhost:4040
 
+#### Save PDF files
 
-* To run in pdf mode:
+The *Summary Report* on the web app main page menu is designed to be saved to pdf. It contains most of the other reports. The recommended way to do to this is by selecting the *Save to PDF* option within the Print menu option of your web browser.
+
+### To run in pdf mode:
    
-Alternatively, you may wish to just create a pdf file containing the metrics report. 
+You may wish to just create a pdf file containing the metrics report. 
 
 ```
 (make sure you are in the main directory ie. successmetrics)
@@ -123,30 +137,43 @@ Windows: runapp-pdf.bat
 Linux: sh runapp-pdf.bat
 ```
 
-A pdf report file is created in a sub-directory called *successmetrics-reports* with a time-stamped file name. 
+A pdf report file is created in a sub-directory called *output* with a time-stamped file name. 
 
 The application will then immediately exit after creating the pdf file. 
 
-&nbsp;
+### To run in insights mode:
+   
+In this mode, the application will simply create a CSV file containing the data required in order to create an Insights Analysis report 
+
+```
+(make sure you are in the main directory ie. successmetrics)
+
+Windows: runapp-insights.bat 
+Linux: sh runapp-insights.bat
+```
+
+A CSV  file is created in a sub-directory called *output* with a time-stamped file name. 
+
+The application will then immediately exit after creating the file. 
+
 &nbsp;
 
-**Save PDF files**
-
-The *Summary Report* is designed to be saved to pdf. It contains most of the other reports. The recommended way to do to this is by selecting the *Save to PDF* option within the Print menu option of your web browser.
-
-&nbsp;
-&nbsp;
-
-**Advanced Options**
+### Advanced Options
 
 You can override the following defaults by setting following system properties when you run the command to run the application.
 (Check the *examples* directory for example script using these oprions.
 
-  * To run on another port: (default: 4040) 
+  #### To run on another port: (default: 4040) 
 
     *-Dserver.port=nnn*
 
-  * Include the latest period: (default: false) 
+  #### To load the csv files from another location: (default: current directory) 
+
+    *-Ddata.dir=<path>*
+  
+    Ensure the successmetrics.csv file (and optionally, the reports2/ directory are located in *<path>*
+    
+  #### Include the latest period: (default: false) 
 
     The latest period is the period when you run the application. It is likely it has not ended, therefore data for the period will be incomplete.
     By default, the application will exclude the period from the report. 
@@ -154,7 +181,7 @@ You can override the following defaults by setting following system properties w
 
     *-Ddata.includelatestperiod=true*
 
-  * Save to PDF automatically: (default: web) 
+  #### Save to PDF automatically: (default: web) 
 
     To run in pdf mode, set the following property:
 
@@ -172,7 +199,7 @@ java -jar -Dserver.port=4455 -Ddata.includelatestperiod=true -Dspring.profiles.a
 &nbsp;
 &nbsp;
 
-**Development**
+## Development
 
 Should you wish to edit the source code: 
 
@@ -200,7 +227,7 @@ java -jar success-metrics-<version>.jar
 &nbsp;
 &nbsp;
 
-**The Fine Print**
+## The Fine Print
 * We recommend running it for 4 weeks of data at a time and for sets of orgs instead of the full scope if you have a large dataset.
 * It is worth noting that this is NOT SUPPORTED by Sonatype, and is a contribution of ours to the open source community (read: you!)
 
