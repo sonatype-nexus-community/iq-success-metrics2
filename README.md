@@ -22,7 +22,7 @@ cd successmetrics
 
 **(Optional) Make Config Updates for Success Metrics**
 
- * Edit either the *weekly.json* or *monthly.json* file to adjust the firstTimePeriod (the week or month to start reporting from) 
+ * Edit either the *weekly.json* or *monthly.json* file to adjust the firstTimePeriod (the week or month to start reporting from) and optionally add an end period
  ```
  Example: the following request body will fetch data for all organisations and applications between Jan 2020 and Sept 2021 on a monthly basis:
  {
