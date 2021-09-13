@@ -1,14 +1,14 @@
 
 ## Getting Started
 
-### Prerequisites**
+### Prerequisites
   * Java 8+
   * (optional) python3  
 
 &nbsp;
 &nbsp;
 
-### Download the java app for success metrics**
+### Download the java app for success metrics
   * Click on the *successmetrics.zip* file, then download (there is a download button on the lower right)
   * Unzip the contents into a directory of your choice
 
@@ -20,7 +20,7 @@ cd successmetrics
 &nbsp;
 &nbsp;
 
-**(Optional) Make Config Updates for Success Metrics**
+#### (Optional) Make Config Updates for Success Metrics
 
  * Edit either the *weekly.json* or *monthly.json* file to adjust the firstTimePeriod (the week or month to start reporting from) and optionally add an end period
  ```
@@ -40,7 +40,7 @@ cd successmetrics
 &nbsp;
 &nbsp;
 
-**Create the csv files**
+### Create the csv files
 
 *There is a script available to help ease creation of the required CSV file(s).*
  
@@ -62,7 +62,7 @@ The script will create a file called *successmetrics.csv*. We suggest opening th
 
 &nbsp;
 
-**(Optional) Additional Reports**
+#### (Optional) Additional Reports
 
 If you have python3 available, you can run the following script to produce additonal data files for reporting, all of which will be read by the app on startup.
 This script is optional and not required for the main success metrics report
@@ -88,7 +88,7 @@ The files are created in the reports2 directory
 &nbsp;
 &nbsp;
 
-**Start the reporting app**
+## Start the reporting app
    
    This app is a simple web app running by default on port 4040. 
    
@@ -122,11 +122,11 @@ On completion, you should see output similar to below after which app is ready f
 
 Open a browser and go to http://localhost:4040
 
-Save PDF files
+### Save PDF files
 
 The *Summary Report* on the web app main page menu is designed to be saved to pdf. It contains most of the other reports. The recommended way to do to this is by selecting the *Save to PDF* option within the Print menu option of your web browser.
 
-* To run in pdf mode:
+## To run in pdf mode:
    
 You may wish to just create a pdf file containing the metrics report. 
 
@@ -141,7 +141,7 @@ A pdf report file is created in a sub-directory called *output* with a time-stam
 
 The application will then immediately exit after creating the pdf file. 
 
-* To run in insights mode:
+## To run in insights mode:
    
 In this mode, the application will simply create a CSV file containing the data required in order to create an Insights Analysis report 
 
@@ -159,12 +159,7 @@ The application will then immediately exit after creating the file.
 &nbsp;
 &nbsp;
 
-
-
-&nbsp;
-&nbsp;
-
-**Advanced Options**
+### Advanced Options
 
 You can override the following defaults by setting following system properties when you run the command to run the application.
 (Check the *examples* directory for example script using these oprions.
@@ -199,7 +194,7 @@ java -jar -Dserver.port=4455 -Ddata.includelatestperiod=true -Dspring.profiles.a
 &nbsp;
 &nbsp;
 
-**Development**
+## Development
 
 Should you wish to edit the source code: 
 
@@ -227,7 +222,7 @@ java -jar success-metrics-<version>.jar
 &nbsp;
 &nbsp;
 
-**The Fine Print**
+## The Fine Print
 * We recommend running it for 4 weeks of data at a time and for sets of orgs instead of the full scope if you have a large dataset.
 * It is worth noting that this is NOT SUPPORTED by Sonatype, and is a contribution of ours to the open source community (read: you!)
 
