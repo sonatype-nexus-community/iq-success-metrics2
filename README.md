@@ -124,7 +124,7 @@ Open a browser and go to http://localhost:4040
 
 Save PDF files
 
-The *Summary Report* is designed to be saved to pdf. It contains most of the other reports. The recommended way to do to this is by selecting the *Save to PDF* option within the Print menu option of your web browser.
+The *Summary Report* on the web app main page menu is designed to be saved to pdf. It contains most of the other reports. The recommended way to do to this is by selecting the *Save to PDF* option within the Print menu option of your web browser.
 
 * To run in pdf mode:
    
