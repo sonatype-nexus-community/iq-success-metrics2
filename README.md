@@ -157,18 +157,23 @@ A CSV  file is created in a sub-directory called *output* with a time-stamped fi
 The application will then immediately exit after creating the file. 
 
 &nbsp;
-&nbsp;
 
 ### Advanced Options
 
 You can override the following defaults by setting following system properties when you run the command to run the application.
 (Check the *examples* directory for example script using these oprions.
 
-  * To run on another port: (default: 4040) 
+  #### To run on another port: (default: 4040) 
 
     *-Dserver.port=nnn*
 
-  * Include the latest period: (default: false) 
+  #### To load the csv files from another location: (default: current directory) 
+
+    *-Ddata.dir=<path>*
+  
+    Ensure the successmetrics.csv file (and optionally, the reports2/ directory are located in *<path>*
+    
+  #### Include the latest period: (default: false) 
 
     The latest period is the period when you run the application. It is likely it has not ended, therefore data for the period will be incomplete.
     By default, the application will exclude the period from the report. 
@@ -176,7 +181,7 @@ You can override the following defaults by setting following system properties w
 
     *-Ddata.includelatestperiod=true*
 
-  * Save to PDF automatically: (default: web) 
+  #### Save to PDF automatically: (default: web) 
 
     To run in pdf mode, set the following property:
 
