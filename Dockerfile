@@ -10,4 +10,4 @@ WORKDIR ${APP_HOME}
 
 COPY ${JAR_FILE} app.jar
 
-ENTRYPOINT ["java", "-jar", "-Ddata.dir=/usr/app", "/app.jar"]
+ENTRYPOINT ["java", "-jar", "-Ddata.dir=/usr/app", "app.jar"]

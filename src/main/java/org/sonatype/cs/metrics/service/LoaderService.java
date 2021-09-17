@@ -138,9 +138,11 @@ public class LoaderService {
 				if (!includelatestperiod) {
 					String endPeriod = periods.get("endPeriod").toString();
 					filterOutLatestPeriod(endPeriod); // it is likely incomplete and only where we know multiple periods available
+					log.info("Removing incomplete data for current month " + endPeriod);
 				}
 
 				if (doAnalysis && loadInsightsMetrics) {
+					log.info("loading insights data");
 					loadInsightsData();
 				}
 			}

@@ -50,21 +50,11 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 	@Value("${server.servlet.context-path:}")
 	private String contextPath;
 	
-	// @Value("${data.includelatestperiod}")
-	// private boolean includelatestperiod;
-	
-	// @Value("${data.loadInsightsMetrics}")
-	// private boolean loadInsightsMetrics;
-	
-
 	@Autowired
 	private LoaderService loaderService;
 
 	@Autowired
 	private SummaryPdfService pdfService;
-	
-	// @Autowired
-	// private PeriodsDataService periodsDataService;
 
 	@Autowired
   	private InsightsAnalysisService analysisService;
@@ -115,30 +105,6 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 			System.exit(0);
 		}
 	}
-	
-	// private boolean loadSuccessMetricsData() throws IOException, ParseException {
-
-	// 	String stmt = SqlStatements.MetricsTable;
-	// 	boolean fileLoaded = loaderService.loadMetricsFile(DataLoaderParams.smDatafile, DataLoaderParams.smHeader, stmt);
-		
-	// 	if (fileLoaded) {
-	// 		Map<String, Object> periods = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
-	// 		String endPeriod = periods.get("endPeriod").toString();
-	// 		doAnalysis  = (boolean) periods.get("doAnalysis");
-			
-	// 		if (doAnalysis) {
-	// 			if (!includelatestperiod) {
-	// 				loaderService.filterOutLatestPeriod(endPeriod); // it is likely incomplete and only where we know multiple periods available
-	// 			}
-
-	// 			if (doAnalysis && loadInsightsMetrics) {
-	// 				loaderService.loadInsightsData();
-	// 			}
-	// 		}
-	// 	}
-		
-	// 	return fileLoaded;
-	// }
 
 	private void reports2() throws IOException {
 		
