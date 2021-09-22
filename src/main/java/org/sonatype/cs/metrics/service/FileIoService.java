@@ -25,9 +25,9 @@ public class FileIoService {
 	private String outputdir;
 
 	
-	public void writeCsvFile(String csvFilename, List<String[]> csvData) throws IOException {
+	public void writeInsightsCsvFile(String csvFilename, List<String[]> csvData, String beforeDateRange, String afterDateRange) throws IOException {
 		
-		String[] header = { "Measure", "Before", "After", "Delta", "Change (%)", "xTimes"};
+		String[] header = { "Measure", beforeDateRange, afterDateRange, "Delta", "Change (%)", "xTimes"};
 		
 		try {
 			BufferedWriter writer = Files.newBufferedWriter(Paths.get(csvFilename));

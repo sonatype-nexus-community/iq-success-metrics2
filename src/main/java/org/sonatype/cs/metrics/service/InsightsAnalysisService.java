@@ -42,7 +42,11 @@ public class InsightsAnalysisService {
 			List<String[]> csvData = createCsvData(analysisData);
 			
 			String csvFilename = fileIoService.makeFilename("insights", "csv");
-			fileIoService.writeCsvFile(csvFilename, csvData);
+
+			String beforeDateRange = "Before " + (String) periodsData.get("midPeriodDate1RangeStr");
+			String afterDateRange = "After " + (String) periodsData.get("midPeriodDate2RangeStr");
+
+			fileIoService.writeInsightsCsvFile(csvFilename, csvData, beforeDateRange, afterDateRange);
 			
 		    log.info("Created insights data file: " + csvFilename);
 	    }

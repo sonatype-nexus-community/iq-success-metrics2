@@ -59,7 +59,7 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 	@Autowired
   	private InsightsAnalysisService analysisService;
 
-	private boolean doAnalysis = false;
+	private boolean doAnalysis = true;
 	
 
 	public static void main(String[] args) {
