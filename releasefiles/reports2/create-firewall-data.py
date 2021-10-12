@@ -79,7 +79,7 @@ def summary_report(report_name, end_point):
 
 def list_report(report_name, end_point):
     page = 1
-    page_size = 100
+    page_size = 250
     page_count = page_query(end_point, page, page_size, report_name)
     
     if page_count > 0:
