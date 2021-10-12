@@ -6,10 +6,16 @@ import sys
 import shutil
 import csv
 
+debug = False
+
 iqurl = sys.argv[1]
 iquser = sys.argv[2]
 iqpwd = sys.argv[3]
 
+if len(sys.argv) == 5:
+    if sys.argv[4] == "debug":
+        debug = True
+        
 jsonfile = 'firewalldata.json'
 csvfile = 'firewalldata.csv'
 
@@ -69,28 +75,62 @@ def summary_report(report_name, end_point):
         writer.writerow(line)
 
     return
-    
-    
+
+
 def list_report(report_name, end_point):
     page = 1
-    page_size = 10
+    page_size = 100
+    page_count = page_query(end_point, page, page_size, report_name)
+    
+    if page_count > 0:
+        while page <= page_count:
+            page += 1
+            page_query(end_point, page, page_size, report_name)
+
+    return
+
+
+def page_query(end_point, page, page_size, report_name):
     asc = True
 
     if report_name == "autoreleased_from_quarantine_components":
         sort_by = "releaseQuarantineTime"
     else:
         sort_by = "quarantineTime"
-    
+        
     query = "{}?page={}&pageSize={}&sortBy={}&asc={}".format(end_point, page, page_size, sort_by, asc)
     data = get_nexusiq_data(query)
-    print_json(data, report_name)
     
+    page_count = data["pageCount"]
+    results = data["results"]
+    
+    if len(results) > 0:
+        print_list_report(data["results"], report_name, page)
+    
+    return page_count
+
+    
+def print_list_report(results, report_name, page):
+    
+    if debug:
+        print_json(results, report_name + "_" + str(page))
+
     csv_file = "{}/{}{}".format(quarantine_datadir, report_name, ".csv")
-    with open(csv_file, 'w') as fd:
+    with open(csv_file, 'a') as fd:
         writer = csv.writer(fd, delimiter=",")
         
-        results = data["results"]
-        
+        line = []
+        line.append("repository")
+        line.append("quarantine_date")
+        line.append("date_cleared")
+        line.append("path_name")
+        line.append("format")
+        line.append("quarantined")
+        line.append("policy_name")
+        line.append("threat_level")
+        line.append("cve")
+        writer.writerow(line)
+                
         for result in results:
             repository = result["repository"]
             quarantine_date = result["quarantineDate"]
@@ -132,6 +172,7 @@ def list_report(report_name, end_point):
 
     return
 
+
 def itemExists(item,items):
     exists = False
     
@@ -141,6 +182,7 @@ def itemExists(item,items):
             break
         
     return exists
+        
         
 def getCVE(reasons):
     values = []
@@ -161,14 +203,37 @@ def getCVE(reasons):
     
     return f
 
+
 def autoreleased_from_quarantine_config():
     end_point = "releaseQuarantine/configuration"
     data = get_nexusiq_data(end_point)
     print_json(data, "autoreleased_from_quarantine_config")
+    
+    csv_file = "{}/{}{}".format(quarantine_datadir, "autoreleased_from_quarantine_config", ".csv")
+    with open(csv_file, 'w') as fd:
+        writer = csv.writer(fd, delimiter=",")
+        
+        # print header
+        line = []
+        line.append("id")
+        line.append("name")
+        line.append("autoReleaseQuarantineEnabled")
+
+        writer.writerow(line)
+
+        # print data
+        for d in data:
+            line = []
+            line.append(d["id"])
+            line.append(d["name"])
+            line.append(d["autoReleaseQuarantineEnabled"])
+            writer.writerow(line)
+            
     return
 
 
 def main():
+    
     summary_report("autoreleased_from_quarantine_summary", "releaseQuarantine/summary")
     summary_report("quarantined_components_summary", "quarantine/summary")
 
