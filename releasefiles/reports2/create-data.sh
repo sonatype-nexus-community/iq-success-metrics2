@@ -8,3 +8,4 @@ python3 create-application-evaluations-data.py ${iqurl} ${iquser} ${iqpwd}
 python3 create-policy-violations-data.py ${iqurl} ${iquser} ${iqpwd} 
 python3 create-components-quarantined.py ${iqurl} ${iquser} ${iqpwd}
 python3 create-waiver-data.py ${iqurl} ${iquser} ${iqpwd}
+python3 create-firewall-data.py ${iqurl} ${iquser} ${iqpwd}
