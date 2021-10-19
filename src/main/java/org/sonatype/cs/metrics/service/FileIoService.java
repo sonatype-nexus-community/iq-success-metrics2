@@ -2,7 +2,10 @@ package org.sonatype.cs.metrics.service;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,15 +18,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.xhtmlrenderer.pdf.ITextRenderer;
 
 
 @Service
 public class FileIoService {
 	private static final Logger log = LoggerFactory.getLogger(FileIoService.class);
 
-	@Value("${pdf.outputdir}")
+	@Value("${reports.outputdir}")
 	private String outputdir;
 
+	@Value("${data.dir}")
+	private String datadir;
 	
 	public void writeInsightsCsvFile(String csvFilename, List<String[]> csvData, String beforeDateRange, String afterDateRange) throws IOException {
 		
@@ -46,6 +52,21 @@ public class FileIoService {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		return;
+	}
+	
+	public void writeSuccessMetricsPdfFile(String pdfFilename, String html) throws IOException {
+		OutputStream outputStream = new FileOutputStream(pdfFilename);
+		
+	    ITextRenderer renderer = new ITextRenderer();
+	    renderer.setDocumentFromString(html);
+	    renderer.layout();
+	    renderer.createPDF(outputStream);
+	
+	    outputStream.close();
+	    
+	    return;
 	}
 	
 	
@@ -55,14 +76,16 @@ public class FileIoService {
 	
 	    String filename = prefix + "-" + formatter.format(instance) + "." + extension;
 	
-	    Path path = Paths.get(outputdir);
+	    String reportsdir = datadir + File.separator + outputdir;
+	    		
+	    Path path = Paths.get(reportsdir);
 	
 	    if (!Files.exists(path)){
 	      Files.createDirectory(path);
 	    }
 	
-	    String filepath = outputdir + File.separator + filename;
-	    
+	    String filepath = reportsdir + File.separator + filename;
+
 	    return filepath;
 	}
 

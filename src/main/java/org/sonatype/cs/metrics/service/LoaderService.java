@@ -142,7 +142,7 @@ public class LoaderService {
 				}
 
 				if (doAnalysis && loadInsightsMetrics) {
-					log.info("loading insights data");
+					log.info("Loading insights data");
 					loadInsightsData();
 				}
 			}

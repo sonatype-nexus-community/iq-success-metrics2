@@ -37,6 +37,11 @@ public class SummaryPdfService {
 	  
 	@Value("${pdf.htmltemplate}")
 	private String htmlTemplate;
+	
+	@Autowired
+	private FileIoService fileIoService;
+	
+	
 	  
 	@Autowired
 	private PeriodsDataService periodsDataService;
@@ -79,30 +84,10 @@ public class SummaryPdfService {
 	}
 	
 
-	public void generatePdfFromHtml(String html) throws DocumentException, IOException {
-
-	    LocalDateTime instance = LocalDateTime.now();
-	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyy_HHmm");
-	
-	    String pdfFilename = "successmetrics-" + formatter.format(instance) + ".pdf";
-	
-	    Path path = Paths.get(outputdir);
-	
-	    if (!Files.exists(path)){
-	      Files.createDirectory(path);
-	    }
-	
-	    String outputFolder = outputdir + File.separator + pdfFilename;
-	    OutputStream outputStream = new FileOutputStream(outputFolder);
-	
-	    ITextRenderer renderer = new ITextRenderer();
-	    renderer.setDocumentFromString(html);
-	    renderer.layout();
-	    renderer.createPDF(outputStream);
-	
-	    outputStream.close();
-	
-	    log.info("Created pdf report: " + outputFolder);
+	public void generatePdfFromHtml(String html) throws DocumentException, IOException {	    
+		String pdfFilename = fileIoService.makeFilename("successmetrics", "pdf");
+		fileIoService.writeSuccessMetricsPdfFile(pdfFilename, html);
+	    log.info("Created pdf report: " + pdfFilename);
 	}
 	
 }

@@ -9,7 +9,7 @@ plugins {
 }
 
 group = 'org.sonatype.cs'
-version = '76'
+version = '77'
 sourceCompatibility = '8'
 
 def bundledir = "successmetrics/successmetrics"
