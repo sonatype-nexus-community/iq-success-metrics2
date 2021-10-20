@@ -72,6 +72,7 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		log.info("Run mode: " + runMode);
+		log.info("Run directory: " + System.getProperty("user.dir"));
 		log.info("Active profile: " + activeProfile);
 
 		successMetricsFileLoaded = loaderService.loadSuccessMetricsData();
