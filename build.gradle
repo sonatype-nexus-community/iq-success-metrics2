@@ -92,8 +92,7 @@ task release (type: Copy) {
 	include '*.json'
 	include 'create*'
 	include 'reports2/'
-	include 'runapp*'
-	include 'examples/'
+	include 'runapp/'
 	into "${bundledir}"
 	filter(ReplaceTokens, tokens: [APPVER: project.version])
 }
