@@ -10,7 +10,8 @@
 
 ### Download the java app for success metrics
   * Click on the *successmetrics.zip* file, then download (there is a download button on the lower right)
-  * Unzip the contents into a directory of your choice
+  * Unzip the contents into a directory of your choice 
+  * Change into the *successmetrics* directory (this will be your working directory)
 
 ```
 unzip successmetrics.zip
@@ -42,7 +43,7 @@ cd successmetrics
 
 ### Create the csv files
 
-*There is a script available to help ease creation of the required CSV file(s).*
+*There is a script available to help creating the required CSV file(s).*
  
  * Open a command prompt and run 
 
@@ -92,7 +93,9 @@ The files are created in the reports2 directory
    
    This app is a simple web app running by default on port 4040. 
    
-   By default, the app looks for the *successmetrics.csv* file in the current directory 
+   By default, the app looks for the *successmetrics.csv* file in the working directory 
+   
+   There are a number of run scripts in the *runapp* directory which can be used to run the app.
 
    The app runs in a number of modes:
    
@@ -105,10 +108,10 @@ The files are created in the reports2 directory
    This mode will also load the optional data files in the reports2 directory if available
    
 ```
-(make sure you are in the main directory ie. successmetrics)
+(change to the *runapp* directory)
 
-Windows: runapp.bat 
-Linux: sh runapp.bat
+Windows: runapp-web.bat 
+Linux: sh runapp-web.bat
 ```
 
 The data file(s) are loaded on start-up of the app. Larger files may take a few mins.
@@ -131,13 +134,13 @@ The *Summary Report* on the web app main page menu is designed to be saved to pd
 You may wish to just create a pdf file containing the metrics report. 
 
 ```
-(make sure you are in the main directory ie. successmetrics)
+(change to the *runapp* directory)
 
 Windows: runapp-pdf.bat 
 Linux: sh runapp-pdf.bat
 ```
 
-A pdf report file is created in a sub-directory called *output* with a time-stamped file name. 
+A pdf report file is created in a sub-directory called *output* in the working directory with a time-stamped file name. 
 
 The application will then immediately exit after creating the pdf file. 
 
@@ -146,13 +149,13 @@ The application will then immediately exit after creating the pdf file.
 In this mode, the application will simply create a CSV file containing the data required in order to create an Insights Analysis report 
 
 ```
-(make sure you are in the main directory ie. successmetrics)
+(change to the *runapp* directory)
 
 Windows: runapp-insights.bat 
 Linux: sh runapp-insights.bat
 ```
 
-A CSV  file is created in a sub-directory called *output* with a time-stamped file name. 
+A CSV  file is created in a sub-directory called *output* in the working directory with a time-stamped file name. 
 
 The application will then immediately exit after creating the file. 
 
@@ -161,13 +164,13 @@ The application will then immediately exit after creating the file.
 ### Advanced Options
 
 You can override the following defaults by setting following system properties when you run the command to run the application.
-(Check the *examples* directory for example script using these oprions.
+(Check the *runapp* directory for run scripts using these options.
 
   #### To run on another port: (default: 4040) 
 
     *-Dserver.port=nnn*
 
-  #### To load the csv files from another location: (default: current directory) 
+  #### To load the csv files from another location: (default: working directory) 
 
     *-Ddata.dir=<path>*
   
@@ -186,12 +189,17 @@ You can override the following defaults by setting following system properties w
     To run in pdf mode, set the following property:
 
     *-Dspring.profiles.active=pdf*
+    
+  #### Generate the insights data CSV file: (default: web) 
+
+    To run in insights mode, set the following property:
+
+    *-Dspring.profiles.active=insights*
 
 ```
 Example: 
 
 To run the application on port 4455, just produce the pdf report and include the latest period
-(you can add the options to the runapp.bat file)
 
 java -jar -Dserver.port=4455 -Ddata.includelatestperiod=true -Dspring.profiles.active=pdf successmetrics-<version>.jar
 ```
