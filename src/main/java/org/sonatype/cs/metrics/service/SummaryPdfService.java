@@ -32,17 +32,12 @@ public class SummaryPdfService {
 
 	private static final Logger log = LoggerFactory.getLogger(SummaryPdfService.class);
 
-	@Value("${pdf.outputdir}")
-	private String outputdir;
-	  
 	@Value("${pdf.htmltemplate}")
 	private String htmlTemplate;
 	
 	@Autowired
 	private FileIoService fileIoService;
 	
-	
-	  
 	@Autowired
 	private PeriodsDataService periodsDataService;
 	  
