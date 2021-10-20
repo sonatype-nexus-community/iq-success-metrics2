@@ -39,6 +39,7 @@ success-metrics
 bin/*
 datafiles
 *.json
+output/
 
 .DS_Store
 successmetrics-reports/
