@@ -4,9 +4,43 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpHeaders;
+import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.AuthenticationException;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.auth.BasicScheme;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.aspectj.apache.bcel.classfile.annotation.NameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonatype.cs.metrics.util.DataLoaderParams;
@@ -24,6 +58,9 @@ public class LoaderService {
 	private DbService dbService;
 	
 	@Autowired
+	private FileIoService fileIoService;
+	
+	@Autowired
 	private PeriodsDataService periodsDataService;
 
 	@Value("${data.includelatestperiod}")
@@ -34,7 +71,20 @@ public class LoaderService {
 	
 	@Value("${data.dir}")
 	private String dataDir;
-	
+
+	@Value("${iq.url}")
+	private String iqUrl;
+
+	@Value("${iq.user}")
+	private String iqUser;
+
+	@Value("${iq.pwd}")
+	private String iqPwd;
+
+	@Value("${iq.sm.endpoint}")
+	private String iqSmEndpoint;
+
+
 	public boolean loadMetricsFile(String fileName, String header, String stmt) throws IOException {
 		boolean status = false;
 		
@@ -167,4 +217,42 @@ public class LoaderService {
 		return;		
 	}
 	
+	public void createSmData(String smdata) throws ClientProtocolException, IOException {
+		log.info("Creating successmetrics.csv file");
+				
+		String payloadFile = dataDir + File.separator + smdata + ".json";
+
+		log.info("Reading payload from " + payloadFile);
+
+		String payload = fileIoService.readJsonAsString(payloadFile);
+        StringEntity params = new StringEntity(payload);
+
+		String metricsUrl = iqUrl + "/" + iqSmEndpoint;
+    	HttpPost request = new HttpPost(metricsUrl);
+
+		String auth = iqUser + ":" + iqPwd;
+		byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(StandardCharsets.ISO_8859_1));
+		String authHeader = "Basic " + new String(encodedAuth);
+		
+		request.setHeader(HttpHeaders.AUTHORIZATION, authHeader);
+		request.addHeader("Accept", "text/csv");
+		request.addHeader("Content-Type", "application/json");
+        request.setEntity(params);
+
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpResponse response = client.execute(request);
+
+		int statusCode = response.getStatusLine().getStatusCode();
+		
+		if (statusCode != 200) {
+			throw new RuntimeException("Failed with HTTP error code : " + statusCode);
+	    }
+	        
+	    log.info("Created successmetrics.csv file");
+	    
+	    InputStream content = response.getEntity().getContent();
+	    fileIoService.writeSuccessMetricsFile(content);
+	    
+	    return;
+	}	
 }

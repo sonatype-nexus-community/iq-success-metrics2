@@ -28,5 +28,55 @@
     "name": "sm.data",
     "type": "java.lang.String",
     "description": "A description for 'sm.data'"
+  },
+  {
+    "name": "iq.url",
+    "type": "java.lang.String",
+    "description": "A description for 'iq.url'"
+  },
+  {
+    "name": "iq.pwd",
+    "type": "java.lang.String",
+    "description": "A description for 'iq.pwd'"
+  },
+  {
+    "name": "reports.outputdir",
+    "type": "java.lang.String",
+    "description": "A description for 'reports.outputdir'"
+  },
+  {
+    "name": "pdf.htmltemplate",
+    "type": "java.lang.String",
+    "description": "A description for 'pdf.htmltemplate'"
+  },
+  {
+    "name": "data.dir",
+    "type": "java.lang.String",
+    "description": "A description for 'data.dir'"
+  },
+  {
+    "name": "data.includelatestperiod",
+    "type": "java.lang.String",
+    "description": "A description for 'data.includelatestperiod'"
+  },
+  {
+    "name": "data.loadInsightsMetrics",
+    "type": "java.lang.String",
+    "description": "A description for 'data.loadInsightsMetrics'"
+  },
+  {
+    "name": "data.componentwaiversmetrics",
+    "type": "java.lang.String",
+    "description": "A description for 'data.componentwaiversmetrics'"
+  },
+  {
+    "name": "iq.user",
+    "type": "java.lang.String",
+    "description": "A description for 'iq.user'"
+  },
+  {
+    "name": "iq.sm.endpoint",
+    "type": "java.lang.String",
+    "description": "A description for 'iq.sm.endpoint'"
   }
 ]}

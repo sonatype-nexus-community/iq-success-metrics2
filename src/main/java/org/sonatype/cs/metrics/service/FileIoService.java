@@ -5,15 +5,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,6 +33,9 @@ public class FileIoService {
 
 	@Value("${data.dir}")
 	private String datadir;
+	
+	@Value("${data.successmetrics}")
+	private String successmetricsFile;
 	
 	public void writeInsightsCsvFile(String csvFilename, List<String[]> csvData, String beforeDateRange, String afterDateRange) throws IOException {
 		
@@ -88,5 +94,37 @@ public class FileIoService {
 
 	    return filepath;
 	}
+	
+	public String readJsonAsString(String filename) throws IOException {
+		
+		String jsonString = null;
+		
+		if (this.fileExists(filename)) {
+			jsonString = new String(Files.readAllBytes(Paths.get(filename)));
+		}
+		
+		return jsonString;
+	}
+	
+	public boolean fileExists(String filename) throws IOException {
+		boolean exists = false;
+		
+		File f = new File(filename);
+		
+		if (f.exists() && f.length() > 0){
+			exists = true;
+		}
+		else {
+			throw new IOException("Failed to read file : " + filename);
+		}
+		
+		return exists;
+	}
 
+	public void writeSuccessMetricsFile(InputStream content) throws IOException {
+	    File outputFile = new File(datadir + File.separator + successmetricsFile);
+	    java.nio.file.Files.copy(content, outputFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+	    IOUtils.closeQuietly(content);
+		return;
+	}
 }
