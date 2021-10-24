@@ -44,11 +44,12 @@ def get_nexusiq_data(end_point):
 def print_json(json_data, json_file):
     output_file = "{}/{}{}".format(quarantine_datadir, json_file, ".json")
     json_formatted = json.dumps(json_data, indent=2)
-    print(json_formatted)
+    #print(json_formatted)
     
     with open(output_file, 'w') as outfile:
         json.dump(json_data, outfile, indent=2)
     
+    print(output_file)
     return
     
 
@@ -74,6 +75,7 @@ def summary_report(report_name, end_point):
         
         writer.writerow(line)
 
+    print(csv_file)
     return
 
 

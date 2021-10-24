@@ -217,7 +217,7 @@ public class LoaderService {
 		return;		
 	}
 	
-	public void createSmData(String smdata) throws ClientProtocolException, IOException {
+	public void createSmDatafile(String smdata) throws ClientProtocolException, IOException {
 		log.info("Creating successmetrics.csv file");
 				
 		String payloadFile = dataDir + File.separator + smdata + ".json";

@@ -13,15 +13,15 @@ public class HomeController {
 	
 	private static final Logger log = LoggerFactory.getLogger(HomeController.class);
 	
-	@Value("${sm.data}")
-	private String smdata;
+	@Value("${sm.database}")
+	private String smdatabase;
 	
 	@GetMapping({"/", "/home"})
 	public String home(Model model) {
         
 		log.info("In HomeController");
 		
-		model.addAttribute("smdata", smdata);
+		model.addAttribute("smdatabase", smdatabase);
 		model.addAttribute("successmetricsreport", SuccessMetricsApplication.successMetricsFileLoaded);
 		model.addAttribute("policyViolationsreport", SuccessMetricsApplication.policyViolationsDataLoaded);
 		model.addAttribute(("applicationEvaluationsreport"), SuccessMetricsApplication.applicationEvaluationsFileLoaded);
