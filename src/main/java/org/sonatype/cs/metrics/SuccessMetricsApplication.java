@@ -44,8 +44,8 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 	@Value("${data.successmetrics}")
 	private String successmetricsDatafile;
 	
-	@Value("${sm.csv}")
-	private String smCsv;
+	@Value("${iq.sm.csv}")
+	private String iqSmCsv;
 
 	@Value("${server.port}")
 	private String port;
@@ -78,8 +78,8 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 		log.info("Working directory: " + System.getProperty("user.dir"));
 		log.info("Active profile: " + activeProfile);
 
-		if (!smCsv.equalsIgnoreCase("none")) {
-			loaderService.createSmDatafile(smCsv);
+		if (!iqSmCsv.equalsIgnoreCase("none")) {
+			loaderService.createSmDatafile(iqSmCsv);
 		}
 
 		successMetricsFileLoaded = loaderService.loadSuccessMetricsData();

@@ -81,9 +81,14 @@ public class LoaderService {
 	@Value("${iq.pwd}")
 	private String iqPwd;
 
-	@Value("${iq.sm.endpoint}")
-	private String iqSmEndpoint;
+	@Value("${iq.data.application.name}")
+	private String iqApplicationName;
+	
+	@Value("${iq.data.organisation.name}")
+	private String iqOrganisationName;
 
+
+	private String iqSmEndpoint = "api/v2/reports/metrics";
 
 	public boolean loadMetricsFile(String fileName, String header, String stmt) throws IOException {
 		boolean status = false;
@@ -219,14 +224,9 @@ public class LoaderService {
 	
 	public void createSmDatafile(String smdata) throws ClientProtocolException, IOException {
 		log.info("Creating successmetrics.csv file");
+		
+		StringEntity apiPayload = getApiPayload(smdata);
 				
-		String payloadFile = dataDir + File.separator + smdata + ".json";
-
-		log.info("Reading payload from " + payloadFile);
-
-		String payload = fileIoService.readJsonAsString(payloadFile);
-        StringEntity params = new StringEntity(payload);
-
 		String metricsUrl = iqUrl + "/" + iqSmEndpoint;
     	HttpPost request = new HttpPost(metricsUrl);
 
@@ -237,7 +237,7 @@ public class LoaderService {
 		request.setHeader(HttpHeaders.AUTHORIZATION, authHeader);
 		request.addHeader("Accept", "text/csv");
 		request.addHeader("Content-Type", "application/json");
-        request.setEntity(params);
+        request.setEntity(apiPayload);
 
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpResponse response = client.execute(request);
@@ -254,5 +254,15 @@ public class LoaderService {
 	    fileIoService.writeSuccessMetricsFile(content);
 	    
 	    return;
+	}
+
+	private StringEntity getApiPayload(String smdata) throws IOException {
+		String payloadFile = dataDir + File.separator + smdata + ".json";
+
+		log.info("Reading payload from " + payloadFile);
+
+		String payload = fileIoService.readJsonAsString(payloadFile);
+        StringEntity params = new StringEntity(payload);
+		return params;
 	}	
 }

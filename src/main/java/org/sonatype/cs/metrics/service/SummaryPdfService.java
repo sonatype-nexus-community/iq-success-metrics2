@@ -32,9 +32,6 @@ public class SummaryPdfService {
 
 	private static final Logger log = LoggerFactory.getLogger(SummaryPdfService.class);
 
-	@Value("${pdf.htmltemplate}")
-	private String htmlTemplate;
-	
 	@Autowired
 	private FileIoService fileIoService;
 	
@@ -47,7 +44,7 @@ public class SummaryPdfService {
 	@Autowired
 	private InsightsAnalysisService analysisService;
 	
-	
+
 	public String parsePdfTemplate(String htmlTemplate, boolean doAnalysis) throws ParseException {
 	    ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
 	    templateResolver.setSuffix(".html");
