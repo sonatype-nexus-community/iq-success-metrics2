@@ -6,10 +6,10 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'org.sonatype.gradle.plugins.scan' version '1.2.0'
-}
+ }
 
 group = 'org.sonatype.cs'
-version = '79'
+version = '80'
 sourceCompatibility = '8'
 
 def bundledir = "successmetrics/successmetrics"
@@ -79,7 +79,8 @@ task release (type: Copy) {
 	include '*.json'
 	include 'create*'
 	include 'reports2/'
-	include 'runapp/'
+	include 'config/'
+	include 'runapp*'
 	into "${bundledir}"
 	filter(ReplaceTokens, tokens: [APPVER: project.version])
 }
@@ -90,9 +91,14 @@ task bundle(type: Zip) {
 	destinationDir(file(projectDir))
 }
 
-releasejar.dependsOn bootJar, jar
+//task bootBuildImage { 
+  //builder=..
+  //imageName="${project.name}:${project.version}"
+//}
 
+releasejar.dependsOn bootJar, jar
 bundle.dependsOn releasejar, release
+
 
 
 /*
