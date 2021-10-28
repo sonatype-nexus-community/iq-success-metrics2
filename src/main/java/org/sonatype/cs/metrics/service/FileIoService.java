@@ -2,7 +2,6 @@ package org.sonatype.cs.metrics.service;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,7 +25,7 @@ import org.xhtmlrenderer.pdf.ITextRenderer;
 
 @Service
 public class FileIoService {
-	private static final Logger log = LoggerFactory.getLogger(FileIoService.class);
+	//private static final Logger log = LoggerFactory.getLogger(FileIoService.class);
 
 	@Value("${reports.outputdir}")
 	private String outputdir;

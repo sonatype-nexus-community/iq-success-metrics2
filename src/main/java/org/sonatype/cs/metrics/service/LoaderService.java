@@ -5,42 +5,26 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.Iterator;
 import java.util.Map;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.AuthenticationException;
-import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.auth.BasicScheme;
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
-import org.aspectj.apache.bcel.classfile.annotation.NameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonatype.cs.metrics.util.DataLoaderParams;
@@ -81,11 +65,17 @@ public class LoaderService {
 	@Value("${iq.pwd}")
 	private String iqPwd;
 
-	@Value("${iq.data.application.name}")
-	private String iqApplicationName;
+	@Value("${iq.api.payload.timeperiod.first}")
+	private String iqApiFirstTimePeriod;
 	
-	@Value("${iq.data.organisation.name}")
-	private String iqOrganisationName;
+	@Value("${iq.api.payload.timeperiod.last}")
+	private String iqApiLastTimePeriod;
+	
+	@Value("${iq.api.payload.application.name}")
+	private String iqApiApplicationName;
+	
+	@Value("${iq.api.payload.organisation.name}")
+	private String iqApiOrganisationName;
 
 
 	private String iqSmEndpoint = "api/v2/reports/metrics";
@@ -222,10 +212,10 @@ public class LoaderService {
 		return;		
 	}
 	
-	public void createSmDatafile(String smdata) throws ClientProtocolException, IOException {
+	public void createSmDatafile(String iqSmPeriod) throws ClientProtocolException, IOException, JSONException, org.json.simple.parser.ParseException {
 		log.info("Creating successmetrics.csv file");
 		
-		StringEntity apiPayload = getApiPayload(smdata);
+		StringEntity apiPayload = getPayload(iqSmPeriod);
 				
 		String metricsUrl = iqUrl + "/" + iqSmEndpoint;
     	HttpPost request = new HttpPost(metricsUrl);
@@ -256,13 +246,83 @@ public class LoaderService {
 	    return;
 	}
 
-	private StringEntity getApiPayload(String smdata) throws IOException {
-		String payloadFile = dataDir + File.separator + smdata + ".json";
+	private StringEntity getPayload(String iqSmPeriod) throws IOException, JSONException, org.json.simple.parser.ParseException {
+		log.info("Making api payload");
 
-		log.info("Reading payload from " + payloadFile);
+		JSONObject ajson = new JSONObject();
+		ajson.put("timePeriod", iqSmPeriod.toUpperCase());
+		ajson.put("firstTimePeriod", iqApiFirstTimePeriod);
+		
+		if (iqApiLastTimePeriod.length() > 0) {
+			ajson.put("lastTimePeriod", iqApiLastTimePeriod);
+		}
+		
+		// organisation takes precedence
+		if (iqApiOrganisationName.length() > 0){
+			ajson.put("organizationIds", getId("organizations", iqApiOrganisationName));
+		}
+		else if (iqApiApplicationName.length() > 0) {
+			ajson.put("applicationIds", getId("applications", iqApiApplicationName));
+		}
+		
+		log.info("Api Payload: " + ajson.toString());
 
-		String payload = fileIoService.readJsonAsString(payloadFile);
-        StringEntity params = new StringEntity(payload);
+		StringEntity params = new StringEntity(ajson.toString());
+
 		return params;
-	}	
+	}
+	
+	private String[] getId(String endpoint, String aoName) throws ClientProtocolException, IOException, org.json.simple.parser.ParseException {
+		String[] s = new String[1];
+
+		String apiEndpoint = "/api/v2/" + endpoint;
+		
+		String content = getIqData(apiEndpoint);
+		
+		JSONObject jsonObject = new JSONObject(content);
+	    
+	    JSONArray jsonArray = jsonObject.getJSONArray(endpoint);
+	    
+	    for (int i = 0; i < jsonArray.length(); i++) {
+	        JSONObject jObject = jsonArray.getJSONObject(i);
+	        
+	        String oName = jObject.getString("name");
+	        String oId = jObject.getString("id");
+	        
+	        if (oName.equals(aoName)) {
+	        	StringBuffer ep = new StringBuffer(endpoint);
+	        	log.info("Reporting for " + ep.deleteCharAt(ep.length()-1) + ": " + aoName + " [" + oId + "]");
+	        	s[0] =  oId;
+	        	break;
+	        }
+	    }
+
+		return s;
+	}
+	
+	private String getIqData(String endpoint) throws ClientProtocolException, IOException {
+						
+		String url = iqUrl + "/" + endpoint;
+    	HttpGet request = new HttpGet(url);
+
+		String auth = iqUser + ":" + iqPwd;
+		byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(StandardCharsets.ISO_8859_1));
+		String authHeader = "Basic " + new String(encodedAuth);
+		
+		request.setHeader(HttpHeaders.AUTHORIZATION, authHeader);
+		request.addHeader("Content-Type", "application/json");
+
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpResponse response = client.execute(request);
+
+		int statusCode = response.getStatusLine().getStatusCode();
+		
+		if (statusCode != 200) {
+			throw new RuntimeException("Failed with HTTP error code : " + statusCode);
+	    }
+	        	    
+	    String jsonString = EntityUtils.toString(response.getEntity());   
+	    return jsonString;
+	}
+	
 }

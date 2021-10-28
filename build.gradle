@@ -9,7 +9,7 @@ plugins {
  }
 
 group = 'org.sonatype.cs'
-version = '80'
+version = '81'
 sourceCompatibility = '8'
 
 def bundledir = "successmetrics/successmetrics"
@@ -41,6 +41,8 @@ dependencies {
 	implementation 'org.apache.httpcomponents:httpclient:4.5.9'
     implementation 'commons-codec:commons-codec:1.10'
     implementation 'commons-io:commons-io:2.11.0'
+	implementation 'org.json:json:20210307'
+	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
     
 }
 

@@ -1,16 +1,12 @@
 package org.sonatype.cs.metrics;
 
-import java.awt.List;
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sonatype.cs.metrics.service.InsightsAnalysisService;
 import org.sonatype.cs.metrics.service.LoaderService;
 import org.sonatype.cs.metrics.service.SummaryPdfService;
-import org.sonatype.cs.metrics.service.PeriodsDataService;
-import org.sonatype.cs.metrics.service.InsightsAnalysisService;
 import org.sonatype.cs.metrics.util.DataLoaderParams;
 import org.sonatype.cs.metrics.util.SqlStatements;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +40,11 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 	@Value("${data.successmetrics}")
 	private String successmetricsDatafile;
 	
-	@Value("${iq.sm.csv}")
-	private String iqSmCsv;
+	@Value("${iq.sm.csvfile}")
+	private boolean iqSmCsvfile;
+	
+	@Value("${iq.sm.period}")
+	private String iqSmPeriod;
 
 	@Value("${server.port}")
 	private String port;
@@ -78,8 +77,8 @@ public class SuccessMetricsApplication implements CommandLineRunner {
 		log.info("Working directory: " + System.getProperty("user.dir"));
 		log.info("Active profile: " + activeProfile);
 
-		if (!iqSmCsv.equalsIgnoreCase("none")) {
-			loaderService.createSmDatafile(iqSmCsv);
+		if (iqSmCsvfile) {
+			loaderService.createSmDatafile(iqSmPeriod);
 		}
 
 		successMetricsFileLoaded = loaderService.loadSuccessMetricsData();
