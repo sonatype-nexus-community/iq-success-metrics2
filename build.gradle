@@ -12,8 +12,8 @@ plugins {
 group = 'org.sonatype.cs'
 version = '81'
 sourceCompatibility = '8'
-def applicationname = 'iq-success-metrics2'
 
+def applicationname = 'iq-success-metrics2'
 def bundledir = "successmetrics/successmetrics"
 def packagedir = "successmetrics-${version}"
 
@@ -34,7 +34,6 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
         
-	
   	implementation 'org.webjars:jquery:3.5.1'
 	implementation 'org.webjars:bootstrap:4.5.0'
 	implementation 'org.thymeleaf:thymeleaf:3.0.12.RELEASE'
@@ -46,7 +45,6 @@ dependencies {
     implementation 'commons-io:commons-io:2.11.0'
 	implementation 'org.json:json:20210307'
 	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
-    
 }
 
 nexusIQScan {
@@ -60,12 +58,14 @@ nexusIQScan {
 
 clean.doFirst {
 	delete "${bundledir}"
+	delete "${packagedir}"
 	delete "${rootDir}/successmetrics"
 	delete "${rootDir}/successmetrics.zip"
 }
 
 build.doFirst {
 	mkdir "${bundledir}"
+	mkdir "${packagedir}"
 }
 
 task releasejar (type: Copy) {
@@ -90,7 +90,21 @@ task release (type: Copy) {
 	filter(ReplaceTokens, tokens: [APPVER: project.version])
 }
 
-task package (type: Copy) {
+task bundle(type: Zip) {
+	from 'successmetrics'
+	archiveName "successmetrics.zip"
+	destinationDir(file(projectDir))
+}
+
+/// github action
+
+task packagejar (type: Copy) {
+  from 'build/libs'
+	include "successmetrics-${version}.jar"
+  into "${packagedir}"
+}
+
+task packageapp (type: Copy) {
 	from 'releasefiles'
 	include '*.json'
 	include 'create*'
@@ -101,29 +115,15 @@ task package (type: Copy) {
 	filter(ReplaceTokens, tokens: [APPVER: project.version])
 }
 
-task bundle(type: Zip) {
-	from 'successmetrics'
-	archiveName "successmetrics.zip"
-	destinationDir(file(projectDir))
-}
-
-//task bootBuildImage { 
-  //builder=..
-  //imageName="${project.name}:${project.version}"
-//}
-
-releasejar.dependsOn bootJar, jar
-bundle.dependsOn releasejar, release
-package.dependsOn releasejar
-
-
-
-/*
-gradle clean build bundle
-*/
-
 docker {
      name "${applicationname}:${project.version}"
      files '${bundledir}/successmetrics-*.jar'
 }
 
+releasejar.dependsOn bootJar, jar
+bundle.dependsOn releasejar, release
+packageapp.dependsOn packagejar
+
+/*
+gradle clean build bundle
+*/
