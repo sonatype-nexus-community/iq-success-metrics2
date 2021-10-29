@@ -6,11 +6,13 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'org.sonatype.gradle.plugins.scan' version '1.2.0'
+	id "com.palantir.docker" version "0.22.1"
  }
 
 group = 'org.sonatype.cs'
 version = '81'
 sourceCompatibility = '8'
+def applicationname = 'iq-success-metrics2'
 
 def bundledir = "successmetrics/successmetrics"
 
@@ -106,4 +108,9 @@ bundle.dependsOn releasejar, release
 /*
 gradle clean build bundle
 */
+
+docker {
+     name "${applicationname}:${project.version}"
+     files '${bundledir}/successmetrics-*.jar'
+}
 
