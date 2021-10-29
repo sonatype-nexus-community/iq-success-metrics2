@@ -112,9 +112,9 @@ task bundle(type: Zip) {
   //imageName="${project.name}:${project.version}"
 //}
 
-package.dependsOn bootJar, jar
 releasejar.dependsOn bootJar, jar
 bundle.dependsOn releasejar, release
+package.dependsOn releasejar
 
 
 
