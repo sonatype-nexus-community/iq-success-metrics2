@@ -41,16 +41,16 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew clean build bundle
       
-    - name: Upload artifact to staging
-      run: mkdir staging && cp successmetrics.zip staging
+    # - name: Upload artifact to staging
+    #   run: mkdir staging && cp successmetrics.zip staging
       
     - name: Publish package
       uses: actions/upload-artifact@v2
       with:
-        name: Package
-        path: staging
+        name: successmetrics
+        path: successmetrics-*
 
-    - name: Publish package to Github packages
-      run: gradle publish
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # - name: Publish package to Github packages
+    #   run: gradle publish
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

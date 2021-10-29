@@ -15,6 +15,7 @@ sourceCompatibility = '8'
 def applicationname = 'iq-success-metrics2'
 
 def bundledir = "successmetrics/successmetrics"
+def packagedir = "successmetrics-${version}"
 
 repositories {
 	mavenCentral()
@@ -89,6 +90,17 @@ task release (type: Copy) {
 	filter(ReplaceTokens, tokens: [APPVER: project.version])
 }
 
+task package (type: Copy) {
+	from 'releasefiles'
+	include '*.json'
+	include 'create*'
+	include 'reports2/'
+	include 'config/'
+	include 'runapp*'
+	into "${packagedir}"
+	filter(ReplaceTokens, tokens: [APPVER: project.version])
+}
+
 task bundle(type: Zip) {
 	from 'successmetrics'
 	archiveName "successmetrics.zip"
@@ -100,6 +112,7 @@ task bundle(type: Zip) {
   //imageName="${project.name}:${project.version}"
 //}
 
+package.dependsOn bootJar, jar
 releasejar.dependsOn bootJar, jar
 bundle.dependsOn releasejar, release
 
