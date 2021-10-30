@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.http.HttpHeaders;
@@ -24,10 +22,11 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sonatype.cs.metrics.model.PayloadItem;
 import org.sonatype.cs.metrics.util.DataLoaderParams;
+import org.sonatype.cs.metrics.util.HelperService;
 import org.sonatype.cs.metrics.util.SqlStatements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,6 +39,9 @@ public class LoaderService {
 	
 	@Autowired
 	private DbService dbService;
+
+	@Autowired
+	private HelperService helperService;
 	
 	@Autowired
 	private FileIoService fileIoService;
@@ -249,24 +251,29 @@ public class LoaderService {
 	private StringEntity getPayload(String iqSmPeriod) throws IOException, JSONException, org.json.simple.parser.ParseException {
 		log.info("Making api payload");
 
-		if (iqApiFirstTimePeriod.length() == 0) {
+		PayloadItem firstTimePeriod = new PayloadItem(iqApiFirstTimePeriod, false);
+		PayloadItem lastTimePeriod = new PayloadItem(iqApiLastTimePeriod, false);
+		PayloadItem organisationName = new PayloadItem(iqApiOrganisationName, false);
+		PayloadItem applicationName = new PayloadItem(iqApiApplicationName, false);
+
+		if (!firstTimePeriod.isExists()) {
 			throw new RuntimeException("No start period specified (iq.api.payload.timeperiod.first)");
 		}
 
 		JSONObject ajson = new JSONObject();
 		ajson.put("timePeriod", iqSmPeriod.toUpperCase());
-		ajson.put("firstTimePeriod", iqApiFirstTimePeriod);
+		ajson.put("firstTimePeriod", firstTimePeriod.getItem());
 		
-		if (iqApiLastTimePeriod.length() > 0) {
-			ajson.put("lastTimePeriod", iqApiLastTimePeriod);
+		if (lastTimePeriod.isExists()) {
+			ajson.put("lastTimePeriod", lastTimePeriod.getItem());
 		}
 		
 		// organisation takes precedence
-		if (iqApiOrganisationName.length() > 0){
-			ajson.put("organizationIds", getId("organizations", iqApiOrganisationName));
+		if (organisationName.isExists()){
+			ajson.put("organizationIds", getId("organizations", organisationName.getItem()));
 		}
-		else if (iqApiApplicationName.length() > 0) {
-			ajson.put("applicationIds", getId("applications", iqApiApplicationName));
+		else if (applicationName.isExists()) {
+			ajson.put("applicationIds", getId("applications", applicationName.getItem()));
 		}
 		
 		log.info("Api Payload: " + ajson.toString());

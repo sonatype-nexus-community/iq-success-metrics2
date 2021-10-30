@@ -10,9 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonatype.cs.metrics.model.DbRow;
 import org.sonatype.cs.metrics.model.Mttr;
+import org.sonatype.cs.metrics.model.PayloadItem;
 import org.sonatype.cs.metrics.util.HelperService;
 import org.sonatype.cs.metrics.util.SqlStatements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,6 +27,11 @@ public class ApplicationsDataService {
 	@Autowired
 	private HelperService helperService;
 	
+	@Value("${iq.api.payload.application.name}")
+	private String iqApiApplicationName;
+	
+	@Value("${iq.api.payload.organisation.name}")
+	private String iqApiOrganisationName;
 	
 	public Map<String, Object> getApplicationData(String tableName, Map<String, Object> periodsData) throws ParseException {
 		Map<String, Object> model = new HashMap<>();
@@ -84,6 +91,19 @@ public class ApplicationsDataService {
 		}
 		else {
 			model.put("applicationReport", false);
+		}
+
+		PayloadItem organisationName = new PayloadItem(iqApiOrganisationName, false);
+		PayloadItem applicationName = new PayloadItem(iqApiApplicationName, false);
+
+		if (organisationName.isExists()){
+			model.put("orgOrAppName", "Organisation: " + iqApiOrganisationName);
+		}
+		else if (applicationName.isExists()){
+			model.put("orgOrAppName", "Application: " + iqApiApplicationName);
+		}
+		else {
+			model.put("orgOrAppName", "");
 		}
 	
 		List<DbRow> numberOfScansData = dbService.runSql(tableName, SqlStatements.NumberOfScans);

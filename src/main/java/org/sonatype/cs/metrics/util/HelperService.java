@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class HelperService {
-	
+
 	public int[] getPointsSumAndAverage(List<DbRow> dataList) {
 
 		int countLabels = 0;
@@ -84,5 +84,5 @@ public class HelperService {
 	    
 	    return result;
 
-	  }
+	}
 }

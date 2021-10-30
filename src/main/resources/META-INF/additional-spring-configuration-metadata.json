@@ -78,5 +78,40 @@
     "name": "iq.sm.endpoint",
     "type": "java.lang.String",
     "description": "A description for 'iq.sm.endpoint'"
+  },
+  {
+    "name": "iq.api.payload.timeperiod.first",
+    "type": "java.lang.String",
+    "description": "A description for 'iq.api.payload.timeperiod.first'"
+  },
+  {
+    "name": "iq.api.payload.organisation.name",
+    "type": "java.lang.String",
+    "description": "A description for 'iq.api.payload.organisation.name'"
+  },
+  {
+    "name": "iq.api.payload.application.name",
+    "type": "java.lang.String",
+    "description": "A description for 'iq.api.payload.application.name'"
+  },
+  {
+    "name": "iq.api.payload.timeperiod.last",
+    "type": "java.lang.String",
+    "description": "A description for 'iq.api.payload.timeperiod.last'"
+  },
+  {
+    "name": "iq.sm.period",
+    "type": "java.lang.String",
+    "description": "A description for 'iq.sm.period'"
+  },
+  {
+    "name": "sm.database",
+    "type": "java.lang.String",
+    "description": "A description for 'sm.database'"
+  },
+  {
+    "name": "iq.sm.csvfile",
+    "type": "java.lang.String",
+    "description": "A description for 'iq.sm.csvfile'"
   }
 ]}

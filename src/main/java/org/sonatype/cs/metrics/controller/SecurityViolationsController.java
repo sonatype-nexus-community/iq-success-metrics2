@@ -1,9 +1,12 @@
 package org.sonatype.cs.metrics.controller;
 
+import java.text.ParseException;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sonatype.cs.metrics.service.ApplicationsDataService;
+import org.sonatype.cs.metrics.service.PeriodsDataService;
 import org.sonatype.cs.metrics.service.SecurityDataService;
 import org.sonatype.cs.metrics.util.SqlStatements;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +21,24 @@ public class SecurityViolationsController {
     @Autowired
     private SecurityDataService securityDataService;
 
+    @Autowired
+	private PeriodsDataService periodsDataService;
+    
+    @Autowired
+    private ApplicationsDataService applicationsDataService;
+    
     @GetMapping({ "/securityviolations" })
-    public String securityViolations(Model model) {
+    public String securityViolations(Model model) throws ParseException {
 
         log.info("In SecurityViolationsController");
         
+        Map<String, Object> periodsData = periodsDataService.getPeriodData(SqlStatements.METRICTABLENAME);
+        Map<String, Object> applicationData = applicationsDataService.getApplicationData(SqlStatements.METRICTABLENAME, periodsData);
+
         Map<String, Object> securityViolationsData = securityDataService.getSecurityViolations(SqlStatements.METRICTABLENAME);
         model.mergeAttributes(securityViolationsData);
-		
+        model.mergeAttributes(applicationData);
+
         return "securityViolations";
     }
     
