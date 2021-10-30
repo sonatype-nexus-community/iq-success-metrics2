@@ -43,3 +43,9 @@ jobs:
       with:
         name: successmetrics
         path: successmetrics-*.zip
+    
+    - name: Create release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: successmetrics-*.zip
