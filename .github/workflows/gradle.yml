@@ -35,14 +35,14 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew clean build release
       
-    - name: Upload artifact to staging area
-      run: mkdir staging && cp successmetrics-*.zip staging
+    # - name: Upload artifact to staging area
+    #   run: mkdir staging && cp successmetrics-*.zip staging
       
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: successmetrics
-        path: successmetrics-*.zip
+    # - name: Upload artifacts
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: successmetrics
+    #     path: successmetrics-*.zip
     
     - name: Create release
       uses: softprops/action-gh-release@v1
