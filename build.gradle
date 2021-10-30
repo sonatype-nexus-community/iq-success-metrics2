@@ -61,9 +61,10 @@ clean.doFirst {
 	delete "${packagedir}.zip"
 }
 
-// build.doFirst {
-// 	mkdir "${packagedir}"
-// }
+build.doFirst {
+	mkdir "${packagedir}"
+	mkdir "${releasedir}"
+}
 
 task copydependencies(type: Copy) {
   from configurations.default
