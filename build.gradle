@@ -96,7 +96,7 @@ task release(type: Zip) {
 
 docker {
      name "${applicationname}:${project.version}"
-     files '${releasedir}/successmetrics-*.jar'
+     files "${projectDir}/build/libs/successmetrics-*.jar"
 }
 
 packagejar.dependsOn bootJar
