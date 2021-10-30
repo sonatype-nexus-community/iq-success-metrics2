@@ -2,9 +2,9 @@
 name: Build and Release iq-success-metrics2
 
 on:
-  # push:
-  #   branches:
-  #     - master
+  push:
+    branches:
+      - master
       
   release:
     types:
@@ -37,7 +37,7 @@ jobs:
       run: chmod +x gradlew
       
     - name: Build with Gradle
-      run: ./gradlew clean build packageapp
+      run: ./gradlew clean build release
       
     - name: Upload artifact to staging area
       run: mkdir staging && cp successmetrics-*.zip staging
@@ -47,4 +47,3 @@ jobs:
       with:
         name: successmetrics
         path: successmetrics-*.zip
-        
