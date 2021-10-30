@@ -14,8 +14,8 @@ version = '81'
 sourceCompatibility = '8'
 
 def applicationname = 'iq-success-metrics2'
-def bundledir = "successmetrics/successmetrics"
 def packagedir = "successmetrics-${version}"
+def releasedir = "${packagedir}/${packagedir}"
 
 repositories {
 	mavenCentral()
@@ -57,65 +57,37 @@ nexusIQScan {
 }
 
 clean.doFirst {
-	delete "${bundledir}"
 	delete "${packagedir}"
 	delete "${packagedir}.zip"
-	delete "${rootDir}/successmetrics"
 }
 
-build.doFirst {
-	mkdir "${bundledir}"
-	mkdir "${packagedir}"
-}
-
-task releasejar (type: Copy) {
-  from 'build/libs'
-	include "successmetrics-${version}.jar"
-  into "${bundledir}"
-}
+// build.doFirst {
+// 	mkdir "${packagedir}"
+// }
 
 task copydependencies(type: Copy) {
   from configurations.default
   into 'build/dependencies'
 }
 
-task release (type: Copy) {
-	from 'releasefiles'
-	include '*.json'
-	include 'create*'
-	include 'reports2/'
-	include 'config/'
-	include 'runapp*'
-	into "${bundledir}"
-	filter(ReplaceTokens, tokens: [APPVER: project.version])
-}
-
-task bundle(type: Zip) {
-	from 'successmetrics'
-	archiveName "successmetrics.zip"
-	destinationDir(file(projectDir))
-}
-
-/// github action
-
 task packagejar (type: Copy) {
   from 'build/libs'
 	include "successmetrics-${version}.jar"
-  into "${packagedir}"
+  into "${releasedir}"
 }
 
-task packageapp (type: Copy) {
+task packagefiles (type: Copy) {
 	from 'releasefiles'
 	include '*.json'
 	include 'create*'
 	include 'reports2/'
 	include 'config/'
 	include 'runapp*'
-	into "${packagedir}"
+	into "${releasedir}"
 	filter(ReplaceTokens, tokens: [APPVER: project.version])
 }
 
-task bundleapp(type: Zip) {
+task release(type: Zip) {
 	from "${packagedir}"
 	archiveName "${packagedir}.zip"
 	destinationDir(file(projectDir))
@@ -123,15 +95,10 @@ task bundleapp(type: Zip) {
 
 docker {
      name "${applicationname}:${project.version}"
-     files '${bundledir}/successmetrics-*.jar'
+     files '${releasedir}/successmetrics-*.jar'
 }
 
-releasejar.dependsOn bootJar, jar
-bundle.dependsOn releasejar, release
-
 packagejar.dependsOn bootJar
-packageapp.dependsOn packagejar
-bundleapp.dependsOn packageapp
-/*
-gradle clean build bundle
-*/
+packagefiles.dependsOn packagejar
+release.dependsOn packagefiles
+
