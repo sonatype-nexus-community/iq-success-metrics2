@@ -1,12 +1,10 @@
-# This workflow will build a Java project with Gradle
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
 
-name: Java CI with Gradle
+name: Build and Release iq-success-metrics2
 
 on:
-  push:
-    branches:
-      - master
+  # push:
+  #   branches:
+  #     - master
       
   release:
     types:
@@ -41,16 +39,12 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew clean build packageapp
       
-    # - name: Upload artifact to staging
-    #   run: mkdir staging && cp successmetrics.zip staging
+    - name: Upload artifact to staging area
+      run: mkdir staging && cp successmetrics-*.zip staging
       
-    - name: Publish package
+    - name: Upload artifacts
       uses: actions/upload-artifact@v2
       with:
         name: successmetrics
-        path: successmetrics-*
-
-    # - name: Publish package to Github packages
-    #   run: gradle publish
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        path: successmetrics-*.zip
+        

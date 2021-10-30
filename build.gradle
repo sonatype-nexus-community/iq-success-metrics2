@@ -115,6 +115,12 @@ task packageapp (type: Copy) {
 	filter(ReplaceTokens, tokens: [APPVER: project.version])
 }
 
+task bundleapp(type: Zip) {
+	from "${packagedir}"
+	archiveName "${packagedir}.zip"
+	destinationDir(file(projectDir))
+}
+
 docker {
      name "${applicationname}:${project.version}"
      files '${bundledir}/successmetrics-*.jar'
@@ -122,8 +128,10 @@ docker {
 
 releasejar.dependsOn bootJar, jar
 bundle.dependsOn releasejar, release
-packageapp.dependsOn packagejar
 
+packagejar.dependsOn bootJar
+packageapp.dependsOn packagejar
+bundleapp.dependsOn packageapp
 /*
 gradle clean build bundle
 */
