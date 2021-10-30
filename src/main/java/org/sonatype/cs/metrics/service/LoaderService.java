@@ -249,6 +249,10 @@ public class LoaderService {
 	private StringEntity getPayload(String iqSmPeriod) throws IOException, JSONException, org.json.simple.parser.ParseException {
 		log.info("Making api payload");
 
+		if (iqApiFirstTimePeriod.length() == 0) {
+			throw new RuntimeException("No start period specified (iq.api.payload.timeperiod.first)");
+		}
+
 		JSONObject ajson = new JSONObject();
 		ajson.put("timePeriod", iqSmPeriod.toUpperCase());
 		ajson.put("firstTimePeriod", iqApiFirstTimePeriod);

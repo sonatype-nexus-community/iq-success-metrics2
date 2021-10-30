@@ -9,14 +9,14 @@
         <tbody>
         
         	<div th:if="${globalsummary}">
-        	
+        	<div th:unless="${applicationReport}">
             <tr>
             <td>Onboarded <span th:text="${applicationsOnboarded}"/> applications at an average of <span th:text="${applicationsOnboardedAvg}"/> per <span th:text="${timePeriodFrequency}"/></td>
              </tr>
             <tr>
             <td>Scanned applications at an average of <span th:text="${numberOfApplicationsScannedAvg}"/> per <span th:text="${timePeriodFrequency}"/></td>
             </tr>
-            
+            </div>
             </div>
             
             <tr>
@@ -131,7 +131,8 @@
             </tr>
             
             <div th:if="${globalsummary}">
-            
+            <div th:unless="${applicationReport}">
+
             <tr>
             <td style="background-color: aliceblue;"></td>
             </tr>
@@ -141,7 +142,7 @@
             <tr>
             <td> Least critical application has <span th:text="${leastCriticalApplicationCount}"/> critical violations</td>
             </tr>
-            
+            </div>
             </div>
 
         </tbody>

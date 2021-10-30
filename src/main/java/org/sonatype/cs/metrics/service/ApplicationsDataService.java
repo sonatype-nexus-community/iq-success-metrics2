@@ -78,6 +78,13 @@ public class ApplicationsDataService {
 		model.put("applicationsOnboardedChart", applicationsOnboardedData);
 		model.put("applicationsOnboarded", applicationsOnboardedInPeriod);
 		model.put("applicationsOnboardedAvg", applicationsOnboardedInPeriodAvg);
+
+		if (applicationsOnboardedInPeriod == 1){
+			model.put("applicationReport", true);
+		}
+		else {
+			model.put("applicationReport", false);
+		}
 	
 		List<DbRow> numberOfScansData = dbService.runSql(tableName, SqlStatements.NumberOfScans);
 		int[] numberOfScans = helperService.getPointsSumAndAverage(numberOfScansData);
