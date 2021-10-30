@@ -3,12 +3,8 @@ name: Build and Release iq-success-metrics2
 
 on:
   push:
-    branches:
-      - master
-      
-  release:
-    types:
-      - created
+    tags:
+      - '*'
 
 jobs:
   build:
