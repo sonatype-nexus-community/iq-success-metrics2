@@ -59,8 +59,8 @@ nexusIQScan {
 clean.doFirst {
 	delete "${bundledir}"
 	delete "${packagedir}"
+	delete "${packagedir}.zip"
 	delete "${rootDir}/successmetrics"
-	delete "${rootDir}/successmetrics.zip"
 }
 
 build.doFirst {

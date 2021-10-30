@@ -43,7 +43,7 @@ output/
 
 .DS_Store
 successmetrics-reports/
-successmetrics
+successmetrics*
 *.zip
 *.jar
 tmp/
