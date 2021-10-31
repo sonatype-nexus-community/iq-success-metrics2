@@ -6,7 +6,7 @@ on:
     tags:
       - '*'
 env:
-  IMAGE_NAME: successmetrics2
+  IMAGE_NAME: iqsuccessmetrics2
   RELEASE_BRANCH: master
 
 jobs:
