@@ -12,7 +12,7 @@
   * There are two ways to run this application, by directly running the application jar file or with the application docker image
   * In both cases, start by downloading the zip file
   * To do so, go to the Releases pane on the right side of this page and click on the latest release
-  * Click on the *successmetrics-<release>.zip* file on assets page to download it
+  * Click on the *successmetrics-<releasenumber>.zip* file on assets page to download it
   * Unzip the contents into a directory of your choice 
   * Change into the *successmetrics-<release>* directory (this will be your working directory)
 
