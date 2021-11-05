@@ -9,13 +9,16 @@
 &nbsp;
 
 ### Download the java app for success metrics
-  * Click on the *successmetrics.zip* file, then download (there is a download button on the lower right)
+  * There are two ways to run this application, by directly running the application jar file or with docker
+  * In both cases, start by downloading the zip file
+  * To do so, go to the Releases on the right side and clicn on the latest release
+  * Click on the *successmetrics-<release>.zip* file on assets page to download it
   * Unzip the contents into a directory of your choice 
-  * Change into the *successmetrics* directory (this will be your working directory)
+  * Change into the *successmetrics-<release>* directory (this will be your working directory)
 
 ```
-unzip successmetrics.zip
-cd successmetrics
+unzip successmetrics-<release>.zip
+cd successmetrics--<release>
 ```
 
 &nbsp;
