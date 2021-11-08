@@ -84,17 +84,17 @@ default: false - if set to true, the application will automatically extract the 
 
 If this property is set to true, the following are mandatory and should be set:
 
-iq.url
-iq.user
-iq.pwd
-iq.sm.period
-iq.api.payload.timeperiod.first
+*iq.url
+*iq.user
+*iq.pwd
+*iq.sm.period
+*iq.api.payload.timeperiod.first
 
 Optional:
 
-iq.api.payload.timeperiod.last
-iq.api.payload.organisation.name
-iq.api.payload.application.name
+*iq.api.payload.timeperiod.last
+*iq.api.payload.organisation.name
+*iq.api.payload.application.name
 
 
 ### Creating the Metrics file
