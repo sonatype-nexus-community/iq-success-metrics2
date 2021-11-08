@@ -24,6 +24,20 @@ cd successmetrics-[releasenumber]
 &nbsp;
 &nbsp;
 
+### Run the app
+
+There is one step required before running the application. This is to create the metrics data file the app will use to report on (see Creating the Metrics file). Once this file has been created, the application is ready to run.
+
+The application is already configured with default settings. With the defaults, it will run in web mode.
+
+To run the app, in the working directory
+
+```
+Windows: runapp.bat 
+Linux: sh runapp.bat
+```
+
+
 ### Run modes
 
 #### web
@@ -70,32 +84,26 @@ default: false - if set to true, the application will automatically extract the 
 
 If this property is set to true, the following are mandatory and should be set:
 
-##### iq.url
-##### iq.user
-##### iq.pwd
-##### iq.sm.period
-##### iq.api.payload.timeperiod.first
+iq.url
+iq.user
+iq.pwd
+iq.sm.period
+iq.api.payload.timeperiod.first
 
-##### Optional:
+Optional:
 
-##### iq.api.payload.timeperiod.last
-##### iq.api.payload.organisation.name
-##### iq.api.payload.application.name
+iq.api.payload.timeperiod.last
+iq.api.payload.organisation.name
+iq.api.payload.application.name
 
-### Run the app
 
-In the working directory
+### Creating the Metrics file
 
-```
-Windows: runapp.bat 
-Linux: sh runapp.bat
-```
-
-### Manually creating the success metrics file
-
-We recommend manually creating the CSV file, particularly where the report will cover ALL orgaisations and applications.
+The metrics file is called *successmetrics.csv*. We recommend manually creating the CSV file, particularly where the report will cover ALL orgaisations and applications.
 
 #### (Optional) Make Config Updates for Success Metrics
+
+Creating the metrics file, requires sending a payload to the Nexus IQ success metrics API. Two files are provided as below. We recommend reporting on a monthly basis making use of the *monthly.json* file.
 
  * Edit either the included *weekly.json* or *monthly.json* file to adjust the firstTimePeriod (the week or month to start reporting from) and optionally add an end period
  ```
@@ -115,7 +123,7 @@ We recommend manually creating the CSV file, particularly where the report will 
 &nbsp;
 &nbsp;
 
-### Create the csv files
+#### Create the metrics file
 
 *There is a script available to help creating the required CSV file(s).*
  
