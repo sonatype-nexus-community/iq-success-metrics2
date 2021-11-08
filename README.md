@@ -24,9 +24,80 @@ cd successmetrics-[releasenumber]
 &nbsp;
 &nbsp;
 
+### Run modes
+
+#### web
+
+This app is a simple web app running by default on port 4040. It will start up and you view all the reports and charts via your web browser. By default, the app looks for the *successmetrics.csv* file in the working directory
+
+You only need to keep the app running long enough to review the reports and optionally print them to PDF. This mode will also load the optional data files in the reports2 directory if available.
+
+The data file(s) are loaded on start-up of the app. Larger files may take a few mins.
+
+On completion, you should see output similar to below after which app is ready for access
+
+```
+2020-10-19 20:49:01.271  INFO 93369 --- [  restartedMain] o.s.cs.metrics.service.FileService       : Data loaded.
+2020-10-19 20:49:01.271  INFO 93369 --- [  restartedMain] o.s.cs.metrics.runner.StartupRunner      : Ready for browsing at http://localhost:4040
+```
+
+Open a browser and go to http://localhost:4040
+
+The *Summary Report* on the web app main page menu is designed to be saved to pdf. It contains most of the other reports. The recommended way to do to this is by selecting the *Save to PDF* option within the Print menu option of your web browser.
+
+#### pdf
+
+You may wish to just simply create a pdf file containing the metrics report. A pdf report file is created in a sub-directory of the working directory with a time-stamped file name. The application will then immediately exit after creating the pdf file. 
+
+#### insights
+
+In this mode, the application will simply create a CSV file containing the data required in order to create an Insights Analysis report. The CSV  file is created in a sub-directory in the working directory with a time-stamped file name. The application will then immediately exit after creating the file. 
+
+### Setting runtime properties (application.properties)
+
+There are a number of properties that can be set to control how the application will run. These properties are set in a file called *application.properties*. This is file is located in the *config* directory of the working directory. A full description of each peoperty is provided in the file. It is not required to change any properties to run the application. Wihout any changes to the file, the application will run in the web mode with the current directory (ie. directory to which the zip file is extracted) as the working directory.
+
+The most important properties and default settings are as follows:
+
+####  spring.profiles.active
+default: web - other values: pdf, insights
+
+#### data.dir
+default: '.' current directory)
+
+#### iq.sm.csvfile
+default: false - if set to true, the application will automatically extract the required success metrics data from Nexus IQ into the required successmetrics.csv. We recommend to always set an organisation or application name when setting this to true, to minimise amount of data extracted from Nexus IQ.
+
+If this property is set to true, the following are mandatory and should be set:
+
+##### iq.url
+##### iq.user
+##### iq.pwd
+##### iq.sm.period
+##### iq.api.payload.timeperiod.first
+
+##### Optional:
+
+##### iq.api.payload.timeperiod.last
+##### iq.api.payload.organisation.name
+##### iq.api.payload.application.name
+
+### Run the app
+
+In the working directory
+
+```
+Windows: runapp.bat 
+Linux: sh runapp.bat
+```
+
+### Manually creating the success metrics file
+
+We recommend manually creating the CSV file, particularly where the report will cover ALL orgaisations and applications.
+
 #### (Optional) Make Config Updates for Success Metrics
 
- * Edit either the *weekly.json* or *monthly.json* file to adjust the firstTimePeriod (the week or month to start reporting from) and optionally add an end period
+ * Edit either the included *weekly.json* or *monthly.json* file to adjust the firstTimePeriod (the week or month to start reporting from) and optionally add an end period
  ```
  Example: the following request body will fetch data for all organisations and applications between Jan 2020 and Sept 2021 on a monthly basis:
  {
@@ -92,128 +163,11 @@ The files are created in the reports2 directory
 &nbsp;
 &nbsp;
 
-## Start the reporting app
-   
-   This app is a simple web app running by default on port 4040. 
-   
-   By default, the app looks for the *successmetrics.csv* file in the working directory 
-   
-   There are a number of run scripts in the *runapp* directory which can be used to run the app.
-
-   The app runs in a number of modes:
-   
-### To run in web mode:
-   
-   This is the default mode. The app will start up and you view all the reports and charts via your web browser.
-   
-   You only need to keep the app running long enough to review the reports and optionally print them to PDF
-   
-   This mode will also load the optional data files in the reports2 directory if available
-   
-```
-(change to the *runapp* directory)
-
-Windows: runapp-web.bat 
-Linux: sh runapp-web.bat
-```
-
-The data file(s) are loaded on start-up of the app. Larger files may take a few mins.
-
-On completion, you should see output similar to below after which app is ready for access
-
-```
-2020-10-19 20:49:01.271  INFO 93369 --- [  restartedMain] o.s.cs.metrics.service.FileService       : Data loaded.
-2020-10-19 20:49:01.271  INFO 93369 --- [  restartedMain] o.s.cs.metrics.runner.StartupRunner      : Ready for browsing at http://localhost:4040
-```
-
-Open a browser and go to http://localhost:4040
-
-#### Save PDF files
-
-The *Summary Report* on the web app main page menu is designed to be saved to pdf. It contains most of the other reports. The recommended way to do to this is by selecting the *Save to PDF* option within the Print menu option of your web browser.
-
-### To run in pdf mode:
-   
-You may wish to just create a pdf file containing the metrics report. 
-
-```
-(change to the *runapp* directory)
-
-Windows: runapp-pdf.bat 
-Linux: sh runapp-pdf.bat
-```
-
-A pdf report file is created in a sub-directory called *output* in the working directory with a time-stamped file name. 
-
-The application will then immediately exit after creating the pdf file. 
-
-### To run in insights mode:
-   
-In this mode, the application will simply create a CSV file containing the data required in order to create an Insights Analysis report 
-
-```
-(change to the *runapp* directory)
-
-Windows: runapp-insights.bat 
-Linux: sh runapp-insights.bat
-```
-
-A CSV  file is created in a sub-directory called *output* in the working directory with a time-stamped file name. 
-
-The application will then immediately exit after creating the file. 
-
-&nbsp;
-
-### Advanced Options
-
-You can override the following defaults by setting following system properties when you run the command to run the application.
-(Check the *runapp* directory for run scripts using these options.
-
-  #### To run on another port: (default: 4040) 
-
-    *-Dserver.port=nnn*
-
-  #### To load the csv files from another location: (default: working directory) 
-
-    *-Ddata.dir=<path>*
-  
-    Ensure the successmetrics.csv file (and optionally, the reports2/ directory are located in *<path>*
-    
-  #### Include the latest period: (default: false) 
-
-    The latest period is the period when you run the application. It is likely it has not ended, therefore data for the period will be incomplete.
-    By default, the application will exclude the period from the report. 
-    To include data for the latest period, set the following property:
-
-    *-Ddata.includelatestperiod=true*
-
-  #### Save to PDF automatically: (default: web) 
-
-    To run in pdf mode, set the following property:
-
-    *-Dspring.profiles.active=pdf*
-    
-  #### Generate the insights data CSV file: (default: web) 
-
-    To run in insights mode, set the following property:
-
-    *-Dspring.profiles.active=insights*
-
-```
-Example: 
-
-To run the application on port 4455, just produce the pdf report and include the latest period
-
-java -jar -Dserver.port=4455 -Ddata.includelatestperiod=true -Dspring.profiles.active=pdf successmetrics-<version>.jar
-```
-
-&nbsp;
-&nbsp;
-
 ## Development
 
 Should you wish to edit the source code: 
 
+  * We strongly recommend the use of git flow to make and manage any changes
   * Clone the repository
   * Make your changes
   * At the command line in the root directory of the repo
@@ -223,12 +177,15 @@ To test:
 ./gradlew bootRun
 
 To build:
-gradle clean build examples bundle
+gradle clean build
 
 To scan with Nexus IQ:
  - first of all, edit the build.gradle file to configure your Nexus IQ url/username as well as your application name, then add the task to the build command above, or run on its own as below:
  
 gradle nexusIQScan
+
+To make a release (using Githib CLI)
+gh release create [releasenumber]
 
 To run:
 java -jar success-metrics-<version>.jar
