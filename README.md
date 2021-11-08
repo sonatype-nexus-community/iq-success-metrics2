@@ -14,11 +14,11 @@
   * To do so, go to the Releases pane on the right side of this page and click on the latest release
   * Click on the *successmetrics-[releasenumber].zip* file on assets page to download it
   * Unzip the contents into a directory of your choice 
-  * Change into the *successmetrics-[release]* directory (this will be your working directory)
+  * Change into the *successmetrics-[releasenumber]* directory (this will be your working directory)
 
 ```
-unzip successmetrics-[release].zip
-cd successmetrics-[release]
+unzip successmetrics-[releasenumber].zip
+cd successmetrics-[releasenumber]
 ```
 
 &nbsp;
