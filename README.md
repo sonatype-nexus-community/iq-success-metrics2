@@ -196,9 +196,9 @@ gradle nexusIQScan
 
 To make a release (using Githib CLI):
 gh release create [releasenumber]
-
-
 ```
+
+![image](https://user-images.githubusercontent.com/35227270/141003665-fb2fc00e-6784-4e56-af6f-6c75e2d9d397.png)
 
 &nbsp;
 
