@@ -3,6 +3,7 @@ import requests
 import os
 import os.path
 import sys
+import csv
 
 iqurl = sys.argv[1]
 iquser = sys.argv[2]
@@ -10,6 +11,19 @@ iqpwd = sys.argv[3]
 
 jsonfile = 'policyviolations.json'
 csvfile = 'policyviolations.csv'
+
+securityPolicyList = []
+securityPolicyList.append("Security-Critical")
+securityPolicyList.append("Security-High")
+securityPolicyList.append("Security-Medium")
+securityPolicyList.append("Security-Malicious")
+securityPolicyList.append("Security-Namespace Conflict")
+securityPolicyList.append("Integrity-Rating")
+
+licensePolicyList = []
+licensePolicyList.append("License-Banned")
+licensePolicyList.append("License-None")
+licensePolicyList.append("License-Copyleft")
 
 def getNexusIqData(api):
 	url = "{}{}" . format(iqurl, api)
@@ -23,15 +37,52 @@ def getNexusIqData(api):
 
 	return res
 
-def getCVEValue(d):
-	cve = "none"
+def getLicense(reasons):
+	licenses = []
+	licenseList  = ""
 
-	if type(d) is dict:
-		cve = d["value"]
+	for reason in reasons:
+		licenseString = reason["reason"]
 
-	return(cve)
+		fstart = licenseString.find('(')
+		fend = licenseString.find(')')
+
+		license = licenseString[fstart:fend]
+		license = license[2:-1]
+
+		if not license in licenses:
+			licenses.append(license)
+
+	for l in licenses:
+		licenseList += l+":"
+
+	licenseList = licenseList[:-1]
+
+	return(licenseList)
+
+
+def getCVE(reasons):
+	cves = []
+	cveList = ""
+
+	for reason in reasons:
+		reference = reason["reference"]
+
+		if type(reference) is dict:
+			cve = reference["value"]
+
+			if not cve in cves:
+				cves.append(cve)
+
+	for c in cves:
+		cveList += c+":"
+
+	cveList = cveList[:-1]
+
+	return(cveList)
 
 def getPolicyIds(data):
+    
 	policyIds = ""
 	policies = data['policies']
 
@@ -39,7 +90,7 @@ def getPolicyIds(data):
 		name = policy["name"]
 		id = policy["id"]
 
-		if name == "Security-Critical" or name == "Security-High" or name == "Security-Medium" or name == "Security-Malicious" or name == "License-Banned" or name == "License-None" or name == "License-Copyleft":
+		if name in securityPolicyList or name in licensePolicyList:
 			policyIds += "p=" + id + "&"
 
 	result = policyIds.rstrip('&')
@@ -52,7 +103,18 @@ def writeToCsvFile(policyViolations):
 	applicationViolations = policyViolations['applicationViolations']
 
 	with open(csvfile, 'w') as fd:
-			fd.write("PolicyName,CVE,ApplicationName,OpenTime,Component,Stage\n")
+			writer = csv.writer(fd)
+
+			line = []
+			line.append("PolicyName")
+			line.append("Reason")
+			line.append("ApplicationName")
+			line.append("OpenTime")
+			line.append("Component")
+			line.append("Stage")
+
+			writer.writerow(line)
+
 			for applicationViolation in applicationViolations:
 				applicationPublicId = applicationViolation["application"]["publicId"]
 
@@ -66,16 +128,28 @@ def writeToCsvFile(policyViolations):
 					constraintViolations = policyViolation["constraintViolations"]
 
 					for constraintViolation in constraintViolations:
-						values = ""
+						reason = ""
 
 						reasons = constraintViolation["reasons"]
-						for reason in reasons:
-							v = getCVEValue(reason["reference"])
-							values += v+":"
-						
-						values = values[:-1]
-						line = policyName + "," + values + "," + applicationPublicId + "," + openTime + "," + packageUrl + "," + stage + "\n"
-						fd.write(line)
+
+						if policyName == "Integrity-Rating":
+							reason = "Integrity-Rating"
+						elif policyName in securityPolicyList:
+							reason = getCVE(reasons)
+						elif policyName in licensePolicyList:
+							reason = getLicense(reasons)
+						else:
+							reason = ""
+
+						line = []
+						line.append(policyName)
+						line.append(reason)
+						line.append(applicationPublicId)
+						line.append(openTime)
+						line.append(packageUrl)
+						line.append(stage)
+
+						writer.writerow(line)
 
 	return
 
