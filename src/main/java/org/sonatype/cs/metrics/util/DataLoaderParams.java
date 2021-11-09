@@ -14,7 +14,7 @@ public class DataLoaderParams {
 	public static final String smHeader = "applicationId,applicationName,applicationPublicId,";
 	public static final String aeFileHeader = "ApplicationName,EvaluationDate,Stage";
 	public static final String cqFileHeader = "Repository,Format,PackageUrl,QuarantineTime,PolicyName,ThreatLevel";
-	public static final String pvFileHeader = "PolicyName,CVE,ApplicationName,OpenTime,Component,Stage";
+	public static final String pvFileHeader = "PolicyName,Reason,ApplicationName,OpenTime,Component,Stage";
 	public static final String cwFileHeader = "ApplicationName,Stage,PackageUrl,PolicyName,ThreatLevel,Comment";
 
 	public static final String htmlTemplate = "templates/thymeleaf_template";

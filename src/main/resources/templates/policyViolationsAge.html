@@ -65,17 +65,21 @@
     <thead class="thead-dark">
     <tr>
 		<th>Policy Name</th>
+		<th>Reason</th>
 		<th>Application Name</th>
 		<th>Component Name</th>
 		<th>Open Time</th>
+		<th>Stage</th>
 	</tr>
     </thead>
     <tbody>
     <tr th:each="dp : ${age7Data}">
       	<td th:text="${dp.pointA}"></td>
+      	<td th:text="${dp.pointF}"></td>
       	<td th:text="${dp.pointB}"></td>
       	<td th:text="${dp.pointD}"></td>
-      	<td th:text="${dp.pointC}"></td>
+		<td th:text="${dp.pointC}"></td>
+		<td th:text="${dp.pointE}"></td>
     </tr>
     </tbody>
     </table>
@@ -98,17 +102,19 @@
     <thead class="thead-dark">
     <tr>
 		<th>Policy Name</th>
+		<th>Reason</th>
 		<th>Application Name</th>
 		<th>Component Name</th>
 		<th>Open Time</th>
-		<th>Stage<th/>
+		<th>Stage</th>
 	</tr>
     </thead>
     <tbody>
     <tr th:each="dp : ${age30Data}">
 		<td th:text="${dp.pointA}"></td>
-		<td th:text="${dp.pointB}"></td>
-		<td th:text="${dp.pointD}"></td>
+      	<td th:text="${dp.pointF}"></td>
+      	<td th:text="${dp.pointB}"></td>
+      	<td th:text="${dp.pointD}"></td>
 		<td th:text="${dp.pointC}"></td>
 		<td th:text="${dp.pointE}"></td>
     </tr>
@@ -133,6 +139,7 @@
 	<thead class="thead-dark">
     <tr>
 		<th>Policy Name</th>
+		<th>Reason</th>
 		<th>Application Name</th>
 		<th>Component Name</th>
 		<th>Open Time</th>
@@ -142,8 +149,9 @@
     <tbody>
     <tr th:each="dp : ${age60Data}">
 		<td th:text="${dp.pointA}"></td>
-		<td th:text="${dp.pointB}"></td>
-		<td th:text="${dp.pointD}"></td>
+      	<td th:text="${dp.pointF}"></td>
+      	<td th:text="${dp.pointB}"></td>
+      	<td th:text="${dp.pointD}"></td>
 		<td th:text="${dp.pointC}"></td>
 		<td th:text="${dp.pointE}"></td>
     </tr>
@@ -168,6 +176,7 @@
 	<thead class="thead-dark">
     <tr>
 		<th>Policy Name</th>
+		<th>Reason</th>
 		<th>Application Name</th>
 		<th>Component Name</th>
 		<th>Open Time</th>
@@ -177,8 +186,9 @@
     <tbody>
     <tr th:each="dp : ${age90Data}">
 		<td th:text="${dp.pointA}"></td>
-		<td th:text="${dp.pointB}"></td>
-		<td th:text="${dp.pointD}"></td>
+      	<td th:text="${dp.pointF}"></td>
+      	<td th:text="${dp.pointB}"></td>
+      	<td th:text="${dp.pointD}"></td>
 		<td th:text="${dp.pointC}"></td>
 		<td th:text="${dp.pointE}"></td>
     </tr>

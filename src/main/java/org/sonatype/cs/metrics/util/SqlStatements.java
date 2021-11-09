@@ -181,10 +181,10 @@ public class SqlStatements {
 	
 	
 	
-	public static String PolicyViolationsAge90 = "select policy_name as pointA, application_name as pointB, open_time as pointC, component as pointD, stage as pointE from policy_violation where parsedatetime(open_time, 'yyyy-MM-dd', 'en') <= CURRENT_DATE - INTERVAL 90 DAY";
-	public static String PolicyViolationsAge60 = "select policy_name as pointA, application_name as pointB, open_time as pointC, component as pointD, stage as pointE from policy_violation where parsedatetime(open_time, 'yyyy-MM-dd', 'en') > CURRENT_DATE - INTERVAL 90 DAY and parsedatetime(open_time, 'yyyy-MM-dd', 'en') < CURRENT_DATE - INTERVAL 30 DAY";
-	public static String PolicyViolationsAge30 = "select policy_name as pointA, application_name as pointB, open_time as pointC, component as pointD, stage as pointE from policy_violation where parsedatetime(open_time, 'yyyy-MM-dd', 'en') > CURRENT_DATE - INTERVAL 30 DAY and parsedatetime(open_time, 'yyyy-MM-dd', 'en') < CURRENT_DATE - INTERVAL 7 DAY"; 	
-	public static String PolicyViolationsAge7 = "select policy_name as pointA, application_name as pointB, open_time as pointC, component as pointD, stage as pointE from policy_violation where parsedatetime(open_time, 'yyyy-MM-dd', 'en') >= CURRENT_DATE - INTERVAL 7 DAY";
+	public static String PolicyViolationsAge90 = "select policy_name as pointA, application_name as pointB, open_time as pointC, component as pointD, stage as pointE, reason as pointF from policy_violation where parsedatetime(open_time, 'yyyy-MM-dd', 'en') <= CURRENT_DATE - INTERVAL 90 DAY";
+	public static String PolicyViolationsAge60 = "select policy_name as pointA, application_name as pointB, open_time as pointC, component as pointD, stage as pointE, reason as pointF from policy_violation where parsedatetime(open_time, 'yyyy-MM-dd', 'en') > CURRENT_DATE - INTERVAL 90 DAY and parsedatetime(open_time, 'yyyy-MM-dd', 'en') < CURRENT_DATE - INTERVAL 30 DAY";
+	public static String PolicyViolationsAge30 = "select policy_name as pointA, application_name as pointB, open_time as pointC, component as pointD, stage as pointE, reason as pointF from policy_violation where parsedatetime(open_time, 'yyyy-MM-dd', 'en') > CURRENT_DATE - INTERVAL 30 DAY and parsedatetime(open_time, 'yyyy-MM-dd', 'en') < CURRENT_DATE - INTERVAL 7 DAY"; 	
+	public static String PolicyViolationsAge7 = "select policy_name as pointA, application_name as pointB, open_time as pointC, component as pointD, stage as pointE, reason as pointF from policy_violation where parsedatetime(open_time, 'yyyy-MM-dd', 'en') >= CURRENT_DATE - INTERVAL 7 DAY";
 	
 	public static String ApplicationEvaluationsAge90 = "select application_name as pointA, evaluation_date as pointB, stage as pointC from application_evaluation where parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') <= CURRENT_DATE - INTERVAL 90 DAY order by 1";
 	public static String ApplicationEvaluationsAge60 = "select application_name as pointA, evaluation_date as pointB, stage as pointC from application_evaluation where parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') > CURRENT_DATE - INTERVAL 90 DAY and parsedatetime(evaluation_date, 'yyyy-MM-dd', 'en') < CURRENT_DATE - INTERVAL 30 DAY order by 1";
@@ -277,11 +277,12 @@ public class SqlStatements {
 	public static String PolicyViolationsTables = "DROP TABLE IF EXISTS POLICY_VIOLATION;" + 
 			"CREATE TABLE POLICY_VIOLATION (" + 
 			"  policy_name VARCHAR(250) NOT NULL," + 
+			"  reason VARCHAR(250) NOT NULL," + 
 			"  application_name VARCHAR(250) NOT NULL," + 
 			"  open_time VARCHAR(250) DEFAULT NULL," + 
 			"  component VARCHAR(250) DEFAULT NULL," +
 			"  stage VARCHAR(250) DEFAULT NULL) " +
-			" AS SELECT policyname, applicationname, parsedatetime(opentime, 'yyyy-MM-dd', 'en'), component, stage FROM CSVREAD ";
+			" AS SELECT policyname, reason, applicationname, parsedatetime(opentime, 'yyyy-MM-dd', 'en'), component, stage FROM CSVREAD ";
 	
 	public static String ApplicationEvaluationsTable = "DROP TABLE IF EXISTS APPLICATION_EVALUATION;" + 
 			"CREATE TABLE APPLICATION_EVALUATION (" + 
