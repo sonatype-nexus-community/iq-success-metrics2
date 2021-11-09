@@ -12,7 +12,7 @@
   * There are two ways to run this application, by directly running the application jar file or with the application docker image
   * In both cases, start by downloading the zip file
   * To do so, go to the Releases pane on the right side of this page and click on the latest release
-  * Click on the *successmetrics-[releasenumber].zip* file on assets page to download it
+  * Click on the *successmetrics-[releasenumber].zip* file on the assets page to download it
   * Unzip the contents into a directory of your choice 
   * Change into the *successmetrics-[releasenumber]* directory (this will be your working directory)
 
@@ -24,7 +24,26 @@ cd successmetrics-[releasenumber]
 &nbsp;
 &nbsp;
 
-### Run the app
+### Setting runtime properties (application.properties)
+
+There are a number of properties that can be set to control how the application will run. These properties are set in a file called *application.properties*. This is file is located in the *config* directory of the working directory. A full description of each property is provided in the file. 
+
+If you are running the application jar file directly, it is not required to change any properties to run the application. Without any changes to the file, the application will run in the web mode with the current directory (ie. directory to which the zip file is extracted) as the working directory.
+
+If you are running with the docker image, a few property settings are required (see below)
+
+The most important properties and default settings are as follows:
+
+####  spring.profiles.active
+default: web - other values: pdf, insights
+
+#### data.dir
+default: '.' (ie. current directory)
+
+&nbsp;
+&nbsp;
+
+### Run the app (Jar file)
 
 There is one step required before running the application. This is to create the metrics data file the app will use to report on (see Creating the Metrics file). Once this file has been created, the application is ready to run.
 
@@ -37,6 +56,34 @@ Windows: runapp.bat
 Linux: sh runapp.bat
 ```
 
+### Run the app (Docker)
+
+There is one step required before running the application. This is to set a few runtime properties in the properties file. Once the properties are set, the application is ready to run.
+
+Set the following mandatory properties in the *application.properties* file
+
+* iq.sm.csvfile 
+* iq.url 
+* iq.user 
+* iq.pwd 
+* iq.sm.period
+* iq.api.payload.timeperiod.first
+
+The following properties are optional:
+
+* iq.api.payload.timeperiod.last
+* iq.api.payload.organisation.name
+* iq.api.payload.application.name
+
+To run the app, in the working directory
+
+```
+Windows: runapp-docker.bat 
+Linux: sh runapp-docker.sh
+```
+
+&nbsp;
+&nbsp;
 
 ### Run modes
 
@@ -67,35 +114,8 @@ You may wish to just simply create a pdf file containing the metrics report. A p
 
 In this mode, the application will simply create a CSV file containing the data required in order to create an Insights Analysis report. The CSV  file is created in a sub-directory in the working directory with a time-stamped file name. The application will then immediately exit after creating the file. 
 
-### Setting runtime properties (application.properties)
-
-There are a number of properties that can be set to control how the application will run. These properties are set in a file called *application.properties*. This is file is located in the *config* directory of the working directory. A full description of each peoperty is provided in the file. It is not required to change any properties to run the application. Wihout any changes to the file, the application will run in the web mode with the current directory (ie. directory to which the zip file is extracted) as the working directory.
-
-The most important properties and default settings are as follows:
-
-####  spring.profiles.active
-default: web - other values: pdf, insights
-
-#### data.dir
-default: '.' current directory)
-
-#### iq.sm.csvfile
-default: false - if set to true, the application will automatically extract the required success metrics data from Nexus IQ into the required successmetrics.csv. We recommend to always set an organisation or application name when setting this to true, to minimise amount of data extracted from Nexus IQ.
-
-If this property is set to true, the following are mandatory and should be set:
-
-* iq.url
-* iq.user
-* iq.pwd
-* iq.sm.period
-* iq.api.payload.timeperiod.first
-
-Optional:
-
-* iq.api.payload.timeperiod.last
-* iq.api.payload.organisation.name
-* iq.api.payload.application.name
-
+&nbsp;
+&nbsp;
 
 ### Creating the Metrics file
 
@@ -120,8 +140,6 @@ Creating the metrics file, requires sending a payload to the Nexus IQ success me
 
  * For larger installations, we recommend limiting the data to extract to a smaller period (e.g. since the previous month or few weeks) or subset of organisations and/or applications. Information on how to adjust the request body (in the weekly.json or monthly.json files) can be found at the success metrics page above.
 
-&nbsp;
-&nbsp;
 
 #### Create the metrics file
 
@@ -143,6 +161,7 @@ Example (Windows):  create-data.bat http://localhost:8070 admin admin123 monthly
 
 The script will create a file called *successmetrics.csv*. We suggest opening the file and check to ensure it contains metrics data.
 
+&nbsp;
 &nbsp;
 
 #### (Optional) Additional Reports
