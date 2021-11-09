@@ -5,8 +5,6 @@
   * Java 8+
   * (optional) python3  
 
-&nbsp;
-
 ### Download the java app for success metrics
   * There are two ways to run this application, by directly running the application jar file or with the application docker image
   * In both cases, start by downloading the zip file. To do so, go to the Releases pane on the right side of this page and click on the latest release
@@ -18,8 +16,6 @@
 unzip successmetrics-[releasenumber].zip
 cd successmetrics-[releasenumber]
 ```
-
-&nbsp;
 
 ### Setting runtime properties *application.properties*
 
@@ -36,8 +32,6 @@ default: web - other values: pdf, insights
 default: '.' (ie. current directory)
 
 If you are running with the docker image, there are some mandatory property settings required (see below)
-
-&nbsp;
 
 ### Run the app (Jar file)
 
@@ -78,8 +72,6 @@ Windows: runapp-docker.bat
 Linux: sh runapp-docker.sh
 ```
 
-&nbsp;
-
 ### Run modes
 
 #### web
@@ -108,8 +100,6 @@ You may wish to just simply create a pdf file containing the summary metrics rep
 #### insights
 
 In this mode, the application will simply create a CSV file containing the data required in order to create an Insights Analysis report. The CSV  file is created in a sub-directory in the working directory with a time-stamped file name. The application will then immediately exit after creating the file. 
-
-&nbsp;
 
 ### Creating the Metrics file
 
@@ -155,9 +145,6 @@ Example (Windows):  create-data.bat http://localhost:8070 admin admin123 monthly
 
 The script will create a file called *successmetrics.csv*. We suggest opening the file and check to ensure it contains metrics data.
 
-&nbsp;
-&nbsp;
-
 #### (Optional) Additional Reports
 
 If you have python3 available, you can run the following script to produce additonal data files for reporting, all of which will be read by the app on startup.
@@ -181,7 +168,6 @@ The files are created in the reports2 directory
 
 (Make sure to return to the working directory to run the app).
 
-&nbsp;
 &nbsp;
 
 ## Development
@@ -214,7 +200,6 @@ gh release create [releasenumber]
 
 ```
 
-&nbsp;
 &nbsp;
 
 ## The Fine Print
