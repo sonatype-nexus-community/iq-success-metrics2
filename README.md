@@ -24,13 +24,12 @@ cd successmetrics-[releasenumber]
 &nbsp;
 &nbsp;
 
-### Setting runtime properties (application.properties)
+### Setting runtime properties *application.properties*
 
 There are a number of properties that can be set to control how the application will run. These properties are set in a file called *application.properties*. This is file is located in the *config* directory of the working directory. A full description of each property is provided in the file. 
 
 If you are running the application jar file directly, it is not required to change any properties to run the application. Without any changes to the file, the application will run in the web mode with the current directory (ie. directory to which the zip file is extracted) as the working directory.
 
-If you are running with the docker image, a few property settings are required (see below)
 
 The most important properties and default settings are as follows:
 
@@ -39,6 +38,9 @@ default: web - other values: pdf, insights
 
 #### data.dir
 default: '.' (ie. current directory)
+
+If you are running with the docker image, a few property settings are required (see below)
+
 
 &nbsp;
 &nbsp;
