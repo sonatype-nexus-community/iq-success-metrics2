@@ -25,7 +25,12 @@
         <br><br>
         </div>
         -->
-        
+
+		<div th:if="${componentsqreport}">
+		<a th:href="@{quarantine}">Firewall Report</a>
+		<br><br>
+		</div>
+			
 	    <div th:if="${policyViolationsreport}">
 	    <a th:href="@{violationsage}">Policy Violations Report</a>
 	    <br><br>
@@ -36,16 +41,12 @@
 	    <br><br>
 		</div>
 
-		<div th:if="${componentsqreport}">
-		<a th:href="@{quarantine}">Components In Quarantine Report</a>
-		<br><br>
-		</div>
-		
 		<div th:if="${componentWaiversReport}">
 		<a th:href="@{waivers}">Component Waivers Report</a>
 		<br><br>
 		</div>
-	    
+
+		
 	    <div th:if="${smdatabase}">
 	    <a th:href="@{/h2}">Database</a>
 	    </div>

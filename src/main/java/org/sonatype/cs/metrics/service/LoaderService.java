@@ -138,6 +138,9 @@ public class LoaderService {
 					isValid = false;
 				}
 		}
+		else {
+			log.warn("file not found: " + metricsFile);
+		}
 	
 		return isValid;
 	}
