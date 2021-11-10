@@ -10,7 +10,7 @@ plugins {
  }
 
 group = 'org.sonatype.cs'
-version = '84'
+version = '85'
 sourceCompatibility = '8'
 
 def applicationname = 'iq-success-metrics2'
