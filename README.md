@@ -1,4 +1,19 @@
+# [DEPRECATED] IQ Success Metrics 
+# [Please use the new java version](https://github.com/sonatype-nexus-community/nexusiq-successmetrics)
 
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+Old instructions kept below for reference.
 ## Getting Started
 
 ### Prerequisites
